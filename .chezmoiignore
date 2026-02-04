@@ -1,0 +1,2 @@
+# Ignore chezmoi config so ~/.config can be recursively added
+.config/chezmoi

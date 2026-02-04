@@ -1,0 +1,8 @@
+{{- $email := promptString "Email" -}}
+{{- $fullName := promptString "Full Name" -}}
+{{- $autoCommit := promptString "Enable chezmoi auto-commit/auto-update" -}}
+
+
+[data]
+    email = "{{ $email }}"
+    
