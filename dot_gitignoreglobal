@@ -1,0 +1,17 @@
+# Mac OS X hidden files
+.DS_Store
+*.DS_Store
+
+# Vim swap files
+.*.sw?
+
+# Python Cache
+__pycache__
+
+# RVM and rbenv
+/.rvmrc
+/.rbenv-version
+
+# Misc
+.nocommit
+*.bak*
