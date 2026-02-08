@@ -1,8 +1,13 @@
-{{- $email := promptString "Email" -}}
-{{- $fullName := promptString "Full Name" -}}
-{{- $autoCommit := promptString "Enable chezmoi auto-commit/auto-update" -}}
-
+{{- $email := promptStringOnce . "email" "Email" -}}
+{{- $fullName := promptStringOnce . "fullName" "Full Name" -}}
+{{- $autoCommit := promptBoolOnce . "autoCommit" "Enable chezmoi auto-commit/auto-update (true/false)" -}}
 
 [data]
     email = "{{ $email }}"
-    
+    fullName = "{{ $fullName }}"
+    autoCommit = {{ $autoCommit }}
+
+[git]
+    autoCommit = {{ $autoCommit }}
+    autoPush = {{ $autoCommit }}
+

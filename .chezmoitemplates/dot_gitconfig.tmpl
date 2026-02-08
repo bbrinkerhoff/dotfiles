@@ -1,0 +1,17 @@
+# This is Git's per-user configuration file.
+[user]
+	name = {{ .fullName }}
+	email = {{ .email }}
+
+[push]
+	default = current
+
+[core]
+	excludesfile = ~/.gitignoreglobal
+
+[pull]
+	ff = only
+	rebase = false
+
+[http]
+	postBuffer = 157286400
