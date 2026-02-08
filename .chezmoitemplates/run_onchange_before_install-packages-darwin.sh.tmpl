@@ -5,4 +5,26 @@ then
   	sudo echo "$(brew --prefix)/bin/bash" >> /etc/shells
   	sudo chsh -s "$(brew --prefix)/bin/bash" "${USER}"
 fi
+
+
+{{ $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" -}}
+osascript << EOF
+use framework "AppKit"
+use scripting additions
+
+tell application "System Events"
+	set currentApp to name of first application process whose frontmost is true
+end tell
+tell application "Finder"
+	activate
+	delay 0.5
+	set desktop picture to POSIX file "{{ $wallpaper }}"
+end tell
+
+tell application currentApp to activate
+EOF
+
+appID() { osascript -e "id of app \"$@\""; }
 {{ end }}
+
+
