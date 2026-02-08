@@ -1,3 +1,4 @@
 # Ignore chezmoi config so ~/.config can be recursively added
 .config/chezmoi
+**/.DS_Store
 **/*.ipa
