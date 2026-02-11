@@ -1,8 +1,0 @@
-brew "chezmoi"
-brew "colordiff"
-cask "archiver-app"
-cask "iterm2"
-cask "onyx"
-brew "wget"
-brew "bash"
-
