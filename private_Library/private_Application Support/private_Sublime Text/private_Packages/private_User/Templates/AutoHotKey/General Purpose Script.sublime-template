@@ -1,0 +1,7 @@
+default_output_directory=C:\Users\Brink\Desktop\Scripts + Automations
+default_file_extension=.ahk
+
+#Requires AutoHotkey v2.0
+#SingleInstance Force
+#NoTrayIcon
+SendMode Input

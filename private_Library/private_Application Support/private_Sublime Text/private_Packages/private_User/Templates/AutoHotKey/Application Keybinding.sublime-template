@@ -1,0 +1,12 @@
+default_output_directory=C:\Users\Brink\Desktop\Scripts + Automations\Lib\Keybindings
+default_file_extension=.ahk
+
+#Requires AutoHotkey v2.0
+#HotIf WinActive("ahk_exe AppName.exe", )
+;; Description
+!#+^Key::
+{
+  SendInput("Output")
+Return
+}
+#HotIf
