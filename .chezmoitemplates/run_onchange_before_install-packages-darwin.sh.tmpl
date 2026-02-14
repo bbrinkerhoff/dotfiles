@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "darwin" -}}
+{{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
 if [[ -f $(brew --prefix)/bin/bash ]]
 then
@@ -7,7 +7,7 @@ then
 fi
 
 
-{{ $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" -}}
+{{- $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" -}}
 osascript << EOF
 use framework "AppKit"
 use scripting additions
@@ -18,7 +18,7 @@ end tell
 tell application "Finder"
 	activate
 	delay 0.5
-	set desktop picture to POSIX file "{{ $wallpaper }}"
+	set desktop picture to POSIX file "{{- $wallpaper -}}"
 end tell
 
 tell application currentApp to activate
@@ -29,18 +29,18 @@ appID() { osascript -e "id of app \"$@\""; }
 export FIGNORE=DS_Store
 source /usr/local/etc/bash_completion
 
-defaults write com.incrediblebee.Archiver LicenseKey -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
+defaults write com.incrediblebee.Archiver LicenseKey -string {{- onepasswordRead "op://Private/Archiver 5/license key" | quote -}}
 defaults write com.surteesstudios.Bartender "launchAtLogin.isEnabled" -int 1
 defaults write com.surteesstudios.Bartender SUEnableAutomaticChecks -int 1
 defaults write com.surteesstudios.Bartender TemporaryMenuBarItemShowTime -int 5
 defaults write com.surteesstudios.Bartender DisableAllTriggers -int 1
 defaults write com.surteesstudios.Bartender pausingEnabled -int 0
 defaults write com.surteesstudios.Bartender supressDuringMoves -int 1
-defaults write com.surteesstudios.Bartender license6 -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
-defaults write com.surteesstudios.Bartender license6HoldersName -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
+defaults write com.surteesstudios.Bartender license6 -string {{- onepasswordRead "op://Private/Bartender 6/license key" | quote -}}
+defaults write com.surteesstudios.Bartender license6HoldersName -string {{- onepasswordRead "op://Private/Bartender 6/license holder" | quote -}}
 
 defaults write com.rogueamoeba.soundsource menuBarIcon -string "speaker"
-defaults write com.rogueamoeba.soundsource registrationInfo -dict Name -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} Code -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
+defaults write com.rogueamoeba.soundsource registrationInfo -dict Name -string {{- onepasswordRead "op://Private/Sound Source/Name" | quote -}} Code -string {{- onepasswordRead "op://Private/Sound Source/license key" | quote -}}
 
 
 defaults write com.rogueamoeba.soundsource keyboardVolume -int 1
@@ -48,6 +48,13 @@ defaults write com.rogueamoeba.soundsource settingsPane -string "appearance"
 defaults write com.rogueamoeba.soundsource menuBarIcon -string "speaker"
 defaults write com.rogueamoeba.soundsource applicationTheme -int 2
 
-{{ end }}
+
+
+BTTSyncCloudProvider = 2;
+SUAutomaticallyUpdate = 1;
+launchOnStartup = 1;
+
+
+{{- end -}}
 
 
