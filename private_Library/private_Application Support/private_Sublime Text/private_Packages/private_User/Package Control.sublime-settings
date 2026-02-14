@@ -4,7 +4,8 @@
     "auto_upgrade_frequency": 24,
     "bootstrapped": true,
     "in_process_packages":
-    [],
+    [
+    ],
     "install_missing": true,
     "installed_packages":
     [
@@ -49,5 +50,5 @@
         "Yq"
     ],
     "remove_orphaned": true,
-    "submit_usage": false
+    "submit_usage": false,
 }
