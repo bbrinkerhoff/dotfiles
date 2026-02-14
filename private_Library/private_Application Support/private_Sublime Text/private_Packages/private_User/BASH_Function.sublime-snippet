@@ -1,0 +1,11 @@
+<snippet>
+  <content><![CDATA[
+${1:funcName}()
+{
+  ${2:#Func cmds}
+}
+
+]]></content>
+<tabTrigger>func</tabTrigger>
+<scope>source.shell.bash</scope>
+</snippet>
