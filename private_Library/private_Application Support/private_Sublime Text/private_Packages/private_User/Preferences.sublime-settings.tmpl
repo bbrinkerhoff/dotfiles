@@ -20,7 +20,8 @@
     "highlight_line": true,
     "highlight_modified_tabs": true,
     "ignored_packages":
-    [],
+    [
+    ],
     "indent_guide_options":
     [
         "draw_active"
@@ -53,10 +54,10 @@
 
 {{- if eq .chezmoi.os "darwin" }}
     "open_files_in_new_window": "finder_only",
-    "default_line_ending": "system"
+    "default_line_ending": "system",
 
 {{ else if eq .chezmoi.os "windows" -}}
     "open_files_in_new_window": "never",
-    "default_line_ending": "unix"
+    "default_line_ending": "unix",
 {{ end -}}
 }
