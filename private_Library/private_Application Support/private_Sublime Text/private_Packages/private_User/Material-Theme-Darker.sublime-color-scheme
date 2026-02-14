@@ -1,0 +1,55 @@
+// Documentation at https://www.sublimetext.com/docs/color_schemes.html
+{
+  "variables": {},
+  "globals": {},
+  "rules": [
+    {
+      "name": "Mapping Key Names",
+      "scope": "meta.mapping.key string",
+      "foreground": "#ff5274"
+    },
+    {
+      "name": "String, Symbols, Inherited Class, Markup Heading",
+      "scope": "string, constant.other.symbol, constant.other.key, entity.other.inherited-class, markup.heading, markup.inserted.git_gutter, meta.group.braces.curly constant.other.object.key.js string.unquoted.label.js",
+      "foreground": "#83cbf7"
+    },
+    {
+      "name": "Bash Heredoc",
+      "scope": "source.shell.bash meta.function.shell meta.compound.shell meta.function-call.arguments.shell meta.string.heredoc.shell string.unquoted.heredoc.shell",
+      "foreground": "#97eafc"
+    }
+    // {
+    //   "name": "Bash function headers",
+    //   "scope": "source.shell.bash meta.function.identifier.shell entity.name.function.shell",
+    //   "foreground": "#ff3355"
+    // },
+    // {
+    //   "name": "Bash varaible definitions",
+    //   "scope": "source.shell.bash meta.function.shell meta.compound.shell meta.function-call.arguments.shell",
+    //   "foreground": "#33ffda"
+    // },
+    // {
+    //   "name": "Bash function calls",
+    //   "scope": "source.shell.bash meta.function.shell meta.compound.shell meta.function-call.identifier.shell variable.function.shell",
+    //   "foreground": "#fa75ff"
+    // }
+    // // {
+    //   "name": "Bash local definitions",
+    //   "scope": "source.shell.bash meta.function.shell meta.compound.shell meta.declaration.variable.shell keyword.declaration.variable.shell",
+    //   "foreground": "#00cf4c"
+    // },
+    // {
+    //   "name": "Bash quote escaped",
+    //   "scope": "source.shell.bash meta.function.shell meta.compound.shell meta.function-call.arguments.shell meta.string.shell string.quoted.double.shell constant.character.escape.shell,source.shell.bash meta.function-call.identifier.shell constant.character.escape.shell",
+    //   "foreground": "#ffff47"
+    // },
+    // {
+    //   "name": "Bash echo call",
+    //   "scope": "source.shell.bash meta.function.shell meta.compound.shell meta.function-call.identifier.shell support.function.echo.shell",
+    //   "foreground": "#e092c5"
+    // }
+  ]
+}
+
+
+// Bash function header"source.shell.bash meta.function.identifier.shell entity.name.function.shell"

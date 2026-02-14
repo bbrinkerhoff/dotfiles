@@ -1,0 +1,29 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+  ],
+	"installed_packages":
+	[
+    "Color Highlighter",
+    "INI",
+    "Package Control",
+    "PackageResourceViewer",
+
+    "ayu",
+    "Material Theme",
+    "Monokai Extended",
+    "PackageDev",
+    "ProjectManager",
+    "SideBarEnhancements",
+    "SublimeREPL",
+    "Theme - Afterglow",
+    "Theme - Monokai+"
+  ],
+      "submit_usage": false,
+      "install_missing": true,
+      "remove_orphaned": true,
+      "auto_upgrade_frequency": 24,
+      "auto_upgrade": true,
+      "auto_migrate": true,
+}

@@ -1,0 +1,7 @@
+<snippet>
+	<content><![CDATA[
+	{ "caption": "${1:Command Caption}", "command": "${2:Command Name}" }
+]]></content>
+	<tabTrigger>	{</tabTrigger>
+	<scope>source.json.sublime.commands meta.sequence.json meta.sublime-commands.collection.sublime-commands meta.mapping.json</scope>
+</snippet>
