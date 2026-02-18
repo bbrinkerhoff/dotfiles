@@ -15,4 +15,6 @@ cask "soundsource"
 brew "pyenv"
 brew "pyenv-virtualenv"
 brew "virtualenv"
-mas 'Windows App', id: 1295203466
+mas "Windows App", id: 1295203466
+mas "GrandPerspective", id: 1111570163
+mas "Tampermonkey", id: 6738342400
