@@ -1,24 +1,23 @@
 {{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
-if [[ -f $(brew --prefix)/bin/bash ]]
-then
-  	sudo echo "$(brew --prefix)/bin/bash" >> /etc/shells
-  	sudo chsh -s "$(brew --prefix)/bin/bash" "${USER}"
+if [[ -f $(brew --prefix)/bin/bash ]]; then
+  sudo echo "$(brew --prefix)/bin/bash" >>/etc/shells
+  sudo chsh -s "$(brew --prefix)/bin/bash" "${USER}"
 fi
-
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
 
 {{- $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" -}}
-osascript << EOF
+osascript <<EOF
 use framework "AppKit"
 use scripting additions
 
 tell application "System Events"
-	set currentApp to name of first application process whose frontmost is true
+  set currentApp to name of first application process whose frontmost is true
 end tell
 tell application "Finder"
-	activate
-	delay 0.5
-	set desktop picture to POSIX file "{{- $wallpaper -}}"
+  activate
+  delay 0.5
+  set desktop picture to POSIX file "{{- $wallpaper -}}"
 end tell
 
 tell application currentApp to activate
@@ -42,19 +41,13 @@ defaults write com.surteesstudios.Bartender license6HoldersName -string {{- onep
 defaults write com.rogueamoeba.soundsource menuBarIcon -string "speaker"
 defaults write com.rogueamoeba.soundsource registrationInfo -dict Name -string {{- onepasswordRead "op://Private/Sound Source/Name" | quote -}} Code -string {{- onepasswordRead "op://Private/Sound Source/license key" | quote -}}
 
-
 defaults write com.rogueamoeba.soundsource keyboardVolume -int 1
 defaults write com.rogueamoeba.soundsource settingsPane -string "appearance"
 defaults write com.rogueamoeba.soundsource menuBarIcon -string "speaker"
 defaults write com.rogueamoeba.soundsource applicationTheme -int 2
 
-
-
-BTTSyncCloudProvider = 2;
-SUAutomaticallyUpdate = 1;
-launchOnStartup = 1;
-
+BTTSyncCloudProvider = 2
+SUAutomaticallyUpdate = 1
+launchOnStartup = 1
 
 {{- end -}}
-
-
