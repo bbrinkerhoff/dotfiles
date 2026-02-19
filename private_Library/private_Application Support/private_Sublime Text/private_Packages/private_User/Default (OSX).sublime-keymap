@@ -1,44 +1,60 @@
 [
-  {
-    "keys": [
-      "ctrl+alt+5"
-    ],
-    "command": "sort_lines",
-    "args": {
-      "case_sensitive": false
+    {
+        "keys":
+        [
+            "ctrl+alt+5"
+        ],
+        "command": "sort_lines",
+        "args":
+        {
+            "case_sensitive": false
+        }
+    },
+    {
+        "keys":
+        [
+            "shift+ctrl+alt+5"
+        ],
+        "command": "sort_lines",
+        "args":
+        {
+            "case_sensitive": true
+        }
+    },
+    {
+        "keys":
+        [
+            "super+shift+alt+left"
+        ],
+        "command": "focus_neighboring_group",
+        "args":
+        {
+            "forward": false
+        }
+    },
+    {
+        "keys":
+        [
+            "super+shift+alt+right"
+        ],
+        "command": "focus_neighboring_group"
+    },
+    {
+        "keys":
+        [
+            "super+alt+w"
+        ],
+        "command": "destroy_pane",
+        "args":
+        {
+            "direction": "self"
+        }
+    },
+    {
+        "keys":
+        [
+            "ctrl+shift+m"
+        ],
+        "command": "format_mas_to_brewfile"
     }
-  },
-  {
-    "keys": [
-      "shift+ctrl+alt+5"
-    ],
-    "command": "sort_lines",
-    "args": {
-      "case_sensitive": true
-    }
-  },
-  {
-    "keys": [
-      "super+shift+alt+left"
-    ],
-    "command": "focus_neighboring_group",
-    "args": {
-      "forward": false
-    }
-  },
-  {
-    "keys": [
-      "super+shift+alt+right"
-    ],
-    "command": "focus_neighboring_group"
-  },
-  {
-    "keys": [
-      "super+alt+w"
-    ],
-    "command": "destroy_pane",
-    "args": {
-      "direction": "self"
-    }
-  }
 ]
