@@ -2,7 +2,26 @@ brew "bash"
 brew "bash-completion"
 brew "chezmoi"
 brew "colordiff"
+brew "coreutils"
+brew "dockutil"
+brew "findutils"
+brew "gawk"
+brew "gnu-indent"
+brew "gnu-sed"
+brew "gnu-tar"
+brew "gnutls"
+brew "grep"
+brew "gum"
 brew "imagemagick"
+brew "kavehtehrani/tap/cloudflare-speed-cli"
+brew "mas"
+brew "node"
+brew "pyenv"
+brew "pyenv-virtualenv"
+brew "python-tk@3.14"
+brew "shfmt"
+brew "tcl-tk"
+brew "virtualenv"
 brew "wget"
 cask "1password-cli"
 cask "archiver-app"
@@ -11,11 +30,15 @@ cask "bettertouchtool"
 cask "firefox"
 cask "iterm2"
 cask "onyx"
+cask "renamer"
 cask "soundsource"
-brew "pyenv"
-brew "pyenv-virtualenv"
-brew "virtualenv"
-mas "Windows App", id: 1295203466
-mas "GrandPerspective", id: 1111570163
-mas "Tampermonkey", id: 6738342400
+mas "1Password for Safari", id: 1569813296
 mas "Controller for HomeKit", id: 1198176727
+mas "Crouton", id: 1461650987
+mas "GrandPerspective", id: 1111570163
+mas "Queryable", id: 1661598353
+mas "Rapidmg", id: 6451349778
+mas "Tampermonkey", id: 6738342400
+mas "Userscripts", id: 1463298887
+mas "Windows App", id: 1295203466
+tap "kavehtehrani/tap"
