@@ -53,5 +53,26 @@ defaults write com.apple.dock show-recents -bool false
 defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
 defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
 defaults write com.hegenberg.BetterTouchTool launchOnStartup -int 1
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+
+
+
+# Set default search scope to current folder (instead of "This Mac")
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+# Auto-remove items from Trash after 30 days
+defaults write com.apple.finder FXRemoveOldTrashItems -bool true
+
+# Set new Finder window target to All Home (PfHm)
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
+
+# Hide Recent Tags in sidebar
+defaults write com.apple.finder ShowRecentTags -bool false
+
+# Sort folders first in list view
+defaults write com.apple.finder _FXSortFoldersFirst -bool true
+
+# Restart Finder to apply changes
+killall Finder
 
 {{- end -}}
