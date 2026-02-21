@@ -1,161 +1,82 @@
 #!/usr/bin/env bash
-##################################################
-################## GIT ALIASES ###################
-##################################################
-# Basic Aliases
+
+################
+# BASH Aliases #
+################
+alias ...='cd ../../'
+alias ..='cd ../'
+alias BASH_DEBUG_ENV='PS4='+${BASH_SOURCE} >' BASH_XTRACEFD=7 bash -xl 7>&2'
+alias dd='sudo dd'
+alias diff='colordiff'
+alias grep='grep --color=always'
+alias ll='ls -lAh'
+alias ls='ls --color=always'
+alias lsa='ls -A'
+alias lt='ls -lAtrh'
+alias mount='sudo mount'
+alias reboot='sudo reboot'
+alias sbp='. ${HOME}/.bash_profile'
+alias shutdown='sudo shutdown'
+alias sudo='sudo ' # Enable aliases to be sudo’ed
+alias umount='sudo umount'
+
+####################
+# Function Aliases #
+####################
+alias duh='duDir'
+alias ips='showIPS'
+
+###################
+# Utility Aliases #
+###################
+alias _du='diskutil'
+alias _dul='diskutil list'
+alias cleanup='find . -type f -name '*.DS_Store' -ls -delete'
+alias flush='dscacheutil -flushcache &>/dev/null && killall -HUP mDNSResponder &>/dev/null'
+alias getpaths='/usr/libexec/path_helper -s'
+alias hosts='sudo vim /etc/hosts'
+alias map='xargs -n1'
+alias ncdu='ncdu -r --color dark --enable-refresh'
+alias pb='printf '%s' '$(cat)'|pbcopy'
+alias pip3='python3 -m pip'
+alias rsync='rsync --progress -v -h'
+alias tdate='date '+%Y%m%d''
+alias wolpc='wakeonlan -f ${HOME}/.config/wakeonlan/PC.conf'
+
+####################
+# Settings Aliases #
+####################
+alias _bt-off='sudo nvram bluetoothHostControllerSwitchBehavior=always'
+alias _bt-on='sudo nvram -d bluetoothHostControllerSwitchBehavior'
+alias hidedesktop='defaults write com.apple.finder CreateDesktop -bool false && killall Finder'
+alias hideF='defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder'
+alias pumpitup='osascript -e  "set volume output volume 100"'
+alias showdesktop='defaults write com.apple.finder CreateDesktop -bool true && killall Finder'
+alias showf='defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder'
+alias stfu='osascript -e "set volume output muted true"'
+
+###############
+# Git Aliases #
+###############
 alias gb='git branch'
 alias gc='git checkout'
 alias gd='git diff'
 alias gp='git pull'
 alias gs='git status'
-alias gpm='git pull origin master'
-alias gpu='git push'
-# Checkout Aliases
-alias gcm='git checkout master'
-alias gcb='git checkout bbrinkerhoff'
-alias gcbd='git checkout bbrinkerhoff_$(tdate)'
-# Branch Aliases
+alias gpm='git pull origin main'
+alias gcm='git switch main'
+alias gcb='git switch bbrinkerhoff 2>/dev/null || git switch -c bbrinkerhoff'
 alias gbd='pruneGitBranches'
 alias gbD='pruneGitBranches all'
-alias gnb='git checkout master && git checkout -b'
-alias gnbd='git checkout master && git checkout -b bbrinkerhoff_$(tdate)'
-# Fixing Aliases
-alias gbre='git fetch origin; git reset --hard origin/master'
-alias gre='git reset --hard origin/master'
-alias gfix='find . -type f | xargs grep -l "<<<<<<<" | xargs git checkout --theirs'
-# Other Aliases
+alias gnb='git switch main && git switch -c'
 alias mkpr='makePullRequest'
-# Repo Opening Aliases
-alias gdir='cd ${HOME}/repos'
-alias gdns='gitOpenRepo zones "Bind zones" && git pull origin master'
-alias gdnsr='gitOpenRepo records "Bind records" && git pull origin master'
-alias gnew='gitOpenRepo new Saltstack'
-alias gnewb='gitOpenRepo new /bin Saltstack'
-alias gpillar='gitOpenRepo pillar "Old Pillar"'
-alias gsalt='gitOpenRepo salt /states "Old salt"'
-alias gtools='gitOpenRepo ops /scripts "OPS tools"'
 
-##################################################
-################## CMDB ALIASES ##################
-##################################################
-alias cm='${HOME}/repos/tools/ops/scripts/cmdb/cmdbQuery.sh'
-alias cmd='cm --short --dns'
-alias cmr='cm --short --role'
-alias cmi='cm --short --ip'
-alias cmn='cm --short --device'
-alias cmup='${HOME}/repos/tools/ops/scripts/cmdb/cmdbUpdate.sh'
-
-##################################################
-############### PASSWORD ALIASES #################
-##################################################
-alias _lpCopy='lpass show --clip --password'
-alias adPass='_lpCopy 5633439272458987061'
-alias rootPass='_lpCopy 1355170879380194685'
-alias srPass='_lpCopy 5670652352'
-alias genPass='generatePassword'
-alias tfaPass='echo -n "$(adPass;pbpaste)$(oauth --account sr)"|pbcopy'
-
-##################################################
-################## SSH ALIASES ###################
-##################################################
-alias ss='sshPlus --sudo'
-alias sf='sshPlus --sudo  --search'
-alias sz='sshPlus --sudo  --zoo'
-alias ssr='sshPlus --sudo  --sradmin'
-alias ssg='sshGCP'
-alias hqsalt='sshPlus --sudo hq-salt-01'
-alias utsalt='sshPlus --sudo ut-salt-01'
-alias ns1='sshPlus --sudo hq-ns1'
-alias sshHosts='vim ${HOME}/.ssh/known_hosts'
-
-##################################################
-################# SCRIPT ALIASES #################
-##################################################
-alias deploy='${OPS_SCRIPTS_DIR}/Deploys/deploy.sh'
-alias rollback='${OPS_SCRIPTS_DIR}/Deploys/rollback.sh'
-alias sshPlus='${OPS_SCRIPTS_DIR}/macOS/sshPlus/s.sh'
-alias syncConfig='${OPS_SCRIPTS_DIR}/Salt/syncConvert.sh'
-alias tgpg='${OPS_SCRIPTS_DIR}/Salt/gpgEncrypt.sh'
-alias tomcat='${OPS_SCRIPTS_DIR}/Salt/tomcatConvert.sh'
-alias viewJSON='${OPS_SCRIPTS_DIR}/macOS/viewJSON.sh'
-alias SDimport='${HOME}/scripts/sonyMediaImport.sh'
-alias SDquickimport='${HOME}/scripts/sonyMediaImport.sh 0'
-
-##################################################
-############### OTHER BASH ALIASES ###############
-##################################################
-alias c7Fix='echo "sed -i '\''s/mirror.centos.org/vault.centos.org/g;s/^#.*baseurl=http/baseurl=http/g;s/^mirrorlist=http/#mirrorlist=http/g'\'' /etc/yum.repos.d/*.repo"|pbcopy'
-alias cpCmd='fc -ln -1 | awk "{\$1=\$1}1" | pbcopy'
-alias cpFp='cpFilePath'
-alias cpPub='cat ${HOME}/.ssh/keys/linuxadmin.pub|pbcopy'
-alias cpPwd='pwd|pbcopy'
-alias ncdu='ncdu -r --color dark --enable-refresh'
-alias tdate='date "+%Y%m%d"'
-alias getpaths='/usr/libexec/path_helper -s'
-alias rsync='rsync --progress -v -h'
-alias wolpc='wakeonlan -f ~/.config/wakeonlan.conf'
-# Setting Assignment Aliases
-alias hlDown='sudo ifconfig en7 down'
-alias hlUp='sudo ifconfig en7 up'
-alias hideF='defaults write com.apple.finder AppleShowAllFiles FALSE && killall Finder'
-alias showf='defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder'
-alias flush='dscacheutil -flushcache &>/dev/null && killall -HUP mDNSResponder &>/dev/null'
-alias _bt-off='sudo nvram bluetoothHostControllerSwitchBehavior=always'
-alias _bt-on='sudo nvram -d bluetoothHostControllerSwitchBehavior'
-alias BASH_DEBUG_ENV='PS4="+$BASH_SOURCE> " BASH_XTRACEFD=7 bash -xl 7>&2'
-alias hosts='sudo vim /etc/hosts'
-# Function Aliases
-alias dnsDate='dnsDate'
-alias duh='duDir'
-alias ips='showIPS'
-alias gpgd='decryptTEXT'
-alias getcert='getCERT'
-alias randMac='SpoofMacAddress randomize'
-alias resetMac='SpoofMacAddress reset'
-alias saltup='updateSaltRepo'
-alias saltupall='updateAllSaltRepos'
-alias saltsvc='restartMinionService'
-alias sdbreset='ScriptDebuggerReset'
-# Sublime Aliases
-alias templ='openTEMPLATE'
-alias newsalt='openSublimeProject New-Salt'
-alias scriptEdit='openSublimeProject "Script Edit"'
-alias configEdit='openSublimeProject "ConfigEdit"'
-alias ba='subl -n ${HOME}/.bash ${HOME}/.bash/bash_aliases'
-alias bf='subl -n ${HOME}/.bash ${HOME}/.bash/bash_functions'
-alias sbp='. ${HOME}/.bash_profile'
-# Vagrant Aliases
+###################
+# Vagrant Aliases #
+###################
 alias v='vagrant'
 alias vb='vagrant box'
-alias vu='vagrant up'
-alias vrm='vagrant destroy -f'
 alias vgs='vagrant global-status'
+alias vrm='vagrant destroy -f'
 alias vs='vagrantSSH'
-# Basic Command Shorthands
-alias ..='cd ../'
-alias ...='cd ../../'
-alias _du='diskutil'
-alias _dul='diskutil list'
-alias diff='colordiff'
-alias ls='ls --color=always'
-alias grep='grep --color=always'
-alias lsa='ls -A'
-alias ll='ls -lAh'
-alias lt='ls -lAtrh'
-alias pb='printf "%s" "$(cat)"|pbcopy'
-alias pip3='python3 -m pip'
-# Sudo default commands
-alias shutdown='sudo shutdown'
-alias dd='sudo dd'
-alias umount='sudo umount'
-alias mount='sudo mount'
-alias reboot='sudo reboot'
-# Enable aliases to be sudo’ed
-alias sudo='sudo '
-alias cleanup='find . -type f -name "*.DS_Store" -ls -delete'
-
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-alias map="xargs -n1"
-alias stfu="osascript -e 'set volume output muted true'"
-alias pumpitup="osascript -e 'set volume output volume 100'"
+alias vu='vagrant up'

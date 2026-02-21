@@ -1,20 +1,28 @@
 #!/usr/bin/env bash
-################################
-## Bash profile file sourcing ##
-################################
+
+#################
+# Shell Options #
+#################
+shopt -s checkwinsize
+shopt -s histappend
+
+#################
+# File Sourcing #
+#################
+export BREW_PREFIX=$(brew --prefix)
 SOURCE_FILES=(
-  # Main BASH Resources
-  "${HOME}/.bash/aliases"
-  "${HOME}/.bash/functions"
-  "${HOME}/.bash/variables"
-  "${HOME}/.bash/paths"
-  "${HOME}/.bash/misc"
-  # Other BASH Resources
-  "$(brew --prefix)/etc/bash_completion"
+    ## Main BASH Resources
+    "${HOME}/.bash/aliases"
+    "${HOME}/.bash/functions"
+    "${HOME}/.bash/variables"
+    "${HOME}/.bash/paths"
+
+    ## Other BASH Resources
+    "${BREW_PREFIX}/etc/bash_completion"
 )
 
 for FILE in "${SOURCE_FILES[@]}"; do
-  if [ -f "${FILE}" ]; then
-    . "${FILE}"
-  fi
+    if [ -f "${FILE}" ]; then
+        . "${FILE}"
+    fi
 done

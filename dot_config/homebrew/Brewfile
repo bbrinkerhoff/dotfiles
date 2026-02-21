@@ -1,10 +1,8 @@
-tap "kavehtehrani/tap"
 brew "bash"
 brew "bash-completion"
 brew "chezmoi"
 brew "colordiff"
 brew "coreutils"
-brew "czkawka"
 brew "dockutil"
 brew "findutils"
 brew "gawk"
@@ -26,42 +24,21 @@ brew "tcl-tk"
 brew "virtualenv"
 brew "wget"
 cask "1password-cli"
-cask "adobe-acrobat-pro"
 cask "archiver-app"
 cask "bartender"
 cask "bettertouchtool"
 cask "firefox"
-cask "istat-menus"
 cask "iterm2"
-cask "itermbrowserplugin"
-cask "localsend"
-cask "logi-options+"
-cask "macmediakeyforwarder"
-cask "mp3tag"
-cask "nextcloud"
 cask "onyx"
-cask "orcaslicer"
-cask "paragon-ntfs"
 cask "renamer"
-cask "script-debugger"
-cask "sdformatter"
 cask "soundsource"
-cask "spotify"
-cask "sublime-text"
-cask "vagrant"
-cask "virtualbox"
 mas "1Password for Safari", id: 1569813296
-mas "AdBlock Pro for Safari", id: 1018301773
 mas "Controller for HomeKit", id: 1198176727
+mas "Crouton", id: 1461650987
 mas "GrandPerspective", id: 1111570163
-mas "Key Codes", id: 414568915
-mas "OpenIn 4 Advanced Link Handler", id: 1643649331
-mas "Queryable - Photo Search App", id: 1661598353
 mas "Queryable", id: 1661598353
 mas "Rapidmg", id: 6451349778
-mas "SponsorBlock for Safari", id: 1573461917
 mas "Tampermonkey", id: 6738342400
+mas "Userscripts", id: 1463298887
 mas "Windows App", id: 1295203466
-# mas "Crouton", id: 1461650987
-# mas "Userscripts", id: 1463298887
-# mas "Xcode", id: 497799835
+tap "kavehtehrani/tap"
