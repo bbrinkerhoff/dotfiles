@@ -9,11 +9,17 @@ export HISTSIZE=100000                  # big big history
 export HISTFILESIZE=100000              # big big history
 export HISTTIMEFORMAT=$(echo -e "\033[1;30m%F \033[1;30m%T \033[0m")
 
-# Prompt Variables
-# export PROMPT_COMMAND='__git_ps1 "\n\t - \w\n[\[\033[38;5;201m\]\u\[\033[0m\]@\[\033[38;5;87m\]\h\[\033[0m\]]" "\\$ "'
+####################
+# Prompt Variables #
+####################
+## PS1
+export PS1='\n\t - \w\n[\[\033[38;5;201m\]\u\[\e[0m\]@\[\033[38;5;87m\]\h\[\e[0m\]]\\$ '
+# export PS1='\n\t - \w\n[\[\033[38;5;201m\]\u\[\e[0m\]@\[\033[38;5;87m\]\h\[\e[0m\]]$(__git_ps1 " (%s)")\\$ '
+
+## Prompt Command
+export PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"
 # export PROMPT_COMMAND='eval __git_ps1 "${PS1}"'
-# export PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"
-# '\n\t - \w\n[\033[38;5;201m\u\e[0m@\033[38;5;87m\h\e[0m]\\$ '
+
 #######################
 ## Colored Man Pages ##
 #######################
@@ -28,14 +34,8 @@ export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode – cyan
 ########################
 ## Misc Env Variables ##
 ########################
-export LPASS_AGENT_TIMEOUT=0
 export BREW_PREFIX="$(brew --prefix)"
-export HOMEBREW_GITHUB_API_TOKEN='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'
 export HOMEBREW_NO_ENV_HINTS=true
-export CPPFLAGS="-I${BREW_PREFIX}/opt/openssl/include"
-export CPPFLAGS+="-I${BREW_PREFIX}/opt/openjdk/include"
-export LDFLAGS+="-L${BREW_PREFIX}/opt/openssl/lib"
-export OPS_SCRIPTS_DIR="/Users/bbrinkerhoff/repos/tools/ops/scripts"
 
 #############
 ## GIT PS1 ##
@@ -44,22 +44,11 @@ export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
 
-# OLD SCHOOL PS1
-export PS1='\n\t - \w\n[\[\033[38;5;201m\]\u\[\e[0m\]@\[\033[38;5;87m\]\h\[\e[0m\]]$(__git_ps1 " (%s)")\\$ '
-# export PS1='\n\t - \w\n[\033[38;5;201m\u\e[0m@\033[38;5;87m\h\e[0m]\\$ '
-# export PS1='\n\[\e[206m\]\T\[\e[m\] - \[\e[34m\]\w\[\e[m\]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\[\033[00m\]\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
-#export PS1='\n\[\e[206m\]\T\[\e[m\] - \[\e[34m\]\w\[\e[m\]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[31m\]$(__git_ps1)\[\033[00m\]\$ '
-# export PS1='\n\[\e[206m\]\T\[\e[m\] - \[\e[34m\]\w\[\e[m\]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\[\033[00m\]\[\033[31m\]\[\033[00m\]\$ '
-# export PROMPT_COMMAND='__git_ps1 "\n\[\e[206m\]\T\[\e[m\] - \[\e[34m\]\w\[\e[m\]\n\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\[\033[00m\]" "\[\033[31m\]\[\033[00m\]\\\$ "'
-# export PROMPT_COMMAND='__git_ps1 "\n\[\e[206m\]\T\[\e[m\] - \[\e[34m\]\w\[\e[m\]\n\[\033[01;32m\]\u@\h\[\033[00m\]:" "\\\$ "'
-# export PROMPT_COMMAND="__git_ps1 '("%s")'"
-# export PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
-
 ###########
 ## PYENV ##
 ###########
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+export PYENV_ROOT="${HOME}/.pyenv"
+[[ -d ${PYENV_ROOT}/bin ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
 eval "$(pyenv init - bash)"
 
 ###############
