@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+##################################
+## System Path variable exports ##
+##################################
+# Get Brew 'gnubin'/'gnuman' PATHs to prefer GNU versions of commands
+BREW_PREFIX=$(brew --prefix)
+BREW_GNUPATH_DIRS=($(locate "${BREW_PREFIX}/**/gnubin" 2>/dev/null))
+((${#BREW_GNUPATH_DIRS[@]} < 1)) &&
+  BREW_GNUPATH_DIRS=($(find -L "$(brew --prefix)" -depth 4 -type d -ipath '*/libexec/*' -name 'gnubin' 2>/dev/null))
+((${#BREW_MANPATH_DIRS[@]} < 1)) &&
+  BREW_MANPATH_DIRS=($(find -L "$(brew --prefix)" -depth 3 -type d -ipath '*/gnu*/*' -name 'gnuman' 2>/dev/null))
+BREW_MANPATH_DIRS=($(locate "${BREW_PREFIX}/**/gnuman" 2>/dev/null))
+BREW_PATH_DIRS="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin"
+IFS=':'
+BREW_GNUPATHS=$(echo -n "${BREW_GNUPATH_DIRS[*]}") BREW_MANPATHS=$(echo -n "${BREW_MANPATH_DIRS[*]}")
+unset IFS
+
+PATH="${BREW_GNUPATHS}:${PATH}:${BREW_PATH_DIRS}"
+PATH+=":/usr/local/sbin:/usr/local/bin"
+PATH+=":/Applications/iTerm.app/Contents/Resources/utilities"
+PATH+=":/Applications/Sublime Text.app/Contents/SharedSupport/bin/"
+MANPATH="${BREW_MANPATHS}:${MANPATH}"
+export PATH MANPATH

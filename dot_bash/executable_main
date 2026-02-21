@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+################################
+## Bash profile file sourcing ##
+################################
+SOURCE_FILES=(
+  # Main BASH Resources
+  "${HOME}/.bash/aliases"
+  "${HOME}/.bash/functions"
+  "${HOME}/.bash/variables"
+  "${HOME}/.bash/paths"
+  "${HOME}/.bash/misc"
+  # Other BASH Resources
+  "$(brew --prefix)/etc/bash_completion"
+)
+
+for FILE in "${SOURCE_FILES[@]}"; do
+  if [ -f "${FILE}" ]; then
+    . "${FILE}"
+  fi
+done
