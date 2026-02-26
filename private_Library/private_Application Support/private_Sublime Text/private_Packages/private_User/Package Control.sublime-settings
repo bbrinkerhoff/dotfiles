@@ -9,6 +9,7 @@
     "install_missing": true,
     "installed_packages":
     [
+        "A File Icon",
         "ayu",
         "BracketHighlighter",
         "Color Highlight",
