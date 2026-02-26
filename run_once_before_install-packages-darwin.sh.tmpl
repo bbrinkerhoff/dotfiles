@@ -41,11 +41,11 @@ defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
 defaults write com.hegenberg.BetterTouchTool launchOnStartup       -int 1
 
 # Dock
-dockutil --position 1 --add "/System/Applications/Messages.app"
-dockutil --position 2 --add "/Applications/Firefox.app"
-dockutil --position 3 --add "/Applications/iTerm.app"
-dockutil --position 4 --add "/Applications/Sublime Text.app"
-dockutil --position 5 --add "/System/Applications/System Settings.app"
+dockutil --position 1 --add "/System/Applications/Messages.app"        || true
+dockutil --position 2 --add "/Applications/Firefox.app"                || true
+dockutil --position 3 --add "/Applications/iTerm.app"                  || true
+dockutil --position 4 --add "/Applications/Sublime Text.app"           || true
+dockutil --position 5 --add "/System/Applications/System Settings.app" || true
 
 killall "Archiver"        || true
 killall "SoundSource"     || true
