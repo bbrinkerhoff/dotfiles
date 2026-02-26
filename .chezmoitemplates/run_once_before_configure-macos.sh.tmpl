@@ -36,40 +36,6 @@ end tell
 tell application currentApp to activate
 EOF
 
-# ─── License keys ────────────────────────────────────────────────────────────
-defaults write com.incrediblebee.Archiver LicenseKey \
-  -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
-
-defaults write com.surteesstudios.Bartender license6 \
-  -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
-defaults write com.surteesstudios.Bartender license6HoldersName \
-  -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
-
-defaults write com.rogueamoeba.soundsource registrationInfo -dict \
-  Name  -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
-  Code  -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
-
-# ─── App preferences ─────────────────────────────────────────────────────────
-
-# Bartender
-defaults write com.surteesstudios.Bartender launchAtLogin.isEnabled  -int 1
-defaults write com.surteesstudios.Bartender SUEnableAutomaticChecks   -int 1
-defaults write com.surteesstudios.Bartender TemporaryMenuBarItemShowTime -int 5
-defaults write com.surteesstudios.Bartender DisableAllTriggers        -int 0
-defaults write com.surteesstudios.Bartender pausingEnabled            -int 0
-defaults write com.surteesstudios.Bartender supressDuringMoves        -int 1
-
-# SoundSource
-defaults write com.rogueamoeba.soundsource menuBarIcon       -string "speaker"
-defaults write com.rogueamoeba.soundsource keyboardVolume    -int 1
-defaults write com.rogueamoeba.soundsource settingsPane      -string "appearance"
-defaults write com.rogueamoeba.soundsource applicationTheme  -int 2
-
-# BetterTouchTool
-defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
-defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
-defaults write com.hegenberg.BetterTouchTool launchOnStartup       -int 1
-
 # ─── macOS system defaults ────────────────────────────────────────────────────
 
 # Keyboard
