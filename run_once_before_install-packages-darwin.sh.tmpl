@@ -3,10 +3,7 @@
 
 set -eo pipefail
 
-if [ -f "${HOME}/.bash_profile" ];then
-  . "${HOME}/.bash_profile"
-fi
-
+export HOMEBREW_BUNDLE_FILE="${HOME}/.config/homebrew/Brewfile"
 brew bundle --no-lock --verbose
 
 # ─── License keys ────────────────────────────────────────────────────────────
