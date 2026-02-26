@@ -5,7 +5,7 @@
 ################
 alias ...='cd ../../'
 alias ..='cd ../'
-alias BASH_DEBUG_ENV='PS4='+${BASH_SOURCE} >' BASH_XTRACEFD=7 bash -xl 7>&2'
+alias BASH_DEBUG_ENV='PS4="+${BASH_SOURCE} >" BASH_XTRACEFD=7 bash -xl 7>&2'
 alias dd='sudo dd'
 alias diff='colordiff'
 alias grep='grep --color=always'
@@ -31,16 +31,16 @@ alias ips='showIPS'
 ###################
 alias _du='diskutil'
 alias _dul='diskutil list'
-alias cleanup='find . -type f -name '*.DS_Store' -ls -delete'
+alias cleanup='find . -type f -name "*.DS_Store" -ls -delete'
 alias flush='dscacheutil -flushcache &>/dev/null && killall -HUP mDNSResponder &>/dev/null'
 alias getpaths='/usr/libexec/path_helper -s'
 alias hosts='sudo vim /etc/hosts'
 alias map='xargs -n1'
 alias ncdu='ncdu -r --color dark --enable-refresh'
-alias pb='printf '%s' '$(cat)'|pbcopy'
+alias pb='printf "%s" "$(cat)"|pbcopy'
 alias pip3='python3 -m pip'
 alias rsync='rsync --progress -v -h'
-alias tdate='date '+%Y%m%d''
+alias tdate='date "+%Y%m%d"'
 alias wolpc='wakeonlan -f ${HOME}/.config/wakeonlan/PC.conf'
 
 ####################
