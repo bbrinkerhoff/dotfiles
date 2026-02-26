@@ -27,7 +27,9 @@ brew "virtualenv"
 brew "wget"
 cask "1password-cli"
 cask "adobe-acrobat-pro"
+{{- if ge (.chezmoi.config.data.macOSMajorVersion | atoi) 26 -}}
 cask "archiver-app"
+{{ end -}}
 cask "bartender"
 cask "bettertouchtool"
 cask "firefox"
