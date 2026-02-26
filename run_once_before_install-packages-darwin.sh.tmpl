@@ -4,7 +4,7 @@
 set -eo pipefail
 
 export HOMEBREW_BUNDLE_FILE="${HOME}/.config/homebrew/Brewfile"
-brew bundle --no-lock --verbose
+brew bundle --verbose
 
 # ─── License keys ────────────────────────────────────────────────────────────
 defaults write com.incrediblebee.Archiver LicenseKey \
@@ -41,7 +41,8 @@ defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
 defaults write com.hegenberg.BetterTouchTool launchOnStartup       -int 1
 
 
-killall Soundsource
-killall Bartender
-Killall BetterTouchTool
+Killall "Archiver" || true
+killall "SoundSource"     || true
+killall "Bartender 6"     || true
+Killall "BetterTouchTool" || true
 {{- end -}}
