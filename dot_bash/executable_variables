@@ -4,7 +4,7 @@
 # BASH Defaults #
 #################
 export BASH_SILENCE_DEPRECATION_WARNING=1
-export FIGNORE='.bash_history:.bash_sessions:.DS_Store'
+export FIGNORE="${FIGNORE}:bash_history:bash_sessions:DS_Store"
 export EDITOR='vim'
 
 ####################
