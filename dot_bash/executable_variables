@@ -4,6 +4,7 @@
 # BASH Defaults #
 #################
 export BASH_SILENCE_DEPRECATION_WARNING=1
+export FIGNORE='.bash_history:.bash_sessions:.DS_Store'
 export EDITOR='vim'
 
 ####################
@@ -51,6 +52,22 @@ export LESS_TERMCAP_us=$(printf '\e[04;36m') # enter underline mode – cyan
 ####################
 # Text Output Vars #
 ####################
+_txt()
+{
+    # set text attributes
+    tput -T xterm-256color $@
+}
+_fg()
+{
+    # set the foreground text color
+    _txt setaf ${1}
+}
+_bg()
+{
+    # set the background text color
+    _txt setab ${1}
+}
+
 export BLD=$(_txt bold)
 export DIM=$(_txt dim)
 export UL=$(_txt smul)
@@ -79,6 +96,7 @@ eval "$(pyenv init - bash)"
 # Misc Env Variables #
 ######################
 export HOMEBREW_NO_ENV_HINTS=true
+export HOMEBREW_BUNDLE_FILE="${HOME}/.config/homebrew/Brewfile"
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
