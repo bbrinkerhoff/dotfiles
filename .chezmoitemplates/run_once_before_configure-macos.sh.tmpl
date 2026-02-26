@@ -1,0 +1,93 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ─── Sudo keepalive ──────────────────────────────────────────────────────────
+# Cache sudo credentials upfront so we don't get prompted mid-script
+sudo -v
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# ─── Shell ───────────────────────────────────────────────────────────────────
+BREW_PREFIX="$(brew --prefix)"
+BREW_BASH="${BREW_PREFIX}/bin/bash"
+
+if [[ -f "${BREW_BASH}" ]] && ! grep -qF "${BREW_BASH}" /etc/shells; then
+  echo "${BREW_BASH}" | sudo tee -a /etc/shells
+  sudo chsh -s "${BREW_BASH}" "${USER}"
+fi
+
+# ─── Spotlight / locate db ───────────────────────────────────────────────────
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+
+# ─── Wallpaper ───────────────────────────────────────────────────────────────
+{{- $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" }}
+osascript <<EOF
+use framework "AppKit"
+use scripting additions
+
+tell application "System Events"
+  set currentApp to name of first application process whose frontmost is true
+end tell
+tell application "Finder"
+  activate
+  delay 0.5
+  set desktop picture to POSIX file "{{ $wallpaper }}"
+end tell
+tell application currentApp to activate
+EOF
+
+# ─── License keys ────────────────────────────────────────────────────────────
+defaults write com.incrediblebee.Archiver LicenseKey \
+  -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
+
+defaults write com.surteesstudios.Bartender license6 \
+  -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
+defaults write com.surteesstudios.Bartender license6HoldersName \
+  -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
+
+defaults write com.rogueamoeba.soundsource registrationInfo -dict \
+  Name  -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
+  Code  -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
+
+# ─── App preferences ─────────────────────────────────────────────────────────
+
+# Bartender
+defaults write com.surteesstudios.Bartender launchAtLogin.isEnabled  -int 1
+defaults write com.surteesstudios.Bartender SUEnableAutomaticChecks   -int 1
+defaults write com.surteesstudios.Bartender TemporaryMenuBarItemShowTime -int 5
+defaults write com.surteesstudios.Bartender DisableAllTriggers        -int 0
+defaults write com.surteesstudios.Bartender pausingEnabled            -int 0
+defaults write com.surteesstudios.Bartender supressDuringMoves        -int 1
+
+# SoundSource
+defaults write com.rogueamoeba.soundsource menuBarIcon       -string "speaker"
+defaults write com.rogueamoeba.soundsource keyboardVolume    -int 1
+defaults write com.rogueamoeba.soundsource settingsPane      -string "appearance"
+defaults write com.rogueamoeba.soundsource applicationTheme  -int 2
+
+# BetterTouchTool
+defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
+defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
+defaults write com.hegenberg.BetterTouchTool launchOnStartup       -int 1
+
+# ─── macOS system defaults ────────────────────────────────────────────────────
+
+# Keyboard
+defaults write -g KeyRepeat              -int 2
+defaults write -g ApplePressAndHoldEnabled -bool false
+
+# Finder
+defaults write com.apple.finder FXPreferredViewStyle  -string "Nlsv"   # list view
+defaults write com.apple.finder FXDefaultSearchScope  -string "SCcf"   # search current folder
+defaults write com.apple.finder FXRemoveOldTrashItems -bool true        # empty trash after 30 days
+defaults write com.apple.finder NewWindowTarget       -string "PfHm"   # open to home folder
+defaults write com.apple.finder ShowRecentTags        -bool false
+defaults write com.apple.finder _FXSortFoldersFirst   -bool true
+
+# Dock
+defaults write com.apple.dock show-recents -bool false
+
+killall Finder
+killall Dock
+
+{{- end -}}
