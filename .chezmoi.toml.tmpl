@@ -1,11 +1,26 @@
 {{- $email := promptStringOnce . "email" "Email" -}}
 {{- $fullName := promptStringOnce . "fullName" "Full Name" -}}
 {{- $autoCommit := promptBoolOnce . "autoCommit" "Enable chezmoi auto-commit/auto-update (true/false)" -}}
+{{- $major := 0 -}}
+{{- $minor := 0 -}}
+{{- $patch := 0 -}}
+{{- if eq .chezmoi.os "darwin" -}}
+    {{- $osVersion := output "sw_vers" "-productVersion" | trim -}}
+    {{- $versionParts := splitList "." $osVersion -}}
+    {{- $major = index $versionParts 0 | atoi -}}
+    {{- $minor = index $versionParts 1 | atoi -}}
+    {{- $patch = index $versionParts 2 | atoi -}}
+{{- end -}}
 
 [data]
     email = "{{ $email }}"
     fullName = "{{ $fullName }}"
     autoCommit = {{ $autoCommit }}
+{{ if eq .chezmoi.os "darwin" -}}
+    macOSMajorVersion = "{{ $major }}"
+    macOSMinorVersion = "{{ $minor }}"
+    macOSPatchVersion = "{{ $patch }}"
+{{ end -}}
 
 [git]
     autoCommit = {{ $autoCommit }}
