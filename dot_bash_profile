@@ -1,0 +1,7 @@
+if [ -f "${HOME}/.bash/main" ];then
+  . "${HOME}/.bash/main"
+fi
+
+if [ -f "${HOME}/.bashrc" ];then
+  . "${HOME}/.bashrc"
+fi
