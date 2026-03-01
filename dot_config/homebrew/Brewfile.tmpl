@@ -1,3 +1,4 @@
+tap "bbrinkerhoff/homebrew-private"
 tap "kavehtehrani/tap"
 brew "bash"
 brew "bash-completion"
@@ -30,6 +31,7 @@ cask "adobe-acrobat-pro"
 {{ if ge (.chezmoi.config.data.macOSMajorVersion | atoi) 26 -}}
 cask "archiver-app"
 {{ end -}}
+cask "3dxware"
 cask "appcleaner"
 cask "bartender"
 cask "bettertouchtool"
