@@ -35,6 +35,9 @@ defaults write com.rogueamoeba.soundsource keyboardVolume    -int 1
 defaults write com.rogueamoeba.soundsource settingsPane      -string "appearance"
 defaults write com.rogueamoeba.soundsource applicationTheme  -int 2
 
+# iStat Menus 7
+/usr/libexec/PlistBuddy -c "Add :License:License string {{ onepasswordRead "op://Private/iStat Menus/license key" }}" ${HOME}/Library/Preferences/com.bjango.istatmenus.menubar.7.plist
+
 # BetterTouchTool
 defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
 defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
