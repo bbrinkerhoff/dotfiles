@@ -31,9 +31,8 @@ fi
 sudo chpass -s /bin/bash
 sudo chpass -s /bin/bash "${USER}"
 
-
 # ─── Spotlight / locate db ───────────────────────────────────────────────────
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist 2>/dev/null
 
 # ─── Wallpaper ───────────────────────────────────────────────────────────────
 {{- $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" }}
