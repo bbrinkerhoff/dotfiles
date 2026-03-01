@@ -8,16 +8,16 @@ brew bundle --verbose
 
 # ─── License keys ────────────────────────────────────────────────────────────
 defaults write com.incrediblebee.Archiver LicenseKey \
-  -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
+    -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
 
 defaults write com.surteesstudios.Bartender license6 \
   -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
 defaults write com.surteesstudios.Bartender license6HoldersName \
-  -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
+    -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
 
 defaults write com.rogueamoeba.soundsource registrationInfo -dict \
-  Name  -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
-  Code  -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
+    Name  -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
+    Code  -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
 
 # ─── App preferences ─────────────────────────────────────────────────────────
 
@@ -36,7 +36,44 @@ defaults write com.rogueamoeba.soundsource settingsPane      -string "appearance
 defaults write com.rogueamoeba.soundsource applicationTheme  -int 2
 
 # iStat Menus 7
-/usr/libexec/PlistBuddy -c "Add :License:License string {{ onepasswordRead "op://Private/iStat Menus/license key" }}" ${HOME}/Library/Preferences/com.bjango.istatmenus.menubar.7.plist
+defaults write com.bjango.istatmenus.menubar.7 License -dict \
+    License -string {{ onepasswordRead "op://Private/iStat Menus/license key" | quote }}
+defaults write com.bjango.istatmenus.menubar.7 MenubarCurrentApperance -string "Dark"
+defaults write com.bjango.istatmenus.menubar.7 Menu -dict \
+    Theme -dict Dark -string "dark"
+defaults write com.bjango.istatmenus.menubar.7 Menubar -dict \
+    CustomColor -dict Dark -string "0 0.8499822616577148 1 1" \
+    Theme -dict Dark -string "custom"
+defaults write com.bjango.istatmenus.menubar.7 Combined -dict \
+    Menubar -dict Items -array
+defaults write com.bjango.istatmenus.menubar.7 Profiles -dict \
+    Available -dict identifier -string "default" \
+    Settings -dict default -dict \
+        Battery -dict Menubar -dict \
+            DetailedState -integer 0 \
+            Enabled -integer 1 \
+            Items -dict Standard -array \
+                -dict source -integer 8 subtype -integer 11 type -integer 4 \
+        CPU -dict Menubar -dict Enabled -integer 0 \
+        Combined -dict Menubar -dict \
+            Enabled -integer 0 \
+            Items -array -dict source -integer 21 \
+        Disks -dict Menubar -dict Enabled -integer 0 \
+        Memory -dict Menubar -dict Enabled -integer 0 \
+        Network -dict Menubar -dict Enabled -integer 0 \
+        Sensors -dict Menubar -dict \
+            Enabled -integer 0 \
+            Sensors -array
+defaults write com.bjango.istatmenus.menubar.7 Sensors -dict \
+    Global -dict \
+        Degrees -dict Format -integer 1 \
+        DetailLevel -integer 0 \
+        Fans -dict \
+            Curves -dict all -dict curve -array \
+                -dict speed -integer 0 temperature -integer 0 \
+                -dict speed -integer 0 temperature -string "0.45" \
+                -dict speed -integer 1 temperature -string "0.95" \
+                -dict speed -integer 1 temperature -integer 1
 
 # BetterTouchTool
 defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
