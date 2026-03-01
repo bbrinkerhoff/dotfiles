@@ -38,42 +38,14 @@ defaults write com.rogueamoeba.soundsource applicationTheme  -int 2
 # iStat Menus 7
 defaults write com.bjango.istatmenus.menubar.7 License -dict \
     License -string {{ onepasswordRead "op://Private/iStat Menus/license key" | quote }}
-defaults write com.bjango.istatmenus.menubar.7 MenubarCurrentApperance -string "Dark"
-defaults write com.bjango.istatmenus.menubar.7 Menu -dict \
-    Theme -dict Dark -string "dark"
-defaults write com.bjango.istatmenus.menubar.7 Menubar -dict \
-    CustomColor -dict Dark -string "0 0.8499822616577148 1 1" \
-    Theme -dict Dark -string "custom"
-defaults write com.bjango.istatmenus.menubar.7 Combined -dict \
-    Menubar -dict Items -array
-defaults write com.bjango.istatmenus.menubar.7 Profiles -dict \
-    Available -dict identifier -string "default" \
-    Settings -dict default -dict \
-        Battery -dict Menubar -dict \
-            DetailedState -integer 0 \
-            Enabled -integer 1 \
-            Items -dict Standard -array \
-                -dict source -integer 8 subtype -integer 11 type -integer 4 \
-        CPU -dict Menubar -dict Enabled -integer 0 \
-        Combined -dict Menubar -dict \
-            Enabled -integer 0 \
-            Items -array -dict source -integer 21 \
-        Disks -dict Menubar -dict Enabled -integer 0 \
-        Memory -dict Menubar -dict Enabled -integer 0 \
-        Network -dict Menubar -dict Enabled -integer 0 \
-        Sensors -dict Menubar -dict \
-            Enabled -integer 0 \
-            Sensors -array
-defaults write com.bjango.istatmenus.menubar.7 Sensors -dict \
-    Global -dict \
-        Degrees -dict Format -integer 1 \
-        DetailLevel -integer 0 \
-        Fans -dict \
-            Curves -dict all -dict curve -array \
-                -dict speed -integer 0 temperature -integer 0 \
-                -dict speed -integer 0 temperature -string "0.45" \
-                -dict speed -integer 1 temperature -string "0.95" \
-                -dict speed -integer 1 temperature -integer 1
+defaults write com.bjango.istatmenus.menubar.7 MenubarCurrentApperance 'Dark'
+defaults write com.bjango.istatmenus.menubar.7 Menu '{Theme={Dark=dark;};}'
+defaults write com.bjango.istatmenus.menubar.7 Menubar '{CustomColor={Dark="0 0.8499822616577148 1 1";};Theme={Dark=custom;};}'
+defaults write com.bjango.istatmenus.menubar.7 Combined '{Menubar={Items=();};}'
+defaults write com.bjango.istatmenus.menubar.7 Profiles '{Available={identifier=default;};Settings={default={Battery={Menubar={DetailedState=0;Enabled=1;Items={Standard=({source=8;subtype=11;type=4;});};};};CPU={Menubar={Enabled=0;};};Combined={Menubar={Enabled=0;Items=({source=21;});};};Disks={Menubar={Enabled=0;};};Memory={Menubar={Enabled=0;};};Network={Menubar={Enabled=0;};};Sensors={Menubar={Enabled=0;Sensors=();};};Time={Menubar={};};Weather={Menubar={};};};};}'
+defaults write com.bjango.istatmenus.menubar.7 Sensors '{Global={Degrees={Format=1;};DetailLevel=0;Fans={Curve={};Curves={all={curve=({speed=0;temperature=0;},{speed=0;temperature="0.45";},{speed=1;temperature="0.95";},{speed=1;temperature=1;});};};};};}'
+
+
 
 # BetterTouchTool
 defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
