@@ -11,10 +11,26 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 BREW_PREFIX="$(brew --prefix)"
 BREW_BASH="${BREW_PREFIX}/bin/bash"
 
+# Set default shell to BASH
 if [[ -f "${BREW_BASH}" ]] && ! grep -qF "${BREW_BASH}" /etc/shells; then
   echo "${BREW_BASH}" | sudo tee -a /etc/shells
   sudo chsh -s "${BREW_BASH}" "${USER}"
 fi
+
+# Enable 'NOPASSWD' for the 'admins' group
+if [[ ! -f "/etc/sudoers.d/admins" ]];then
+    sudo mkdir -pv /etc/sudoers.d
+    sudo touch /etc/sudoers.d/admins
+    echo '%admin          ALL=(ALL)      NOPASSWD:ALL' > ./admins
+    sudo chown -v root:wheel ./admins
+    sudo chmod -v 0440 ./admins
+    sudo mv -v ./admins /etc/sudoers.d/admins
+fi
+
+# Set BASH as default shell
+sudo chpass -s /bin/bash
+sudo chpass -s /bin/bash "${USER}"
+
 
 # ─── Spotlight / locate db ───────────────────────────────────────────────────
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist
