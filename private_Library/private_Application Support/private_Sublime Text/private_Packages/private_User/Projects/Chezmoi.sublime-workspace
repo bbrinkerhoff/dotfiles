@@ -1,0 +1,266 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"save pro",
+				"Project: Save As"
+			],
+			[
+				"add fo",
+				"Project: Add Folder"
+			],
+			[
+				"diff",
+				"DiffTabs: Diff With Current Tab…"
+			],
+			[
+				"dif",
+				"DiffTabs: Diff With Current Tab…"
+			],
+			[
+				"min",
+				"Pretty JSON: Minify JSON"
+			],
+			[
+				"plist",
+				"Serialized Data Converter: PLIST to YAML"
+			],
+			[
+				"bash",
+				"Set Syntax: Bash"
+			],
+			[
+				"plis",
+				"Serialized Data Converter: PLIST to YAML"
+			],
+			[
+				"packa sett",
+				"Preferences: Package Control Settings"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"settings packa",
+				"Preferences: Package Control Settings"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 846.0,
+		"history":
+		[
+			"import shutil, zipfile, os, urllib.request\n\n# Download latest oscrypto\nurl = 'https://github.com/wbond/oscrypto/archive/master.zip'\ndest = os.path.expanduser('~/oscrypto-update.zip')\nurllib.request.urlretrieve(url, dest)\n\n# Extract and replace\nextract_dir = os.path.expanduser('~/oscrypto-update')\nwith zipfile.ZipFile(dest, 'r') as z:\n    z.extractall(extract_dir)\n\n# Find Package Control's oscrypto path\npc_path = os.path.join(sublime.packages_path(), '..', 'Installed Packages')\nprint(\"Done. Manual copy step needed.\")\nprint(f\"Source: {extract_dir}/oscrypto-master/oscrypto\")",
+			"import urllib.request; urllib.request.urlretrieve('https://github.com/wbond/oscrypto/archive/refs/heads/master.zip', '/tmp/oscrypto.zip')"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+	],
+	"file_history":
+	[
+		"/Users/draco/test.sh",
+		"/Users/draco/Desktop/Sikulix_export.bttpreset",
+		"/Users/draco/.local/share/chezmoi/dot_config/homebrew/Brewfile.tmpl",
+		"/Users/draco/istat_default",
+		"/Users/draco/istat_custom",
+		"/Users/draco/.bash/functions",
+		"/Users/draco/temp.sh",
+		"/Users/draco/.bash/aliases",
+		"/Users/draco/.bash/variables",
+		"/Users/draco/.local/share/chezmoi/run_once_before_install-packages-darwin.sh.tmpl",
+		"/Users/draco/Downloads/Setup Script/setupmacos.sh",
+		"/Users/draco/.local/share/chezmoi/private_Library/private_Application Support/private_Sublime Text/private_Packages/private_User/Preferences.sublime-settings.tmpl",
+		"/Users/draco/.local/share/chezmoi/run_once_before_configure-macos.sh.tmpl",
+		"/Users/draco/.local/share/chezmoi/private_Library/private_Application Support/private_Sublime Text/private_Packages/private_User/Package Control.sublime-settings"
+	],
+	"find":
+	{
+		"height": 30.0
+	},
+	"find_in_files":
+	{
+		"height": 158.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": true,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"scrollbar_highlights": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"use_gitignore": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 30.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.LSP Log Panel":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"output.diagnostics":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"output.find_results":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"output.mdpopups":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"pinned_build_system": "",
+	"project": "Chezmoi.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+		"lsp_show_inlay_hints": false
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 317.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
