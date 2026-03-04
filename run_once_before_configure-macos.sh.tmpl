@@ -27,10 +27,6 @@ if [[ ! -f "/etc/sudoers.d/admins" ]];then
     sudo mv -v ./admins /etc/sudoers.d/admins
 fi
 
-# Set BASH as default shell
-sudo chpass -s /bin/bash
-sudo chpass -s /bin/bash "${USER}"
-
 # ─── Spotlight / locate db ───────────────────────────────────────────────────
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist 2>/dev/null
 
