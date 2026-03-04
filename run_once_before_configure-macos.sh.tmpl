@@ -15,8 +15,8 @@ BREW_BASH="${BREW_PREFIX}/bin/bash"
 if [[ -f "${BREW_BASH}" ]];then
     grep -qF "${BREW_BASH}" /etc/shells || \
         echo "${BREW_BASH}" | sudo tee -a /etc/shells
-    [[ "${BREW_BASH}" == "$(dscl . -read ${HOME} shell | awk '{print $2})" ]] || \
-        sudo chsh -s "${BREW_BASH}" ${USER}"
+    [[ "${BREW_BASH}" == "$(dscl . -read "${HOME}" shell | awk '{print $2}')" ]] || \
+        sudo chsh -s "${BREW_BASH}" "${USER}"
 fi
 
 # Enable 'NOPASSWD' for the 'admins' group
