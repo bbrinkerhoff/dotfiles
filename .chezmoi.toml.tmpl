@@ -14,10 +14,10 @@
     email = "{{ $email }}"
     fullName = "{{ $fullName }}"
     autoCommit = {{ $autoCommit }}
-{{ if eq .chezmoi.os "darwin" -}}
+{{ if eq .chezmoi.os "darwin" }}
     macOSMajorVersion = "{{ $major }}"
     macOSMinorVersion = "{{ $minor }}"
-{{ end -}}
+{{ end }}
 
 [git]
     autoCommit = {{ $autoCommit }}
