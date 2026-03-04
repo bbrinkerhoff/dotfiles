@@ -371,12 +371,17 @@ sortMedia()
     find "${mediaDir}" -name '*' -exec file {} \; | grep -i -o -E '^.+: \w+ media' | cut -d: -f1 | sed 's/ /\\ /g' | xargs mv -v -t ./Videos/
 }
 
+help()
+{
+    command -p help "$@" | eval "${PAGER:-bat -l cmd-help --theme Dracula}"
+}
+
 man()
 {
-    case "$(type -t "$1"):$1" in
-        builtin:*) help "$1" | "${PAGER:-less}" ;; # built-in
-        *[[?*]*) help "$1" | "${PAGER:-less}" ;;   # pattern
-        *) command -p man "$@" ;;                  # something else, presumed to be an external command
+    case "$(bash -c "type -t \"$1\""):$1" in
+        builtin:*) help "$1" ;;   # built-in
+        *[[?*]*) help "$1" ;;     # pattern
+        *) command -p man "$@" ;; # something else, presumed to be an external command
             # or options for the man command or a section number
     esac
 }
