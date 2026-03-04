@@ -12,9 +12,11 @@ BREW_PREFIX="$(brew --prefix)"
 BREW_BASH="${BREW_PREFIX}/bin/bash"
 
 # Set default shell to BASH
-if [[ -f "${BREW_BASH}" ]] && ! grep -qF "${BREW_BASH}" /etc/shells; then
-  echo "${BREW_BASH}" | sudo tee -a /etc/shells
-  sudo chsh -s "${BREW_BASH}" "${USER}"
+if [[ -f "${BREW_BASH}" ]];then
+    grep -qF "${BREW_BASH}" /etc/shells || \
+        echo "${BREW_BASH}" | sudo tee -a /etc/shells
+    [[ "${BREW_BASH}" == "$(dscl . -read ${HOME} shell | awk '{print $2})" ]] || \
+        sudo chsh -s "${BREW_BASH}" ${USER}"
 fi
 
 # Enable 'NOPASSWD' for the 'admins' group

@@ -6,6 +6,8 @@
 export BASH_SILENCE_DEPRECATION_WARNING=1
 export FIGNORE="${FIGNORE}:bash_history:bash_sessions:DS_Store"
 export EDITOR='vim'
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 ####################
 # Prompt Variables #
