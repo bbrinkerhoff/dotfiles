@@ -1,0 +1,20 @@
+# Always enable extended mode
+-e
+
+# Enable file deletion
+--enable-delete
+
+# Enable delete confirmation
+--confirm-delete
+
+# Set delete command
+--delete-command trash
+
+# Enable refresh
+--enable-refresh
+
+# Exclude .git directories
+--exclude .git
+
+# Read excludes from ~/.ncduexcludes, ignore error if the file does not exist
+@--exclude-from ~/.config/ncdu/ncduexcludes
