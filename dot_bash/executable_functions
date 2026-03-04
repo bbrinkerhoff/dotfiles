@@ -371,9 +371,20 @@ sortMedia()
     find "${mediaDir}" -name '*' -exec file {} \; | grep -i -o -E '^.+: \w+ media' | cut -d: -f1 | sed 's/ /\\ /g' | xargs mv -v -t ./Videos/
 }
 
-builtinMan()
+help()
 {
-    man bash | less -p "^(${1}|${1^^})"
+    clear
+    command help "$@" | bat -l cmd-help
+}
+
+man()
+{
+    case "$(bash -c "type -t \"$1\""):$1" in
+        builtin:*) help "$1" ;; # built-in
+        *[[?*]*) help "$1" ;;   # pattern
+        *) command man "$@" ;;  # something else, presumed to be an external command
+            # or options for the man command or a section number
+    esac
 }
 
 checkCERT()

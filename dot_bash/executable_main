@@ -12,13 +12,15 @@ shopt -s histappend
 export BREW_PREFIX=$(brew --prefix)
 SOURCE_FILES=(
     ## Main BASH Resources
-    "${HOME}/.bash/aliases"
-    "${HOME}/.bash/functions"
-    "${HOME}/.bash/variables"
+    "${HOME}"/.bashrc
     "${HOME}/.bash/paths"
+    "${HOME}/.bash/variables"
+    "${HOME}/.bash/functions"
+    "${HOME}/.bash/aliases"
 
     ## Other BASH Resources
     "${BREW_PREFIX}/etc/bash_completion"
+    "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
 )
 
 for FILE in "${SOURCE_FILES[@]}"; do
