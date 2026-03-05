@@ -555,3 +555,12 @@ pasteScript()
     echo "${script}" >"${scriptname}"
     chmod +x "${scriptname}"
 }
+
+virtualenv()
+{
+
+    local venvOutput venvDir
+    venvOutput="$(command virtualenv $@ 2>&1 | tee /dev/tty)"
+    venvDir="$(grep -oP --color=never 'dest=\K[^,]*' <<<"${venvOutput}")"
+    sed -E -i'' 's/(PS1=")\(/\1\\n(/' "${venvDir}"/bin/*
+}
