@@ -1,6 +1,31 @@
-# Ignore chezmoi config so ~/.config can be recursively added
+**/.DS_Store
+**/*.ipa
+{{- if eq .chezmoi.os "windows" -}}
+Library
+.bash
+.bash_profile
+.bashrc
+.curlrc
+.gitconfig
+.gitignoreglobal
+.hushlogin
+.screenrc
+.vim_rurntime
+.vim*
+.config/Sideloadly
+.config/github-copilot
+.config/homebrew
+.config/iterm2
+.config/macOS
+.config/ncdu
+.config/wakeonlan
+*iterm*
+*macos*
+*macOS*
+*OSX*
+{{- end }}
+# Ignore chezmoi (& other) config so ~/.config can be recursively added
 .config/chezmoi
 .config/op
 .config/gtk*
-**/.DS_Store
-**/*.ipa
+
