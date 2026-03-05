@@ -106,6 +106,7 @@ eval "$(pyenv init - bash)"
 ######################
 export HOMEBREW_NO_ENV_HINTS=true
 export HOMEBREW_BUNDLE_FILE="${HOME}/.config/homebrew/Brewfile"
+export HOMEBREW_CASK_OPTS="--no-quarantine"
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true

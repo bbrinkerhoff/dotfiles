@@ -58,10 +58,10 @@
         "command": "format_mas_to_brewfile"
     },
     {
-      "keys":
-      [
-        "super+shift+forward_slash"
-      ],
+        "keys":
+        [
+            "super+shift+forward_slash"
+        ],
         "command": "hash_line"
     }
 ]
