@@ -6,8 +6,6 @@ Library
 .bash_profile
 .bashrc
 .curlrc
-.gitconfig
-.gitignoreglobal
 .hushlogin
 .screenrc
 .vim_rurntime
