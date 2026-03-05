@@ -1,4 +1,4 @@
-{{ if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
 set -eo pipefail
 
@@ -33,7 +33,7 @@ fi
 sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist 2>/dev/null
 
 # ─── Wallpaper ───────────────────────────────────────────────────────────────
-{{ $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" }}
+{{- $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" }}
 osascript <<EOF
 use framework "AppKit"
 use scripting additions
@@ -181,4 +181,5 @@ killall Activity\ Monitor || true
 killall Messages          || true
 killall TextEdit          || true
 killall SystemUIServer    || true
-{{ end }}
+
+{{- end -}}
