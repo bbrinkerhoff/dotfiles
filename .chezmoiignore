@@ -22,6 +22,8 @@ Library
 *macos*
 *macOS*
 *OSX*
+{{- else if eq .chezmoi.os "darwin" -}}
+Desktop/Scripts*
 {{- end }}
 # Ignore chezmoi (& other) config so ~/.config can be recursively added
 .config/chezmoi
