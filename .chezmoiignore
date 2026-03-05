@@ -18,6 +18,7 @@ Library
 .config/iterm2
 .config/macOS
 .config/ncdu
+.config/Sublime*
 .config/wakeonlan
 *iterm*
 *macos*
