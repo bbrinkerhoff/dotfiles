@@ -60,7 +60,7 @@ defaults write com.apple.dock static-only -bool false
 defaults write com.apple.dock scroll-to-open -bool false
 defaults write com.apple.dock show-recents -bool false
 defaults write com.apple.dock persistent-apps -array
-if which dockutil &>/dev/null;then
+if which dockutil &>/dev/null; then
     dockutil -p 1 --add "/System/Applications/Messages.app"        2>/dev/null || true
     dockutil -p 2 --add "/Applications/Firefox.app"                2>/dev/null || true
     dockutil -p 3 --add "/Applications/iTerm.app"                  2>/dev/null || true
