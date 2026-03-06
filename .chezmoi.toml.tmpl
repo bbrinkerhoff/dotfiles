@@ -1,29 +1,23 @@
-# Chezmoi configuration template
+# Enhanced Chezmoi Configuration
 
-# Centralized variables
-global_vars = {
-  username = "{{ .Username }}"
-  home_dir = "{{ .HomeDir }}"
-}
+# This template file allows for cross-platform configuration, including Windows support.
+# Centralized variables for all OSes with proper platform detection.
 
-# Cross-platform configurations
-[[platforms]]
-  name = "windows"
-  # Windows specific settings
-  data_dir = "C:\Users\{{ .username }}\.config"
-
-[[platforms]]
-  name = "linux"
-  # Linux specific settings
-  data_dir = "/home/{{ .username }}/.config"
-
-[[platforms]]
-  name = "darwin"
-  # macOS specific settings
-  data_dir = "/Users/{{ .username }}/.config"
-
-# Additional configurations
-
+# Centralized Variables
 [settings]
-  log_level = "info"
-  auto_update = true
+  home = "$HOME"
+  config_dir = "${HOME}/.config"
+  # Add any other centralized path variables here
+
+# Platform Detection
+{{ if eq .os "windows" }}
+  [windows]
+  # Windows-specific configurations
+  powershell_path = "C:\Program Files\PowerShell\7\pwsh.exe"
+{{ else }}
+  [unix]
+  # Unix/Linux specific configurations
+  shell_path = "$(which bash)"
+{{ end }}
+
+# Add more cross-platform configuration settings as needed.
