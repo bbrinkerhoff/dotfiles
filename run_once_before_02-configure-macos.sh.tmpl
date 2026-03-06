@@ -34,7 +34,7 @@ if [[ ! -f "/etc/sudoers.d/admins" ]]; then
 fi
 
 # ─── Spotlight / locate db ───────────────────────────────────────────────────
-sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist 2>/dev/null
+sudo launchctl load -w /System/Library/LaunchDaemons/com.apple.locate.plist 2>/dev/null || true
 
 # ─── Wallpaper ───────────────────────────────────────────────────────────────
 {{- $wallpaper := joinPath .chezmoi.sourceDir "dot_config/macOS/Wallpaper_16_9.png" }}
@@ -274,8 +274,9 @@ sudo chflags nohidden /Volumes
 chflags nohidden ~/Library
 xattr -d com.apple.FinderInfo ~/Library 2>/dev/null || true
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister \
-    -kill -r -domain local -domain system -domain user
-sudo systemsetup -settimezone "America/Denver" >/dev/null
+    -r -domain local -domain system -domain user
+# systemsetup deprecated in macOS 15+; falls back silently on newer versions
+sudo systemsetup -settimezone "America/Denver" 2>/dev/null || true
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2>/dev/null || true
 
 killall Activity\ Monitor || true

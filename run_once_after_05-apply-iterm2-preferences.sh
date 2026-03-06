@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
-
-# ─── Sudo keepalive ──────────────────────────────────────────────────────────
-# Cache sudo credentials upfront so we don't get prompted mid-script
-sudo -v
-while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" || exit
-done 2>/dev/null &
 
 # bashrc
 if [[ ! -f "/etc/bashrc_iTerm.app" && -f "/etc/bashrc_Apple_Terminal" ]]; then
