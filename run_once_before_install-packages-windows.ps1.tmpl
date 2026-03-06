@@ -1,0 +1,35 @@
+# PowerShell script to install WinGet packages from winget-packages.json
+
+# Define the location of the winget package file
+$jsonFile = 'winget-packages.json'
+
+# Check if the Winget exists on the system
+if (-Not (Get-Command winget -ErrorAction SilentlyContinue)) {
+    Write-Host "Winget is not installed on this system. Please install Winget to continue." -ForegroundColor Red
+    exit 1
+}
+
+# Check if the JSON file exists
+if (-Not (Test-Path $jsonFile)) {
+    Write-Host "The specified JSON file does not exist: $jsonFile" -ForegroundColor Red
+    exit 1
+}
+
+try {
+    # Read the JSON file and parse the contents
+    $packages = Get-Content $jsonFile | ConvertFrom-Json
+
+    # Install each package listed in the JSON file
+    foreach ($package in $packages) {
+        # Use Winget to install the package
+        $result = winget install --id $package.id -e
+        if ($result.ExitCode -ne 0) {
+            Write-Host "Error installing package: $($package.id) - $($result.StandardOutput)" -ForegroundColor Red
+        } else {
+            Write-Host "Successfully installed package: $($package.id)" -ForegroundColor Green
+        }
+    }
+} catch {
+    Write-Host "An error occurred: $_" -ForegroundColor Red
+    exit 1
+}
