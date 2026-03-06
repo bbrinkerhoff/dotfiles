@@ -1,4 +1,4 @@
-{{- if not eq .chezmoi.os "windows" -}}
+{{- if ne .chezmoi.os "windows" -}}
 #!/usr/bin/env bash
 
 set -eo pipefail
