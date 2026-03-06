@@ -1,27 +1,29 @@
-{{- $email := promptStringOnce . "email" "Email" -}}
-{{- $fullName := promptStringOnce . "fullName" "Full Name" -}}
-{{- $autoCommit := promptBoolOnce . "autoCommit" "Enable chezmoi auto-commit/auto-update (true/false)" -}}
-{{- $major := 0 -}}
-{{- $minor := 0 -}}
-{{- if eq .chezmoi.os "darwin" -}}
-    {{- $osVersion := output "sw_vers" "-productVersion" | trim -}}
-    {{- $versionParts := splitList "." $osVersion -}}
-    {{- $major = index $versionParts 0 | atoi -}}
-    {{- $minor = index $versionParts 1 | atoi -}}
-{{- end -}}
+# Chezmoi configuration template
 
-[data]
-    email = "{{ $email }}"
-    fullName = "{{ $fullName }}"
-    autoCommit = {{ $autoCommit }}
-{{ if eq .chezmoi.os "darwin" }}
-    macOSMajorVersion = "{{ $major }}"
-    macOSMinorVersion = "{{ $minor }}"
-{{ end }}
+# Centralized variables
+global_vars = {
+  username = "{{ .Username }}"
+  home_dir = "{{ .HomeDir }}"
+}
 
-[git]
-    autoCommit = {{ $autoCommit }}
-    autoPush = {{ $autoCommit }}
+# Cross-platform configurations
+[[platforms]]
+  name = "windows"
+  # Windows specific settings
+  data_dir = "C:\Users\{{ .username }}\.config"
 
-[onepassword]
-    command = "op"
+[[platforms]]
+  name = "linux"
+  # Linux specific settings
+  data_dir = "/home/{{ .username }}/.config"
+
+[[platforms]]
+  name = "darwin"
+  # macOS specific settings
+  data_dir = "/Users/{{ .username }}/.config"
+
+# Additional configurations
+
+[settings]
+  log_level = "info"
+  auto_update = true
