@@ -29,13 +29,13 @@ else
 fi
 
 # Install package manager if not installed
-if ! command -v "$PKG_MANAGER" &>/dev/null; then
-    echo "Installing package manager: $PKG_MANAGER"
+if ! command -v "${PKG_MANAGER}" &>/dev/null; then
+    echo "Installing package manager: ${PKG_MANAGER}"
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Install essential packages
-echo "Installing essential packages: $ESSENTIAL_PACKAGES"
-$PKG_MANAGER install -y $ESSENTIAL_PACKAGES
+echo "Installing essential packages: ${ESSENTIAL_PACKAGES}"
+${PKG_MANAGER} ${INSTALLER_CMD} ${ESSENTIAL_PACKAGES}
 
 {{- end -}}
