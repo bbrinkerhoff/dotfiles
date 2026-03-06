@@ -9,13 +9,16 @@ set -eo pipefail
 if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
     PKG_MANAGER="brew"
     ESSENTIAL_PACKAGES="git wget curl dockutil"
+    INSTALLER_CMD="install"
 elif [[ "{{ .chezmoi.os }}" == "linux-gnu" ]]; then
     if [ -x "$(command -v apt)" ]; then
         PKG_MANAGER="apt"
         ESSENTIAL_PACKAGES="git wget curl"
+        INSTALLER_CMD="install -y"
     elif [ -x "$(command -v pacman)" ]; then
         PKG_MANAGER="pacman"
         ESSENTIAL_PACKAGES="git wget curl"
+        INSTALLER_CMD="install -y"
     else
         echo "Unsupported package manager"
         exit 1
