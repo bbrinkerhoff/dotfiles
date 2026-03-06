@@ -12,6 +12,10 @@ __pycache__
 /.rvmrc
 /.rbenv-version
 
+# Claude
+*.claude
+CLAUDE.*
+
 # Misc
 .nocommit
 *.bak*

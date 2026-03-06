@@ -43,6 +43,7 @@ packages:
       - appcleaner
       - bartender
       - bettertouchtool
+      - clop
       - firefox
       - istat-menus
       - iterm2

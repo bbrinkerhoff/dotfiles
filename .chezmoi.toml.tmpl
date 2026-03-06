@@ -9,15 +9,20 @@
   config_dir = "${HOME}/.config"
   # Add any other centralized path variables here
 
-# Platform Detection
+[data]
+  fullName = "{{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/firstname" }} {{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/lastname" }}"
+  email    = "{{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/email" }}"
 {{ if eq .chezmoi.os "darwin" }}
-  powershell_path = 'C:\Program Files\PowerShell\7\pwsh.exe'
-{{ else if eq .chezmoi.os "windows" }}
-  [windows] # Windows-specific configurations
+  macOSMajorVersion = "{{ output "sw_vers" "-productVersion" | splitList "." | first | trim }}"
+{{ end }}
+
+# Platform Detection
+{{ if eq .chezmoi.os "windows" }}
+[windows] # Windows-specific configurations
 {{ else if eq .chezmoi.os "gnu-linux" }}
 {{ else if eq .chezmoi.os "linux" }}
 
-  [unix]
+[unix]
   # Unix/Linux specific configurations
   shell_path = "$(which bash)"
 {{ end }}

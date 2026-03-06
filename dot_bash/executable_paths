@@ -9,6 +9,7 @@ BREW_GNUPATHS=($(find "${BREW_PREFIX}/Cellar" -mindepth 4 -maxdepth 4 -type d -p
 BREW_MANPATHS=($(find "${BREW_PREFIX}/Cellar" -mindepth 4 -maxdepth 4 -type d -path '*/libexec/gnuman' 2>/dev/null))
 
 IFS=':'
+PATH="${HOME}/.local/bin:${PATH}"
 PATH="${BREW_GNUPATHS[*]}:${PATH}"
 MANPATH="${BREW_MANPATHS[*]}:${MANPATH}"
 unset IFS
