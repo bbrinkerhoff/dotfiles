@@ -1,0 +1,106 @@
+packages:
+  darwin:
+    taps:
+      - bbrinkerhoff/homebrew-private
+      - kavehtehrani/tap
+    brews:
+      - bash
+      - bash-completion@2
+      - bashdb
+      - bat
+      - chezmoi
+      - colordiff
+      - coreutils
+      - czkawka
+      - dockutil
+      - findutils
+      - gawk
+      - gnu-indent
+      - gnu-sed
+      - gnu-tar
+      - gnutls
+      - grep
+      - gum
+      - imagemagick
+      - kavehtehrani/tap/cloudflare-speed-cli
+      - mas
+      - node
+      - pyenv
+      - pyenv-virtualenv
+      - python-tk@3.14
+      - shellcheck
+      - shfmt
+      - tcl-tk
+      - tldr
+      - tree
+      - virtualenv
+      - wakeonlan
+      - wget
+    casks:
+      - 1password-cli
+      - 3dxware
+      - adobe-acrobat-pro
+      - appcleaner
+      - bartender
+      - bettertouchtool
+      - firefox
+      - istat-menus
+      - iterm2
+      - itermbrowserplugin
+      - localsend
+      - logi-options+
+      - macmediakeyforwarder
+      - mp3tag
+      - nextcloud
+      - onyx
+      - orcaslicer
+      - paragon-ntfs
+      - renamer
+      - script-debugger
+      - sdformatter
+      - soundsource
+      - spotify
+      - sublime-text
+      - vagrant
+      - virtualbox
+    # Requires macOS 26+
+    casks_macos26plus:
+      - archiver-app
+    mas:
+      - name: "1Password for Safari"
+        id: 1569813296
+      - name: "AdBlock Pro for Safari"
+        id: 1018301773
+      - name: "Controller for HomeKit"
+        id: 1198176727
+      - name: "GrandPerspective"
+        id: 1111570163
+      - name: "Key Codes"
+        id: 414568915
+      - name: "OpenIn 4 Advanced Link Handler"
+        id: 1643649331
+      - name: "Queryable"
+        id: 1661598353
+      - name: "Rapidmg"
+        id: 6451349778
+      - name: "SponsorBlock for Safari"
+        id: 1573461917
+      - name: "Tampermonkey"
+        id: 6738342400
+      - name: "Windows App"
+        id: 1295203466
+
+  windows:
+    - Microsoft.VisualStudioCode
+    - Git.Git
+    - OpenJS.NodeJS
+    - Python.Python.3
+    - Docker.DockerDesktop
+    - JernejSimoncic.Wget
+    - Microsoft.PowerShell
+    - Google.Chrome
+    - SlackTechnologies.Slack
+    - Zoom.Zoom
+    - Notepad++.Notepad++
+    - Microsoft.VisualStudio.2022.Community
+

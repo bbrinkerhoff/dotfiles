@@ -1,0 +1,203 @@
+[user]
+    # Specify the email address of the author/committer.
+    email = "{{ .email }}"
+
+    # Specify the username of the author/committer.
+    name = "{{ .name }}"
+
+[alias]
+
+    a        = commit --amend --no-edit
+    br       = branch --list --remote
+    c        = commit
+    ca       = !git add -A && gitmoji -c
+    cl       = clean -fxd
+    co       = checkout
+    cp       = cherry-pick
+    d        = "!git add -AN 2>/dev/null; git diff"
+    dc       = diff --cached
+    dn       = "!git add -AN 2>/dev/null; git diff | diffnav"
+    ds       = "!git add -AN 2>/dev/null; git -c delta.side-by-side=true diff"
+    dcs      = -c delta.side-by-side=true diff --cached
+    f        = fetch --prune
+    hash     = rev-parse HEAD
+    lc       = shortlog --email --numbered --summary --no-merges
+    lg       = log --graph --date=relative --pretty=format:'%C(bold blue)%h%C(reset) - %C(green)(%ar) %C(white)%s %C(dim white) [%an] %C(bold yellow)%d'
+    lgall    = log --all --graph --date=relative --pretty=format:'%C(bold blue)%h%C(reset) - %C(green)(%ar) %C(white)%s %C(dim white) [%an] %C(bold yellow)%d'
+    lh       = log -p -10
+    p        = pull
+    ps       = push
+    pushf    = push --force-with-lease
+    res      = reset --hard HEAD
+    rlc      = reset --hard HEAD~1
+    s        = status
+    sres     = reset --soft HEAD~1
+    sub      = submodule update --init --recursive
+	  uncommit = reset --soft HEAD^
+	  unstage  = reset HEAD --
+
+[mergetool]
+
+    prompt = false
+    keepBackup = false
+
+[mergetool "nvim"]
+
+    cmd = nvim -f "$MERGED" -c "DiffviewOpen"
+
+[difftool]
+
+    prompt = false
+
+[difftool "nvim"]
+
+    cmd = nvim -f -c DiffviewOpen
+
+[diff]
+
+    algorithm = histogram
+    colorMoved = default
+    tool = nvim
+
+[branch]
+
+    sort = -committerdate
+
+[commit]
+
+    verbose = true
+
+[merge]
+
+    conflictstyle = diff3
+    tool = nvim
+
+[color]
+
+    ui = true
+
+[color "branch"]
+
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+
+    meta = yellow
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    commit = yellow bold
+    whitespace = red reverse
+
+[color "status"]
+
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[color "diff-highlight"]
+
+    oldNormal = red bold
+    oldHighlight = red bold 52
+    newNormal = green bold
+    newHighlight = green bold 22
+
+[core]
+
+    abbrev = 12
+    attributesfile = ~/.gitattributes
+    excludesfile = ~/.gitignore
+    eol = lf
+    autocrlf = false
+    fileMode = false
+    pager = delta
+
+[pager]
+
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[interactive]
+
+    diffFilter = delta --color-only
+
+[delta]
+
+    dark = true
+    syntax-theme = zenburn
+    navigate = true
+    line-numbers = true
+    hunk-header-style = omit
+    file-modified-label =
+    hyperlinks = true
+    true-color = always
+
+[diff "bin"]
+
+    # Use `hexdump` to diff binary files.
+
+    textconv = hexdump -v -C
+
+[pretty]
+
+    custom = "%C(magenta)%h%C(red)%d %C(yellow)%ar %C(green)%s %C(yellow)(%an)"
+    #                     │        │            │            │             └─ author name
+    #                     │        │            │            └─ message
+    #                     │        │            └─ date (relative)
+    #                     │        └─ decorations (branch, heads or tags)
+    #                     └─ hash (abbreviated)
+
+[push]
+
+    # Make `git push` automatically push relevant
+    # annotated tags when pushing branches out.
+
+    autoSetupRemote = true
+    default = simple
+    followTags = true
+
+[fetch]
+
+	  prune = true
+	  pruneTag = true
+
+[user]
+
+    # Don't guess the user's identity.
+    # https://github.com/git/git/blob/90f7b16b3adc78d4bbabbd426fb69aa78c714f71/Documentation/config.txt#L2847-L2855
+    useConfigOnly = true
+
+[url "git@github.com:"]
+
+    insteadOf = https://github.com/
+
+[pull]
+
+    rebase = false
+
+[filter "lfs"]
+
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+
+[credential "https://github.com"]
+
+    helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+
+    helper = !/usr/bin/gh auth git-credential
+
+[rerere]
+
+    enabled = true
+
+[init]
+
+    defaultBranch = main

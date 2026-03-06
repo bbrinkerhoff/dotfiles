@@ -10,11 +10,13 @@
   # Add any other centralized path variables here
 
 # Platform Detection
-{{ if eq .os "windows" }}
-  [windows]
-  # Windows-specific configurations
+{{ if eq .os "darwin" }}
   powershell_path = "C:\Program Files\PowerShell\7\pwsh.exe"
-{{ else }}
+{{ else if eq .chezmoi.os "windows" }}
+  [windows] # Windows-specific configurations
+{{ else if eq .chezmoi.os "gnu-linux" }}
+{{ else if eq .chezmoi.os "linux" }}
+
   [unix]
   # Unix/Linux specific configurations
   shell_path = "$(which bash)"

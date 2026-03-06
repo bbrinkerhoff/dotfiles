@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "windows" -}}
+if (-Not (Get-Command winget -ErrorAction SilentlyContinue)) {
+    Write-Host "Winget is not installed. Please install Winget to continue." -ForegroundColor Red
+    exit 1
+}
+
+$packages = @(
+{{ range .packages.windows -}}
+    "{{ . }}"
+{{ end -}}
+)
+
+foreach ($package in $packages) {
+    Write-Host "Installing $package..." -ForegroundColor Cyan
+    winget install --id $package -e --accept-source-agreements --accept-package-agreements
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "Error installing $package" -ForegroundColor Red
+    } else {
+        Write-Host "Successfully installed $package" -ForegroundColor Green
+    }
+}
+{{- end -}}
