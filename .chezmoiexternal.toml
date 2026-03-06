@@ -1,0 +1,5 @@
+[".vim_runtime"]
+    type = "git-repo"
+    url = "https://github.com/amix/vimrc.git"
+    clone.args = ["--depth=1"]
+    pull.args = ["--ff-only"]
