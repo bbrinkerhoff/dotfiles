@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# This script installs package managers and essential packages for macOS and Linux/Ubuntu
+
+# Define package managers based on the OS type
+if [[ "$OSTYPE" == "darwin*" ]]; then
+    PKG_MANAGER="brew"
+    ESSENTIAL_PACKAGES="git wget curl"
+elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+    if [ -x "$(command -v apt)" ]; then
+        PKG_MANAGER="apt"
+        ESSENTIAL_PACKAGES="git wget curl"
+    elif [ -x "$(command -v pacman)" ]; then
+        PKG_MANAGER="pacman"
+        ESSENTIAL_PACKAGES="git wget curl"
+    else
+        echo "Unsupported package manager"
+        exit 1
+    fi
+else
+    echo "Unsupported OS"
+    exit 1
+fi
+
+# Install package manager if not installed
+if ! command -v "$PKG_MANAGER" &> /dev/null
+then
+    echo "Installing package manager: $PKG_MANAGER"
+    # Command to install the package manager goes here
+    # Example for Homebrew on macOS: 
+    # /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    # Uncomment and configure for your needs
+fi
+
+# Install essential packages
+echo "Installing essential packages: $ESSENTIAL_PACKAGES"
+$PKG_MANAGER install -y $ESSENTIAL_PACKAGES
