@@ -1,8 +1,5 @@
 packages:
   darwin:
-    taps:
-      - bbrinkerhoff/homebrew-private
-      - kavehtehrani/tap
     brews:
       - bash
       - bash-completion@2
@@ -22,9 +19,11 @@ packages:
       - grep
       - gum
       - imagemagick
+      - jq
       - kavehtehrani/tap/cloudflare-speed-cli
       - mas
       - node
+      - oxipng
       - pyenv
       - pyenv-virtualenv
       - python-tk@3.14
@@ -36,6 +35,8 @@ packages:
       - virtualenv
       - wakeonlan
       - wget
+      - yq
+      - zopfli
     casks:
       - 1password-cli
       - 3dxware
@@ -45,6 +46,7 @@ packages:
       - bettertouchtool
       - clop
       - firefox
+      - handbrake-app
       - istat-menus
       - iterm2
       - itermbrowserplugin
@@ -52,7 +54,7 @@ packages:
       - logi-options+
       - macmediakeyforwarder
       - mp3tag
-      - nextcloud
+      - nextcloud-vfs
       - onyx
       - orcaslicer
       - paragon-ntfs
@@ -64,33 +66,36 @@ packages:
       - sublime-text
       - vagrant
       - virtualbox
+      - vlc
     # Requires macOS 26+
     casks_macos26plus:
       - archiver-app
     mas:
-      - name: "1Password for Safari"
-        id: 1569813296
-      - name: "AdBlock Pro for Safari"
-        id: 1018301773
-      - name: "Controller for HomeKit"
-        id: 1198176727
-      - name: "GrandPerspective"
-        id: 1111570163
-      - name: "Key Codes"
-        id: 414568915
-      - name: "OpenIn 4 Advanced Link Handler"
-        id: 1643649331
-      - name: "Queryable"
-        id: 1661598353
-      - name: "Rapidmg"
-        id: 6451349778
-      - name: "SponsorBlock for Safari"
-        id: 1573461917
-      - name: "Tampermonkey"
-        id: 6738342400
-      - name: "Windows App"
-        id: 1295203466
-
+      - id: 1569813296
+        name: 1Password for Safari
+      - id: 1018301773
+        name: AdBlock Pro for Safari
+      - id: 1198176727
+        name: Controller for HomeKit
+      - id: 1111570163
+        name: GrandPerspective
+      - id: 414568915
+        name: Key Codes
+      - id: 1643649331
+        name: OpenIn 4 Advanced Link Handler
+      - id: 1661598353
+        name: Queryable
+      - id: 6451349778
+        name: Rapidmg
+      - id: 1573461917
+        name: SponsorBlock for Safari
+      - id: 6738342400
+        name: Tampermonkey
+      - id: 1295203466
+        name: Windows App
+    taps:
+      - bbrinkerhoff/homebrew-private
+      - kavehtehrani/tap
   windows:
     - Microsoft.VisualStudioCode
     - Git.Git
@@ -104,4 +109,3 @@ packages:
     - Zoom.Zoom
     - Notepad++.Notepad++
     - Microsoft.VisualStudio.2022.Community
-
