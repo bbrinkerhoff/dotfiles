@@ -69,7 +69,7 @@ packages:
       - vlc
     # Requires macOS 26+
     casks_macos26plus:
-      - archiver-app
+      #- archiver-app
     mas:
       - id: 1569813296
         name: 1Password for Safari

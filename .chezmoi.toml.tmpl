@@ -1,9 +1,5 @@
-# Enhanced Chezmoi Configuration
+{{- $autoCommit := promptBoolOnce . "autoCommit" "Enable chezmoi auto-commit/auto-update (true/false)" -}}
 
-# This template file allows for cross-platform configuration, including Windows support.
-# Centralized variables for all OSes with proper platform detection.
-
-# Centralized Variables
 [settings]
   home = "$HOME"
   config_dir = "${HOME}/.config"
@@ -12,19 +8,20 @@
 [data]
   fullName = "{{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/firstname" }} {{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/lastname" }}"
   email    = "{{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/email" }}"
-{{ if eq .chezmoi.os "darwin" }}
-  macOSMajorVersion = "{{ output "sw_vers" "-productVersion" | splitList "." | first | trim }}"
-{{ end }}
+  autoCommit = {{ $autoCommit }}
 
 # Platform Detection
-{{ if eq .chezmoi.os "windows" }}
-[windows] # Windows-specific configurations
+{{ if eq .chezmoi.os "darwin" }}
+  macOSMajorVersion = "{{ output "sw_vers" "-productVersion" | splitList "." | first | trim }}"
+{{ else if eq .chezmoi.os "windows" }}
+[windows]
 {{ else if eq .chezmoi.os "gnu-linux" }}
+[wsl-linux]
 {{ else if eq .chezmoi.os "linux" }}
-
-[unix]
-  # Unix/Linux specific configurations
+[linux]
   shell_path = "$(which bash)"
 {{ end }}
 
-# Add more cross-platform configuration settings as needed.
+[git]
+    autoCommit = {{ $autoCommit }}
+    autoPush = {{ $autoCommit }}
