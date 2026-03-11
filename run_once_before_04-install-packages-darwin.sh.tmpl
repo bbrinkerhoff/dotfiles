@@ -18,6 +18,9 @@ if [[ ! -f "/etc/bashrc_iTerm.app" && -f "/etc/bashrc_Apple_Terminal" ]]; then
 fi
 
 # ─── License keys ────────────────────────────────────────────────────────────
+defaults write com.bjango.istatmenus.menubar.7 License -dict \
+    License -string {{ onepasswordRead "op://Private/iStat Menus/license key" | quote }}
+
 defaults write com.incrediblebee.Archiver LicenseKey \
     -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
 
@@ -50,14 +53,13 @@ defaults write com.rogueamoeba.soundsource settingsPane -string "appearance"
 defaults write com.rogueamoeba.soundsource applicationTheme -int 2
 
 # iStat Menus 7
-defaults write com.bjango.istatmenus.menubar.7 License -dict \
-    License -string {{ onepasswordRead "op://Private/iStat Menus/license key" | quote }}
+defaults write com.bjango.istatmenus.menubar.7 Battery '{Menubar={Mode={SingleValue={Percentage={Font={Name=default;Size=1;Weight=semibold;};Global={Value={Dark={Text={};};};};};};};};}'
+defaults write com.bjango.istatmenus.menubar.7 Combined '{Menu={Items=(battery-battery,memory-overview,disks-physical,sensors-overview,disks-activity,network-bandwidth,processes);};}'
+defaults write com.bjango.istatmenus.menubar.7 Menu '{Theme={Dark=system;};}'
+defaults write com.bjango.istatmenus.menubar.7 Menubar '{CustomColor={Dark="0 0.8500000238418579 1 1";};Theme={Dark=custom;};}'
 defaults write com.bjango.istatmenus.menubar.7 MenubarCurrentApperance 'Dark'
-defaults write com.bjango.istatmenus.menubar.7 Menu '{Theme={Dark=dark;};}'
-defaults write com.bjango.istatmenus.menubar.7 Menubar '{CustomColor={Dark="0 0.8499822616577148 1 1";};Theme={Dark=custom;};}'
-defaults write com.bjango.istatmenus.menubar.7 Combined '{Menubar={Items=();};}'
-defaults write com.bjango.istatmenus.menubar.7 Profiles '{Available={identifier=default;};Settings={default={Battery={Menubar={DetailedState=0;Enabled=1;Items={Standard=({source=8;subtype=11;type=4;});};};};CPU={Menubar={Enabled=0;};};Combined={Menubar={Enabled=0;Items=({source=21;});};};Disks={Menubar={Enabled=0;};};Memory={Menubar={Enabled=0;};};Network={Menubar={Enabled=0;};};Sensors={Menubar={Enabled=0;Sensors=();};};Time={Menubar={};};Weather={Menubar={};};};};}'
-defaults write com.bjango.istatmenus.menubar.7 Sensors '{Global={Degrees={Format=1;};DetailLevel=0;Fans={Curve={};Curves={all={curve=({speed=0;temperature=0;},{speed=0;temperature="0.45";},{speed=1;temperature="0.95";},{speed=1;temperature=1;});};};};};}'
+defaults write com.bjango.istatmenus.menubar.7 Notifications '{Items=({enabled=0;source=battery-low;type=alert;uuid=4e1abe18-f00e-4f2f-9a69-1ee6d04643f4;},{enabled=0;source=daylightsaving;time=0;type=alert;uuid=7ad71b8c-c416-49c9-a5bc-41f76628c118;},{enabled=0;item={key=any;};source=temperature;time=30;type=banner;uuid=3e5ac3eb-5a05-4b12-82fe-a51860e5851d;value=95;});}'
+defaults write com.bjango.istatmenus.menubar.7 Profiles '{Available={identifier=default;};Settings={default={Battery={Menubar={DetailedState=0;Enabled=0;Items={NotCharging=();Standard=({source=8;subtype=11;type=4;});};};};CPU={Menubar={Enabled=0;};};Combined={Menubar={Enabled=1;Items=({source=21;});};};Disks={Menubar={Enabled=0;};};Memory={Menubar={Enabled=0;};};Network={Menubar={Enabled=0;};};Sensors={Menubar={Enabled=0;};};Time={Menubar={};};Weather={Menubar={};};};};}'
 
 # BetterTouchTool
 defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
