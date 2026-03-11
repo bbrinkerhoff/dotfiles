@@ -58,7 +58,7 @@ packages:
       - nextcloud-vfs
       - onyx
       - orcaslicer
-      - paragon-ntfs
+      # - paragon-ntfs
       - renamer
       - script-debugger
       - sdformatter
