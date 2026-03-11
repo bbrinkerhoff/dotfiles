@@ -29,7 +29,7 @@ finder()
 appID()
 {
     # Return bundle ID of a given application
-    osascript -e "id of app \"$@\""
+    osascript -e "id of app \"$*\""
 }
 
 ###################
