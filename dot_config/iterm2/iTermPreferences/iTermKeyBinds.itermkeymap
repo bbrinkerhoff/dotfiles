@@ -1,0 +1,100 @@
+{
+    "Key Mappings":
+    {
+        "0x43-0x120000-0x8":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0xb 0x19 0x18 0x18",
+            "Version": 1
+        },
+        "0x46-0x120000-0x3":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0x18 0x18",
+            "Version": 1
+        },
+        "0x56-0x120000-0x9":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0x19",
+            "Version": 1
+        },
+        "0x58-0x120000-0x7":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0xb",
+            "Version": 1
+        },
+        "0x5a-0x120000-0x6":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0x1f",
+            "Version": 1
+        },
+        "0x7f-0x100000":
+        {
+            "Action": 11,
+            "Text": "0x15"
+        },
+        "0x7f-0x80000":
+        {
+            "Action": 11,
+            "Text": "0x1b 0x7f"
+        },
+        "0xf701-0x2c0000-0x7d":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0xd 0x7e 0x2e 0x1 0xb",
+            "Version": 1
+        },
+        "0xf702-0x280000":
+        {
+            "Action": 10,
+            "Text": "b"
+        },
+        "0xf702-0x320000-0x7b":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0x1",
+            "Version": 1
+        },
+        "0xf703-0x280000":
+        {
+            "Action": 10,
+            "Text": "f"
+        },
+        "0xf703-0x320000-0x7c":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0x5",
+            "Version": 1
+        },
+        "0xf728-0x0":
+        {
+            "Action": 11,
+            "Text": "0x4"
+        },
+        "0xf728-0x100000-0x75":
+        {
+            "Action": 11,
+            "Label": "",
+            "Text": "0xb",
+            "Version": 1
+        },
+        "0xf728-0x80000":
+        {
+            "Action": 10,
+            "Text": "d"
+        }
+    },
+    "Touch Bar Items":
+    []
+}
