@@ -39,11 +39,12 @@ packages:
       - zopfli
     casks:
       - 1password-cli
-      - 3dxware
       - adobe-acrobat-pro
       - appcleaner
       - bartender
+      - bbrinkerhoff/homebrew-private/3dxware
       - bettertouchtool
+      - claude-code
       - clop
       - firefox
       - handbrake-app

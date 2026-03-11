@@ -4,7 +4,7 @@ set -eo pipefail
 
 # ─── Sudo keepalive ──────────────────────────────────────────────────────────
 # Cache sudo credentials upfront so we don't get prompted mid-script
-sudo -v
+sudo -n true 2>/dev/null || sudo -v
 while true; do
     sudo -n true
     sleep 60

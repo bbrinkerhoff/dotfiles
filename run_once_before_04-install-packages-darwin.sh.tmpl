@@ -3,34 +3,51 @@
 
 set -eo pipefail
 
+# ─── Sudo keepalive ──────────────────────────────────────────────────────────
+# Cache sudo credentials upfront so we don't get prompted mid-script
+sudo -n true 2>/dev/null || sudo -v
+while true; do
+    sudo -n true
+    sleep 60
+    kill -0 "$$" || exit
+done 2>/dev/null &
+
+# iTerm2 bashrc
+if [[ ! -f "/etc/bashrc_iTerm.app" && -f "/etc/bashrc_Apple_Terminal" ]]; then
+    sudo cp -v "/etc/bashrc_Apple_Terminal" "/etc/bashrc_iTerm.app"
+fi
+
 # ─── License keys ────────────────────────────────────────────────────────────
 defaults write com.incrediblebee.Archiver LicenseKey \
     -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
 
 defaults write com.surteesstudios.Bartender license6 \
-  -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
+    -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
 defaults write com.surteesstudios.Bartender license6HoldersName \
     -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
 
 defaults write com.rogueamoeba.soundsource registrationInfo -dict \
-    Name  -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
-    Code  -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
+    Name -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
+    Code -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
 
 # ─── App preferences ─────────────────────────────────────────────────────────
+# iTerm2
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "/Users/draco/.config/iterm2/iTermPreferences"
 
 # Bartender
-defaults write com.surteesstudios.Bartender launchAtLogin.isEnabled      -int 1
-defaults write com.surteesstudios.Bartender SUEnableAutomaticChecks      -int 1
+defaults write com.surteesstudios.Bartender launchAtLogin.isEnabled -int 1
+defaults write com.surteesstudios.Bartender SUEnableAutomaticChecks -int 1
 defaults write com.surteesstudios.Bartender TemporaryMenuBarItemShowTime -int 5
-defaults write com.surteesstudios.Bartender DisableAllTriggers           -int 0
-defaults write com.surteesstudios.Bartender pausingEnabled               -int 0
-defaults write com.surteesstudios.Bartender supressDuringMoves           -int 1
+defaults write com.surteesstudios.Bartender DisableAllTriggers -int 0
+defaults write com.surteesstudios.Bartender pausingEnabled -int 0
+defaults write com.surteesstudios.Bartender supressDuringMoves -int 1
 
 # SoundSource
-defaults write com.rogueamoeba.soundsource menuBarIcon       -string "speaker"
-defaults write com.rogueamoeba.soundsource keyboardVolume    -int 1
-defaults write com.rogueamoeba.soundsource settingsPane      -string "appearance"
-defaults write com.rogueamoeba.soundsource applicationTheme  -int 2
+defaults write com.rogueamoeba.soundsource menuBarIcon -string "speaker"
+defaults write com.rogueamoeba.soundsource keyboardVolume -int 1
+defaults write com.rogueamoeba.soundsource settingsPane -string "appearance"
+defaults write com.rogueamoeba.soundsource applicationTheme -int 2
 
 # iStat Menus 7
 defaults write com.bjango.istatmenus.menubar.7 License -dict \
@@ -42,19 +59,19 @@ defaults write com.bjango.istatmenus.menubar.7 Combined '{Menubar={Items=();};}'
 defaults write com.bjango.istatmenus.menubar.7 Profiles '{Available={identifier=default;};Settings={default={Battery={Menubar={DetailedState=0;Enabled=1;Items={Standard=({source=8;subtype=11;type=4;});};};};CPU={Menubar={Enabled=0;};};Combined={Menubar={Enabled=0;Items=({source=21;});};};Disks={Menubar={Enabled=0;};};Memory={Menubar={Enabled=0;};};Network={Menubar={Enabled=0;};};Sensors={Menubar={Enabled=0;Sensors=();};};Time={Menubar={};};Weather={Menubar={};};};};}'
 defaults write com.bjango.istatmenus.menubar.7 Sensors '{Global={Degrees={Format=1;};DetailLevel=0;Fans={Curve={};Curves={all={curve=({speed=0;temperature=0;},{speed=0;temperature="0.45";},{speed=1;temperature="0.95";},{speed=1;temperature=1;});};};};};}'
 
-
 # BetterTouchTool
-defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider  -int 2
+defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
 defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
-defaults write com.hegenberg.BetterTouchTool launchOnStartup       -int 1
+defaults write com.hegenberg.BetterTouchTool launchOnStartup -int 1
 
-
-killall "Archiver"        || true
-killall "SoundSource"     || true
-killall "Bartender 6"     || true
-killall "BetterTouchTool" || true
-killall "iStat Menus"     || true
-killall "Dock"            || true
-killall "Finder"          || true
+# Kill running processes
+killall "Archiver" 2>/dev/null || true
+killall "SoundSource" 2>/dev/null || true
+killall "Bartender 6" 2>/dev/null || true
+killall "BetterTouchTool" 2>/dev/null || true
+killall "iStat Menus" 2>/dev/null || true
+killall "Dock" 2>/dev/null || true
+killall "Finder" 2>/dev/null || true
+killall "iTerm" 2>/dev/null || true
 
 {{- end -}}
