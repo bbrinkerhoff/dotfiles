@@ -1,6 +1,9 @@
+# Global
 **/.DS_Store
 **/*.ipa
+
 {{- if eq .chezmoi.os "windows" -}}
+
 Library
 .bash
 .bash_profile
@@ -22,10 +25,15 @@ Library
 *macos*
 *macOS*
 *OSX*
-{{- else if eq .chezmoi.os "darwin" -}}
+
+{{- else if ne .chezmoi.os "windows" -}}
+
 Desktop/Scripts*
+
 {{- end }}
+
 Reference
+
 # Ignore chezmoi (& other) config so ~/.config can be recursively added
 .config/chezmoi
 .config/op
