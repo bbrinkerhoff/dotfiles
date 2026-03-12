@@ -66,6 +66,9 @@ defaults write com.hegenberg.BetterTouchTool BTTSyncCloudProvider -int 2
 defaults write com.hegenberg.BetterTouchTool SUAutomaticallyUpdate -int 1
 defaults write com.hegenberg.BetterTouchTool launchOnStartup -int 1
 
+# Github
+git config --global credential.gitHubAccountFiltering "false"
+
 # Kill running processes
 killall "Archiver" 2>/dev/null || true
 killall "SoundSource" 2>/dev/null || true

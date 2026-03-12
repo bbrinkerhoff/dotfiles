@@ -47,6 +47,7 @@ packages:
       - claude-code
       - clop
       - firefox
+      - git-credential-manager
       - handbrake-app
       - istat-menus
       - iterm2
