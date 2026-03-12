@@ -2,6 +2,7 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
+export HOMEBREW_CASK_OPTS="--no-quarantine"
 
 brew bundle --verbose --force --file=/dev/stdin <<EOF
 {{ range .packages.darwin.taps -}}

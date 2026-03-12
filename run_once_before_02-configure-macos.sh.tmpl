@@ -80,22 +80,22 @@ defaults write com.apple.screencapture show-thumbnail -bool false
 defaults write com.apple.screencapture type -string png
 
 # Safari
-defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool false
-defaults write com.apple.Safari HomePage -string "about:blank"
-defaults write com.apple.Safari ShowFavoritesBar -bool true
-defaults write com.apple.Safari ShowSidebarInTopSites -bool false
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
-defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
-defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
-defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
-defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
-defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
-defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
-defaults write com.apple.Safari IncludeDevelopMenu -bool true
-defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
-defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
+sudo defaults write com.apple.Safari ShowFullURLInSmartSearchField -bool false
+sudo defaults write com.apple.Safari HomePage -string "about:blank"
+sudo defaults write com.apple.Safari ShowFavoritesBar -bool true
+sudo defaults write com.apple.Safari ShowSidebarInTopSites -bool false
+sudo defaults write com.apple.Safari UniversalSearchEnabled -bool false
+sudo defaults write com.apple.Safari SuppressSearchSuggestions -bool true
+sudo defaults write com.apple.Safari FindOnPageMatchesWordStartsOnly -bool false
+sudo defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
+sudo defaults write com.apple.Safari WebContinuousSpellCheckingEnabled -bool true
+sudo defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
+sudo defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
+sudo defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+sudo defaults write com.apple.Safari IncludeDevelopMenu -bool true
+sudo defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
+sudo defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+sudo defaults write com.apple.Safari "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" -bool true
 
 # Finder
 defaults write com.apple.finder QuitMenuItem -bool false
@@ -112,7 +112,7 @@ defaults write com.apple.finder FXDefaultSearchScope -string SCcf
 defaults write com.apple.finder FXRemoveOldTrashItems -bool true
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
-defaults write com.apple.universalaccess showWindowTitlebarIcons -bool false
+sudo defaults write com.apple.universalaccess showWindowTitlebarIcons -bool false
 defaults write NSGlobalDomain NSToolbarTitleViewRolloverDelay -float 0
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 defaults write com.apple.finder _FXEnableColumnAutoSizing -bool true
@@ -195,7 +195,7 @@ defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 # Messages
-defaults write com.apple.MobileSMS MMSShowSubject -bool false
+sudo defaults write com.apple.MobileSMS MMSShowSubject -bool false
 defaults write com.apple.messageshelper.MessageController SOInputLineSettings -dict-add "automaticEmojiSubstitutionEnablediMessage" -bool false
 
 # Misc
@@ -237,10 +237,10 @@ defaults write com.apple.appstore WebKitDeveloperExtras -bool true
 defaults write com.apple.QuickTimePlayerX MGPlayMovieOnOpen -bool true
 
 # Accessibility
-defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
-defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
-defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
-defaults write com.apple.universalaccess reduceTransparency -bool false
+sudo defaults write com.apple.universalaccess closeViewScrollWheelToggle -bool true
+sudo defaults write com.apple.universalaccess HIDScrollZoomModifierMask -int 262144
+sudo defaults write com.apple.universalaccess closeViewZoomFollowsFocus -bool true
+sudo defaults write com.apple.universalaccess reduceTransparency -bool false
 
 # Bluetooth Audio
 defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Max (editable)" -int 80

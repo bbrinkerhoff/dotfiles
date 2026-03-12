@@ -8,7 +8,7 @@ set -eo pipefail
 # Define package managers based on the OS type
 if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
     PKG_MANAGER="brew"
-    ESSENTIAL_PACKAGES="git wget curl dockutil"
+    ESSENTIAL_PACKAGES="git wget curl dockutil bash"
     INSTALLER_CMD="install"
 elif [[ "{{ .chezmoi.os }}" == "linux-gnu" ]]; then
     if [ -x "$(command -v apt)" ]; then
