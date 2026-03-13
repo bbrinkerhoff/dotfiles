@@ -69,6 +69,15 @@ defaults write com.hegenberg.BetterTouchTool launchOnStartup -int 1
 # Github
 git config --global credential.gitHubAccountFiltering "false"
 
+# Nextcloud
+defaults write com.nextcloud.desktopclient enabledAccounts -array \
+    -string "bbrinkerhoff@bbhoff.ddns.net" \
+    -string "DracoMedia@bbhoff.ddns.net"
+defaults write com.nextcloud.desktopclient SUSendProfileInfo -bool false
+defaults write com.nextcloud.desktopclient SUHasLaunchedBefore -bool true
+defaults write com.nextcloud.desktopclient SUEnableAutomaticChecks -bool true
+defaults write com.nextcloud.desktopclient SUAutomaticallyUpdate -bool true
+
 # Kill running processes
 killall "Archiver" 2>/dev/null || true
 killall "SoundSource" 2>/dev/null || true

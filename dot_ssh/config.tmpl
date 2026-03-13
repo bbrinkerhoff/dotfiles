@@ -1,0 +1,34 @@
+# ~/.ssh/config
+# =============================================================================
+# OpenSSH client configuration.
+#
+# See https://www.ssh.com/ssh/config
+#
+
+# Skip newer or system-specific unmatched options.
+IgnoreUnknown AddKeysToAgent,UseKeychain
+
+Host *
+    {{ if eq .chezmoi.os "darwin" -}}
+    # Use 1Password ssh-agent
+    IdentityAgent {{ output "find" (printf "%s/Library/Group Containers" .chezmoi.homeDir) "-path" "*/*1password/*" "-name" "agent.sock" | trim }}
+    {{- end }}
+    {{ if ne .chezmoi.os "windows" -}}
+    # Accelerate connections by reusing existing connections to the same host.
+    ControlMaster auto
+    ControlPath {{ .chezmoi.homeDir }}/.ssh/controlmasters/%r@%h:%p
+    ControlPersist 5
+    {{- end }}
+
+    # Allow storing passphrases in the macOS keychain.
+    # See https://developer.apple.com/library/archive/technotes/tn2449/_index.html
+    AddKeysToAgent yes
+    UseKeychain yes
+
+    # Keep the connection temporarily open by sending a data every few minutes.
+    ServerAliveCountMax 6
+    ServerAliveInterval 300
+
+    # Disable client-side roaming support for security reasons.
+    # See https://www.upguard.com/blog/fixing-the-new-openssh-roaming-bug
+    UseRoaming no
