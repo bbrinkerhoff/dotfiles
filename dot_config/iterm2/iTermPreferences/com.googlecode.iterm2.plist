@@ -84566,7 +84566,7 @@ Open Paste History…</string>
 				<real>0.91842037439346313</real>
 			</dict>
 			<key>BM Growl</key>
-			<false/>
+			<true/>
 			<key>Background Color</key>
 			<dict>
 				<key>Alpha Component</key>

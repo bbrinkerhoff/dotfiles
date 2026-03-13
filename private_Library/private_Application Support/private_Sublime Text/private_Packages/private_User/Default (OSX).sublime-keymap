@@ -65,9 +65,8 @@
         "command": "hash_line"
     },
     {
-        "keys":
-        [
-            "super+alt+o"
+        "keys": [
+            "super+shift+o"
         ],
         "command": "prompt_open_project_or_workspace"
     }

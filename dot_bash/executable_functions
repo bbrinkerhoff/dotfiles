@@ -32,12 +32,6 @@ appID()
     osascript -e "id of app \"$*\""
 }
 
-appDefaults()
-{
-    # Read the defaults of the given application
-    defaults read $(appID "$@")
-}
-
 ###################
 ## Git functions ##
 ###################

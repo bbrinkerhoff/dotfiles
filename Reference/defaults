@@ -1,0 +1,100 @@
+defaults write 'com.apple.dock' 'mru-spaces' -bool false
+ defaults write 'NSGlobalDomain' 'AppleSpacesSwitchOnActivate' -bool true
+   defaults write 'com.apple.dock' 'expose-group-apps' -bool true
+     defaults write 'com.apple.spaces' 'spans-displays' -bool false  
+     defaults write 'com.apple.dock' 'enterMissionControlByTopWindowDrag' -bool true
+  defaults write 'NSGlobalDomain' 'NSCloseAlwaysConfirmsChanges' -bool true
+    defaults write 'NSGlobalDomain' 'NSQuitAlwaysKeepsWindows' -bool false
+      defaults write 'NSGlobalDomain' 'AppleWindowTabbingMode' -string "always"
+        defaults write 'com.apple.dock' 'show-recents' -bool false
+          defaults write 'com.apple.dock' 'show-process-indicators' -bool true
+            defaults write 'com.apple.dock' 'launchanim' -bool true
+              defaults write 'com.apple.dock' 'autohide' -bool true
+
+  defaults write 'com.apple.dock' 'minimize-to-application' -bool false
+    defaults write 'NSGlobalDomain' 'AppleActionOnDoubleClick' -string "Maximize"
+      defaults write 'com.apple.dock' 'mineffect' -string "genie"
+        defaults write 'com.apple.dock' 'orientation' -string "bottom"
+          defaults write 'com.apple.dock' 'tilesize' -float 36.0
+            defaults write 'com.apple.dock' 'largesize' -float 100.0
+              defaults write 'NSGlobalDomain' 'NSGlassDiffusionSetting' -bool true
+
+                defaults write 'NSGlobalDomain' 'AppleInterfaceStyle' -string "Dark"
+
+
+
+                  defaults write 'NSGlobalDomain' 'NSTableViewDefaultSizeMode' -int 2
+
+  defaults write 'NSGlobalDomain' 'AppleReduceDesktopTinting' -bool true
+
+    defaults write 'NSGlobalDomain' 'AppleShowScrollBars' -string "WhenScrolling"
+      defaults write 'NSGlobalDomain' 'AppleScrollerPagingBehavior' -bool true
+        defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC WiFi' -bool true
+  defaults write 'com.apple.controlcenter' 'NSStatusItem Preferred Position WiFi' -float 226.0
+
+
+
+
+
+
+
+
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC WiFi' -bool true
+
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC Bluetooth' -bool true
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC Battery' -bool false
+
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC AirDrop' -bool false
+
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC FocusModes' -bool true
+
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC UserSwitcher' -bool false
+
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC KeyboardBrightness' -bool false
+
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC Sound' -bool false
+
+
+    defaults write 'NSGlobalDomain' 'SLSMenuBarUseBlurredAppearance' -bool false
+
+
+      defaults write 'com.apple.controlcenter' 'AutoHideMenuBarOption' -int 2
+
+        defaults write 'com.apple.controlcenter' 'NumberOfRecents' -int 15
+
+          defaults write 'NSGlobalDomain' 'KeyRepeat' -float 2.0
+
+            defaults write 'NSGlobalDomain' 'InitialKeyRepeat' -float 30.0
+              defaults write 'com.apple.HIToolbox' 'AppleFnUsageType' -int 2
+
+                defaults write 'NSGlobalDomain' 'AppleKeyboardUIMode' -int 2
+                  defaults write 'com.apple.finder' 'FXICloudDriveDocuments' -bool false
+  defaults write 'com.apple.finder' 'FXICloudDriveDesktop' -bool false
+
+
+
+    defaults write 'com.apple.finder' 'ShowHardDrivesOnDesktop' -bool false
+      defaults write 'com.apple.finder' 'ShowExternalHardDrivesOnDesktop' -bool true
+        defaults write 'com.apple.finder' 'ShowRemovableMediaOnDesktop' -bool true
+          defaults write 'com.apple.finder' 'NewWindowTargetPath' -string "file:///Users/draco/Downloads/"
+  defaults write 'com.apple.finder' 'NewWindowTarget' -string "PfHm"
+    defaults write 'com.apple.finder' 'FinderSpawnTab' -bool true
+      defaults write 'NSGlobalDomain' 'AppleDisableTagBasedIconTinting' -bool true 
+      defaults write 'com.apple.finder' 'ShowRecentTags' -bool false
+
+  defaults write 'NSGlobalDomain' 'AppleShowAllExtensions' -bool false
+    defaults write 'com.apple.finder' 'FXEnableExtensionChangeWarning' -bool false
+      defaults write 'com.apple.finder' 'WarnOnEmptyTrash' -bool true
+
+        defaults write 'com.apple.finder' 'FXRemoveOldTrashItems' -bool true
+          defaults write 'com.apple.finder' '_FXSortFoldersFirst' -bool true
+            defaults write 'com.apple.finder' '_FXSortFoldersFirstOnDesktop' -bool true
+              defaults write 'com.apple.finder' 'FXDefaultSearchScope' -string "SCcf"
+                defaults write 'com.apple.finder' 'FXPreferredViewStyle' -string "Nlsv"
+                  defaults write 'com.apple.finder' 'ShowPreviewPane' -bool false
+                    defaults write 'com.apple.finder' 'ShowSidebar' -bool true
+
+                      defaults write 'com.apple.finder' 'ShowStatusBar' -bool true
+                        defaults write 'com.apple.finder' 'ShowPathbar' -bool true
+
+
