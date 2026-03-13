@@ -20,6 +20,18 @@
 		"selected_items":
 		[
 			[
+				"shfmt",
+				"Pretty Shell: Format"
+			],
+			[
+				"shf",
+				"Pretty Shell: Format"
+			],
+			[
+				"bash",
+				"Set Syntax: Bash"
+			],
+			[
 				"save pro",
 				"Project: Save As"
 			],
@@ -42,10 +54,6 @@
 			[
 				"plist",
 				"Serialized Data Converter: PLIST to YAML"
-			],
-			[
-				"bash",
-				"Set Syntax: Bash"
 			],
 			[
 				"plis",
@@ -98,18 +106,28 @@
 	},
 	"expanded_folders":
 	[
+		"/Users/draco/.bash",
+		"/Users/draco/.local",
+		"/Users/draco/.config"
 	],
 	"file_history":
 	[
+		"/Users/draco/.local/share/chezmoi/dot_bash/executable_variables",
+		"/Users/draco/.bash/variables",
+		"/Users/draco/.bash/functions",
+		"/Users/draco/.local/share/chezmoi/run_once_before_01-install-packages.sh.tmpl",
+		"/Users/draco/.local/share/chezmoi/run_onchange_before_03-brew-bundle-darwin.sh.tmpl",
+		"/Users/draco/.local/share/chezmoi/.chezmoidata/packages.yaml",
+		"/Users/draco/.local/share/chezmoi/run_once_before_02-configure-macos.sh.tmpl",
+		"/Users/draco/.local/share/chezmoi/run_once_before_04-install-packages-darwin.sh.tmpl",
+		"/Users/draco/.local/share/chezmoi/run_once_after_05-apply-iterm2-preferences.sh",
 		"/Users/draco/test.sh",
 		"/Users/draco/Desktop/Sikulix_export.bttpreset",
 		"/Users/draco/.local/share/chezmoi/dot_config/homebrew/Brewfile.tmpl",
 		"/Users/draco/istat_default",
 		"/Users/draco/istat_custom",
-		"/Users/draco/.bash/functions",
 		"/Users/draco/temp.sh",
 		"/Users/draco/.bash/aliases",
-		"/Users/draco/.bash/variables",
 		"/Users/draco/.local/share/chezmoi/run_once_before_install-packages-darwin.sh.tmpl",
 		"/Users/draco/Downloads/Setup Script/setupmacos.sh",
 		"/Users/draco/.local/share/chezmoi/private_Library/private_Application Support/private_Sublime Text/private_Packages/private_User/Preferences.sublime-settings.tmpl",
@@ -118,13 +136,14 @@
 	],
 	"find":
 	{
-		"height": 30.0
+		"height": 70.0
 	},
 	"find_in_files":
 	{
 		"height": 158.0,
 		"where_history":
 		[
+			""
 		]
 	},
 	"find_state":
@@ -132,6 +151,17 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"user",
+			"USER",
+			"CF_",
+			"CF",
+			"homebrew",
+			"quan",
+			"killall Terminal",
+			"killall",
+			"appID",
+			"HOMEB",
+			"iTerm"
 		],
 		"highlight": true,
 		"in_selection": false,

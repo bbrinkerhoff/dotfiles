@@ -63,5 +63,12 @@
             "super+shift+forward_slash"
         ],
         "command": "hash_line"
+    },
+    {
+        "keys":
+        [
+            "super+alt+o"
+        ],
+        "command": "prompt_open_project_or_workspace"
     }
 ]

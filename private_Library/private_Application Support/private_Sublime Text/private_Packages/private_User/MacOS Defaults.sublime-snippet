@@ -1,6 +1,6 @@
 <snippet>
   <content><![CDATA[
-defaults write ${1:appid} ${2:keyname} ${4:-string} ${3:value}
+defaults write ${1:appid} ${2:keyname} -${3:string} ${4:value}
 ]]></content>
   <tabTrigger>defaults </tabTrigger>
   <!-- <scope>source.python</scope> -->
