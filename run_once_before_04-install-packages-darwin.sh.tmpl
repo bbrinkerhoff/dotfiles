@@ -78,6 +78,14 @@ defaults write com.nextcloud.desktopclient SUHasLaunchedBefore -bool true
 defaults write com.nextcloud.desktopclient SUEnableAutomaticChecks -bool true
 defaults write com.nextcloud.desktopclient SUAutomaticallyUpdate -bool true
 
+# Openin
+defaults write app.loshadki.OpenIn.v4 appSelectionReduceAnimation -bool true
+defaults write app.loshadki.OpenIn.v4 appSelectionSize -int 32
+defaults write app.loshadki.OpenIn.v4 hideTips -boot true
+defaults write app.loshadki.OpenIn.v4 notificationsEnabled -boot true
+defaults write app.loshadki.OpenIn.v4 startAtLogin -bool true
+defaults write app.loshadki.OpenIn.v4 writeJavaScriptLogsToConsole -bool true
+
 # Kill running processes
 killall "Archiver" 2>/dev/null || true
 killall "SoundSource" 2>/dev/null || true
@@ -87,5 +95,7 @@ killall "iStat Menus" 2>/dev/null || true
 killall "Dock" 2>/dev/null || true
 killall "Finder" 2>/dev/null || true
 killall "iTerm" 2>/dev/null || true
+killall "OpenIn" 2>/dev/null || true
+killall "Nextcloud" 2>/dev/null || true
 
 {{- end -}}
