@@ -11,7 +11,7 @@ IgnoreUnknown AddKeysToAgent,UseKeychain
 Host *
     {{ if eq .chezmoi.os "darwin" -}}
     # Use 1Password ssh-agent
-    IdentityAgent {{ output "find" (printf "%s/Library/Group Containers" .chezmoi.homeDir) "-path" "*/*1password/*" "-name" "agent.sock" | trim }}
+    IdentityAgent {{ output "find" (printf "%s/Library/Group Containers" .chezmoi.homeDir) "-path" "*/*1password/*" "-name" "agent.sock" | trim | quote }}
     {{- end }}
     {{ if ne .chezmoi.os "windows" -}}
     # Accelerate connections by reusing existing connections to the same host.
