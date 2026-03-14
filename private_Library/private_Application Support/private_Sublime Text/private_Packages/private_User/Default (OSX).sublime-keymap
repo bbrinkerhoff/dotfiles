@@ -65,9 +65,24 @@
         "command": "hash_line"
     },
     {
-        "keys": [
+        "keys":
+        [
             "super+shift+o"
         ],
         "command": "prompt_open_project_or_workspace"
+    },
+    {
+        "keys":
+        [
+            "super+alt+o"
+        ],
+        "command": "open_recent_project_or_workspace"
+    },
+    {
+        "keys":
+        [
+            "super+alt+o"
+        ],
+        "command": "open_recent_project"
     }
 ]
