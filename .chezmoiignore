@@ -2,7 +2,7 @@
 **/.DS_Store
 **/*.ipa
 **/*.sublime-workspace
-
+**/Color\ Highlight.cache
 {{- if eq .chezmoi.os "windows" -}}
 
 Library
