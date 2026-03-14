@@ -76,13 +76,6 @@
         [
             "super+alt+o"
         ],
-        "command": "open_recent_project_or_workspace"
-    },
-    {
-        "keys":
-        [
-            "super+alt+o"
-        ],
         "command": "open_recent_project"
     }
 ]

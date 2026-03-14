@@ -1,9 +1,12 @@
-import sublime_plugin
-import os
+import sys
+from os.path import dirname
 
+sys.path.insert(0, dirname(__file__))
 
-def plugin_loaded():
-    plugins_dir = os.path.join(os.path.dirname(__file__), "plugins")
-    for filename in sorted(os.listdir(plugins_dir)):
-        if filename.endswith(".py") and not filename.startswith("_"):
-            sublime_plugin.reload_plugin("CustomPlugins.plugins.{}".format(filename[:-3]))
+from plugins.Autohotkey_Executor import *
+from plugins.Comment_Section import *
+from plugins.ExecPostSave import *
+from plugins.LiteralWhitespace import *
+from plugins.Minimap_Setting import *
+from plugins.RecentProjects import *
+from plugins.ResetWorkspace import *
