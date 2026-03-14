@@ -1,4 +1,0 @@
-[
-  { "caption": "Bash AutoExec: Automatically adds exec permissions post save.",
-    "command": "add_exec_to_file" },
-]
