@@ -4,16 +4,22 @@
 ## System Path variable exports ##
 ##################################
 # Get Brew 'gnubin'/'gnuman' PATHs to prefer GNU versions of commands
-[ -n ${BREW_PREFIX:+x} ] && BREW_PREFIX=$(brew --prefix)
-BREW_GNUPATHS=($(find "${BREW_PREFIX}/Cellar" -mindepth 4 -maxdepth 4 -type d -path '*/libexec/gnubin' 2>/dev/null))
-BREW_MANPATHS=($(find "${BREW_PREFIX}/Cellar" -mindepth 4 -maxdepth 4 -type d -path '*/libexec/gnuman' 2>/dev/null))
+BREW_PREFIX=${BREW_PREFIX:-$(brew --prefix)}
+shopt -s nullglob
+BREW_GNUPATHS=("${BREW_PREFIX}"/opt/*/libexec/gnubin)
+BREW_MANPATHS=("${BREW_PREFIX}"/opt/*/libexec/gnuman)
+shopt -u nullglob
 
 IFS=':'
 PATH="${HOME}/.local/bin:${PATH}"
+PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
 PATH="${BREW_GNUPATHS[*]}:${PATH}"
 MANPATH="${BREW_MANPATHS[*]}:${MANPATH}"
 unset IFS
 PATH+=":/usr/local/sbin:/usr/local/bin"
 PATH+=":/Applications/iTerm.app/Contents/Resources/utilities"
 PATH+=":/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+PATH=$(echo "$PATH" | tr ':' '\n' | awk '!seen[$0]++' | tr '\n' ':' | sed 's/:$//')
 export PATH MANPATH
+
+# PS4='+$BASH_SOURCE> ' BASH_XTRACEFD=7 bash -xl 7>&2

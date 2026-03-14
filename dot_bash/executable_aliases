@@ -5,7 +5,6 @@
 ################
 alias ...='cd ../../'
 alias ..='cd ../'
-alias BASH_DEBUG_ENV='PS4="+${BASH_SOURCE} >" BASH_XTRACEFD=7 bash -xl 7>&2'
 alias dd='sudo dd'
 alias diff='colordiff'
 alias grep='grep --color=always'
