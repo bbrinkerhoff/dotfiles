@@ -1,0 +1,11 @@
+<snippet>
+    <content><![CDATA[
+    {
+        "caption": "Bash AutoExec: Automatically adds exec permissions post save.",
+        "command": "add_exec_to_file"
+    }
+    { "caption": "${1:Command Caption}", "command": "${2:Command Name}" }
+]]></content>
+    <tabTrigger>cmd</tabTrigger>
+    <scope>source.json.sublime.commands</scope>
+</snippet>

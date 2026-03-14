@@ -1,0 +1,7 @@
+<snippet>
+  <content><![CDATA[
+defaults write ${1:appid} ${2:keyname} ${4:-string} ${3:value}
+]]></content>
+  <tabTrigger>defaults </tabTrigger>
+  <!-- <scope>source.python</scope> -->
+</snippet>

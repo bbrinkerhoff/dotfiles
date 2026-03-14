@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Workspace: Reset (close all tabs and collapse sidebar)",
+        "command": "reset_workspace"
+    }
+]

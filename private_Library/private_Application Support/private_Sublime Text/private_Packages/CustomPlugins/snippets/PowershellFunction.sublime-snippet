@@ -1,0 +1,21 @@
+<snippet>
+  <content><![CDATA[
+Function ${1} {
+  Param ()
+
+  Begin{ Write-Host "Beginning ${2}...`n" -ForegroundColor Yellow }
+
+  Process {
+    Try {
+      ${3}
+    }
+    Catch { Write-Host -BackgroundColor Red "Error: \$(\$_.Exception)"; Break }
+  }
+
+  End { If (\$?) { Write-Host "Completed Successfully.`n" -ForegroundColor Green } }
+
+}
+]]></content>
+  <tabTrigger>Function</tabTrigger>
+  <scope>source.powershell</scope>
+</snippet>
