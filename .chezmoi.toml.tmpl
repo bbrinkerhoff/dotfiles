@@ -1,4 +1,5 @@
 {{- $autoCommit := promptBoolOnce . "autoCommit" "Enable chezmoi auto-commit/auto-update (true/false)" -}}
+{{- $context := promptStringOnce . "context" "Machine context (personal/work)" -}}
 
 [settings]
   home = "$HOME"
@@ -9,6 +10,7 @@
   fullName = "{{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/firstname" }} {{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/lastname" }}"
   email    = "{{ onepasswordRead "op://Private/aqndunkxd5a5jhmpz7g5ahjz2y/email" }}"
   autoCommit = {{ $autoCommit }}
+  context    = {{ $context | quote }}
 
 # Platform Detection
 {{ if eq .chezmoi.os "darwin" }}

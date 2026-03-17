@@ -1,9 +1,21 @@
+{{- /* Render a single Host block from a .chezmoidata/ssh.yaml entry.
+       Each entry has:  name (string), comment (optional string), options (map). */ -}}
+{{- define "hostBlock" -}}
+{{ if .comment }}# {{ .comment }}
+{{ end -}}
+Host {{ .name }}
+{{- range $k, $v := .options }}
+    {{ $k }} {{ $v }}
+{{- end }}
+
+{{ end -}}
 # ~/.ssh/config
 # =============================================================================
-# OpenSSH client configuration.
+# OpenSSH client configuration — managed by chezmoi.
+# Edit hosts in .chezmoidata/ssh.yaml; edit global options directly here.
 #
 # See https://www.ssh.com/ssh/config
-#
+# =============================================================================
 
 # Skip newer or system-specific unmatched options.
 IgnoreUnknown AddKeysToAgent,UseKeychain
@@ -32,3 +44,30 @@ Host *
     # Disable client-side roaming support for security reasons.
     # See https://www.upguard.com/blog/fixing-the-new-openssh-roaming-bug
     UseRoaming no
+
+# =============================================================================
+# Hosts — Common (all platforms, all contexts)
+# =============================================================================
+{{ range .ssh.hosts.common -}}{{ template "hostBlock" . }}{{ end -}}
+
+# =============================================================================
+# Hosts — Platform-specific ({{ .chezmoi.os }})
+# =============================================================================
+{{ if eq .chezmoi.os "darwin" -}}
+{{ range .ssh.hosts.darwin -}}{{ template "hostBlock" . }}{{ end -}}
+{{ else if eq .chezmoi.os "linux" -}}
+{{ range .ssh.hosts.linux -}}{{ template "hostBlock" . }}{{ end -}}
+{{ else if eq .chezmoi.os "gnu-linux" -}}
+{{ range .ssh.hosts.gnu_linux -}}{{ template "hostBlock" . }}{{ end -}}
+{{ else if eq .chezmoi.os "windows" -}}
+{{ range .ssh.hosts.windows -}}{{ template "hostBlock" . }}{{ end -}}
+{{ end -}}
+
+# =============================================================================
+# Hosts — Context-specific ({{ .context }})
+# =============================================================================
+{{ if eq .context "work" -}}
+{{ range .ssh.hosts.work -}}{{ template "hostBlock" . }}{{ end -}}
+{{ else -}}
+{{ range .ssh.hosts.personal -}}{{ template "hostBlock" . }}{{ end -}}
+{{ end -}}
