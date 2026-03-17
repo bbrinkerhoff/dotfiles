@@ -104,35 +104,13 @@ export YELLOW="#f1fa8c"
 #########
 export PYENV_ROOT="${HOME}/.pyenv"
 [[ -d ${PYENV_ROOT}/bin ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
-command -v pyenv &>/dev/null && eval "$(pyenv init - bash)"
-
-##############################
-# 1Password SSH agent (WSL)  #
-##############################
-# Bridge Windows 1Password SSH agent to a Unix socket via socat+npiperelay.
-# npiperelay.exe must be placed at ~/winhome/AppData/Local/npiperelay/npiperelay.exe
-# See ~/.config/wsl/provision-wsl.sh for automated setup.
-if [[ "$(uname -s)" == "Linux" ]] && grep -qi microsoft /proc/version 2>/dev/null; then
-    export SSH_AUTH_SOCK="${HOME}/.ssh/agent.sock"
-    _NPIPERELAY="${HOME}/winhome/AppData/Local/npiperelay/npiperelay.exe"
-    if [[ -f "${_NPIPERELAY}" ]]; then
-        if ! ss -a 2>/dev/null | grep -qF "${SSH_AUTH_SOCK}"; then
-            rm -f "${SSH_AUTH_SOCK}"
-            (setsid socat UNIX-LISTEN:"${SSH_AUTH_SOCK}",fork \
-                EXEC:"${_NPIPERELAY} -ei -ep //./pipe/openssh-ssh-agent",nofork &) 2>/dev/null
-        fi
-    fi
-    unset _NPIPERELAY
-fi
+eval "$(pyenv init - bash)"
 
 ######################
 # Misc Env Variables #
 ######################
-# Homebrew (macOS only)
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    export HOMEBREW_NO_ENV_HINTS=true
-    export HOMEBREW_CASK_OPTS="--no-quarantine"
-fi
+export HOMEBREW_NO_ENV_HINTS=true
+export HOMEBREW_CASK_OPTS="--no-quarantine"
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
