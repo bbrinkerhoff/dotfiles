@@ -3,23 +3,31 @@
 ##################################
 ## System Path variable exports ##
 ##################################
-# Get Brew 'gnubin'/'gnuman' PATHs to prefer GNU versions of commands
-BREW_PREFIX=${BREW_PREFIX:-$(brew --prefix)}
-shopt -s nullglob
-BREW_GNUPATHS=("${BREW_PREFIX}"/opt/*/libexec/gnubin)
-BREW_MANPATHS=("${BREW_PREFIX}"/opt/*/libexec/gnuman)
-shopt -u nullglob
 
-IFS=':'
-PATH="${HOME}/.local/bin:${PATH}"
-PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
-PATH="${BREW_GNUPATHS[*]}:${PATH}"
-MANPATH="${BREW_MANPATHS[*]}:${MANPATH}"
-unset IFS
-PATH+=":/usr/local/sbin:/usr/local/bin"
-PATH+=":/Applications/iTerm.app/Contents/Resources/utilities"
-PATH+=":/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    # Get Brew 'gnubin'/'gnuman' PATHs to prefer GNU versions of commands
+    BREW_PREFIX=${BREW_PREFIX:-$(brew --prefix)}
+    shopt -s nullglob
+    BREW_GNUPATHS=("${BREW_PREFIX}"/opt/*/libexec/gnubin)
+    BREW_MANPATHS=("${BREW_PREFIX}"/opt/*/libexec/gnuman)
+    shopt -u nullglob
+
+    IFS=':'
+    PATH="${HOME}/.local/bin:${PATH}"
+    PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
+    PATH="${BREW_GNUPATHS[*]}:${PATH}"
+    MANPATH="${BREW_MANPATHS[*]}:${MANPATH}"
+    unset IFS
+    PATH+=":/usr/local/sbin:/usr/local/bin"
+    PATH+=":/Applications/iTerm.app/Contents/Resources/utilities"
+    PATH+=":/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+    export MANPATH
+
+elif [[ "$(uname -s)" == "Linux" ]]; then
+    PATH="${HOME}/.local/bin:${PATH}"
+fi
+
 PATH=$(echo "$PATH" | tr ':' '\n' | awk '!seen[$0]++' | tr '\n' ':' | sed 's/:$//')
-export PATH MANPATH
+export PATH
 
 # PS4='+$BASH_SOURCE> ' BASH_XTRACEFD=7 bash -xl 7>&2

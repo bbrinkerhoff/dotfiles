@@ -1,0 +1,198 @@
+{{- if eq .chezmoi.os "windows" -}}
+# Windows Configuration Script
+# Disables bloatware, applies registry tweaks, configures File History and Restore Points.
+# Re-runs automatically via chezmoi when this file changes.
+#
+# HKCU tweaks run without elevation.
+# HKLM tweaks (telemetry, update policy) require Administrator — run chezmoi
+# from an elevated PowerShell for full effect.
+
+$ErrorActionPreference = "Continue"
+$isAdmin = ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(
+    [Security.Principal.WindowsBuiltInRole]::Administrator)
+
+if (-not $isAdmin) {
+    Write-Host "Note: Not running as Administrator. HKLM (system-level) tweaks will be skipped." -ForegroundColor Yellow
+    Write-Host "      Re-run chezmoi from an elevated PowerShell to apply all settings." -ForegroundColor Yellow
+}
+
+function Write-Section { param([string]$t) Write-Host "`n=== $t ===" -ForegroundColor Cyan }
+
+function Set-Reg {
+    param(
+        [string]$Path,
+        [string]$Name,
+        [object]$Value,
+        [string]$Type = "DWord"
+    )
+    # Skip HKLM writes if not admin
+    if ($Path -like "HKLM:*" -and -not $isAdmin) { return }
+    if (-not (Test-Path $Path)) { New-Item -Path $Path -Force | Out-Null }
+    Set-ItemProperty -Path $Path -Name $Name -Value $Value -Type $Type -Force
+}
+
+# ─── Disable Copilot ──────────────────────────────────────────────────────────
+Write-Section "Disabling Copilot"
+Set-Reg "HKCU:\Software\Policies\Microsoft\Windows\WindowsCopilot"              "TurnOffWindowsCopilot" 1
+Set-Reg "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot"              "TurnOffWindowsCopilot" 1
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"     "ShowCopilotButton"     0
+
+# ─── Disable Bing search and Cortana in Start Menu ───────────────────────────
+Write-Section "Disabling Bing search in Start Menu"
+Set-Reg "HKCU:\Software\Policies\Microsoft\Windows\Explorer"                    "DisableSearchBoxSuggestions" 1
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"                "BingSearchEnabled"           0
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\Search"                "CortanaConsent"              0
+
+# ─── Restore Windows 10 classic right-click context menu ─────────────────────
+Write-Section "Restoring classic context menu"
+$ctxKey = "HKCU:\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32"
+if (-not (Test-Path $ctxKey)) { New-Item -Path $ctxKey -Force | Out-Null }
+Set-ItemProperty -Path $ctxKey -Name "(Default)" -Value "" -Type String -Force
+
+# ─── File Explorer settings ───────────────────────────────────────────────────
+Write-Section "Configuring File Explorer"
+$adv = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+Set-Reg $adv "HideFileExt"                    0   # Show file extensions
+Set-Reg $adv "Hidden"                         1   # Show hidden files
+Set-Reg $adv "ShowSuperHidden"                1   # Show protected OS files
+Set-Reg $adv "LaunchTo"                       1   # Open Explorer to This PC
+Set-Reg $adv "NavPaneExpandToCurrentFolder"   1
+Set-Reg $adv "NavPaneShowAllFolders"          0
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\CabinetState" `
+        "FullPath" 1                              # Full path in title bar
+
+# ─── Taskbar cleanup ──────────────────────────────────────────────────────────
+Write-Section "Cleaning up taskbar"
+Set-Reg $adv "ShowTaskViewButton"   0   # Hide Task View
+Set-Reg $adv "TaskbarDa"            0   # Hide Widgets
+Set-Reg $adv "TaskbarMn"            0   # Hide Chat/Teams
+Set-Reg $adv "ShowCopilotButton"    0   # Hide Copilot button (redundant, belt+braces)
+
+# ─── Privacy: advertising ID and telemetry ───────────────────────────────────
+Write-Section "Configuring privacy"
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo"       "Enabled"                                   0
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy"               "TailoredExperiencesWithDiagnosticDataEnabled" 0
+Set-Reg "HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection"              "AllowTelemetry"                            0
+Set-Reg "HKCU:\Software\Microsoft\Speech_OneCore\Settings\OnlineSpeechPrivacy"  "HasAccepted"                               0
+
+# ─── Disable Content Delivery Manager (Start suggestions, app installs) ───────
+Write-Section "Disabling Start menu ads and suggested apps"
+$cdm = "HKCU:\Software\Microsoft\Windows\CurrentVersion\ContentDeliveryManager"
+@(
+    "ContentDeliveryAllowed",
+    "FeatureManagementEnabled",
+    "OemPreInstalledAppsEnabled",
+    "PreInstalledAppsEnabled",
+    "PreInstalledAppsEverEnabled",
+    "SilentInstalledAppsEnabled",
+    "SoftLandingEnabled",
+    "SubscribedContentEnabled",
+    "SubscribedContent-310093Enabled",
+    "SubscribedContent-338387Enabled",
+    "SubscribedContent-338388Enabled",
+    "SubscribedContent-338389Enabled",
+    "SubscribedContent-338393Enabled",
+    "SubscribedContent-353694Enabled",
+    "SubscribedContent-353696Enabled",
+    "SystemPaneSuggestionsEnabled"
+) | ForEach-Object { Set-Reg $cdm $_ 0 }
+
+# ─── Disable Fast Startup (improves WSL stability and avoids stale state) ─────
+Write-Section "Disabling Fast Startup"
+Set-Reg "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Power" "HiberbootEnabled" 0
+if ($isAdmin) { powercfg /hibernate off 2>$null }
+
+# ─── Disable accessibility shortcuts (Sticky Keys, Toggle Keys, Filter Keys) ──
+Write-Section "Disabling accessibility shortcut prompts"
+Set-Reg "HKCU:\Control Panel\Accessibility\StickyKeys"     "Flags" "506" String
+Set-Reg "HKCU:\Control Panel\Accessibility\ToggleKeys"     "Flags" "58"  String
+Set-Reg "HKCU:\Control Panel\Accessibility\Keyboard Response" "Flags" "122" String
+
+# ─── Windows Update: set active hours to avoid surprise reboots ───────────────
+Write-Section "Configuring Windows Update active hours (08:00–23:00)"
+$wuPath = "HKLM:\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings"
+Set-Reg $wuPath "ActiveHoursStart"    8
+Set-Reg $wuPath "ActiveHoursEnd"      23
+Set-Reg $wuPath "IsActiveHoursEnabled" 1
+
+# ─── Remove bloatware ─────────────────────────────────────────────────────────
+Write-Section "Removing bloatware"
+$bloatware = @(
+    "Microsoft.549981C3F5F10",          # Cortana
+    "Microsoft.BingNews",
+    "Microsoft.BingWeather",
+    "Clipchamp.Clipchamp",
+    "Microsoft.GetHelp",
+    "Microsoft.Getstarted",
+    "Microsoft.MicrosoftOfficeHub",
+    "Microsoft.MicrosoftSolitaireCollection",
+    "Microsoft.People",
+    "Microsoft.PowerAutomateDesktop",
+    "MicrosoftTeams",                   # Personal Teams (NOT Teams for Work)
+    "Microsoft.Todos",
+    "Microsoft.WindowsCommunicationsApps",  # Mail & Calendar
+    "Microsoft.WindowsFeedbackHub",
+    "Microsoft.YourPhone",              # Phone Link
+    "Microsoft.ZuneMusic",              # Media Player (old)
+    "Microsoft.ZuneVideo"               # Movies & TV
+)
+
+foreach ($app in $bloatware) {
+    $pkg = Get-AppxPackage -Name $app -ErrorAction SilentlyContinue
+    if ($pkg) {
+        Write-Host "  Removing $app" -ForegroundColor Yellow
+        $pkg | Remove-AppxPackage -ErrorAction SilentlyContinue
+    }
+    if ($isAdmin) {
+        Get-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue |
+            Where-Object DisplayName -EQ $app |
+            Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
+    }
+}
+
+# ─── System Restore ───────────────────────────────────────────────────────────
+Write-Section "Configuring System Restore"
+if ($isAdmin) {
+    Enable-ComputerRestore -Drive "C:\" -ErrorAction SilentlyContinue
+    vssadmin resize shadowstorage /for=C: /on=C: /maxsize=10GB 2>$null
+
+    $taskName = "WeeklyRestorePoint"
+    if (-not (Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue)) {
+        $action  = New-ScheduledTaskAction -Execute "PowerShell.exe" `
+            -Argument "-NonInteractive -NoProfile -Command `"Checkpoint-Computer -Description 'Weekly Restore Point' -RestorePointType MODIFY_SETTINGS`""
+        $trigger  = New-ScheduledTaskTrigger -Weekly -DaysOfWeek Sunday -At "03:00"
+        $settings = New-ScheduledTaskSettingsSet -RunOnlyIfIdle -IdleDuration (New-TimeSpan -Minutes 10)
+        Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger `
+            -Settings $settings -RunLevel Highest -Force | Out-Null
+        Write-Host "  Created weekly restore point task (Sundays 03:00)" -ForegroundColor Green
+    } else {
+        Write-Host "  Weekly restore point task already exists" -ForegroundColor Green
+    }
+} else {
+    Write-Host "  Skipped (requires Administrator)" -ForegroundColor Yellow
+}
+
+# ─── File History ────────────────────────────────────────────────────────────
+Write-Section "Configuring File History"
+# Point File History at the NAS share
+$fhTarget = "\\qnap.local\WinFileHistory"
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\FileHistory" "TargetUrl"        $fhTarget String
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\FileHistory" "TargetVolumePath" $fhTarget String
+Set-Reg "HKCU:\Software\Microsoft\Windows\CurrentVersion\FileHistory" "Enabled"          1
+
+if ($isAdmin) {
+    Set-Service -Name "fhsvc" -StartupType Automatic -ErrorAction SilentlyContinue
+    Start-Service -Name "fhsvc" -ErrorAction SilentlyContinue
+}
+Write-Host "  Target: $fhTarget" -ForegroundColor Green
+Write-Host "  Tip: Verify in Settings → System → Storage → Advanced → File History" -ForegroundColor Yellow
+
+# ─── Restart Explorer to apply shell/taskbar changes ─────────────────────────
+Write-Section "Restarting Explorer"
+Stop-Process -Name explorer -Force -ErrorAction SilentlyContinue
+Start-Sleep -Seconds 2
+Start-Process explorer
+
+Write-Host "`n=== Configuration complete ===" -ForegroundColor Green
+Write-Host "Some changes (Copilot policy, telemetry, Fast Startup) require a reboot." -ForegroundColor Yellow
+{{- end -}}

@@ -102,3 +102,58 @@ packages:
             - bbrinkerhoff/homebrew-private
             - kavehtehrani/tap
     windows:
+        winget:
+            # ── Browsers ─────────────────────────────────────────────────────
+            - Mozilla.Firefox
+            - Google.Chrome
+
+            # ── Password Manager ─────────────────────────────────────────────
+            - AgileBits.1Password
+
+            # ── VPN & File Sync ──────────────────────────────────────────────
+            - MullvadVPN.MullvadVPN
+            - Nextcloud.NextcloudDesktop
+
+            # ── Dev Tools ────────────────────────────────────────────────────
+            - Git.Git
+            - Microsoft.PowerShell
+            - Microsoft.WindowsTerminal
+            - AutoHotkey.AutoHotkey            # AHK v2 only — v1 not in winget, install manually
+            - Python.Python.3
+            - Vim.Vim
+
+            # ── Productivity & System ────────────────────────────────────────
+            - Microsoft.PowerToys
+            - OpenShellMenu.OpenShell
+            - SublimeHQ.SublimeText.4
+            - AntibodySoftware.WizTree
+            - RevoUninstaller.RevoUninstaller
+            - XnSoft.XnViewMP
+
+            # ── Peripherals ──────────────────────────────────────────────────
+            - Logitech.LogiOptionsPlus
+            - Logitech.GHUB
+            - SteelSeries.GG
+            - NZXT.CAM
+
+            # ── Media ────────────────────────────────────────────────────────
+            - VideoLAN.VLC
+            - HandBrake.HandBrake
+            - Mp3tag.Mp3tag
+            - Spotify.Spotify
+            - yt-dlp.yt-dlp
+            - Streamlabs.Streamlabs
+
+            # ── 3D Modeling ──────────────────────────────────────────────────
+            # Fusion 360 is NOT in winget — download from autodesk.com manually
+            - SoftFever.OrcaSlicer
+
+            # ── Torrenting (qBittorrent only — arr stack runs in WSL) ────────
+            - qBittorrent.qBittorrent
+
+            # ── Utilities ────────────────────────────────────────────────────
+            - 7zip.7zip
+            - LocalSend.LocalSend
+            - Docker.DockerDesktop
+            - Rufus.Rufus
+            - REALiX.HWiNFO

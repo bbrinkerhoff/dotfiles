@@ -22,8 +22,13 @@ IgnoreUnknown AddKeysToAgent,UseKeychain
 
 Host *
     {{ if eq .chezmoi.os "darwin" -}}
-    # Use 1Password ssh-agent
+    # Use 1Password ssh-agent (macOS)
     IdentityAgent {{ output "find" (printf "%s/Library/Group Containers" .chezmoi.homeDir) "-path" "*/*1password/*" "-name" "agent.sock" | trim | quote }}
+    {{- end }}
+    {{ if eq .chezmoi.os "linux" -}}
+    # Use 1Password ssh-agent bridged from Windows via socat+npiperelay.
+    # Run ~/.config/wsl/provision-wsl.sh to set up the bridge.
+    IdentityAgent ~/.ssh/agent.sock
     {{- end }}
     {{ if ne .chezmoi.os "windows" -}}
     # Accelerate connections by reusing existing connections to the same host.

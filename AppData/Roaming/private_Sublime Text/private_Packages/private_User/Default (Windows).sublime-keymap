@@ -1,0 +1,44 @@
+[
+    // Sort lines — case insensitive
+    {
+        "keys": ["ctrl+alt+5"],
+        "command": "sort_lines",
+        "args": { "case_sensitive": false }
+    },
+    // Sort lines — case sensitive
+    {
+        "keys": ["shift+ctrl+alt+5"],
+        "command": "sort_lines",
+        "args": { "case_sensitive": true }
+    },
+    // Focus neighboring group (Origami)
+    {
+        "keys": ["ctrl+shift+alt+left"],
+        "command": "focus_neighboring_group",
+        "args": { "forward": false }
+    },
+    {
+        "keys": ["ctrl+shift+alt+right"],
+        "command": "focus_neighboring_group"
+    },
+    // Destroy pane (Origami)
+    {
+        "keys": ["ctrl+alt+w"],
+        "command": "destroy_pane",
+        "args": { "direction": "self" }
+    },
+    // Hash/comment line
+    {
+        "keys": ["ctrl+shift+forward_slash"],
+        "command": "hash_line"
+    },
+    // Open project
+    {
+        "keys": ["ctrl+shift+o"],
+        "command": "prompt_open_project_or_workspace"
+    },
+    {
+        "keys": ["ctrl+alt+o"],
+        "command": "open_recent_project"
+    }
+]

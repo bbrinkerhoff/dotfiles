@@ -1,0 +1,53 @@
+{{- if eq .chezmoi.os "windows" -}}
+# Copies Sublime Text CustomPlugins and User/Templates from the chezmoi source
+# into the Windows AppData Sublime Text directory.
+# Runs via chezmoi run_onchange — re-runs when this file changes.
+
+$ErrorActionPreference = "Stop"
+$sourceDir   = "{{ .chezmoi.sourceDir }}"
+$sublimeDest = "$env:APPDATA\Sublime Text\Packages"
+
+function Write-Section { param([string]$t) Write-Host "`n=== $t ===" -ForegroundColor Cyan }
+
+# Source paths (Mac chezmoi naming — these are in the source repo regardless of OS)
+$customPluginsSrc = Join-Path $sourceDir `
+    "private_Library\private_Application Support\private_Sublime Text\private_Packages\CustomPlugins"
+$templatesSrc = Join-Path $sourceDir `
+    "private_Library\private_Application Support\private_Sublime Text\private_Packages\private_User\Templates"
+$installedPkgSrc = Join-Path $sourceDir `
+    "private_Library\private_Application Support\private_Sublime Text\private_Installed Packages"
+
+# ── CustomPlugins ─────────────────────────────────────────────────────────────
+Write-Section "Syncing CustomPlugins"
+if (Test-Path $customPluginsSrc) {
+    $dest = Join-Path $sublimeDest "CustomPlugins"
+    Copy-Item -Path $customPluginsSrc -Destination $dest -Recurse -Force
+    Write-Host "  Copied CustomPlugins → $dest" -ForegroundColor Green
+} else {
+    Write-Host "  CustomPlugins source not found: $customPluginsSrc" -ForegroundColor Yellow
+}
+
+# ── User/Templates (AHK templates etc.) ──────────────────────────────────────
+Write-Section "Syncing User/Templates"
+if (Test-Path $templatesSrc) {
+    $dest = Join-Path $sublimeDest "User\Templates"
+    New-Item -ItemType Directory -Path $dest -Force | Out-Null
+    Copy-Item -Path "$templatesSrc\*" -Destination $dest -Recurse -Force
+    Write-Host "  Copied User/Templates → $dest" -ForegroundColor Green
+} else {
+    Write-Host "  User/Templates source not found: $templatesSrc" -ForegroundColor Yellow
+}
+
+# ── Installed Packages (.sublime-package binaries) ───────────────────────────
+Write-Section "Syncing Installed Packages"
+if (Test-Path $installedPkgSrc) {
+    $dest = "$env:APPDATA\Sublime Text\Installed Packages"
+    New-Item -ItemType Directory -Path $dest -Force | Out-Null
+    Copy-Item -Path "$installedPkgSrc\*" -Destination $dest -Force
+    Write-Host "  Copied Installed Packages → $dest" -ForegroundColor Green
+} else {
+    Write-Host "  Installed Packages source not found: $installedPkgSrc" -ForegroundColor Yellow
+}
+
+Write-Host "`nSublime Text assets synced." -ForegroundColor Green
+{{- end -}}

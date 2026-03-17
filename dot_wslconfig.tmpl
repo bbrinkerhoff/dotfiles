@@ -1,0 +1,19 @@
+{{- if eq .chezmoi.os "windows" -}}
+# ~/.wslconfig — WSL2 global settings (Windows-side)
+# Applied to all WSL2 distros. Requires WSL restart: wsl --shutdown
+
+[wsl2]
+# Limit memory to avoid WSL consuming all RAM.
+# Adjust to ~50% of your physical RAM.
+memory=8GB
+
+# Limit virtual processors. Adjust to taste.
+processors=4
+
+# Allow WSL to reach Windows localhost and vice-versa.
+localhostForwarding=true
+
+# Mirrored networking: WSL shares the same IP as Windows.
+# Enables arr stack in WSL to reach qBittorrent on Windows via localhost.
+networkingMode=mirrored
+{{- end -}}

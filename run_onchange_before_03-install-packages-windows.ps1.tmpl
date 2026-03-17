@@ -5,18 +5,23 @@ if (-Not (Get-Command winget -ErrorAction SilentlyContinue)) {
 }
 
 $packages = @(
-{{ range .packages.windows -}}
+{{ range .packages.windows.winget -}}
     "{{ . }}"
 {{ end -}}
 )
 
 foreach ($package in $packages) {
-    Write-Host "Installing $package..." -ForegroundColor Cyan
-    winget install --id $package -e --accept-source-agreements --accept-package-agreements
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "Error installing $package" -ForegroundColor Red
+    # Strip inline comments (anything after whitespace + #)
+    $id = ($package -split '\s+#')[0].Trim()
+    if (-not $id) { continue }
+
+    Write-Host "Installing $id..." -ForegroundColor Cyan
+    winget install --id $id -e --silent --accept-source-agreements --accept-package-agreements
+    if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne -1978335189) {
+        # -1978335189 (0x8A15002B) = already installed at latest version, not an error
+        Write-Host "Warning: winget exited $LASTEXITCODE for $id" -ForegroundColor Yellow
     } else {
-        Write-Host "Successfully installed $package" -ForegroundColor Green
+        Write-Host "OK: $id" -ForegroundColor Green
     }
 }
 {{- end -}}

@@ -29,6 +29,10 @@ Library
 
 {{- else if ne .chezmoi.os "windows" -}}
 
+# Windows-only paths — ignore on macOS/Linux
+AppData
+dot_wslconfig
+
 Desktop/Scripts*
 
 {{- end }}
