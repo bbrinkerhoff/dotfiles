@@ -12,7 +12,6 @@ shopt -s histappend
 export BREW_PREFIX=$(brew --prefix)
 SOURCE_FILES=(
     ## Main BASH Resources
-    "${HOME}"/.bashrc
     "${HOME}/.bash/paths"
     "${HOME}/.bash/variables"
     "${HOME}/.bash/functions"
