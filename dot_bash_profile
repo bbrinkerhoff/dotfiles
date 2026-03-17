@@ -1,7 +1,7 @@
-if [ -f "${HOME}/.bash/main" ];then
-  . "${HOME}/.bash/main"
-fi
-
 if [ -r /etc/profile ];then
   . /etc/profile
+fi
+
+if [ -f "${HOME}/.bash/main" ];then
+  . "${HOME}/.bash/main"
 fi
