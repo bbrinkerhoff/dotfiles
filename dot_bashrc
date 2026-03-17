@@ -1,3 +1,10 @@
+if [ -d /etc/profile.d ]; then
+  for f in /etc/profile.d/*.sh; do
+      [ -r "$f" ] && source "$f"
+  done
+  unset f
+fi
+
 if [ -f "${HOME}/.bash_profile" ];then
   . "${HOME}/.bash_profile"
 fi
