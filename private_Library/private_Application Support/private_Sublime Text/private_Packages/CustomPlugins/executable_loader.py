@@ -10,3 +10,4 @@ from plugins.LiteralWhitespace import *
 from plugins.Minimap_Setting import *
 from plugins.RecentProjects import *
 from plugins.ResetWorkspace import *
+from plugins.Winget2Yaml import *
