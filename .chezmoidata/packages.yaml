@@ -24,6 +24,7 @@ packages:
             - imagemagick
             - jq
             - kavehtehrani/tap/cloudflare-speed-cli
+            - libao
             - mas
             - node
             - oxipng
