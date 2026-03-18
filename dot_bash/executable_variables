@@ -110,7 +110,7 @@ eval "$(pyenv init - bash)"
 # Misc Env Variables #
 ######################
 export HOMEBREW_NO_ENV_HINTS=true
-export HOMEBREW_CASK_OPTS="--no-quarantine"
+export HOMEBREW_CASK_OPTS="--no-quarantine --adopt"
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
