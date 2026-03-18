@@ -11,7 +11,7 @@ packages:
             - bash-completion@2
             - bashdb
             - bat
-            - bbrinkerhoff/homebrew-private/ffmpeg
+            - bbrinkerhoff/private/ffmpeg
             - chezmoi
             - colordiff
             - coreutils
@@ -52,8 +52,8 @@ packages:
             - adobe-creative-cloud
             - appcleaner
             - bartender
-            - bbrinkerhoff/homebrew-private/3dxware
-            - bbrinkerhoff/homebrew-private/czkawka-krokiet
+            - bbrinkerhoff/private/3dxware
+            - bbrinkerhoff/private/czkawka-krokiet
             - bettertouchtool
             - claude-code
             - clop
@@ -109,7 +109,7 @@ packages:
             - id: 1295203466
               name: Windows App
         taps:
-            - bbrinkerhoff/homebrew-private
+            - bbrinkerhoff/private
             - kavehtehrani/tap
     windows:
         winget:
