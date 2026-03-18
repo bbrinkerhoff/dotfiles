@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# FFmpeg wrapper: injects -tag:v hvc1 when encoding H.265/HEVC so that
+# output files are playable in QuickTime Player on macOS.
+
+REAL_FFMPEG=/opt/homebrew/bin/ffmpeg
+
+is_hevc=false
+for arg in "$@"; do
+  case "$arg" in
+    libx265|hevc_*|hevc) is_hevc=true; break ;;
+  esac
+done
+
+if $is_hevc; then
+  # Insert -tag:v hvc1 before the last argument (the output file)
+  args=("$@")
+  last="${args[-1]}"
+  unset 'args[-1]'
+  exec "$REAL_FFMPEG" "${args[@]}" -tag:v hvc1 "$last"
+else
+  exec "$REAL_FFMPEG" "$@"
+fi
