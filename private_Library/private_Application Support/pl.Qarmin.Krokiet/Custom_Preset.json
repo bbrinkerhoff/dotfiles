@@ -223,7 +223,7 @@
     "video_optimizer_black_bar_min_percentage": 90,
     "video_optimizer_black_pixel_threshold": 20,
     "video_optimizer_crop_type": "blackbars",
-    "video_optimizer_excluded_codecs": "h265,hevc,av1,vp9",
+    "video_optimizer_excluded_codecs": "h265 -tag:v hvc1,hevc -tag:v hvc1,av1,vp9",
     "video_optimizer_fail_if_bigger": false,
     "video_optimizer_image_threshold": 1,
     "video_optimizer_limit_video_size": false,
