@@ -3,6 +3,7 @@
 
 set -eo pipefail
 export HOMEBREW_CASK_OPTS="--no-quarantine"
+export MAS_NO_AUTO_INDEX=1
 
 brew bundle --verbose --file=/dev/stdin <<EOF
 {{ range .packages.darwin.taps -}}
