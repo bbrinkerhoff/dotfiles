@@ -46,6 +46,7 @@ packages:
             - appcleaner
             - bartender
             - bbrinkerhoff/homebrew-private/3dxware
+            - bbrinkerhoff/homebrew-private/czkawka-krokiet
             - bettertouchtool
             - claude-code
             - clop
