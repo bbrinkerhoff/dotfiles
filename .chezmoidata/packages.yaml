@@ -1,11 +1,6 @@
 packages:
     darwin:
-        brews_custom:
-            - name: homebrew-ffmpeg/ffmpeg/ffmpeg
-              args:
-                  - with-libaom
-                  - with-libdav1d
-                  - with-libfdk-aac
+        brews_custom: []
         brews:
             - bash
             - bash-completion@2
