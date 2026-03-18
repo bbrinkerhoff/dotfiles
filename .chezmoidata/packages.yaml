@@ -1,5 +1,11 @@
 packages:
     darwin:
+        brews_custom:
+            - name: homebrew-ffmpeg/ffmpeg/ffmpeg
+              args:
+                  - with-libaom
+                  - with-libdav1d
+                  - with-libfdk-aac
         brews:
             - bash
             - bash-completion@2
@@ -103,6 +109,7 @@ packages:
               name: Windows App
         taps:
             - bbrinkerhoff/homebrew-private
+            - homebrew-ffmpeg/ffmpeg
             - kavehtehrani/tap
     windows:
         winget:
