@@ -1,7 +1,8 @@
 {
-    "default_preset": 10,
+    "default_preset": 0,
     "preset_names":
     [
+        "Custom Preset",
         "Preset 1",
         "Preset 2",
         "Preset 3",
@@ -12,7 +13,6 @@
         "Preset 8",
         "Preset 9",
         "Preset 10",
-        "Custom Preset",
         "CLI Folders"
     ],
     "window_width": 1400,
