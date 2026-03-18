@@ -11,6 +11,7 @@ packages:
             - bash-completion@2
             - bashdb
             - bat
+            - bbrinkerhoff/private/ffmpeg
             - chezmoi
             - colordiff
             - coreutils
@@ -109,7 +110,6 @@ packages:
               name: Windows App
         taps:
             - bbrinkerhoff/homebrew-private
-            - homebrew-ffmpeg/ffmpeg
             - kavehtehrani/tap
     windows:
         winget:
