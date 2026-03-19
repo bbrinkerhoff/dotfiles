@@ -1,0 +1,3 @@
+{{- if eq .chezmoi.os "darwin" -}}
+{{ output "sh" "-c" (printf "find \"%s/Library/Application Support/Firefox/Profiles\" -maxdepth 1 -name '*.default-release' -type d 2>/dev/null | head -1" .chezmoi.homeDir) | trim }}/chrome/userChrome.css
+{{- end -}}

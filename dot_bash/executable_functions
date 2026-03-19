@@ -564,3 +564,13 @@ virtualenv()
     venvDir="$(grep -oP --color=never 'dest=\K[^,]*' <<<"${venvOutput}")"
     sed -E -i'' 's/(PS1=")\(/\1\\n(/' "${venvDir}"/bin/*
 }
+
+appPath()
+{
+    find /Applications ~/Applications /System/Applications -iname "$@.app" -print -quit 2>/dev/null
+}
+
+bundleID()
+{
+    defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
+}

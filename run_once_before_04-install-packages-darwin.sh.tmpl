@@ -38,6 +38,10 @@ defaults write com.rogueamoeba.soundsource registrationInfo -dict \
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "/Users/draco/.config/iterm2/iTermPreferences"
 
+# RapiDMG
+bundleID () { defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2> /dev/null)" CFBundleIdentifier 2> /dev/null; }
+duti -s "$(bundleID RapiDMG)" ".dmg"
+
 # Bartender
 defaults write com.surteesstudios.Bartender launchAtLogin.isEnabled -int 1
 defaults write com.surteesstudios.Bartender SUEnableAutomaticChecks -int 1

@@ -23,7 +23,7 @@ alias umount='sudo umount'
 # Function Aliases #
 ####################
 alias duh='duDir'
-alias ips='showIPS'
+alias ip='showIPS'
 
 ###################
 # Utility Aliases #
@@ -35,6 +35,7 @@ alias czkawka='PATH="$HOME/.local/bin:$PATH" czkawka_krokiet'
 alias flush='dscacheutil -flushcache &>/dev/null && killall -HUP mDNSResponder &>/dev/null'
 alias getpaths='/usr/libexec/path_helper -s'
 alias hosts='sudo vim /etc/hosts'
+alias icloud="cd ${HOME}/Library/Mobile\ Documents/com~apple~CloudDocs"
 alias map='xargs -n1'
 alias ncdu='ncdu --color dark --enable-refresh --confirm-delete --delete-command trash'
 alias pb='printf "%s" "$(cat)"|pbcopy'
