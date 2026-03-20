@@ -373,8 +373,14 @@ sortMedia()
 
 help()
 {
-    clear
-    command help "$@" | bat -l cmd-help
+    local helpOut
+    if helpOut="$(command help "$@" 2>/dev/null)"; then
+        printf '%s\n' "${helpOut}" | bat -l cmd-help
+    elif man -w "$1" &>/dev/null; then
+        command man "$@"
+    else
+        "$@" --help 2>&1 | bat -l cmd-help
+    fi
 }
 
 man()

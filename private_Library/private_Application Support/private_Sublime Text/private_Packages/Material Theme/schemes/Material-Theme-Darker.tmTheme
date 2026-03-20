@@ -2880,6 +2880,39 @@ a {
 				<string>#D5D5D5FF</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_441133FF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#441133FF</string>
+				<key>foreground</key>
+				<string>#A4A4A4FF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_881177FF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#881177FF</string>
+				<key>foreground</key>
+				<string>#C0C0C0FF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_88117799</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#88117799</string>
+				<key>foreground</key>
+				<string>#B4B4B4FF</string>
+			</dict>
+		</dict>
 	</array>
 	<key>uuid</key>
 	<string>4F44C0F5-1F8D-4C52-8BAB-F0951904C1EC</string>
