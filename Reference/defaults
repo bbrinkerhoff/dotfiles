@@ -97,4 +97,8 @@ defaults write 'com.apple.dock' 'mru-spaces' -bool false
                       defaults write 'com.apple.finder' 'ShowStatusBar' -bool true
                         defaults write 'com.apple.finder' 'ShowPathbar' -bool true
 
+  defaults write 'com.apple.controlcenter' 'NSStatusItem VisibleCC UserSwitcher' -bool false
+    defaults write 'com.apple.Safari' 'AutoFillFromiCloudKeychain' -bool true
+  defaults write 'com.microsoft.rdc.macos' 'TelemetryPreviousSendDiagnostics' -bool false
+
 
