@@ -6,6 +6,12 @@
 shopt -s checkwinsize
 shopt -s histappend
 
+####################
+# Readline Options #
+####################
+bind 'set colored-stats on'          # colorize completions using LS_COLORS
+bind 'set colored-completion-prefix on'  # colorize the common prefix too
+
 #################
 # File Sourcing #
 #################
