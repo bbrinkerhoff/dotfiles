@@ -1,0 +1,194 @@
+#!/usr/bin/env bash
+# =============================================================================
+# script_name.sh — Short description of what this script does
+#
+# Usage:
+#   ./script_name.sh [options] <arg>
+#
+# Options:
+#   -v, --verbose       Enable verbose output
+#   -o, --output <dir>  Output directory (default: .)
+#   -n, --dry-run       Show what would be done without doing it
+#   -h, --help          Show this help message
+#
+# Examples:
+#   ./script_name.sh -v input.txt
+#   ./script_name.sh --output /tmp input.txt
+# =============================================================================
+set -euo pipefail
+IFS=$'\n\t'
+
+# =============================================================================
+# CONSTANTS & DEFAULTS
+# =============================================================================
+readonly SCRIPT_NAME="$(basename "$0")"
+readonly SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+readonly VERSION="0.1.0"
+
+# Defaults (overridden by flags)
+output_dir="."
+verbose=""
+dry_run=""
+
+# =============================================================================
+# OUTPUT HELPERS
+# =============================================================================
+# Colors (disabled if not a terminal)
+if [[ -t 1 ]]; then
+    RED='\033[0;31m'
+    YELLOW='\033[0;33m'
+    GREEN='\033[0;32m'
+    CYAN='\033[0;36m'
+    BOLD='\033[1m'
+    RESET='\033[0m'
+else
+    RED='' YELLOW='' GREEN='' CYAN='' BOLD='' RESET=''
+fi
+
+info()
+{
+    echo -e "${CYAN}[INFO]${RESET}  $*"
+}
+success()
+{
+    echo -e "${GREEN}[OK]${RESET}    $*"
+}
+warn()
+{
+    echo -e "${YELLOW}[WARN]${RESET}  $*" >&2
+}
+error()
+{
+    echo -e "${RED}[ERROR]${RESET} $*" >&2
+}
+die()
+{
+    error "$*"
+    exit 1
+}
+debug()
+{
+    [[ $verbose ]] && echo -e "${BOLD}[DEBUG]${RESET} $*" >&2 || true
+}
+step()
+{
+    echo -e "\n${BOLD}==> $*${RESET}"
+}
+
+# =============================================================================
+# USAGE
+# =============================================================================
+usage()
+{
+    grep '^#' "$0" | grep -v '#!/' | sed 's/^# \{0,1\}//'
+    exit "${1:-0}"
+}
+
+# =============================================================================
+# FUNCTIONS
+# =============================================================================
+check_deps()
+{
+    local deps=("$@")
+    local missing=()
+    for dep in "${deps[@]}"; do
+        command -v "$dep" &>/dev/null || missing+=("$dep")
+    done
+    if [[ ${#missing[@]} -gt 0 ]]; then
+        die "Missing required dependencies: ${missing[*]}"
+    fi
+}
+
+require_root()
+{
+    [[ $EUID -eq 0 ]] || die "This script must be run as root."
+}
+
+confirm()
+{
+    local prompt="${1:-Are you sure?} [y/N] "
+    read -rp "$prompt" reply
+    [[ $reply =~ ^[Yy]$ ]]
+}
+
+run()
+{
+    if [[ $dry_run ]]; then
+        echo -e "${YELLOW}[DRY-RUN]${RESET} $*"
+    else
+        debug "Running: $*"
+        "$@"
+    fi
+}
+
+cleanup()
+{
+    # Called automatically on exit — put temp file cleanup etc. here
+    debug "Cleaning up..."
+    # rm -rf "$tmp_dir"
+}
+trap cleanup EXIT
+
+# =============================================================================
+# FLAG & ARG HANDLING
+# =============================================================================
+parse_args()
+{
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -v | --verbose)
+                verbose=1
+                shift
+                ;;
+            -n | --dry-run)
+                dry_run=1
+                shift
+                ;;
+            -o | --output)
+                output_dir="$2"
+                shift 2
+                ;;
+            --output=*)
+                output_dir="${1#*=}"
+                shift
+                ;;
+            -h | --help) usage 0 ;;
+            --version)
+                echo "$SCRIPT_NAME v$VERSION"
+                exit 0
+                ;;
+            --)
+                shift
+                break
+                ;;
+            -*) die "Unknown flag: $1 (try --help)" ;;
+            *) break ;; # start of positional args
+        esac
+    done
+
+    # Remaining positional args
+    ARGS=("$@")
+}
+
+# =============================================================================
+# MAIN
+# =============================================================================
+main()
+{
+    parse_args "$@"
+
+    # Validate
+    [[ ${#ARGS[@]} -gt 0 ]] || die "No input provided. See --help."
+    [[ -d $output_dir ]] || die "Output directory does not exist: $output_dir"
+
+    check_deps curl jq # list your required tools here
+
+    step "Starting"
+    debug "verbose=$verbose dry_run=$dry_run output_dir=$output_dir args=${ARGS[*]}"
+
+    # --- your logic here ---
+
+    success "Done."
+}
+
+main "$@"
