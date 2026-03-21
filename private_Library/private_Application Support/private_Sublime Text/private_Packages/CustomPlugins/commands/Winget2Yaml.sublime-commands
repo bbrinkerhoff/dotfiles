@@ -1,0 +1,6 @@
+[
+    {
+        "caption": "Winget: Convert Install String to YAML",
+        "command": "winget_to_yaml"
+    }
+]
