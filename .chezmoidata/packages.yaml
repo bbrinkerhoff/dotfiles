@@ -67,7 +67,7 @@ packages:
             - mullvad-vpn
             - nextcloud-vfs
             - onyx
-            - orcaslicer
+            - orcaslicer@nightly
             - renamer
             - script-debugger
             - sdformatter
@@ -83,8 +83,8 @@ packages:
         mas:
             - id: 1569813296
               name: 1Password for Safari
-            - id: 1018301773
-              name: AdBlock Pro for Safari
+            - id: 6745342698
+              name: uBlock Origin Lite
             - id: 1198176727
               name: Controller for HomeKit
             - id: 1111570163

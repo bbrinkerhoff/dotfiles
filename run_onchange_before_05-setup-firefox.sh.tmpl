@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# Firefox extension settings — keyboard shortcuts etc.
+# Changes to this file trigger a re-run via chezmoi run_onchange.
+{{ if ne .chezmoi.os "darwin" }}exit 0{{ end }}
+
+set -euo pipefail
+
+PROFILE_DIR=$(find "$HOME/Library/Application Support/Firefox/Profiles" \
+  -maxdepth 1 -name "*.default-release" -type d 2>/dev/null | head -1)
+
+if [ -z "$PROFILE_DIR" ]; then
+  echo "Firefox profile not found, skipping"
+  exit 0
+fi
+
+EXT_SETTINGS="$PROFILE_DIR/extension-settings.json"
+
+if [ ! -f "$EXT_SETTINGS" ]; then
+  echo "extension-settings.json not found, skipping"
+  exit 0
+fi
+
+# Set duplicate-tab shortcut to Cmd+Alt+D
+python3 - "$EXT_SETTINGS" << 'EOF'
+import json, sys
+
+path = sys.argv[1]
+with open(path) as f:
+    data = json.load(f)
+
+data.setdefault("commands", {})
+data["commands"].setdefault("duplicate-tab@firefox.stefansundin.com", {})
+data["commands"]["duplicate-tab@firefox.stefansundin.com"]["duplicate-tab"] = {
+    "shortcut": "Ctrl+Alt+D"
+}
+
+with open(path, "w") as f:
+    json.dump(data, f, separators=(",", ":"))
+
+print("Set duplicate-tab shortcut to Cmd+Alt+D")
+EOF
