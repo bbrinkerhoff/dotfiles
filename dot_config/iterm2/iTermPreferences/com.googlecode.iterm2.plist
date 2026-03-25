@@ -84227,6 +84227,8 @@
 	<false/>
 	<key>FlashTabBarInFullscreen</key>
 	<true/>
+	<key>ForceKeyboard</key>
+	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
 		<key>0x50-0x120000-0x23</key>
@@ -84929,6 +84931,8 @@ Open Paste History…</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
+			<key>Set Local Environment Vars</key>
+			<integer>0</integer>
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Mark Indicators</key>

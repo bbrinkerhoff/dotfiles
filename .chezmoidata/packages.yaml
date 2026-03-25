@@ -67,7 +67,7 @@ packages:
             - mullvad-vpn
             - nextcloud-vfs
             - onyx
-            - orcaslicer@nightly
+            - orcaslicer
             - renamer
             - script-debugger
             - sdformatter

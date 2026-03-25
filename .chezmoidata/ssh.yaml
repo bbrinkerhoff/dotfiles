@@ -38,12 +38,20 @@ ssh:
     # Personal machines
     # -------------------------------------------------------------------------
     personal:
+      - name: "192.168.100.1"
+        comment: "Gateway – password auth, no 1Password agent (keys not configured on device)"
+        options:
+          User: "root"
+          IdentityAgent: "none"
+          PreferredAuthentications: "password,keyboard-interactive"
+          PubkeyAuthentication: "no"
+
       - name: "qnap qnap.local 192.168.1.15 192.168.1.14"
         comment: "Qnap Admin SSH"
         options:
           HostName: "192.168.1.15"
           User: "qnap-admin"
-      
+
       # - name: "homelab"
       #   comment: "Home server"
       #   options:
