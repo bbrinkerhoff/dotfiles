@@ -7,6 +7,7 @@ from plugins.Autohotkey_Executor import *
 from plugins.Comment_Section import *
 from plugins.ExecPostSave import *
 from plugins.LiteralWhitespace import *
+from plugins.MAS2Brewfile import *
 from plugins.Minimap_Setting import *
 from plugins.Open_Template import *
 from plugins.Open_Template_Insert import *

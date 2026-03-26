@@ -1,4 +1,0 @@
-{
-    "caption": "Convert MAS to Brewfile",
-    "command": "format_mas_to_brewfile"
-}

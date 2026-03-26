@@ -2,13 +2,16 @@
     "folders":
     [
         {
-            "path": "/Users/draco/.local"
+            "path": "/Users/draco/.local/share/chezmoi",
+            "name": "Chezmoi"
         },
         {
-            "path": "/Users/draco/.config"
+            "path": "/Users/draco/.config",
+            "name": "Config"
         },
         {
-            "path": "/Users/draco/.bash"
+            "path": "/Users/draco/.bash",
+            "name": "BASH"
         }
     ]
 }
