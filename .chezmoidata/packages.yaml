@@ -1,164 +1,150 @@
 packages:
-    darwin:
-        brews_custom: []
-        brews:
-            - bash
-            - bash-completion@2
-            - bashdb
-            - bat
-            - bbrinkerhoff/private/ffmpeg
-            - chezmoi
-            - colordiff
-            - coreutils
-            - czkawka
-            - dockutil
-            - findutils
-            - gawk
-            - gnu-indent
-            - gnu-sed
-            - gnu-tar
-            - gnutls
-            - grep
-            - gromgit/fuse/ntfs-3g-mac
-            - gum
-            - imagemagick
-            - jq
-            - kavehtehrani/tap/cloudflare-speed-cli
-            - mas
-            - node
-            - oxipng
-            - pyenv
-            - pyenv-virtualenv
-            - python-tk@3.14
-            - shellcheck
-            - shfmt
-            - tcl-tk
-            - tldr
-            - tree
-            - virtualenv
-            - wakeonlan
-            - wget
-            - yq
-            - yt-dlp
-            - zopfli
-        casks:
-            - 1password-cli
-            - adobe-acrobat-pro
-            - adobe-creative-cloud
-            - appcleaner
-            - bartender
-            - bbrinkerhoff/private/3dxware
-            - bbrinkerhoff/private/czkawka-krokiet
-            - bettertouchtool
-            - claude-code
-            - clop
-            - firefox
-            - git-credential-manager
-            - handbrake-app
-            - istat-menus
-            - iterm2
-            - itermbrowserplugin
-            - localsend
-            - logi-options+
-            - macfuse
-            - macmediakeyforwarder
-            - mounty
-            - mp3tag
-            - mullvad-vpn
-            - nextcloud-vfs
-            - onyx
-            - orcaslicer
-            - renamer
-            - script-debugger
-            - sdformatter
-            - soundsource
-            - spotify
-            - sublime-text
-            - vagrant
-            - virtualbox
-            - vlc
-        # Requires macOS 26+
-        casks_macos26plus:
-            - archiver-app
-        mas:
-            - id: 1569813296
-              name: 1Password for Safari
-            - id: 6745342698
-              name: uBlock Origin Lite
-            - id: 1198176727
-              name: Controller for HomeKit
-            - id: 1111570163
-              name: GrandPerspective
-            - id: 414568915
-              name: Key Codes
-            - id: 1643649331
-              name: OpenIn 4 Advanced Link Handler
-            - id: 1661598353
-              name: Queryable
-            - id: 6451349778
-              name: Rapidmg
-            - id: 1573461917
-              name: SponsorBlock for Safari
-            - id: 6738342400
-              name: Tampermonkey
-            - id: 1295203466
-              name: Windows App
-        taps:
-            - bbrinkerhoff/private
-            - kavehtehrani/tap
-    windows:
-        winget:
-            # ── Browsers ─────────────────────────────────────────────────────
-            - Mozilla.Firefox
-            - Google.Chrome
-
-            # ── Password Manager ─────────────────────────────────────────────
-            - AgileBits.1Password
-
-            # ── VPN & File Sync ──────────────────────────────────────────────
-            - MullvadVPN.MullvadVPN
-            - Nextcloud.NextcloudDesktop
-
-            # ── Dev Tools ────────────────────────────────────────────────────
-            - Git.Git
-            - Microsoft.PowerShell
-            - Microsoft.WindowsTerminal
-            - AutoHotkey.AutoHotkey            # AHK v2 only — v1 not in winget, install manually
-            - Python.Python.3
-            - Vim.Vim
-
-            # ── Productivity & System ────────────────────────────────────────
-            - Microsoft.PowerToys
-            - OpenShellMenu.OpenShell
-            - SublimeHQ.SublimeText.4
-            - AntibodySoftware.WizTree
-            - RevoUninstaller.RevoUninstaller
-            - XnSoft.XnViewMP
-
-            # ── Peripherals ──────────────────────────────────────────────────
-            - Logitech.LogiOptionsPlus
-            - Logitech.GHUB
-            - SteelSeries.GG
-            - NZXT.CAM
-
-            # ── Media ────────────────────────────────────────────────────────
-            - VideoLAN.VLC
-            - HandBrake.HandBrake
-            - Mp3tag.Mp3tag
-            - Spotify.Spotify
-            - yt-dlp.yt-dlp
-            - Streamlabs.Streamlabs
-
-            # ── 3D Modeling ──────────────────────────────────────────────────
-            # Fusion 360 is NOT in winget — download from autodesk.com manually
-            - SoftFever.OrcaSlicer
-
-            # ── Torrenting (qBittorrent only — arr stack runs in WSL) ────────
-            - qBittorrent.qBittorrent
-
-            # ── Utilities ────────────────────────────────────────────────────
-            - 7zip.7zip
-            - LocalSend.LocalSend
-            - Docker.DockerDesktop
-            - Rufus.Rufus
-            - REALiX.HWiNFO
+  darwin:
+    brews:
+      - bash-completion@2
+      - bashdb
+      - bat
+      - chezmoi
+      - colordiff
+      - curl
+      - czkawka
+      - dockutil
+      - duti
+      - findutils
+      - fswatch
+      - fswatch
+      - gawk
+      - gh
+      - git
+      - gnu-indent
+      - gnu-sed
+      - gnu-tar
+      - gnutls
+      - go
+      - grep
+      - gromgit/fuse/ntfs-3g-mac
+      - gum
+      - imagemagick
+      - jq
+      - kavehtehrani/tap/cloudflare-speed-cli
+      - libao
+      - mas
+      - nasm
+      - node
+      - oxipng
+      - pdf2image
+      - pyenv-virtualenv
+      - python-tk@3.14
+      - shellcheck
+      - shfmt
+      - tldr
+      - tree
+      - virtualenv
+      - wakeonlan
+      - wget
+      - yq
+      - yt-dlp
+      - zopfli
+    brews_custom: []
+    casks:
+      - 1password-cli
+      - adobe-acrobat-pro
+      - adobe-creative-cloud
+      - appcleaner
+      - bartender
+      - bbrinkerhoff/private/3dxware
+      - bbrinkerhoff/private/czkawka-krokiet
+      - bettertouchtool
+      - claude
+      - claude-code
+      - clop
+      - firefox
+      - git-credential-manager
+      - handbrake-app
+      - istat-menus
+      - iterm2
+      - itermbrowserplugin
+      - localsend
+      - logi-options+
+      - macfuse
+      - macmediakeyforwarder
+      - mounty
+      - mp3tag
+      - mullvad-vpn
+      - nextcloud-vfs
+      - onyx
+      - orcaslicer
+      - renamer
+      - script-debugger
+      - sdformatter
+      - soundsource
+      - spotify
+      - sublime-text
+      - vagrant
+      - virtualbox
+      - vlc
+    # Requires macOS 26+
+    casks_macos26plus:
+      - archiver-app
+    taps:
+      - bbrinkerhoff/private
+      - kavehtehrani/tap
+    mas:
+      - id: 1569813296
+        name: 1Password for Safari
+      - id: 6745342698
+        name: uBlock Origin Lite
+      - id: 1198176727
+        name: Controller for HomeKit
+      - id: 1111570163
+        name: GrandPerspective
+      - id: 414568915
+        name: Key Codes
+      - id: 1643649331
+        name: OpenIn 4 Advanced Link Handler
+      - id: 1661598353
+        name: Queryable
+      - id: 6451349778
+        name: Rapidmg
+      - id: 1573461917
+        name: SponsorBlock for Safari
+      - id: 6738342400
+        name: Tampermonkey
+      - id: 1295203466
+        name: Windows App
+  windows:
+    winget:
+      - 7zip.7zip
+      - AgileBits.1Password
+      - AntibodySoftware.WizTree
+      - AutoHotkey.AutoHotkey # AHK v2 only — v1 not in winget, install manually
+      - Docker.DockerDesktop
+      - Git.Git
+      - Google.Chrome
+      - HandBrake.HandBrake
+      - LocalSend.LocalSend
+      - Logitech.GHUB
+      - Logitech.LogiOptionsPlus
+      - Microsoft.PowerShell
+      - Microsoft.PowerToys
+      - Microsoft.WindowsTerminal
+      - Mozilla.Firefox
+      - Mp3tag.Mp3tag
+      - MullvadVPN.MullvadVPN
+      - Nextcloud.NextcloudDesktop
+      - NZXT.CAM
+      - OpenShellMenu.OpenShell
+      - Python.Python.3
+      - qBittorrent.qBittorrent
+      - REALiX.HWiNFO
+      - RevoUninstaller.RevoUninstaller
+      - Rufus.Rufus
+      - SoftFever.OrcaSlicer
+      - Spotify.Spotify
+      - SteelSeries.GG
+      - Streamlabs.Streamlabs
+      - SublimeHQ.SublimeText.4
+      - VideoLAN.VLC
+      - Vim.Vim
+      - XnSoft.XnViewMP
+      - yt-dlp.yt-dlp
