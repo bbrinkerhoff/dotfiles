@@ -53,6 +53,7 @@ packages:
       - appcleaner
       - bartender
       - bbrinkerhoff/private/3dxware
+      - bbrinkerhoff/private/3uTools
       - bbrinkerhoff/private/czkawka-krokiet
       - bettertouchtool
       - claude
