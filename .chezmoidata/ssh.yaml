@@ -52,6 +52,13 @@ ssh:
           HostName: "192.168.1.15"
           User: "qnap-admin"
 
+      - name: "bhoff-homebridge bhoff-homebridge.local 192.168.100.71"
+        comment: "Brinkerhoff Home Homebridge (Pi)"
+        options:
+          User: "root"
+          IdentityAgent: "none"
+          PreferredAuthentications: "password,keyboard-interactive"
+          PubkeyAuthentication: "no"
       # - name: "homelab"
       #   comment: "Home server"
       #   options:
