@@ -12,7 +12,7 @@ if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
     INSTALLER_CMD="install"
 elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
     if [ -x "$(command -v apt)" ]; then
-        PKG_MANAGER="apt"
+        PKG_MANAGER="sudo apt"
         ESSENTIAL_PACKAGES="git wget curl"
         INSTALLER_CMD="install -y"
     elif [ -x "$(command -v pacman)" ]; then
