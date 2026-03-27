@@ -10,6 +10,11 @@ if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
     PKG_MANAGER="brew"
     ESSENTIAL_PACKAGES="git wget curl dockutil bash"
     INSTALLER_CMD="install"
+    # Install package manager if not installed
+    if ! command -v "${PKG_MANAGER}" &>/dev/null; then
+        echo "Installing package manager: ${PKG_MANAGER}"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
 elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
     if [ -x "$(command -v apt)" ]; then
         PKG_MANAGER="sudo apt"
@@ -26,12 +31,6 @@ elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
 else
     echo "Unsupported OS"
     exit 1
-fi
-
-# Install package manager if not installed
-if ! command -v "${PKG_MANAGER}" &>/dev/null; then
-    echo "Installing package manager: ${PKG_MANAGER}"
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Install essential packages
