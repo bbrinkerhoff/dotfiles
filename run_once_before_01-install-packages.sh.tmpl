@@ -10,7 +10,7 @@ if [[ "{{ .chezmoi.os }}" == "darwin" ]]; then
     PKG_MANAGER="brew"
     ESSENTIAL_PACKAGES="git wget curl dockutil bash"
     INSTALLER_CMD="install"
-elif [[ "{{ .chezmoi.os }}" == "linux-gnu" ]]; then
+elif [[ "{{ .chezmoi.os }}" == "linux" ]]; then
     if [ -x "$(command -v apt)" ]; then
         PKG_MANAGER="apt"
         ESSENTIAL_PACKAGES="git wget curl"
