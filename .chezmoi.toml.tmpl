@@ -17,8 +17,6 @@
   macOSMajorVersion = "{{ output "sw_vers" "-productVersion" | splitList "." | first | trim }}"
 {{ else if eq .chezmoi.os "windows" }}
 [windows]
-{{ else if eq .chezmoi.os "gnu-linux" }}
-[wsl-linux]
 {{ else if eq .chezmoi.os "linux" }}
 [linux]
   shell_path = "$(which bash)"

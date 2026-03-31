@@ -3,7 +3,12 @@
 **/*.ipa
 **/*.sublime-workspace
 **/Color\ Highlight.cache
-{{- if eq .chezmoi.os "windows" -}}
+
+{{- if eq .chezmoi.os "darwin" -}}
+
+.config/wsl
+
+{{- else if eq .chezmoi.os "windows" -}}
 
 Library
 .bash
@@ -26,6 +31,8 @@ Library
 *macos*
 *macOS*
 *OSX*
+
+{{- else if eq .chezmoi.os "linux" -}}
 
 {{- else if ne .chezmoi.os "windows" -}}
 
