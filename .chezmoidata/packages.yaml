@@ -82,7 +82,6 @@ packages:
       - spotify
       - sublime-text
       - vagrant
-      - virtualbox
       - vlc
     # Requires macOS 26+
     casks_macos26plus:
