@@ -83,6 +83,7 @@ packages:
       - sublime-text
       - vagrant
       - vlc
+      - wifiman
     # Requires macOS 26+
     casks_macos26plus:
       - archiver-app
