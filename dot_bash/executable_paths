@@ -19,6 +19,7 @@ unset IFS
 PATH+=":/usr/local/sbin:/usr/local/bin"
 PATH+=":/Applications/iTerm.app/Contents/Resources/utilities"
 PATH+=":/Applications/Sublime Text.app/Contents/SharedSupport/bin"
+PATH+=":/opt/homebrew/opt/openjdk/bin"
 PATH=$(echo "$PATH" | tr ':' '\n' | awk '!seen[$0]++' | tr '\n' ':' | sed 's/:$//')
 export PATH MANPATH
 

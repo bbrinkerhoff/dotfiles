@@ -4,6 +4,7 @@ packages:
       - bash-completion@2
       - bashdb
       - bat
+      - bbrinkerhoff/private/sikulix
       - chezmoi
       - colordiff
       - curl

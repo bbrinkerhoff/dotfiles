@@ -1,3 +1,148 @@
-#!/usr/bin/env bash
+#!/usr/bin/env python3
 
-/usr/bin/env python3 ~/Scripts/pyMediaSort/main.py $@
+import os
+import shutil
+import argparse
+from pathlib import Path
+import logging
+from typing import Set, List
+
+# Define file extensions
+IMAGE_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff', '.webp', '.heic'}
+VIDEO_EXTENSIONS = {'.mp4', '.mov', '.avi', '.mkv', '.wmv', '.flv', '.webm', '.m4v'}
+
+def setup_logging(debug: bool, verbose: bool) -> None:
+    """Configure logging based on debug and verbose flags."""
+    if debug:
+        level = logging.DEBUG
+    elif verbose:
+        level = logging.INFO
+    else:
+        level = logging.WARNING
+    
+    logging.basicConfig(
+        level=level,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
+    )
+
+def is_valid_directory(path: str) -> bool:
+    """Check if the given path is a valid directory."""
+    return os.path.isdir(path)
+
+def get_target_directory() -> str:
+    """Prompt user for target directory if not provided."""
+    while True:
+        directory = input("Please enter the target directory path: ").strip()
+        if is_valid_directory(directory):
+            return directory
+        print("Invalid directory path. Please try again.")
+
+def find_media_files(target_dir: Path, extensions: Set[str], exclude_dirs: List[str]) -> List[Path]:
+    """
+    Recursively find files with specified extensions, excluding certain directories.
+    """
+    media_files = []
+    
+    try:
+        for root, dirs, files in os.walk(target_dir):
+            # Remove excluded directories from dirs to prevent recursion into them
+            dirs[:] = [d for d in dirs if d not in exclude_dirs]
+            
+            for file in files:
+                file_path = Path(root) / file
+                if file_path.suffix.lower() in extensions:
+                    media_files.append(file_path)
+    except Exception as e:
+        logging.error(f"Error while scanning directory {target_dir}: {e}")
+        
+    return media_files
+
+def get_unique_filename(destination: Path) -> Path:
+    """
+    Generate a unique filename by appending a number if the file already exists.
+    """
+    if not destination.exists():
+        return destination
+    
+    base = destination.stem
+    extension = destination.suffix
+    counter = 1
+    
+    while True:
+        new_filename = destination.parent / f"{base}_{counter}{extension}"
+        if not new_filename.exists():
+            return new_filename
+        counter += 1
+
+def move_files(files: List[Path], destination_dir: Path, dry_run: bool) -> None:
+    """
+    Move files to destination directory, handling filename conflicts.
+    """
+    for source in files:
+        try:
+            # Create unique destination path
+            destination = get_unique_filename(destination_dir / source.name)
+            
+            if dry_run:
+                logging.info(f"Would move {source} to {destination}")
+            else:
+                logging.info(f"Moving {source} to {destination}")
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(source), str(destination))
+                
+        except Exception as e:
+            logging.error(f"Error moving {source}: {e}")
+
+def main():
+    parser = argparse.ArgumentParser(description="Organize media files into separate directories.")
+    parser.add_argument("target_dir", nargs="?", help="Target directory to organize")
+    parser.add_argument("-t", "--target", help="Target directory to organize (alternative to positional argument)")
+    parser.add_argument("--images", action="store_true", help="Only process image files")
+    parser.add_argument("--videos", action="store_true", help="Only process video files")
+    parser.add_argument("--dry-run", action="store_true", help="Show what would be done without making changes")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
+    parser.add_argument("-d", "--debug", action="store_true", help="Enable debug output")
+    
+    args = parser.parse_args()
+    
+    # Setup logging
+    setup_logging(args.debug, args.verbose)
+    
+    # Determine target directory
+    target_dir = args.target_dir or args.target
+    if not target_dir:
+        target_dir = get_target_directory()
+    elif not is_valid_directory(target_dir):
+        logging.error(f"Invalid target directory: {target_dir}")
+        return
+    
+    target_path = Path(target_dir)
+    exclude_dirs = ['Live Photos']
+    
+    # Determine which operations to perform
+    do_images = args.images or not args.videos
+    do_videos = args.videos or not args.images
+    
+    if do_images:
+        logging.info("Processing image files...")
+        images_dir = target_path / 'Images'
+        exclude_dirs.append('Images')
+        image_files = find_media_files(target_path, IMAGE_EXTENSIONS, exclude_dirs)
+        if image_files:
+            move_files(image_files, images_dir, args.dry_run)
+        else:
+            logging.info("No new image files found to move")
+    
+    if do_videos:
+        logging.info("Processing video files...")
+        videos_dir = target_path / 'Videos'
+        exclude_dirs.append('Videos')
+        video_files = find_media_files(target_path, VIDEO_EXTENSIONS, exclude_dirs)
+        if video_files:
+            move_files(video_files, videos_dir, args.dry_run)
+        else:
+            logging.info("No new video files found to move")
+
+if __name__ == "__main__":
+    main()
