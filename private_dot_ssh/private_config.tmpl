@@ -19,6 +19,8 @@ Host {{ .name }}
 
 # Skip newer or system-specific unmatched options.
 IgnoreUnknown AddKeysToAgent,UseKeychain
+SendEnv -LC_* -LANG*
+
 
 Host *
     {{ if eq .chezmoi.os "darwin" -}}
