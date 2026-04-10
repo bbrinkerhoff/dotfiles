@@ -4,7 +4,6 @@ packages:
       - bash-completion@2
       - bashdb
       - bat
-      - bbrinkerhoff/private/sikulix
       - chezmoi
       - colordiff
       - curl
@@ -58,6 +57,7 @@ packages:
       - bbrinkerhoff/private/czkawka-krokiet
       - bbrinkerhoff/private/ejectify
       - bbrinkerhoff/private/freefilesync
+      - bbrinkerhoff/private/sikulix
       - bbrinkerhoff/private/temurin-jdk11
       - bettertouchtool
       - claude
