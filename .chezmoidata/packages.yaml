@@ -56,6 +56,7 @@ packages:
       - bbrinkerhoff/private/3dxware
       - bbrinkerhoff/private/3utools
       - bbrinkerhoff/private/czkawka-krokiet
+      - bbrinkerhoff/private/temurin-jdk11
       - bettertouchtool
       - claude
       - claude-code
@@ -92,28 +93,31 @@ packages:
       - bbrinkerhoff/private
       - kavehtehrani/tap
     mas:
-      - id: 1569813296
-        name: 1Password for Safari
-      - id: 6745342698
-        name: uBlock Origin Lite
-      - id: 1198176727
-        name: Controller for HomeKit
-      - id: 1111570163
-        name: GrandPerspective
-      - id: 414568915
-        name: Key Codes
-      - id: 1643649331
-        name: OpenIn 4 Advanced Link Handler
-      - id: 1661598353
-        name: Queryable
-      - id: 6451349778
-        name: Rapidmg
-      - id: 1573461917
-        name: SponsorBlock for Safari
-      - id: 6738342400
-        name: Tampermonkey
-      - id: 1295203466
-        name: Windows App
+      - name: 1Password for Safari
+        id: 1569813296
+      - name: Controller for HomeKit
+        id: 1198176727
+      - name: GrandPerspective
+        id: 1111570163
+      - name: Key Codes
+        id: 414568915
+      - name: OpenIn 4 Advanced Link Handler
+        id: 1643649331
+      - name: Queryable
+        id: 1661598353
+      - name: Rapidmg
+        id: 6451349778
+      - name: SponsorBlock for Safari
+        id: 1573461917
+      - name: Tampermonkey
+        id: 6738342400
+      - name: Windows App
+        id: 1295203466
+      - name: Xcode
+        id: 497799835
+      - name: uBlock Origin Lite
+        id: 6745342698
+
   windows:
     winget:
       - 7zip.7zip

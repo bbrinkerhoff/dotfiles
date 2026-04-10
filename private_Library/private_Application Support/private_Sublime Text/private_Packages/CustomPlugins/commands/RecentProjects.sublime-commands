@@ -1,4 +1,6 @@
-{
-    "caption": "Open recent project...",
-    "command": "open_recent_project"
-}
+[
+    {
+        "caption": "Open recent project...",
+        "command": "open_recent_project"
+    }
+]

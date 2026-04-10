@@ -1,4 +1,10 @@
-{
-    "caption": "Convert MAS to Brewfile",
-    "command": "format_mas_to_brewfile"
-}
+[
+    {
+        "caption": "Convert MAS to Brewfile",
+        "command": "format_mas_to_brewfile"
+    },
+    {
+        "caption": "Convert MAS to YAML",
+        "command": "format_mas_to_yaml"
+    }
+]

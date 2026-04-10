@@ -3,33 +3,37 @@
 #################
 # Shell Options #
 #################
-shopt -s checkwinsize
-shopt -s histappend
+if tty -s; then
+  shopt -s checkwinsize
+  shopt -s histappend
+fi
 
 ####################
 # Readline Options #
 ####################
-bind 'set colored-stats on'          # colorize completions using LS_COLORS
-bind 'set colored-completion-prefix on'  # colorize the common prefix too
+if tty -s; then
+  bind 'set colored-stats on'             # colorize completions using LS_COLORS
+  bind 'set colored-completion-prefix on' # colorize the common prefix too
+fi
 
 #################
 # File Sourcing #
 #################
 export BREW_PREFIX=$(brew --prefix)
 SOURCE_FILES=(
-    ## Main BASH Resources
-    "${HOME}/.bash/paths"
-    "${HOME}/.bash/variables"
-    "${HOME}/.bash/functions"
-    "${HOME}/.bash/aliases"
+  ## Main BASH Resources
+  "${HOME}/.bash/paths"
+  "${HOME}/.bash/variables"
+  "${HOME}/.bash/functions"
+  "${HOME}/.bash/aliases"
 
-    ## Other BASH Resources
-    "${BREW_PREFIX}/etc/bash_completion"
-    "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
+  ## Other BASH Resources
+  "${BREW_PREFIX}/etc/bash_completion"
+  "${BREW_PREFIX}/etc/profile.d/bash_completion.sh"
 )
 
 for FILE in "${SOURCE_FILES[@]}"; do
-    if [ -f "${FILE}" ]; then
-        . "${FILE}"
-    fi
+  if [ -f "${FILE}" ]; then
+    . "${FILE}"
+  fi
 done
