@@ -55,6 +55,9 @@ packages:
       - bartender
       - bbrinkerhoff/private/3dxware
       - bbrinkerhoff/private/3utools
+      - bbrinkerhoff/private/ejectify
+      - bbrinkerhoff/private/freefilesync
+
       - bbrinkerhoff/private/czkawka-krokiet
       - bbrinkerhoff/private/temurin-jdk11
       - bettertouchtool
