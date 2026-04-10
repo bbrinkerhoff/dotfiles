@@ -55,10 +55,9 @@ packages:
       - bartender
       - bbrinkerhoff/private/3dxware
       - bbrinkerhoff/private/3utools
+      - bbrinkerhoff/private/czkawka-krokiet
       - bbrinkerhoff/private/ejectify
       - bbrinkerhoff/private/freefilesync
-
-      - bbrinkerhoff/private/czkawka-krokiet
       - bbrinkerhoff/private/temurin-jdk11
       - bettertouchtool
       - claude
@@ -116,8 +115,6 @@ packages:
         id: 6738342400
       - name: Windows App
         id: 1295203466
-      - name: Xcode
-        id: 497799835
       - name: uBlock Origin Lite
         id: 6745342698
 
