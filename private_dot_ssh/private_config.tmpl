@@ -19,11 +19,12 @@ Host {{ .name }}
 
 # Skip newer or system-specific unmatched options.
 IgnoreUnknown AddKeysToAgent,UseKeychain
-SendEnv -LC_* -LANG*
 
 
 Host *
     {{ if eq .chezmoi.os "darwin" -}}
+    SendEnv -LC_* -LANG
+
     # Use 1Password ssh-agent (macOS)
     IdentityAgent {{ output "find" (printf "%s/Library/Group Containers" .chezmoi.homeDir) "-path" "*/*1password/*" "-name" "agent.sock" | trim | quote }}
     {{- end }}
