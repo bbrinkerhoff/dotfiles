@@ -1,15 +1,23 @@
+# Ignore chezmoi (& other) config so ~/.config can be recursively added
+.config/chezmoi
+.config/op
+.config/gtk*
+
 # Global
 **/.DS_Store
 **/*.ipa
 **/*.sublime-workspace
 **/Color\ Highlight.cache
 
-{{- if eq .chezmoi.os "darwin" -}}
+CLAUDE.md
+Reference
 
+{{ if eq .chezmoi.os "darwin" -}}
+# macOS ignores
 .config/wsl
 
-{{- else if eq .chezmoi.os "windows" -}}
-
+{{ else if eq .chezmoi.os "windows" -}}
+# Windows ignores
 Library
 .bash
 .bash_profile
@@ -32,23 +40,14 @@ Library
 *macOS*
 *OSX*
 
-{{- else if eq .chezmoi.os "linux" -}}
+{{ else if eq .chezmoi.os "linux" -}}
+# Linux ignores
 
-{{- else if ne .chezmoi.os "windows" -}}
-
-# Windows-only paths — ignore on macOS/Linux
+{{ end -}}
+{{ if ne .chezmoi.os "windows" -}}
+# Non-Windows ignores
 AppData
+Desktop/Scripts*
 dot_wslconfig
 
-Desktop/Scripts*
-
-{{- end }}
-
-Reference
-
-# Ignore chezmoi (& other) config so ~/.config can be recursively added
-.config/chezmoi
-.config/op
-.config/gtk*
-
-CLAUDE.md
+{{ end -}}
