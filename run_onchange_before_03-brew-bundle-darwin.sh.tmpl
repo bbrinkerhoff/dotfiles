@@ -20,7 +20,7 @@ brew {{ . | quote }}
 {{ range .packages.darwin.casks -}}
 cask {{ . | quote }}
 {{ end -}}
-{{- if ge (.chezmoi.config.data.macOSMajorVersion | atoi) 26 }}
+{{ if ge (.chezmoi.config.data.macOSMajorVersion | atoi) 26 -}}
 {{ range .packages.darwin.casks_macos26plus -}}
 cask {{ . | quote }}
 {{ end -}}
