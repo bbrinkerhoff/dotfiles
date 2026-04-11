@@ -5,31 +5,31 @@
 ######################
 showIPS()
 {
-    local x ip
-    for x in $(ipconfig getiflist); do
-        ip="$(ipconfig getifaddr $x)"
-        if [[ -n ${ip:+x} ]]; then
-            printf '%-7s %s\n' "$x:" "${ip}"
-        fi
-    done | sort
+  local x ip
+  for x in $(ipconfig getiflist); do
+    ip="$(ipconfig getifaddr $x)"
+    if [[ -n ${ip:+x} ]]; then
+      printf '%-7s %s\n' "$x:" "${ip}"
+    fi
+  done | sort
 }
 
 cdf()
 {
-    # Change working directory to the top-most Finder window location
-    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
+  # Change working directory to the top-most Finder window location
+  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
 }
 
 finder()
 {
-    # Open a Finder window at the current or given location
-    osascript -e "tell application \"Finder\" to open POSIX file \"${@:-$PWD}\""
+  # Open a Finder window at the current or given location
+  osascript -e "tell application \"Finder\" to open POSIX file \"${@:-$PWD}\""
 }
 
 appID()
 {
-    # Return bundle ID of a given application
-    osascript -e "id of app \"$*\""
+  # Return bundle ID of a given application
+  osascript -e "id of app \"$*\""
 }
 
 ###################
@@ -37,40 +37,40 @@ appID()
 ###################
 makePullRequest()
 {
-    local msg prOut prURL openURL
-    msg="${@}"
-    until [[ -n ${msg:+x} ]]; do
-        msg=$(gum input --prompt="Commit message: ")
-    done
-    gum confirm --affirmative="Open" --negative="Skip" \
-        "Would you like to open a pull request in your default browser?" &&
-        openURL=true
+  local msg prOut prURL openURL
+  msg="${@}"
+  until [[ -n ${msg:+x} ]]; do
+    msg=$(gum input --prompt="Commit message: ")
+  done
+  gum confirm --affirmative="Open" --negative="Skip" \
+    "Would you like to open a pull request in your default browser?" &&
+    openURL=true
 
-    git add .
-    git commit -m "${msg}"
-    prOut="$(git push 2>&1 | tee /dev/tty)"
-    prURL="$(echo "${prOut}" | sed -E '/https:.*merge_requests/!d;s/^.*(https:\/\/[^ ]*).*$/\1/')"
-    if [[ ${openURL} == true ]] && [[ -n ${prURL:+x} ]]; then
-        open "$(printf '%b' "${prURL//%/\\x}")"
-    elif [[ ${openURL} == true ]] && [[ -z ${prURL:+x} ]]; then
-        echo "${R}No PR URL found.${RS}" >&2
-    fi
+  git add .
+  git commit -m "${msg}"
+  prOut="$(git push 2>&1 | tee /dev/tty)"
+  prURL="$(echo "${prOut}" | sed -E '/https:.*merge_requests/!d;s/^.*(https:\/\/[^ ]*).*$/\1/')"
+  if [[ ${openURL} == true ]] && [[ -n ${prURL:+x} ]]; then
+    open "$(printf '%b' "${prURL//%/\\x}")"
+  elif [[ ${openURL} == true ]] && [[ -z ${prURL:+x} ]]; then
+    echo "${R}No PR URL found.${RS}" >&2
+  fi
 }
 
 pruneGitBranches()
 {
-    local flag branches branch IFS
-    [[ -n ${1:+x} ]] && flag=list
-    branches=($(git branch --${flag:-merged} | sed -E '/^\*? *master$/d'))
-    IFS=,
-    [[ -z ${branches[@]} ]] && echo "${Y}No branches found to be pruned.${RS}" && return
-    echo "'Removing the following branches': [${branches[*]}]" | yq -P
-    echo -e "\n${Y}Continue?${RS}"
-    unset IFS
-    menu no yes && return
-    echo
-    git branch -vD ${branches[@]} && echo -e "\n${G}Successfully pruned git branches!${RS}" ||
-        echo -e "\n${R}Failed to prune git branches.${RS}"
+  local flag branches branch IFS
+  [[ -n ${1:+x} ]] && flag=list
+  branches=($(git branch --${flag:-merged} | sed -E '/^\*? *master$/d'))
+  IFS=,
+  [[ -z ${branches[@]} ]] && echo "${Y}No branches found to be pruned.${RS}" && return
+  echo "'Removing the following branches': [${branches[*]}]" | yq -P
+  echo -e "\n${Y}Continue?${RS}"
+  unset IFS
+  menu no yes && return
+  echo
+  git branch -vD ${branches[@]} && echo -e "\n${G}Successfully pruned git branches!${RS}" ||
+    echo -e "\n${R}Failed to prune git branches.${RS}"
 }
 
 ###################
@@ -78,72 +78,72 @@ pruneGitBranches()
 ###################
 menu()
 {
-    local ESC=$(printf "\033")
-    cursor_blink_on()
-    {
-        printf "$ESC[?25h"
-    }
-    cursor_blink_off()
-    {
-        printf "$ESC[?25l"
-    }
-    cursor_to()
-    {
-        printf "$ESC[$1;${2:-1}H"
-    }
-    print_option()
-    {
-        printf "   $1 "
-    }
-    print_selected()
-    {
-        printf "  $ESC[7m $1 $ESC[27m"
-    }
-    get_cursor_row()
-    {
-        IFS=';' read -sdR -p $'\E[6n' ROW COL
-        echo ${ROW#*[}
-    }
-    key_input()
-    {
-        read -s -n3 key 2>/dev/null >&2
-        if [[ $key == "$ESC[A" ]]; then echo up; fi
-        if [[ $key == "$ESC[B" ]]; then echo down; fi
-        if [[ $key == "" ]]; then echo enter; fi
-    }
-    for opt; do printf "\n"; done
-    local lastrow=$(get_cursor_row)
-    local startrow=$((lastrow - $#))
-    cursor_blink_off
-    local selected=0
-    while true; do
-        printf "\n"
-        local idx=0
-        for opt; do
-            cursor_to $((startrow + idx))
-            if [ $idx -eq $selected ]; then
-                print_selected "$opt"
-            else
-                print_option "$opt"
-            fi
-            ((idx++))
-        done
-        case $(key_input) in
-            enter) break ;;
-            up)
-                ((selected--))
-                if [ $selected -lt 0 ]; then local selected=$(($# - 1)); fi
-                ;;
-            down)
-                ((selected++))
-                if [ $selected -ge $# ]; then local selected=0; fi
-                ;;
-        esac
-    done
-    cursor_to $lastrow
+  local ESC=$(printf "\033")
+  cursor_blink_on()
+  {
+    printf "$ESC[?25h"
+  }
+  cursor_blink_off()
+  {
+    printf "$ESC[?25l"
+  }
+  cursor_to()
+  {
+    printf "$ESC[$1;${2:-1}H"
+  }
+  print_option()
+  {
+    printf "   $1 "
+  }
+  print_selected()
+  {
+    printf "  $ESC[7m $1 $ESC[27m"
+  }
+  get_cursor_row()
+  {
+    IFS=';' read -sdR -p $'\E[6n' ROW COL
+    echo ${ROW#*[}
+  }
+  key_input()
+  {
+    read -s -n3 key 2>/dev/null >&2
+    if [[ $key == "$ESC[A" ]]; then echo up; fi
+    if [[ $key == "$ESC[B" ]]; then echo down; fi
+    if [[ $key == "" ]]; then echo enter; fi
+  }
+  for opt; do printf "\n"; done
+  local lastrow=$(get_cursor_row)
+  local startrow=$((lastrow - $#))
+  cursor_blink_off
+  local selected=0
+  while true; do
     printf "\n"
-    cursor_blink_on
-    return $selected
+    local idx=0
+    for opt; do
+      cursor_to $((startrow + idx))
+      if [ $idx -eq $selected ]; then
+        print_selected "$opt"
+      else
+        print_option "$opt"
+      fi
+      ((idx++))
+    done
+    case $(key_input) in
+      enter) break ;;
+      up)
+        ((selected--))
+        if [ $selected -lt 0 ]; then local selected=$(($# - 1)); fi
+        ;;
+      down)
+        ((selected++))
+        if [ $selected -ge $# ]; then local selected=0; fi
+        ;;
+    esac
+  done
+  cursor_to $lastrow
+  printf "\n"
+  cursor_blink_on
+  return $selected
 }
 
 #########################
@@ -151,53 +151,53 @@ menu()
 #########################
 _txt()
 {
-    tput -T xterm-256color $@
+  tput -T xterm-256color $@
 } # set text attributes
 _fg()
 {
-    _txt setaf ${1}
+  _txt setaf ${1}
 } # set the foreground text color
 _bg()
 {
-    _txt setab ${1}
+  _txt setab ${1}
 } # set the background text color
 _join()
 {
-    local IFS=${1}
-    printf "${*:2}"
+  local IFS=${1}
+  printf "${*:2}"
 } # join arguments with ${1} delimiter
 _info()
 {
-    local IFS=$'\n'
-    printf "${G} *  INFO${RS}: %s\n" "$*"
+  local IFS=$'\n'
+  printf "${G} *  INFO${RS}: %s\n" "$*"
 } # print 'INFO' text to stdout
 _warn()
 {
-    local IFS=$'\n'
-    printf "${Y} *  WARN${RS}: %s\n" "$*"
+  local IFS=$'\n'
+  printf "${Y} *  WARN${RS}: %s\n" "$*"
 } # print 'WARN' text to stdout
 _error()
 {
-    # print 'ERROR' text to stderr
-    local IFS=$'\n'
-    printf "${R} * ERROR${RS}: %s\n" "$*" 1>&2
+  # print 'ERROR' text to stderr
+  local IFS=$'\n'
+  printf "${R} * ERROR${RS}: %s\n" "$*" 1>&2
 }
 _erase()
 {
-    # move cursor up a line and erase x times
-    for ((i = 1; i <= ${1:-1}; i++)); do
-        tput cuu1
-        tput el
-    done
+  # move cursor up a line and erase x times
+  for ((i = 1; i <= ${1:-1}; i++)); do
+    tput cuu1
+    tput el
+  done
 }
 _print()
 {
-    # print arguments with an optional color arg +
-    #  to stdout separated by a newline
-    local IFS=$'\n' c
-    c="${1:0:2}" c="${c^^}" c="${!c}"
-    shift 0${c:+1}
-    printf "$c%b\n" "$*${RS}"
+  # print arguments with an optional color arg +
+  #  to stdout separated by a newline
+  local IFS=$'\n' c
+  c="${1:0:2}" c="${c^^}" c="${!c}"
+  shift 0${c:+1}
+  printf "$c%b\n" "$*${RS}"
 }
 
 ##################
@@ -205,267 +205,267 @@ _print()
 ##################
 vagrantSSH()
 {
-    gum style --foreground="${GREEN}" \
-        "Initiating SSH session with Vagrant host ${1:?$(gum style --foreground="${RED}" "No host specified")}..."
-    vagrant ssh $1 -c 'sudo -i'
+  gum style --foreground="${GREEN}" \
+    "Initiating SSH session with Vagrant host ${1:?$(gum style --foreground="${RED}" "No host specified")}..."
+  vagrant ssh $1 -c 'sudo -i'
 }
 
 windowTITLE()
 {
-    echo -ne "\033]0;"$*"\007"
+  echo -ne "\033]0;"$*"\007"
 }
 
 randPASS()
 {
-    env LC_CTYPE=C tr -dc "a-zA-Z0-9-_\$\?" </dev/urandom | head -c ${1:-24}
+  env LC_CTYPE=C tr -dc "a-zA-Z0-9-_\$\?" </dev/urandom | head -c ${1:-24}
 }
 
 getCERT()
 {
-    for site in "$@"; do
-        timeout 5 openssl s_client -showcerts -servername ${site} -connect ${site} </dev/null
-    done
+  for site in "$@"; do
+    timeout 5 openssl s_client -showcerts -servername ${site} -connect ${site} </dev/null
+  done
 }
 
 duDir()
 {
-    du -h --max-depth=1 "${@:-.}" 2>/dev/null | sort -h
+  du -h --max-depth=1 "${@:-.}" 2>/dev/null | sort -h
 }
 
 makeRPM()
 {
-    local fpm m t s os C p v
-    fpm='/usr/bin/env fpm'
-    m='ops@solutionreach.com'
-    t='rpm'
-    s='dir'
-    os='linux'
-    C='./'
-    p='./'
-    v='1.0.0'
+  local fpm m t s os C p v
+  fpm='/usr/bin/env fpm'
+  m='ops@solutionreach.com'
+  t='rpm'
+  s='dir'
+  os='linux'
+  C='./'
+  p='./'
+  v='1.0.0'
 
-    read -ep "Package type {rpm}: " t_cust
-    read -ep "Source type {dir}: " s_cust
-    read -ep "Target OS {linux}:" os_cust
-    read -ep "Package name: " n
-    read -ep "Package version {1.0.0}: " v_cust
-    read -ep "Package vendor: " vendor
-    read -ep "Package url: " url
-    read -ep "Package summary (description): " summary
-    read -ep "Chdir path (source path) {./}: " C_cust
-    read -ep "Package prefix (dest path): " prefix
-    read -ep "Package file output path {./}: " p_cust
-    read -ep "Maintainer {ops@}: " m_cust
+  read -ep "Package type {rpm}: " t_cust
+  read -ep "Source type {dir}: " s_cust
+  read -ep "Target OS {linux}:" os_cust
+  read -ep "Package name: " n
+  read -ep "Package version {1.0.0}: " v_cust
+  read -ep "Package vendor: " vendor
+  read -ep "Package url: " url
+  read -ep "Package summary (description): " summary
+  read -ep "Chdir path (source path) {./}: " C_cust
+  read -ep "Package prefix (dest path): " prefix
+  read -ep "Package file output path {./}: " p_cust
+  read -ep "Maintainer {ops@}: " m_cust
 
-    echo -e "fpm command:\n"
-    cat <<EOF
+  echo -e "fpm command:\n"
+  cat <<EOF
 ${fpm} -t ${t_cust:-$t} -s ${s_cust:-$s} --force \
     -n ${n} -v ${v_cust:-$v} -m ${m_cust:-$m} --url ${url:-\'\'} \
     --vendor ${vendor:-\'\'} --rpm-os ${os_cust:-$os} --rpm-summary "${summary}" \
     --prefix ${prefix} -C ${C_cust:-$C} -p ${p_cust:-$p}
 EOF
-    echo -e "\nCreating package file..."
-    ${fpm} -t ${t_cust:-$t} -s ${s_cust:-$s} --force \
-        -n ${n} -v ${v_cust:-$v} -m ${m_cust:-$m} --url ${url:-\'\'} \
-        --vendor ${vendor:-\'\'} --rpm-os ${os_cust:-$os} --rpm-summary "${summary}" \
-        --prefix ${prefix} -C ${C_cust:-$C} -p ${p_cust:-$p}
+  echo -e "\nCreating package file..."
+  ${fpm} -t ${t_cust:-$t} -s ${s_cust:-$s} --force \
+    -n ${n} -v ${v_cust:-$v} -m ${m_cust:-$m} --url ${url:-\'\'} \
+    --vendor ${vendor:-\'\'} --rpm-os ${os_cust:-$os} --rpm-summary "${summary}" \
+    --prefix ${prefix} -C ${C_cust:-$C} -p ${p_cust:-$p}
 }
 
 processTime()
 {
-    if [[ -n $(perl -pe 's/[a-z]//gi' <<<${1}) ]]; then
-        local refresh=${1}
-        shift
-    fi
-    local UP=$(tput cuu1)
-    local E=$(tput el) local EL=${UP}${E}
-    while true; do
-        printf "\n%30s\n" " " | tr " " "-"
-        echo "Elapsed Time: $(ps -p $(pidof "$@" 2>/dev/null) -o etime= 2>/dev/null)"
-        printf "%30s\n\n" " " | tr " " "-"
-        sleep ${refresh:-2.5}
-        echo -ne "${EL}${EL}${EL}${EL}${EL}"
-    done
+  if [[ -n $(perl -pe 's/[a-z]//gi' <<<${1}) ]]; then
+    local refresh=${1}
+    shift
+  fi
+  local UP=$(tput cuu1)
+  local E=$(tput el) local EL=${UP}${E}
+  while true; do
+    printf "\n%30s\n" " " | tr " " "-"
+    echo "Elapsed Time: $(ps -p $(pidof "$@" 2>/dev/null) -o etime= 2>/dev/null)"
+    printf "%30s\n\n" " " | tr " " "-"
+    sleep ${refresh:-2.5}
+    echo -ne "${EL}${EL}${EL}${EL}${EL}"
+  done
 }
 
 hostAlive()
 {
-    local status host=${1:-8.8.8.8} UP=$(tput cuu1) E=$(tput el)
-    while true; do
-        if ping -c 1 -W 1500 "${host}" &>/dev/null; then
-            status="${GREEN}Host: Alive${RESET} (${host})"
-        else
-            status="${RED}Host: Unreachable${RESET} (${host})"
-        fi
-        printf "\n%30s\n"${E} " " | tr " " "-"
-        echo "${E}${status}"
-        printf "%30s\n\n"${E} " " | tr " " "-"
-        echo "${UP}${UP}${UP}${UP}${UP}${UP}"
-        sleep 2
-    done
+  local status host=${1:-8.8.8.8} UP=$(tput cuu1) E=$(tput el)
+  while true; do
+    if ping -c 1 -W 1500 "${host}" &>/dev/null; then
+      status="${GREEN}Host: Alive${RESET} (${host})"
+    else
+      status="${RED}Host: Unreachable${RESET} (${host})"
+    fi
+    printf "\n%30s\n"${E} " " | tr " " "-"
+    echo "${E}${status}"
+    printf "%30s\n\n"${E} " " | tr " " "-"
+    echo "${UP}${UP}${UP}${UP}${UP}${UP}"
+    sleep 2
+  done
 }
 
 filePath()
 {
-    printf %q "$(pwd)/$*"
+  printf %q "$(pwd)/$*"
 }
 
 sanitizeFilePaths()
 {
-    local tgtDir="${1%/}"
-    [[ -z ${tgtDir} ]] && echo "NO PATH PROVIDED" && return
-    local destDir="$(sed 's/^\.\///;s/^\.//;s/\/$//' <<<"${tgtDir}")_stripped"
-    local IFS=$'\n'
-    local ogFiles=($(find "${tgtDir}" -type f ! -iname ".*" | sed 's/\.\///g;s/\/\//\//g'))
-    local files=($(echo "${ogFiles[*]}" | perl -pe 's/(\.?\/) +(.*?)/$1$2/g;s/(.*?) +(\/)/$1$2/g'))
-    local newDirs=($(for file in "${files[@]}"; do dirname "${file}"; done | sort -u))
-    for dir in ${newDirs[@]}; do
-        mkdir -pv "${destDir}/${dir/\.\//}"
-    done
-    echo "${Y}PREVIEW OF CHANGES${RS}"
+  local tgtDir="${1%/}"
+  [[ -z ${tgtDir} ]] && echo "NO PATH PROVIDED" && return
+  local destDir="$(sed 's/^\.\///;s/^\.//;s/\/$//' <<<"${tgtDir}")_stripped"
+  local IFS=$'\n'
+  local ogFiles=($(find "${tgtDir}" -type f ! -iname ".*" | sed 's/\.\///g;s/\/\//\//g'))
+  local files=($(echo "${ogFiles[*]}" | perl -pe 's/(\.?\/) +(.*?)/$1$2/g;s/(.*?) +(\/)/$1$2/g'))
+  local newDirs=($(for file in "${files[@]}"; do dirname "${file}"; done | sort -u))
+  for dir in ${newDirs[@]}; do
+    mkdir -pv "${destDir}/${dir/\.\//}"
+  done
+  echo "${Y}PREVIEW OF CHANGES${RS}"
+  local i=0
+  for file in "${ogFiles[@]}"; do
+    echo "'${file}' -> '${destDir}/${files[${i}]}'"
+    ((i++))
+  done
+
+  echo "${B}Continue?${RS}"
+  if menu no yes; then
+    rm -vrf "${destDir}"
+  else
     local i=0
     for file in "${ogFiles[@]}"; do
-        echo "'${file}' -> '${destDir}/${files[${i}]}'"
-        ((i++))
+      mv -v "${file}" "${destDir}/${files[${i}]}"
+      ((i++))
     done
-
-    echo "${B}Continue?${RS}"
-    if menu no yes; then
-        rm -vrf "${destDir}"
-    else
-        local i=0
-        for file in "${ogFiles[@]}"; do
-            mv -v "${file}" "${destDir}/${files[${i}]}"
-            ((i++))
-        done
-    fi
+  fi
 }
 
 cleanDupes()
 {
-    local IFS=$'\n' fileList="$(find . \! -type d -exec md5 -r {} \; | sort -k1)"
-    local hashDupes=($(cut -d' ' -f1 <<<"${fileList}" | uniq -d))
-    for hash in ${hashDupes[*]}; do
-        local oc rmList dupes=($(grep "${hash}" <<<"${fileList}" | perl -pe 's/^.*? //g;s/\ /\\ /g' | xargs ls -1cr))
-        echo -e "${BLUE}Which file would you like to keep? (Files are listed oldest to newest)${RS}"
-        menu ${dupes[*]} SKIP
-        oc=$?
-        ((oc == ${#dupes[*]})) && continue
-        rmList=($(sed $((oc + 1))d <<<"${dupes[*]}"))
-        echo
-        rm -v "${rmList[@]// /\ }"
-        echo -e "\n\n"
-    done
+  local IFS=$'\n' fileList="$(find . \! -type d -exec md5 -r {} \; | sort -k1)"
+  local hashDupes=($(cut -d' ' -f1 <<<"${fileList}" | uniq -d))
+  for hash in ${hashDupes[*]}; do
+    local oc rmList dupes=($(grep "${hash}" <<<"${fileList}" | perl -pe 's/^.*? //g;s/\ /\\ /g' | xargs ls -1cr))
+    echo -e "${BLUE}Which file would you like to keep? (Files are listed oldest to newest)${RS}"
+    menu ${dupes[*]} SKIP
+    oc=$?
+    ((oc == ${#dupes[*]})) && continue
+    rmList=($(sed $((oc + 1))d <<<"${dupes[*]}"))
+    echo
+    rm -v "${rmList[@]// /\ }"
+    echo -e "\n\n"
+  done
 }
 
 sortMedia()
 {
-    local mediaDir="${1:?No path specified}"
-    echo "${Y}Moving media from ${mediaDir} to $(pwd)/Videos and $(pwd)/Images.${RS}"
-    echo "Proceed?"
-    menu no yes && return
-    mkdir -p ./Videos ./Images
-    echo "${G}Relocating all images...${RS}"
-    find "${mediaDir}" -name '*' -exec file {} \; | grep -i -o -E '^.+: \w+ image' | cut -d: -f1 | sed 's/ /\\ /g' | xargs mv -v -t ./Images/
-    echo "${G}Relocating all videos...${RS}"
-    find "${mediaDir}" -name '*' -exec file {} \; | grep -i -o -E '^.+: \w+ media' | cut -d: -f1 | sed 's/ /\\ /g' | xargs mv -v -t ./Videos/
+  local mediaDir="${1:?No path specified}"
+  echo "${Y}Moving media from ${mediaDir} to $(pwd)/Videos and $(pwd)/Images.${RS}"
+  echo "Proceed?"
+  menu no yes && return
+  mkdir -p ./Videos ./Images
+  echo "${G}Relocating all images...${RS}"
+  find "${mediaDir}" -name '*' -exec file {} \; | grep -i -o -E '^.+: \w+ image' | cut -d: -f1 | sed 's/ /\\ /g' | xargs mv -v -t ./Images/
+  echo "${G}Relocating all videos...${RS}"
+  find "${mediaDir}" -name '*' -exec file {} \; | grep -i -o -E '^.+: \w+ media' | cut -d: -f1 | sed 's/ /\\ /g' | xargs mv -v -t ./Videos/
 }
 
 help()
 {
-    local helpOut
-    if helpOut="$(command help "$@" 2>/dev/null)"; then
-        printf '%s\n' "${helpOut}" | bat -l cmd-help
-    elif man -w "$1" &>/dev/null; then
-        command man "$@"
-    else
-        "$@" --help 2>&1 | bat -l cmd-help
-    fi
+  local helpOut
+  if helpOut="$(command help "$@" 2>/dev/null)"; then
+    printf '%s\n' "${helpOut}" | bat -l cmd-help
+  elif man -w "$1" &>/dev/null; then
+    command man "$@"
+  else
+    "$@" --help 2>&1 | bat -l cmd-help
+  fi
 }
 
 man()
 {
-    case "$(bash -c "type -t \"$1\""):$1" in
-        builtin:*) help "$1" ;; # built-in
-        *[[?*]*) help "$1" ;;   # pattern
-        *) command man "$@" ;;  # something else, presumed to be an external command
-            # or options for the man command or a section number
-    esac
+  case "$(bash -c "type -t \"$1\""):$1" in
+    builtin:*) help "$1" ;; # built-in
+    *[[?*]*) help "$1" ;;   # pattern
+    *) command man "$@" ;;  # something else, presumed to be an external command
+      # or options for the man command or a section number
+  esac
 }
 
 checkCERT()
 {
-    read -ep "Path to public cert: " pubPath
-    read -ep "Path to key: " keyPath
+  read -ep "Path to public cert: " pubPath
+  read -ep "Path to key: " keyPath
 
-    local pubHash=$(openssl x509 -noout -modulus -in ${pubPath} | openssl md5)
-    local keyHash=$(openssl rsa -noout -modulus -in ${keyPath} | openssl md5)
+  local pubHash=$(openssl x509 -noout -modulus -in ${pubPath} | openssl md5)
+  local keyHash=$(openssl rsa -noout -modulus -in ${keyPath} | openssl md5)
 
-    echo "Public Key Hash: ${pubHash}"
-    echo "Private Key Hash: ${keyHash}"
+  echo "Public Key Hash: ${pubHash}"
+  echo "Private Key Hash: ${keyHash}"
 
-    if [[ ${pubHash} == "${keyHash}" ]]; then
-        echo "${G}Keys match${RS}"
-    else
-        echo "${R}Keys do not match${RS}"
-    fi
+  if [[ ${pubHash} == "${keyHash}" ]]; then
+    echo "${G}Keys match${RS}"
+  else
+    echo "${R}Keys do not match${RS}"
+  fi
 }
 
 cleanDupesAuto()
 {
-    local IFS srcPath hashFile sortedLines hashDupes dupeFiles hash pids
-    if [[ -d ${1:-.} ]]; then
-        srcPath="${1:-.}"
-    else
-        echo "ERROR: Provided source path is not a valid directory."
-        return 1
-    fi
-    IFS=$'\n' hashFile="${srcPath}/.hashfile" sortedFile="${srcPath}/.sortedHash" pids=()
-    echo >"${hashFile}"
-    for file in $(find "${srcPath}" -type f ! -iname ".*"); do
-        sudo nice -n -18 md5sum -t "${file}" >>"${hashFile}" 2>/dev/null &
-        pids+=($!)
-    done &>/dev/null
-    for pid in "${pids[@]}"; do
-        wait "${pid}" &>/dev/null
-    done
-    sortedLines="$(sort -k1 -u "${hashFile}")"
-    echo "${sortedLines}" >"${hashFile}"
-    hashDupes=($(cut -d' ' -f1 "${hashFile}" | uniq -d))
-    for hash in "${hashDupes[@]}"; do
-        dupeFiles=($(ls -tr $(grep --color=never "${hash}" "${hashFile}" | sed "s/${hash} *//g")))
-        # echo "rm -vf -- \"${dupeFiles[@]:1}\""
-        rm -vf -- "${dupeFiles[@]:1}"
-    done
+  local IFS srcPath hashFile sortedLines hashDupes dupeFiles hash pids
+  if [[ -d ${1:-.} ]]; then
+    srcPath="${1:-.}"
+  else
+    echo "ERROR: Provided source path is not a valid directory."
+    return 1
+  fi
+  IFS=$'\n' hashFile="${srcPath}/.hashfile" sortedFile="${srcPath}/.sortedHash" pids=()
+  echo >"${hashFile}"
+  for file in $(find "${srcPath}" -type f ! -iname ".*"); do
+    sudo nice -n -18 md5sum -t "${file}" >>"${hashFile}" 2>/dev/null &
+    pids+=($!)
+  done &>/dev/null
+  for pid in "${pids[@]}"; do
+    wait "${pid}" &>/dev/null
+  done
+  sortedLines="$(sort -k1 -u "${hashFile}")"
+  echo "${sortedLines}" >"${hashFile}"
+  hashDupes=($(cut -d' ' -f1 "${hashFile}" | uniq -d))
+  for hash in "${hashDupes[@]}"; do
+    dupeFiles=($(ls -tr $(grep --color=never "${hash}" "${hashFile}" | sed "s/${hash} *//g")))
+    # echo "rm -vf -- \"${dupeFiles[@]:1}\""
+    rm -vf -- "${dupeFiles[@]:1}"
+  done
 }
 
 countFiles()
 {
-    [[ -d ${1} ]] && local path=${1}
-    du -a ${path:-.} | cut -d/ -f2 | sort | uniq -c | sort -nr | sed '$d'
+  [[ -d ${1} ]] && local path=${1}
+  du -a ${path:-.} | cut -d/ -f2 | sort | uniq -c | sort -nr | sed '$d'
 }
 
 SetSound()
 {
-    local search device
-    search="$@"
+  local search device
+  search="$@"
 
-    device="$(SwitchAudioSource -a | grep -m1 -i "${search}")"
+  device="$(SwitchAudioSource -a | grep -m1 -i "${search}")"
 
-    [[ -n ${device:+x} ]] && SwitchAudioSource -s "${device}"
+  [[ -n ${device:+x} ]] && SwitchAudioSource -s "${device}"
 }
 
 osa()
 {
-    local IFS=$'\n'
-    osascript <<EOF
+  local IFS=$'\n'
+  osascript <<EOF
 $*
 EOF
 }
 
 showAlert()
 {
-    osascript <<EOF
+  osascript <<EOF
 tell me to activate
 display alert "$*"
 EOF
@@ -473,110 +473,121 @@ EOF
 
 1pBackupCodes()
 {
-    local IFS=$'\n'
-    local opEntry backupCodes backupCode index errorOut
-    opEntry="${1}" backupCodes=(${*:2}) index=0 errorOut=0
-    [[ -z ${backupCodes[*]} ]] && backupCodes=($(pbpaste))
+  local IFS=$'\n'
+  local opEntry backupCodes backupCode index errorOut
+  opEntry="${1}" backupCodes=(${*:2}) index=0 errorOut=0
+  [[ -z ${backupCodes[*]} ]] && backupCodes=($(pbpaste))
 
-    op item get "${opEntry}" &>/dev/null ||
-        echo "${R}No 1Password entry found for \"${RS}${opEntry}${R}\"${RS}"
+  op item get "${opEntry}" &>/dev/null ||
+    echo "${R}No 1Password entry found for \"${RS}${opEntry}${R}\"${RS}"
 
-    while ((index < ${#backupCodes[@]})); do
-        backupCode=${backupCodes[${index}]}
-        ((index++))
-        op item edit "${opEntry}" Backup\ Codes.Code\ ${index}[password]="${backupCode}" &>/dev/null || ((errorOut++))
-    done
+  while ((index < ${#backupCodes[@]})); do
+    backupCode=${backupCodes[${index}]}
+    ((index++))
+    op item edit "${opEntry}" Backup\ Codes.Code\ ${index}[password]="${backupCode}" &>/dev/null || ((errorOut++))
+  done
 
-    if ((errorOut > 0)); then
-        echo "${R}Failed to add backup code(s) to 1Password entry \"${RS}${opEntry}${R}\"${RS}"
-    else
-        op item get "${opEntry}"
-        echo -e "${G}\n${#backupCodes[@]} backup code(s) have been added to 1Password entry \"${RS}${opEntry}${G}\"${RS}\n"
-    fi
+  if ((errorOut > 0)); then
+    echo "${R}Failed to add backup code(s) to 1Password entry \"${RS}${opEntry}${R}\"${RS}"
+  else
+    op item get "${opEntry}"
+    echo -e "${G}\n${#backupCodes[@]} backup code(s) have been added to 1Password entry \"${RS}${opEntry}${G}\"${RS}\n"
+  fi
 }
 
 localFind()
 {
-    local searchDir type IFS
-    IFS=$'\n' searchDir="." type="f,d"
-    for x in 1 2; do
-        case "${1}" in
-            b | c | d | p | f | l | s | D | b,* | c,* | d,* | p,* | f,* | l,* | s,* | D,*)
-                type="${1}"
-                ;;
-            *)
-                [[ -n ${1} ]] && searchDir="${1}"
-                ;;
-        esac
-        shift
-    done
-    for x in $(find "${searchDir}" -maxdepth 1 -type ${type} ! -name "." ${@} -printf '%p\n' | sort); do
-        [[ -d ${x} ]] && ls --color=auto -A -d "${x}" || ls --color=auto "${x}"
-    done
-    return $?
+  local searchDir type IFS
+  IFS=$'\n' searchDir="." type="f,d"
+  for x in 1 2; do
+    case "${1}" in
+      b | c | d | p | f | l | s | D | b,* | c,* | d,* | p,* | f,* | l,* | s,* | D,*)
+        type="${1}"
+        ;;
+      *)
+        [[ -n ${1} ]] && searchDir="${1}"
+        ;;
+    esac
+    shift
+  done
+  for x in $(find "${searchDir}" -maxdepth 1 -type ${type} ! -name "." ${@} -printf '%p\n' | sort); do
+    [[ -d ${x} ]] && ls --color=auto -A -d "${x}" || ls --color=auto "${x}"
+  done
+  return $?
 }
 
 isValidIP()
 {
-    local ip stat IFS
-    ip="${@}" stat=1
+  local ip stat IFS
+  ip="${@}" stat=1
 
-    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
-        IFS='.' read -r -a octet <<<"${ip}"
-        [[ ${octet[0]} -le 255 && ${octet[1]} -le 255 && ${octet[2]} -le 255 && ${octet[3]} -le 255 ]]
-        stat=$?
-    fi
-    return ${stat}
+  if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+    IFS='.' read -r -a octet <<<"${ip}"
+    [[ ${octet[0]} -le 255 && ${octet[1]} -le 255 && ${octet[2]} -le 255 && ${octet[3]} -le 255 ]]
+    stat=$?
+  fi
+  return ${stat}
 }
 
 dlSong()
 {
-    gum style --foreground="${GREEN}" \
-        "Downloading audio from URL ${1:?$(gum style --foreground="${RED}" "No URL specified")}..."
-    yt-dlp --extract-audio --audio-format mp3 "$1"
+  gum style --foreground="${GREEN}" \
+    "Downloading audio from URL ${1:?$(gum style --foreground="${RED}" "No URL specified")}..."
+  yt-dlp --extract-audio --audio-format mp3 "$1"
 }
 
 rmSSH()
 {
-    [[ -n $@ ]] && sed -i "/^$@ /d" ${HOME}/.ssh/known_hosts
+  [[ -n $@ ]] && sed -i "/^$@ /d" ${HOME}/.ssh/known_hosts
 }
 
 showBASHEnv()
 {
-    (PS4='+$BASH_SOURCE> ' BASH_XTRACEFD=7 bash -xl -c 'true' 7>&1)
+  (PS4='+$BASH_SOURCE> ' BASH_XTRACEFD=7 bash -xl -c 'true' 7>&1)
 }
 
 extractVideoFrames()
 {
-    local video="${@}"
-    mkdir -pv "./${video}_frames"
-    ffmpeg -i "${video}" -pix_fmt rgba "${video}_frames/frame_%04d.png"
+  local video="${@}"
+  mkdir -pv "./${video}_frames"
+  ffmpeg -i "${video}" -pix_fmt rgba "${video}_frames/frame_%04d.png"
 }
 
 pasteScript()
 {
-    local script scriptname
-    script="$(pbpaste)"
-    read -ep "Script name: " scriptname
-    echo "${script}" >"${scriptname}"
-    chmod +x "${scriptname}"
+  local script scriptname
+  script="$(pbpaste)"
+  read -ep "Script name: " scriptname
+  echo "${script}" >"${scriptname}"
+  chmod +x "${scriptname}"
 }
 
 virtualenv()
 {
 
-    local venvOutput venvDir
-    venvOutput="$(command virtualenv $@ 2>&1 | tee /dev/tty)"
-    venvDir="$(grep -oP --color=never 'dest=\K[^,]*' <<<"${venvOutput}")"
-    sed -E -i'' 's/(PS1=")\(/\1\\n(/' "${venvDir}"/bin/*
+  local venvOutput venvDir
+  venvOutput="$(command virtualenv $@ 2>&1 | tee /dev/tty)"
+  venvDir="$(grep -oP --color=never 'dest=\K[^,]*' <<<"${venvOutput}")"
+  sed -E -i'' 's/(PS1=")\(/\1\\n(/' "${venvDir}"/bin/*
 }
 
 appPath()
 {
-    find /Applications ~/Applications /System/Applications -iname "$@.app" -print -quit 2>/dev/null
+  find /Applications ~/Applications /System/Applications -iname "$@.app" -print -quit 2>/dev/null
 }
 
 bundleID()
 {
-    defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
+  defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
+}
+
+tccServices()
+{
+  {
+    sudo sqlite3 -json "/Library/Application Support/com.apple.TCC/TCC.db" \
+      "SELECT DISTINCT service, client FROM access ORDER BY service, client"
+    sqlite3 -json "${HOME}/Library/Application Support/com.apple.TCC/TCC.db" \
+      "SELECT DISTINCT service, client FROM access ORDER BY service, client"
+  } |
+    jq -s 'add | unique_by(.service,.client) | group_by(.service) | map({(.[0].service | ltrimstr("kTCCService")): map(.client)}) | add'
 }
