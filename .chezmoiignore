@@ -51,3 +51,9 @@ Desktop/Scripts*
 dot_wslconfig
 
 {{ end -}}
+
+{{ if ne .chezmoi.os "darwin" -}}
+# Non-macOS ignores
+.config/bat
+
+{{ end -}}
