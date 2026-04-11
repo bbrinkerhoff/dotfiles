@@ -28,6 +28,7 @@ packages:
       - imagemagick
       - jq
       - kavehtehrani/tap/cloudflare-speed-cli
+      - keith/formulae/zap
       - libao
       - mas
       - nasm

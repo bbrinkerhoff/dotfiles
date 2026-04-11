@@ -36,6 +36,10 @@ defaults write com.rogueamoeba.soundsource registrationInfo -dict \
 defaults write 'com.incrediblebee.Renamer' 'LicenseKey' \
     -string {{ onepasswordRead "op://Private/Renamer/license key" | quote }}
 
+defaults write 'com.latenightsw.ScriptDebugger8' kPrefSWReg80Registration \
+    -string {{ onepasswordRead "op://Private/Script Debugger/license key" | quote }}
+
+
 # ─── App preferences ─────────────────────────────────────────────────────────
 # iTerm2
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
