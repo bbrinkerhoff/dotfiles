@@ -5,6 +5,7 @@ packages:
       - bashdb
       - bat
       - chezmoi
+      - cliclick
       - colordiff
       - curl
       - czkawka
