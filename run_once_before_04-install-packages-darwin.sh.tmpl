@@ -17,6 +17,15 @@ if [[ ! -f "/etc/bashrc_iTerm.app" && -f "/etc/bashrc_Apple_Terminal" ]]; then
     sudo cp -v "/etc/bashrc_Apple_Terminal" "/etc/bashrc_iTerm.app"
 fi
 
+# ─── Uninstall bloat ─────────────────────────────────────────────────────────
+if which zap &>/dev/null; then
+    sudo zap -y GarageBand.app || true
+    sudo zap -y Pages.app || true
+    sudo zap -y Numbers.app || true
+    sudo zap -y iMovie.app || true
+    sudo zap -y Keynote.app || true
+fi
+
 # ─── License keys ────────────────────────────────────────────────────────────
 defaults write com.bjango.istatmenus.menubar.7 License -dict \
     License -string {{ onepasswordRead "op://Private/iStat Menus/license key" | quote }}
@@ -39,14 +48,16 @@ defaults write 'com.incrediblebee.Renamer' 'LicenseKey' \
 defaults write 'com.latenightsw.ScriptDebugger8' kPrefSWReg80Registration \
     -string {{ onepasswordRead "op://Private/Script Debugger/license key" | quote }}
 
-
 # ─── App preferences ─────────────────────────────────────────────────────────
 # iTerm2
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
 defaults write com.googlecode.iterm2 PrefsCustomFolder -string "/Users/draco/.config/iterm2/iTermPreferences"
 
 # RapiDMG
-bundleID () { defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2> /dev/null)" CFBundleIdentifier 2> /dev/null; }
+bundleID()
+{
+    defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
+}
 duti -s "$(bundleID RapiDMG)" ".dmg"
 
 # Bartender
