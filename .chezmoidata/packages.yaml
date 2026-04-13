@@ -44,6 +44,7 @@ packages:
       - virtualenv
       - wakeonlan
       - wget
+      - xq
       - yq
       - yt-dlp
       - zopfli
