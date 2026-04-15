@@ -185,38 +185,47 @@ fi
 
 # ─── FlareSolverr ────────────────────────────────────────────────────────────
 section "Installing FlareSolverr"
-# The release tarball extracts to /opt/Flaresolverr (capital F)
-FLARESOLVERR_DIR="/opt/Flaresolverr"
+# The release tarball extracts to /opt/flaresolverr (lowercase)
+FLARESOLVERR_DIR="/opt/flaresolverr"
 
-if [[ ! -f "${FLARESOLVERR_DIR}/flaresolverr" ]]; then
-  info "Downloading FlareSolverr..."
-  FLARE_TAG=$(curl -s https://api.github.com/repos/FlareSolverr/FlareSolverr/releases/latest |
-    grep '"tag_name"' | cut -d '"' -f 4)
+FLARE_TAG=$(curl -s https://api.github.com/repos/FlareSolverr/FlareSolverr/releases/latest |
+  grep '"tag_name"' | cut -d '"' -f 4)
+INSTALLED_VER=""
+[[ -f "${FLARESOLVERR_DIR}/package.json" ]] &&
+  INSTALLED_VER=$(python3 -c "import json; print(json.load(open('${FLARESOLVERR_DIR}/package.json'))['version'])" 2>/dev/null)
+
+if [[ "v${INSTALLED_VER}" != "${FLARE_TAG}" ]]; then
+  info "Installing FlareSolverr ${FLARE_TAG} (installed: ${INSTALLED_VER:-none})..."
   FLARE_URL="https://github.com/FlareSolverr/FlareSolverr/releases/download/${FLARE_TAG}/flaresolverr_linux_x64.tar.gz"
   curl -sL "$FLARE_URL" | sudo tar -xz -C /opt/
-  sudo chown -R root:root "${FLARESOLVERR_DIR}"
+  sudo chown -R "${USER}":"${USER}" "${FLARESOLVERR_DIR}"
   ok "FlareSolverr ${FLARE_TAG} installed to ${FLARESOLVERR_DIR}"
 else
-  ok "FlareSolverr already installed"
+  ok "FlareSolverr ${FLARE_TAG} already installed"
 fi
 
 # FlareSolverr systemd service
-# Note: FlareSolverr manages its own Xvfb internally (random display number per
-# run), so no separate xvfb.service or DISPLAY env var is needed.
-# KillMode=control-group ensures Xvfb child processes are cleaned up on stop/
-# restart; without it they leak and cause "Address already in use" on the next
-# start. RestartSec=5 gives the OS time to release the port between restarts.
-if [[ ! -f /etc/systemd/system/flaresolverr.service ]]; then
-  sudo tee /etc/systemd/system/flaresolverr.service >/dev/null <<'EOF'
+# WSL2 mounts /tmp/.X11-unix as a read-only tmpfs inside systemd's mount
+# namespace, so Xvfb (spawned internally by FlareSolverr) can't create its
+# Unix socket there. RuntimeDirectory creates a writable /run/flaresolverr-x11
+# before start; BindPaths overlays it onto /tmp/.X11-unix inside the service's
+# namespace so Xvfb can write its socket.
+# KillMode=control-group ensures the Xvfb child is cleaned up on stop/restart
+# so port 8191 is free for the next start.
+sudo tee /etc/systemd/system/flaresolverr.service >/dev/null <<EOF
 [Unit]
 Description=Flaresolverr Daemon
 After=syslog.target network.target
 
 [Service]
-User=root
-Group=root
+User=${USER}
+Group=${USER}
 Type=simple
-ExecStart=/opt/Flaresolverr/flaresolverr
+Environment=LOG_HTML=true
+RuntimeDirectory=flaresolverr-x11
+RuntimeDirectoryMode=1777
+BindPaths=/run/flaresolverr-x11:/tmp/.X11-unix
+ExecStart=${FLARESOLVERR_DIR}/flaresolverr
 TimeoutStopSec=20
 KillMode=control-group
 Restart=on-failure
@@ -225,8 +234,7 @@ RestartSec=5
 [Install]
 WantedBy=multi-user.target
 EOF
-  ok "flaresolverr.service created"
-fi
+ok "flaresolverr.service written"
 
 sudo systemctl daemon-reload
 sudo systemctl enable flaresolverr
