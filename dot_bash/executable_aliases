@@ -43,7 +43,7 @@ alias pip3='python3 -m pip'
 alias rsync='rsync --progress -v -h'
 alias tdate='date "+%Y%m%d"'
 alias vi='vim'
-alias wolpc='wakeonlan -f ${HOME}/.config/wakeonlan/PC.conf'
+alias wolpc='osascript -e ""tell application \"BetterTouchTool\" to trigger_named \"Launch Windows App\""'
 
 ####################
 # Settings Aliases #
