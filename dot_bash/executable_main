@@ -19,6 +19,7 @@ fi
 #################
 # File Sourcing #
 #################
+which brew >/dev/null || alias brew='true'
 export BREW_PREFIX=$(brew --prefix)
 SOURCE_FILES=(
   ## Main BASH Resources

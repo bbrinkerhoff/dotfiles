@@ -2055,6 +2055,17 @@ a {
 				<string>#FDFDFDFF</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_00DDDDFF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#00DDDDFF</string>
+				<key>foreground</key>
+				<string>#1B1B1BFF</string>
+			</dict>
+		</dict>
 	</array>
 	<key>uuid</key>
 	<string>4F44C0F5-1F8D-4C52-8BAB-F0951904C1EC</string>
