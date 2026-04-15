@@ -1,25 +1,28 @@
 # This is Git's per-user configuration file.
 [user]
-	name = {{ .fullName }}
-	email = {{ .email }}
+    name = {{ .fullName }}
+    email = {{ .email }}
 
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+    insteadOf = https://github.com/
 
 [init]
-	defaultBranch = main
+    defaultBranch = main
 
 [core]
-	excludesfile = ~/.gitignoreglobal
+    excludesfile = ~/.gitignoreglobal
+{{ if eq .chezmoi.os "linux" -}}
+     sshCommand = ssh.exe
+{{ end -}}
 
 [push]
-	default = simple
-	autoSetupRemote = true
-	followTags = true
+    default = simple
+    autoSetupRemote = true
+    followTags = true
 
 [fetch]
-	prune = true
-	pruneTag = true
+    prune = true
+    pruneTag = true
 
 [pull]
-	rebase = false
+    rebase = false
