@@ -128,6 +128,8 @@ packages:
     winget:
       - 7zip.7zip
       - AgileBits.1Password
+      - Anthropic.Claude
+      - Anthropic.ClaudeCode
       - AntibodySoftware.WizTree
       - AutoHotkey.AutoHotkey # AHK v2 only — v1 not in winget, install manually
       - Docker.DockerDesktop
