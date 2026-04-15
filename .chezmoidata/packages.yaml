@@ -64,6 +64,7 @@ packages:
       - bbrinkerhoff/private/freefilesync
       - bbrinkerhoff/private/sikulix
       - bbrinkerhoff/private/temurin-jdk11
+      - bbrinkerhoff/private/ui-browser
       - bettertouchtool
       - claude
       - claude-code
