@@ -27,6 +27,7 @@ SOURCE_FILES=(
   "${HOME}/.bash/variables"
   "${HOME}/.bash/functions"
   "${HOME}/.bash/aliases"
+  "${HOME}/.bash/wsl"
 
   ## Other BASH Resources
   "${BREW_PREFIX}/etc/bash_completion"

@@ -20,6 +20,13 @@
 {{ else if eq .chezmoi.os "linux" }}
 [linux]
   shell_path = "$(which bash)"
+{{   if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[wsl]
+  wsl = true
+{{ else }}
+  wsl = false
+{{   end }}
+{{ end }}
 {{ end }}
 
 [git]

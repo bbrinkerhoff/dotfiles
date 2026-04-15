@@ -35,6 +35,13 @@
     {
         "keys":
         [
+            "ctrl+super+up"
+        ],
+        "command": "swap_line_up"
+    },
+    {
+        "keys":
+        [
             "super+shift+alt+right"
         ],
         "command": "focus_neighboring_group"
