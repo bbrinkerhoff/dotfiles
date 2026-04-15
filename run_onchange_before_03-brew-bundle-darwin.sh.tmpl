@@ -30,5 +30,5 @@ mas {{ .name | quote }}, id: {{ .id }}
 {{ end -}}
 EOF
 
-brew cleanup
+brew cleanup || true
 {{- end -}}
