@@ -23,7 +23,7 @@ packages:
       - gnutls
       - go
       - grep
-      - gromgit/fuse/ntfs-3g-mac
+      # - gromgit/fuse/ntfs-3g-mac
       - gum
       - imagemagick
       - jq
