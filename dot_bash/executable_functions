@@ -591,3 +591,14 @@ tccServices()
   } |
     jq -s 'add | unique_by(.service,.client) | group_by(.service) | map({(.[0].service | ltrimstr("kTCCService")): map(.client)}) | add'
 }
+
+activateVirtualenv()
+{
+  local venvDir activateScript
+  venvDir="${1}" activateScript="$(find "${venvDir:-./}" -maxdepth 3 -type f -name activate -path "*/bin/*" -print -quit)"
+  if [[ -f ${activateScript} ]]; then
+    source "${activateScript}"
+  else
+    command act "$@"
+  fi
+}
