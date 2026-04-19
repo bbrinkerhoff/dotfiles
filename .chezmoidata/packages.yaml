@@ -6,9 +6,11 @@ packages:
       - bat
       - chezmoi
       - cliclick
+      - colima
       - colordiff
       - curl
       - czkawka
+      - docker
       - dockutil
       - duti
       - findutils
