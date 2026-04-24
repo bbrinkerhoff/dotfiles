@@ -134,6 +134,7 @@ packages:
       - Anthropic.ClaudeCode
       - AntibodySoftware.WizTree
       - AutoHotkey.AutoHotkey # AHK v2 only — v1 not in winget, install manually
+      - Bitsum.ProcessLasso
       - Docker.DockerDesktop
       - Git.Git
       - Google.Chrome
