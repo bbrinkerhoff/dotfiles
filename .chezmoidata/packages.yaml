@@ -109,6 +109,8 @@ packages:
         id: 1198176727
       - name: GrandPerspective
         id: 1111570163
+      - name: HP Easy Scan
+        id: 967004861
       - name: Key Codes
         id: 414568915
       - name: OpenIn 4 Advanced Link Handler
@@ -125,6 +127,7 @@ packages:
         id: 1295203466
       - name: uBlock Origin Lite
         id: 6745342698
+
 
   windows:
     winget:
