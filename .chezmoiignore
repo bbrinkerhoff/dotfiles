@@ -44,6 +44,7 @@ Library
 # Linux ignores
 *wsl*
 *WSL*
+Library
 
 {{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 # WSL ignores
