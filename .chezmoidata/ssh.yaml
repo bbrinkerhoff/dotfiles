@@ -12,7 +12,28 @@ ssh:
     # -------------------------------------------------------------------------
     # macOS (darwin) only
     # -------------------------------------------------------------------------
-    darwin: []
+    darwin:
+      - name: "192.168.100.1"
+        comment: "Gateway – password auth, no 1Password agent (keys not configured on device)"
+        options:
+          User: "root"
+          IdentityAgent: "none"
+          PreferredAuthentications: "password,keyboard-interactive"
+          PubkeyAuthentication: "no"
+
+      - name: "qnap qnap.local 192.168.1.15 192.168.1.14"
+        comment: "Qnap Admin SSH"
+        options:
+          HostName: "192.168.1.15"
+          User: "qnap-admin"
+
+      - name: "bhoff-homebridge bhoff-homebridge.local 192.168.100.71"
+        comment: "Brinkerhoff Home Homebridge (Pi)"
+        options:
+          User: "root"
+          IdentityAgent: "none"
+          PreferredAuthentications: "password,keyboard-interactive"
+          PubkeyAuthentication: "no"
     #   - name: "*.local"
     #     comment: "mDNS hosts on the local LAN"
     #     options:
@@ -37,28 +58,8 @@ ssh:
     # -------------------------------------------------------------------------
     # Personal machines
     # -------------------------------------------------------------------------
-    personal:
-      - name: "192.168.100.1"
-        comment: "Gateway – password auth, no 1Password agent (keys not configured on device)"
-        options:
-          User: "root"
-          IdentityAgent: "none"
-          PreferredAuthentications: "password,keyboard-interactive"
-          PubkeyAuthentication: "no"
+    personal: []
 
-      - name: "qnap qnap.local 192.168.1.15 192.168.1.14"
-        comment: "Qnap Admin SSH"
-        options:
-          HostName: "192.168.1.15"
-          User: "qnap-admin"
-
-      - name: "bhoff-homebridge bhoff-homebridge.local 192.168.100.71"
-        comment: "Brinkerhoff Home Homebridge (Pi)"
-        options:
-          User: "root"
-          IdentityAgent: "none"
-          PreferredAuthentications: "password,keyboard-interactive"
-          PubkeyAuthentication: "no"
       # - name: "homelab"
       #   comment: "Home server"
       #   options:
