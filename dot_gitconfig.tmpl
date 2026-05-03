@@ -11,7 +11,7 @@
 
 [core]
     excludesfile = ~/.gitignoreglobal
-{{- if eq .chezmoi.os "linux" }}
+{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
     sshCommand = ssh.exe
 {{- end }}
 
