@@ -45,6 +45,7 @@ Library
 *wsl*
 *WSL*
 Library
+.ssh
 
 {{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
 # WSL ignores
