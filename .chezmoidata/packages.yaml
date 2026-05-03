@@ -87,6 +87,7 @@ packages:
       - nextcloud-vfs
       - onyx
       - orcaslicer
+      - raspberry-pi-imager
       - renamer
       - script-debugger
       - sdformatter
