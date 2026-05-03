@@ -40,8 +40,13 @@ Library
 *macOS*
 *OSX*
 
-{{ else if eq .chezmoi.os "linux" -}}
+{{ else if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 # Linux ignores
+*wsl*
+*WSL*
+
+{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
+# WSL ignores
 
 {{ end -}}
 {{ if ne .chezmoi.os "windows" -}}
