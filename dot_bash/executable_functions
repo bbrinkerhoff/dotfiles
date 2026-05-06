@@ -546,13 +546,6 @@ showBASHEnv()
   (PS4='+$BASH_SOURCE> ' BASH_XTRACEFD=7 bash -xl -c 'true' 7>&1)
 }
 
-extractVideoFrames()
-{
-  local video="${@}"
-  mkdir -pv "./${video}_frames"
-  ffmpeg -i "${video}" -pix_fmt rgba "${video}_frames/frame_%04d.png"
-}
-
 pasteScript()
 {
   local script scriptname
