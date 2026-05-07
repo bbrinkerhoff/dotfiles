@@ -14,18 +14,26 @@
 
 # Platform Detection
 {{ if eq .chezmoi.os "darwin" }}
+  osID = "macOS"
   macOSMajorVersion = "{{ output "sw_vers" "-productVersion" | splitList "." | first | trim }}"
 {{ else if eq .chezmoi.os "windows" }}
 [windows]
+  osID = "Windows"
+
 {{ else if eq .chezmoi.os "linux" }}
 [linux]
+  osID = "Linux"
   shell_path = "$(which bash)"
-{{ end }}
 
-{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[wsl-linux]
+  osID = "WSL-Linux"
+
 [onepassword]
   command = "op.exe"
+
 {{ end }}
+
 [git]
     autoCommit = {{ $autoCommit }}
     autoPush = {{ $autoCommit }}
