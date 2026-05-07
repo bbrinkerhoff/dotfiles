@@ -20,17 +20,17 @@
 [windows]
   osID = "Windows"
 
-{{ else if eq .chezmoi.os "linux" }}
-[linux]
-  osID = "Linux"
-  shell_path = "$(which bash)"
-
 {{ else if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 [wsl-linux]
   osID = "WSL-Linux"
 
 [onepassword]
   command = "op.exe"
+
+{{ else if eq .chezmoi.os "linux" }}
+[linux]
+  osID = "Linux"
+  shell_path = "$(which bash)"
 
 {{ end }}
 
