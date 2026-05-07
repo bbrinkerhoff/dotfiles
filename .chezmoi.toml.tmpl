@@ -22,6 +22,10 @@
   shell_path = "$(which bash)"
 {{ end }}
 
+{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+[onepassword]
+  command = "op.exe"
+{{ end }}
 [git]
     autoCommit = {{ $autoCommit }}
     autoPush = {{ $autoCommit }}
