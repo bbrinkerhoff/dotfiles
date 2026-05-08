@@ -613,3 +613,9 @@ activateVirtualenv()
     command act "$@"
   fi
 }
+
+gpgd()
+{
+  local f="$1"
+  gpg -d "$f" -o "${f%.gpg}"
+}
