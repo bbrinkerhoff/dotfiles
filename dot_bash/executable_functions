@@ -617,5 +617,5 @@ activateVirtualenv()
 gpgd()
 {
   local f="$1"
-  gpg -d "$f" -o "${f%.gpg}"
+  gpg -o "${f%.gpg}" -d "$f"
 }
