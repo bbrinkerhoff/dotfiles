@@ -7,58 +7,72 @@ set -eo pipefail
 # Cache sudo credentials upfront so we don't get prompted mid-script
 sudo -n true 2>/dev/null || sudo -v
 while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" || exit
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
 done 2>/dev/null &
 
 # iTerm2 bashrc
 if [[ ! -f "/etc/bashrc_iTerm.app" && -f "/etc/bashrc_Apple_Terminal" ]]; then
-    sudo cp -v "/etc/bashrc_Apple_Terminal" "/etc/bashrc_iTerm.app"
+  sudo cp -v "/etc/bashrc_Apple_Terminal" "/etc/bashrc_iTerm.app"
 fi
 
 # ─── Uninstall bloat ─────────────────────────────────────────────────────────
 if which zap &>/dev/null; then
-    sudo zap -y GarageBand.app || true
-    sudo zap -y Pages.app || true
-    sudo zap -y Numbers.app || true
-    sudo zap -y iMovie.app || true
-    sudo zap -y Keynote.app || true
+  sudo zap -y GarageBand.app || true
+  sudo zap -y Pages.app || true
+  sudo zap -y Numbers.app || true
+  sudo zap -y iMovie.app || true
+  sudo zap -y Keynote.app || true
 fi
 
 # ─── License keys ────────────────────────────────────────────────────────────
 defaults write com.bjango.istatmenus.menubar.7 License -dict \
-    License -string {{ onepasswordRead "op://Private/iStat Menus/license key" | quote }}
+  License -string {{ onepasswordRead "op://Private/iStat Menus/license key" | quote }}
 
 defaults write com.incrediblebee.Archiver LicenseKey \
-    -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
+  -string {{ onepasswordRead "op://Private/Archiver 5/license key" | quote }}
 
 defaults write com.surteesstudios.Bartender license6 \
-    -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
+  -string {{ onepasswordRead "op://Private/Bartender 6/license key" | quote }}
 defaults write com.surteesstudios.Bartender license6HoldersName \
-    -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
+  -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
 
 defaults write com.rogueamoeba.soundsource registrationInfo -dict \
-    Name -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
-    Code -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
+  Name -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
+  Code -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
 
 defaults write 'com.incrediblebee.Renamer' 'LicenseKey' \
-    -string {{ onepasswordRead "op://Private/Renamer/license key" | quote }}
+  -string {{ onepasswordRead "op://Private/Renamer/license key" | quote }}
 
 defaults write 'com.latenightsw.ScriptDebugger8' kPrefSWReg80Registration \
-    -string {{ onepasswordRead "op://Private/Script Debugger/license key" | quote }}
+  -string {{ onepasswordRead "op://Private/Script Debugger/license key" | quote }}
+
+# ─── Docker ─────────────────────────────────────────────────────────
+for plugin in docker-compose docker-buildx; do
+  if brew list "${plugin}" &>/dev/null; then
+    pDir="${HOME}/.docker/cli-plugins"
+    pSrc="$(brew --prefix)/opt/${plugin}/bin/${plugin}"
+    pDst="${pDir}/${plugin}"
+    mkdir -p "${pDir}"
+    ln -sf "${pSrc}" "${pDst}"
+  fi
+done
 
 # ─── App preferences ─────────────────────────────────────────────────────────
 # iTerm2
 defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
-defaults write com.googlecode.iterm2 PrefsCustomFolder -string "/Users/draco/.config/iterm2/iTermPreferences"
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "/${HOME}/.config/iterm2/iTermPreferences"
 
 # RapiDMG
 bundleID()
 {
-    defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
+  defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
 }
-duti -s "$(bundleID RapiDMG)" ".dmg"
+
+if command -v duti; then
+  duti -s "$(bundleID RapiDMG)" ".dmg"
+fi
 
 # Bartender
 defaults write com.surteesstudios.Bartender launchAtLogin.isEnabled -int 1
@@ -93,8 +107,8 @@ git config --global credential.gitHubAccountFiltering "false"
 
 # Nextcloud
 defaults write com.nextcloud.desktopclient enabledAccounts -array \
-    -string "bbrinkerhoff@bbhoff.ddns.net" \
-    -string "DracoMedia@bbhoff.ddns.net"
+  -string {{ onepasswordRead "op://Private/Nextcloud Personal/Nextcloud User" | quote }} \
+  -string {{ onepasswordRead "op://Private/Draco Nextcloud/Nextcloud User" | quote }}
 defaults write com.nextcloud.desktopclient SUSendProfileInfo -bool false
 defaults write com.nextcloud.desktopclient SUHasLaunchedBefore -bool true
 defaults write com.nextcloud.desktopclient SUEnableAutomaticChecks -bool true
