@@ -1,0 +1,96 @@
+%YAML 1.2
+---
+name: Bash Template
+file_extensions:
+  - sh.tmpl
+  - bash.tmpl
+  - tmpl
+scope: source.shell.bash.template
+version: 2
+
+extends: Packages/ShellScript/Bash.sublime-syntax
+
+contexts:
+
+  # Bash has no prototype of its own, so defining one here injects template
+  # tags into every bash context automatically (except those with
+  # meta_include_prototype: false, like heredoc bodies).
+  prototype:
+    - include: go-template-tags
+
+  ###[ GO TEMPLATE TAGS ]######################################################
+
+  go-template-tags:
+    # {{/* comment */}} — must check before generic {{ to avoid false match
+    - match: '\{\{-?\s*/\*'
+      scope: punctuation.definition.comment.begin.go-template
+      push: go-template-comment
+
+    # {{ expression }}
+    - match: '\{\{-?'
+      scope: punctuation.section.embedded.begin.go-template
+      push: go-template-expression
+
+  go-template-comment:
+    - meta_scope: comment.block.go-template
+    - match: '\*/\s*-?\}\}'
+      scope: punctuation.definition.comment.end.go-template
+      pop: 1
+
+  go-template-expression:
+    - meta_scope: meta.embedded.block.go-template
+    - match: '-?\}\}'
+      scope: punctuation.section.embedded.end.go-template
+      pop: 1
+
+    # Keywords
+    - match: '\b(if|else|end|range|block|define|template|with|return)\b'
+      scope: keyword.control.go-template
+
+    # Boolean / nil literals
+    - match: '\b(nil|true|false)\b'
+      scope: constant.language.go-template
+
+    # Variables: $name or plain $ (range/with implicit var)
+    - match: '\$[a-zA-Z_][a-zA-Z0-9_]*|\$'
+      scope: variable.other.go-template
+
+    # Double-quoted strings (with escape sequences)
+    - match: '"'
+      scope: punctuation.definition.string.begin.go-template
+      push: go-template-string-double
+
+    # Raw (backtick) strings
+    - match: '`'
+      scope: punctuation.definition.string.begin.go-template
+      push: go-template-string-raw
+
+    # Pipe operator
+    - match: '\|'
+      scope: keyword.operator.pipe.go-template
+
+    # Numbers (int and float)
+    - match: '-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?'
+      scope: constant.numeric.go-template
+
+    # Dot-accessor: .Field or standalone .
+    - match: '\.(?:[a-zA-Z_][a-zA-Z0-9_]*)?'
+      scope: variable.other.member.go-template
+
+    # Function / method calls
+    - match: '\b[a-zA-Z_][a-zA-Z0-9_]*\b'
+      scope: entity.name.function.go-template
+
+  go-template-string-double:
+    - meta_scope: string.quoted.double.go-template
+    - match: '\\.'
+      scope: constant.character.escape.go-template
+    - match: '"'
+      scope: punctuation.definition.string.end.go-template
+      pop: 1
+
+  go-template-string-raw:
+    - meta_scope: string.quoted.backtick.go-template
+    - match: '`'
+      scope: punctuation.definition.string.end.go-template
+      pop: 1
