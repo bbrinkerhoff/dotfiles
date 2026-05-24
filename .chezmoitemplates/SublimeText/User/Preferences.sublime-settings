@@ -61,11 +61,11 @@
     "trim_trailing_white_space_on_save": true,
     "ui_scale": 1.0,
 
-{{- if eq .chezmoi.os "darwin" }},
+{{- if eq .chezmoi.os "darwin" }}
     "open_files_in_new_window": "finder_only",
     "default_line_ending": "system",
 
-{{ else if eq .chezmoi.os "windows" -}},
+{{ else if eq .chezmoi.os "windows" -}}
     "open_files_in_new_window": "never",
     "default_line_ending": "unix",
 {{ end -}}
