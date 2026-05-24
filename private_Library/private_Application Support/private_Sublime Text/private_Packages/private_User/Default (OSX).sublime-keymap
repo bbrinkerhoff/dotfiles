@@ -1,86 +1,72 @@
 [
     {
-        "keys":
-        [
+        "keys": [
             "ctrl+alt+5"
         ],
         "command": "sort_lines",
-        "args":
-        {
+        "args": {
             "case_sensitive": false
         }
     },
     {
-        "keys":
-        [
+        "keys": [
             "shift+ctrl+alt+5"
         ],
         "command": "sort_lines",
-        "args":
-        {
+        "args": {
             "case_sensitive": true
         }
     },
     {
-        "keys":
-        [
+        "keys": [
             "super+shift+alt+left"
         ],
         "command": "focus_neighboring_group",
-        "args":
-        {
+        "args": {
             "forward": false
         }
     },
     {
-        "keys":
-        [
+        "keys": [
             "ctrl+super+up"
         ],
         "command": "swap_line_up"
     },
     {
-        "keys":
-        [
+        "keys": [
             "super+shift+alt+right"
         ],
         "command": "focus_neighboring_group"
     },
     {
-        "keys":
-        [
+        "keys": [
             "super+alt+w"
         ],
         "command": "destroy_pane",
-        "args":
-        {
+        "args": {
             "direction": "self"
         }
     },
     {
-        "keys":
-        [
+        "keys": [
             "ctrl+shift+m"
         ],
         "command": "format_mas_to_yaml"
     },
     {
-        "keys":
-        [
+        "keys": [
             "super+shift+forward_slash"
         ],
         "command": "hash_line"
     },
     {
-        "keys":
-        [
+        "keys": [
             "super+shift+o"
         ],
         "command": "prompt_open_project_or_workspace"
     },
     {
-        "keys":
-        [
+        "keys": [
             "super+alt+o"
         ],
         "command": "open_recent_project"

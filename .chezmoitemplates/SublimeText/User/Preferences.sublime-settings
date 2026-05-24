@@ -1,7 +1,7 @@
 {
     "adaptive_dividers": true,
     "auto_complete": true,
-    "auto_complete_delay": 650,
+    "auto_complete_delay": 500,
     "auto_complete_include_snippets": false,
     "bold_folder_labels": true,
     "close_windows_when_empty": true,
@@ -9,7 +9,7 @@
     "console_max_history_lines": 3000,
     "copy_with_empty_selection": false,
     "create_window_at_startup": true,
-    "detect_indentation": false,
+    "detect_indentation": true,
     "drag_text": false,
     "draw_white_space": "all",
     "ensure_newline_at_eof_on_save": false,
@@ -27,6 +27,7 @@
         "draw_active"
     ],
     "index_files": true,
+    "match_brackets_angle": true,
     "margin": 2,
     "material_theme_accent_cyan": true,
     "material_theme_accent_scrollbars": true,
@@ -41,10 +42,11 @@
         ".git"
     ],
     "file_exclude_patterns": [
-        ".DS_Store"
+        ".DS_Store",
+        "*$py.class"
     ],
     "remember_full_screen": true,
-    "remember_layout": true,
+    "remember_layout": false,
     "remember_workspace": false,
     "ruler_style": "stippled",
     "scroll_past_end": 0.5,
@@ -53,17 +55,17 @@
     "show_panel_on_build": true,
     "show_tab_close_buttons": false,
     "tab_completion": false,
-    "tab_size": 4,
+    "tab_size": 2,
     "theme": "Material-Theme-Palenight.sublime-theme",
     "translate_tabs_to_spaces": true,
-    "trim_trailing_white_space_on_save": false,
+    "trim_trailing_white_space_on_save": true,
     "ui_scale": 1.0,
 
-{{- if eq .chezmoi.os "darwin" }}
+{{- if eq .chezmoi.os "darwin" }},
     "open_files_in_new_window": "finder_only",
     "default_line_ending": "system",
 
-{{ else if eq .chezmoi.os "windows" -}}
+{{ else if eq .chezmoi.os "windows" -}},
     "open_files_in_new_window": "never",
     "default_line_ending": "unix",
 {{ end -}}

@@ -1,6 +1,5 @@
 {
-    "folders":
-    [
+    "folders": [
         {
             "path": "/Users/draco/.local/share/chezmoi",
             "name": "Chezmoi"
