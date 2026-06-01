@@ -65,6 +65,7 @@ packages:
       - bbrinkerhoff/private/3utools
       - bbrinkerhoff/private/czkawka-krokiet
       - bbrinkerhoff/private/ejectify
+      - bbrinkerhoff/private/exstar-hub
       - bbrinkerhoff/private/freefilesync
       - bbrinkerhoff/private/oculix
       - bbrinkerhoff/private/temurin-jdk11
@@ -86,6 +87,7 @@ packages:
       - mounty
       - mp3tag
       - mullvad-vpn
+      - naps2
       - nextcloud-vfs
       - onyx
       - orcaslicer
