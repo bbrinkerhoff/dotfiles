@@ -66,12 +66,6 @@ dot_wslconfig
 {{ end -}}
 
 # Platform script directories — only process on the matching OS
-{{ if ne .chezmoi.os "darwin" -}}
-darwin
-{{ end -}}
 {{ if ne .chezmoi.os "windows" -}}
 windows
-{{ end -}}
-{{ if ne .chezmoi.os "linux" -}}
-linux
 {{ end -}}

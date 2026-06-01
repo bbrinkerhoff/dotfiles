@@ -1,4 +1,3 @@
-{{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
 
 set -eo pipefail
@@ -48,7 +47,7 @@ defaults write 'com.incrediblebee.Renamer' 'LicenseKey' \
 defaults write 'com.latenightsw.ScriptDebugger8' kPrefSWReg80Registration \
   -string {{ onepasswordRead "op://Private/Script Debugger/license key" | quote }}
 
-# ─── Docker ─────────────────────────────────────────────────────────
+# ─── Docker ─────────────────────────────────────────────────────
 for plugin in docker-compose docker-buildx; do
   if brew list "${plugin}" &>/dev/null; then
     pDir="${HOME}/.docker/cli-plugins"
@@ -133,5 +132,3 @@ killall "Finder" 2>/dev/null || true
 killall "iTerm" 2>/dev/null || true
 killall "OpenIn" 2>/dev/null || true
 killall "Nextcloud" 2>/dev/null || true
-
-{{- end -}}

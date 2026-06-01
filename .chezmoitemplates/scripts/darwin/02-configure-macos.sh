@@ -1,4 +1,3 @@
-{{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
 set -eo pipefail
 
@@ -296,5 +295,3 @@ killall Photos || true
 killall Safari || true
 killall SystemUIServer || true
 killall TextEdit || true
-
-{{- end -}}

@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "darwin" -}}
+{{- template "scripts/darwin/01-install-packages.sh" . -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{- template "scripts/linux/01-install-packages.sh" . -}}
+{{- end -}}

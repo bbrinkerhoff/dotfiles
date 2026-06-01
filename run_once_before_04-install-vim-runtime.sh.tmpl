@@ -1,0 +1,5 @@
+{{- if eq .chezmoi.os "darwin" -}}
+{{- template "scripts/darwin/04-install-vim-runtime.sh" . -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{- template "scripts/linux/04-install-vim-runtime.sh" . -}}
+{{- end -}}

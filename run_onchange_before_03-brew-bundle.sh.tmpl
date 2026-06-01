@@ -1,0 +1,3 @@
+{{- if eq .chezmoi.os "darwin" -}}
+{{- template "scripts/darwin/03-brew-bundle.sh" . -}}
+{{- end -}}

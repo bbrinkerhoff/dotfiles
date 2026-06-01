@@ -61,6 +61,7 @@ packages:
       - adobe-creative-cloud
       - appcleaner
       - bartender
+      - bbrinkerhoff/homebrew-private/microsoft-365
       - bbrinkerhoff/private/3dxware
       - bbrinkerhoff/private/3utools
       - bbrinkerhoff/private/czkawka-krokiet

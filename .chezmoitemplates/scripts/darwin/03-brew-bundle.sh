@@ -1,4 +1,3 @@
-{{- if eq .chezmoi.os "darwin" -}}
 #!/usr/bin/env bash
 
 set -eo pipefail
@@ -31,4 +30,3 @@ mas {{ .name | quote }}, id: {{ .id }}
 EOF
 
 brew cleanup || true
-{{- end -}}

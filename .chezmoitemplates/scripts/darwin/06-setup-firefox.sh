@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # Firefox extension settings — keyboard shortcuts etc.
 # Changes to this file trigger a re-run via chezmoi run_onchange.
-{{ if ne .chezmoi.os "darwin" }}exit 0{{ end }}
 
 set -euo pipefail
 
