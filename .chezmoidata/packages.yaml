@@ -107,8 +107,9 @@ packages:
       - archiver-app
     taps:
       - bbrinkerhoff/private
-      - kavehtehrani/tap
       - gromgit/fuse
+      - kavehtehrani/tap
+      - keith/formulae
     mas:
       - name: 1Password for Safari
         id: 1569813296
