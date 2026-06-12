@@ -29,4 +29,8 @@ mas {{ .name | quote }}, id: {{ .id }}
 {{ end -}}
 EOF
 
+{{ range .packages.darwin.taps -}}
+brew trust {{ . | quote }}
+{{ end -}}
+
 brew cleanup || true
