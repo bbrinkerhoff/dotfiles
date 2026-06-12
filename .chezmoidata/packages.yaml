@@ -108,6 +108,7 @@ packages:
     taps:
       - bbrinkerhoff/private
       - kavehtehrani/tap
+      - gromgit/fuse
     mas:
       - name: 1Password for Safari
         id: 1569813296
