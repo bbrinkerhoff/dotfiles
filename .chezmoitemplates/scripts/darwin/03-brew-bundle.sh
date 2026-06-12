@@ -4,12 +4,14 @@ set -eo pipefail
 export HOMEBREW_CASK_OPTS="--no-quarantine --adopt"
 export MAS_NO_AUTO_INDEX=1
 
+{{ range .packages.darwin.taps -}}
+brew tap {{ . | quote }}
+brew trust {{ . | quote }}
+{{ end -}}
+
 brew update
 
 brew bundle --verbose --file=/dev/stdin <<EOF
-{{ range .packages.darwin.taps -}}
-tap {{ . | quote }}
-{{ end -}}
 {{ range .packages.darwin.brews_custom -}}
 brew {{ .name | quote }}, args: [{{ range $i, $a := .args }}{{ if $i }}, {{ end }}{{ $a | quote }}{{ end }}]
 {{ end -}}
@@ -28,9 +30,5 @@ cask {{ . | quote }}
 mas {{ .name | quote }}, id: {{ .id }}
 {{ end -}}
 EOF
-
-{{ range .packages.darwin.taps -}}
-brew trust {{ . | quote }}
-{{ end -}}
 
 brew cleanup || true
