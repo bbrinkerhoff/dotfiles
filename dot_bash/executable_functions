@@ -619,3 +619,37 @@ gpgd()
   local f="$1"
   gpg -o "${f%.gpg}" -d "$f"
 }
+
+videoInfo()
+{
+  local file
+  file="$(gum file --file --directory="${1:-.}")" || return 1
+  [[ -z ${file} ]] && return 1
+
+  gum style --bold --foreground="${PURPLE}" "$(basename "${file}")"
+
+  ffprobe -v error \
+    -show_entries stream=codec_name,codec_type,width,height,r_frame_rate,pix_fmt,bits_per_raw_sample,bit_rate,sample_rate,channels,channel_layout \
+    -show_entries format=size,bit_rate,duration \
+    -of json "${file}" | jq -r '
+      (.streams[] | if .codec_type == "video" then
+        "\n  VIDEO",
+        "  Codec:      \(.codec_name)",
+        "  Resolution: \(.width)x\(.height)",
+        "  FPS:        \(.r_frame_rate)",
+        "  Pixel fmt:  \(.pix_fmt)",
+        "  Bit depth:  \(.bits_per_raw_sample // "8")",
+        "  Bitrate:    \((.bit_rate // "0") | tonumber / 1000000 | . * 10 | round / 10) Mbps"
+      elif .codec_type == "audio" then
+        "\n  AUDIO",
+        "  Codec:      \(.codec_name)",
+        "  Sample rate:\(.sample_rate) Hz",
+        "  Channels:   \(.channel_layout // .channels)",
+        "  Bitrate:    \((.bit_rate // "0") | tonumber / 1000 | round) kbps"
+      else empty end),
+      "\n  CONTAINER",
+      "  Duration:   \(.format.duration | tonumber | . / 60 * 10 | round / 10) min",
+      "  Total size: \(.format.size | tonumber / 1048576 | . * 10 | round / 10) MB",
+      "  Total rate: \(.format.bit_rate | tonumber / 1000000 | . * 10 | round / 10) Mbps"
+    '
+}
