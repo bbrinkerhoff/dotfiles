@@ -18,6 +18,7 @@ alias getpaths='/usr/libexec/path_helper -s'
 alias hosts='sudo vim /etc/hosts'
 alias icloud="cd ${HOME}/Library/Mobile\ Documents/com~apple~CloudDocs"
 alias map='xargs -n1'
+alias netstat-tnlp='sudo lsof -iTCP -sTCP:LISTEN -n -P'
 alias ncdu='ncdu --color dark --enable-refresh --confirm-delete --delete-command trash'
 alias pb='printf "%s" "$(cat)"|pbcopy'
 alias pip3='python3 -m pip'
