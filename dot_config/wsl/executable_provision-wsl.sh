@@ -127,18 +127,18 @@ else
 fi
 
 # ─── Backup dir symlinks → Windows ──────────────────────────────────────────
-section "Linking arr backup dirs to Windows"
+section "Linking arr data dirs to Windows"
 
 for arr in radarr sonarr prowlarr; do
-  linux_backup="/var/lib/${arr}/Backups"
-  win_backup="$HOME/winhome/.config/Torrenting/${arr^}"
-  mkdir -p "$win_backup"
-  if [ ! -L "$linux_backup" ]; then
-    sudo mv "$linux_backup" "$win_backup" 2>/dev/null || true
-    sudo ln -sfn "$win_backup" "$linux_backup"
-    sudo chown -h "${arr}:" "$linux_backup"
+  linux_dir="/var/lib/${arr}"
+  win_dir="$HOME/winhome/.config/Torrenting/${arr^}"
+  mkdir -p "$win_dir"
+  if [ ! -L "$linux_dir" ]; then
+    sudo mv "$linux_dir" "$win_dir" 2>/dev/null || true
+    sudo ln -sfn "$win_dir" "$linux_dir"
+    sudo chown -Rc -h "${arr}:" "$linux_dir"
   fi
-  ok "${arr} Backups → ${win_backup}"
+  ok "${arr} → ${win_dir}"
 done
 
 # ─── FlareSolverr ────────────────────────────────────────────────────────────
