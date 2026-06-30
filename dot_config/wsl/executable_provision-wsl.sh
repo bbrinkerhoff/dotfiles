@@ -134,6 +134,7 @@ for arr in radarr sonarr prowlarr; do
   win_dir="$HOME/winhome/.config/Torrenting/${arr^}"
   mkdir -p "$win_dir"
   if [ ! -L "$linux_dir" ]; then
+    sudo systemctl stop "${arr}"
     sudo mv "$linux_dir" "$win_dir" 2>/dev/null || true
     sudo ln -sfn "$win_dir" "$linux_dir"
     sudo chown -Rc -h "${arr}:" "$linux_dir"
