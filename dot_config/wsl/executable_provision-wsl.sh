@@ -34,7 +34,6 @@ sudo apt install -y \
   ffmpeg \
   tmux \
   rsync \
-  socat \
   unzip \
   lsb-release \
   apt-transport-https \
@@ -137,6 +136,7 @@ for arr in radarr sonarr prowlarr; do
   if [ ! -L "$linux_dir" ]; then
     sudo systemctl stop "${arr}"
     sudo rsync -a --remove-source-files "$linux_dir/" "$arr_dir/" 2>/dev/null || true
+    sudo rm -rf "$linux_dir"
     sudo ln -sfn "$arr_dir" "$linux_dir"
     sudo chown -Rc -h "${arr}:" "$linux_dir"
   fi
@@ -210,8 +210,7 @@ echo "  1. Restart WSL to apply wsl.conf + systemd:"
 echo "       wsl --shutdown   (from Windows PowerShell)"
 echo "  2. After restart, start services:"
 echo "       sudo systemctl start radarr sonarr prowlarr flaresolverr"
-echo "  3. Enable 1Password SSH agent in Windows 1Password → Settings → Developer"
-echo "  4. Check arr stack ports:"
+echo "  3. Check arr stack ports:"
 echo "       Radarr:       http://localhost:7878"
 echo "       Sonarr:       http://localhost:8989"
 echo "       Prowlarr:     http://localhost:9696"
