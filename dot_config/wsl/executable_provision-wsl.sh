@@ -131,12 +131,13 @@ section "Linking arr data dirs to Windows"
 
 for arr in radarr sonarr prowlarr; do
   linux_dir="/var/lib/${arr}"
-  win_dir="$HOME/winhome/.config/Torrenting/${arr^}"
+  win_dir="$HOME/winhome/.config/Torrenting"
+  arr_dir="${win_dir}/${arr^}"
   mkdir -p "$win_dir"
   if [ ! -L "$linux_dir" ]; then
     sudo systemctl stop "${arr}"
-    sudo mv "$linux_dir" "$win_dir" 2>/dev/null || true
-    sudo ln -sfn "$win_dir" "$linux_dir"
+    sudo rsync -a --remove-source-files "$linux_dir" "$arr_dir" 2>/dev/null || true
+    sudo ln -sfn "$arr_dir" "$linux_dir"
     sudo chown -Rc -h "${arr}:" "$linux_dir"
   fi
   ok "${arr} → ${win_dir}"
