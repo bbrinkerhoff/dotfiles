@@ -1,1 +1,1 @@
-/mnt/c/Users/{{ output "cmd.exe" "/c" "echo %USERNAME%" | trim }}
+{{ output "wslpath" (output "pwsh.exe" "-c" "$Env:UserProfile" | trim) | trim }}

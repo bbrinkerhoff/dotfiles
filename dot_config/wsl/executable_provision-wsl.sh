@@ -61,14 +61,7 @@ fi
 
 # ─── Windows home symlink ────────────────────────────────────────────────────
 section "Setting up ~/winhome → Windows home directory"
-if command -v wslvar &>/dev/null; then
-  WINHOME=$(wslpath "$(wslvar USERPROFILE)")
-elif [[ -d "/mnt/c/Users" ]]; then
-  # Fallback: find the first non-default user directory
-  WINHOME=$(find /mnt/c/Users -maxdepth 1 -mindepth 1 -type d \
-    ! -name "Public" ! -name "Default" ! -name "Default User" ! -name "All Users" |
-    head -1)
-fi
+WINHOME=$(wslpath "$(pwsh.exe -c '$Env:UserProfile')")
 
 if [[ -n ${WINHOME:-} && -d $WINHOME ]]; then
   ln -sfn "$WINHOME" "${HOME}/winhome"
