@@ -32,11 +32,6 @@ Host *
     AddKeysToAgent yes
     UseKeychain yes
     {{- end }}
-    {{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-    # Use 1Password ssh-agent bridged from Windows via socat+npiperelay.
-    # Run ~/.config/wsl/provision-wsl.sh to set up the bridge.
-    IdentityAgent ~/.ssh/agent.sock
-    {{- end }}
     {{ if ne .chezmoi.os "windows" -}}
     # Accelerate connections by reusing existing connections to the same host.
     ControlMaster auto

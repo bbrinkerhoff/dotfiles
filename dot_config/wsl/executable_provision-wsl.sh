@@ -59,30 +59,6 @@ else
   ok "pyenv already installed — skipping"
 fi
 
-# ─── npiperelay (1Password SSH agent bridge) ─────────────────────────────────
-section "Setting up npiperelay for 1Password SSH agent"
-WINHOME=$(wslpath "$(pwsh.exe -c '$Env:UserProfile')")
-if [[ -n ${WINHOME:-} ]]; then
-  NPIPERELAY_DIR="${WINHOME}/AppData/Local/npiperelay"
-  NPIPERELAY="${NPIPERELAY_DIR}/npiperelay.exe"
-  mkdir -p "$NPIPERELAY_DIR"
-  if [[ ! -f $NPIPERELAY ]]; then
-    info "Downloading npiperelay.exe..."
-    NPIPE_URL=$(curl -s https://api.github.com/repos/jstarks/npiperelay/releases/latest |
-      grep "browser_download_url.*windows_amd64" |
-      cut -d '"' -f 4)
-    curl -sL "$NPIPE_URL" -o /tmp/npiperelay.zip
-    unzip -p /tmp/npiperelay.zip npiperelay.exe >"$NPIPERELAY"
-    chmod +x "$NPIPERELAY"
-    rm /tmp/npiperelay.zip
-    ok "npiperelay.exe installed to $NPIPERELAY"
-  else
-    ok "npiperelay.exe already present"
-  fi
-  info "1Password: enable SSH agent in Settings → Developer → SSH Agent"
-else
-  info "Skipping npiperelay setup (WINHOME not set)"
-fi
 
 # ─── SSH controlmasters dir ──────────────────────────────────────────────────
 mkdir -p "${HOME}/.ssh/controlmasters"
