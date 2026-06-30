@@ -623,7 +623,11 @@ gpgd()
 videoInfo()
 {
   local file
-  file="$(gum file --file --directory="${1:-.}")" || return 1
+  if [[ -n ${1:+x} ]]; then
+    file="${1}"
+  else
+    file="$(gum file .)" || return 1
+  fi
   [[ -z ${file} ]] && return 1
 
   gum style --bold --foreground="${PURPLE}" "$(basename "${file}")"
