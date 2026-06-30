@@ -151,8 +151,8 @@ FLARESOLVERR_DIR="/opt/flaresolverr"
 FLARE_TAG=$(curl -s https://api.github.com/repos/FlareSolverr/FlareSolverr/releases/latest |
   grep '"tag_name"' | cut -d '"' -f 4)
 INSTALLED_VER=""
-[[ -f "${FLARESOLVERR_DIR}/package.json" ]] &&
-  INSTALLED_VER=$(python3 -c "import json; print(json.load(open('${FLARESOLVERR_DIR}/package.json'))['version'])" 2>/dev/null)
+[[ -f "${FLARESOLVERR_DIR}/_internal/package.json" ]] &&
+  INSTALLED_VER=$(python3 -c "import json; print(json.load(open('${FLARESOLVERR_DIR}/_internal/package.json'))['version'])" 2>/dev/null)
 
 if [[ "v${INSTALLED_VER}" != "${FLARE_TAG}" ]]; then
   info "Installing FlareSolverr ${FLARE_TAG} (installed: ${INSTALLED_VER:-none})..."
