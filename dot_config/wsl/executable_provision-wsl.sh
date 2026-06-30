@@ -136,7 +136,7 @@ for arr in radarr sonarr prowlarr; do
   mkdir -p "$win_dir"
   if [ ! -L "$linux_dir" ]; then
     sudo systemctl stop "${arr}"
-    sudo rsync -a --remove-source-files "$linux_dir" "$arr_dir" 2>/dev/null || true
+    sudo rsync -a --remove-source-files "$linux_dir/" "$arr_dir/" 2>/dev/null || true
     sudo ln -sfn "$arr_dir" "$linux_dir"
     sudo chown -Rc -h "${arr}:" "$linux_dir"
   fi
