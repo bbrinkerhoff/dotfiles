@@ -59,19 +59,9 @@ else
   ok "pyenv already installed — skipping"
 fi
 
-# ─── Windows home symlink ────────────────────────────────────────────────────
-section "Setting up ~/winhome → Windows home directory"
-WINHOME=$(wslpath "$(pwsh.exe -c '$Env:UserProfile')")
-
-if [[ -n ${WINHOME:-} && -d $WINHOME ]]; then
-  ln -sfn "$WINHOME" "${HOME}/winhome"
-  ok "Linked ~/winhome → $WINHOME"
-else
-  info "Could not determine Windows home directory — set up ~/winhome manually"
-fi
-
 # ─── npiperelay (1Password SSH agent bridge) ─────────────────────────────────
 section "Setting up npiperelay for 1Password SSH agent"
+WINHOME=$(wslpath "$(pwsh.exe -c '$Env:UserProfile')")
 if [[ -n ${WINHOME:-} ]]; then
   NPIPERELAY_DIR="${WINHOME}/AppData/Local/npiperelay"
   NPIPERELAY="${NPIPERELAY_DIR}/npiperelay.exe"
