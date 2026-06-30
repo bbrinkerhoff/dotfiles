@@ -15,9 +15,11 @@ Reference
 {{ if eq .chezmoi.os "darwin" -}}
 # macOS ignores
 .config/wsl
+symlink_winhome
 
 {{ else if eq .chezmoi.os "windows" -}}
 # Windows ignores
+symlink_winhome
 Library
 .bash
 .bash_profile
@@ -42,6 +44,7 @@ Library
 
 {{ else if and (eq .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}}
 # Linux ignores
+symlink_winhome
 *wsl*
 *WSL*
 Library

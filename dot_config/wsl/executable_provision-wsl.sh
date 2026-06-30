@@ -23,6 +23,7 @@ info()
 
 # ─── Core packages ───────────────────────────────────────────────────────────
 section "Updating apt and installing core packages"
+sudo dpkg --configure -a
 sudo apt update && sudo apt upgrade -y
 sudo apt install -y \
   build-essential \
@@ -131,13 +132,14 @@ ok "/etc/wsl.conf written"
 info "Run 'wsl --shutdown' from Windows to apply wsl.conf changes"
 
 # ─── *arr stack ──────────────────────────────────────────────────────────────
-section "Installing *arr stack (Radarr, Sonarr, Prowlarr, Jackett)"
+section "Installing *arr stack (Radarr, Sonarr, Prowlarr)"
 
 # Radarr
 if ! systemctl is-active --quiet radarr 2>/dev/null; then
   info "Installing Radarr..."
-  curl -sL https://raw.githubusercontent.com/Radarr/Radarr/develop/distribution/debian/install.sh |
-    sudo bash -s -- --branch master
+  curl -sL https://raw.githubusercontent.com/Servarr/Wiki/master/servarr/servarr-install-script.sh \
+    | perl -pe 's/select app/app=radarr response=yes; set +u; for x/;s/^( *read -r -p.*)$/#\1/g' \
+    | sudo bash -s
   ok "Radarr installed"
 else
   ok "Radarr already running"
@@ -146,13 +148,10 @@ fi
 # Sonarr
 if ! systemctl is-active --quiet sonarr 2>/dev/null; then
   info "Installing Sonarr..."
-  # Add Sonarr apt repo
-  sudo curl -fsSL https://keyserver.ubuntu.com/pks/lookup?op=get &
-  search=0x2009837CBFFD68F45BC180471F4F90DE2A9B4BF8 |
-    sudo gpg --dearmor -o /usr/share/keyrings/sonarr.gpg
-  echo "deb [signed-by=/usr/share/keyrings/sonarr.gpg] https://apt.sonarr.tv/ubuntu $(lsb_release -cs) main" |
-    sudo tee /etc/apt/sources.list.d/sonarr.list
-  sudo apt update && sudo apt install -y sonarr
+  curl -sL https://raw.githubusercontent.com/Sonarr/Sonarr/develop/distribution/debian/install.sh \
+    -o /tmp/sonarr-install.sh
+  sudo bash /tmp/sonarr-install.sh
+  rm -f /tmp/sonarr-install.sh
   ok "Sonarr installed"
 else
   ok "Sonarr already running"
@@ -161,26 +160,28 @@ fi
 # Prowlarr
 if ! systemctl is-active --quiet prowlarr 2>/dev/null; then
   info "Installing Prowlarr..."
-  curl -sL https://raw.githubusercontent.com/Prowlarr/Prowlarr/develop/distribution/debian/install.sh |
-    sudo bash -s -- --branch master
+  curl -sL https://raw.githubusercontent.com/Servarr/Wiki/master/servarr/servarr-install-script.sh \
+    | perl -pe 's/select app/app=prowlarr response=yes; set +u; for x/;s/^( *read -r -p.*)$/#\1/g' \
+    | sudo bash -s
   ok "Prowlarr installed"
 else
   ok "Prowlarr already running"
 fi
 
-# Jackett
-if ! systemctl is-active --quiet jackett 2>/dev/null; then
-  info "Installing Jackett..."
-  JACKETT_URL=$(curl -s https://api.github.com/repos/Jackett/Jackett/releases/latest |
-    grep "browser_download_url.*Jackett.Binaries.LinuxAMDx64.tar.gz" |
-    cut -d '"' -f 4)
-  curl -sL "$JACKETT_URL" | sudo tar -xz -C /opt/
-  sudo chown -R "$USER":"$USER" /opt/Jackett
-  sudo /opt/Jackett/install_service_systemd.sh
-  ok "Jackett installed"
-else
-  ok "Jackett already running"
-fi
+# ─── Backup dir symlinks → Windows ──────────────────────────────────────────
+section "Linking arr backup dirs to Windows"
+
+for arr in radarr sonarr prowlarr; do
+  linux_backup="/var/lib/${arr}/Backups"
+  win_backup="$HOME/winhome/.config/Torrenting/${arr^}"
+  mkdir -p "$win_backup"
+  if [ ! -L "$linux_backup" ]; then
+    sudo mv "$linux_backup" "$win_backup" 2>/dev/null || true
+    sudo ln -sfn "$win_backup" "$linux_backup"
+    sudo chown -h "${arr}:" "$linux_backup"
+  fi
+  ok "${arr} Backups → ${win_backup}"
+done
 
 # ─── FlareSolverr ────────────────────────────────────────────────────────────
 section "Installing FlareSolverr"
@@ -248,12 +249,11 @@ echo "  Next steps:"
 echo "  1. Restart WSL to apply wsl.conf + systemd:"
 echo "       wsl --shutdown   (from Windows PowerShell)"
 echo "  2. After restart, start services:"
-echo "       sudo systemctl start radarr sonarr prowlarr jackett flaresolverr"
+echo "       sudo systemctl start radarr sonarr prowlarr flaresolverr"
 echo "  3. Enable 1Password SSH agent in Windows 1Password → Settings → Developer"
 echo "  4. Check arr stack ports:"
 echo "       Radarr:     http://localhost:7878"
 echo "       Sonarr:     http://localhost:8989"
 echo "       Prowlarr:   http://localhost:9696"
-echo "       Jackett:    http://localhost:9117"
 echo "       FlareSolverr: http://localhost:8191"
 echo ""
