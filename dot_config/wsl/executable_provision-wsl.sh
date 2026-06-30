@@ -59,7 +59,6 @@ else
   ok "pyenv already installed — skipping"
 fi
 
-
 # ─── SSH controlmasters dir ──────────────────────────────────────────────────
 mkdir -p "${HOME}/.ssh/controlmasters"
 chmod 700 "${HOME}/.ssh"
@@ -96,9 +95,9 @@ section "Installing *arr stack (Radarr, Sonarr, Prowlarr)"
 # Radarr
 if ! systemctl is-active --quiet radarr 2>/dev/null; then
   info "Installing Radarr..."
-  curl -sL https://raw.githubusercontent.com/Servarr/Wiki/master/servarr/servarr-install-script.sh \
-    | perl -pe 's/select app/app=radarr response=yes; set +u; for x/;s/^( *read -r -p.*)$/#\1/g' \
-    | sudo bash -s
+  curl -sL https://raw.githubusercontent.com/Servarr/Wiki/master/servarr/servarr-install-script.sh |
+    perl -pe 's/select app/app=radarr response=yes; set +u; for x/;s/^( *read -r -p.*)$/#\1/g' |
+    sudo bash -s
   ok "Radarr installed"
 else
   ok "Radarr already running"
@@ -119,9 +118,9 @@ fi
 # Prowlarr
 if ! systemctl is-active --quiet prowlarr 2>/dev/null; then
   info "Installing Prowlarr..."
-  curl -sL https://raw.githubusercontent.com/Servarr/Wiki/master/servarr/servarr-install-script.sh \
-    | perl -pe 's/select app/app=prowlarr response=yes; set +u; for x/;s/^( *read -r -p.*)$/#\1/g' \
-    | sudo bash -s
+  curl -sL https://raw.githubusercontent.com/Servarr/Wiki/master/servarr/servarr-install-script.sh |
+    perl -pe 's/select app/app=prowlarr response=yes; set +u; for x/;s/^( *read -r -p.*)$/#\1/g' |
+    sudo bash -s
   ok "Prowlarr installed"
 else
   ok "Prowlarr already running"
@@ -211,8 +210,8 @@ echo "  2. After restart, start services:"
 echo "       sudo systemctl start radarr sonarr prowlarr flaresolverr"
 echo "  3. Enable 1Password SSH agent in Windows 1Password → Settings → Developer"
 echo "  4. Check arr stack ports:"
-echo "       Radarr:     http://localhost:7878"
-echo "       Sonarr:     http://localhost:8989"
-echo "       Prowlarr:   http://localhost:9696"
+echo "       Radarr:       http://localhost:7878"
+echo "       Sonarr:       http://localhost:8989"
+echo "       Prowlarr:     http://localhost:9696"
 echo "       FlareSolverr: http://localhost:8191"
 echo ""
