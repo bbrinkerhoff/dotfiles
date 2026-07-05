@@ -1,0 +1,1 @@
+[See the list for the latest 2.0.x Version](https://github.com/RaiMan/SikuliX1/wiki/ZZZ-Bug-Fixes)

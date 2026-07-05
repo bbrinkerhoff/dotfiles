@@ -1,0 +1,42 @@
+# Source: https://docs.folivora.ai/docs/ai-assistants/extended-thinking
+
+- [
+- [AI Assistants
+- Extended Thinking
+
+# Extended Thinking
+
+
+Some models support extra reasoning or thinking controls. BTT can enable these globally on an assistant or through a skill.
+
+
+Use extended thinking for:
+
+
+- BTT configuration changes with many details
+
+- computer-use tasks that need planning and verification
+
+- plugin creation
+
+- code changes
+
+- longer research or analysis
+
+
+Leave it off for quick rewriting, short answers, and simple one-step automations.
+
+
+## Levels[​
+
+
+BTT offers levels from **Minimal** to **Maximum**, plus **Adaptive** where supported. Higher levels can improve difficult tasks, but they also increase latency and provider cost.
+
+
+When multiple active skills request thinking, BTT uses the strongest requested setting.
+
+
+## Provider Support[​
+
+
+Provider support varies. Some cloud models expose explicit thinking budgets, some expose reasoning effort, and some local models ignore these settings. If a model does not support extended thinking, BTT continues with the normal request.

@@ -1,0 +1,45 @@
+# Source: https://docs.folivora.ai/docs/ai-assistants/context
+
+- [
+- [AI Assistants
+- Context
+
+# Context
+
+
+Context is information BTT adds so the assistant understands what is happening on your Mac. Skills usually choose the right context automatically.
+
+
+## Common Context Items[​
+
+
+- **Date and time:** Useful for scheduling and relative dates.
+
+- **Selected text:** Lets the assistant explain, transform, or replace the current selection.
+
+- **Active application:** Helps the assistant adapt to the app you are using.
+
+- **Active windows:** Gives app names, window titles, bounds, and identifiers.
+
+- **Active document / project:** Useful for coding and document workflows.
+
+- **Screen information:** Lists connected displays and their coordinate spaces.
+
+- **Accessibility tree:** Describes controls in the frontmost app. Powerful, but can be large.
+
+- **Memory bulletin:** Adds relevant saved memories to the conversation.
+
+
+## Keep It Small[​
+
+
+More context can make an assistant smarter, but it also makes requests slower and more expensive. Avoid enabling screenshots, accessibility trees, or large project context unless the assistant's skill needs them.
+
+
+## Custom Context[​
+
+
+You can create dynamic custom context from **Automations, Named & Other Triggers** using **[h@llo.ai - Custom AI Context**.
+
+
+Custom context can call BTT JavaScript, read variables, inspect app state, or provide any small text summary the assistant should see.

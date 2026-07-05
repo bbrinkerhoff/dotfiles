@@ -1,0 +1,2792 @@
+# Source: https://docs.folivora.ai/docs/json/trigger-definitions
+
+- [
+- [JSON Definitions
+- Trigger JSON Definitions
+
+# BetterTouchTool Trigger JSON Reference
+
+
+This document provides a reference for creating trigger configurations in BetterTouchTool using JSON.
+
+
+## Basic Trigger Structure[​
+
+
+Every trigger must have these required fields:
+
+```
+`{
+  "BTTTriggerType": 123,
+  "BTTTriggerClass": "BTTTriggerTypeKeyboardShortcut",
+  "BTTActionsToExecute": [
+    {
+      "BTTPredefinedActionType": 45
+    }
+  ]
+}
+`
+```
+
+
+## Required Fields[​
+
+
+|  | Field | Type | Description |
+|  | `BTTTriggerType` | Number | The specific trigger ID (see trigger types below) |
+|  | `BTTTriggerClass` | String | The trigger category (must match the trigger type) |
+
+
+## Common Optional Fields[​
+
+
+|  | Field | Type | Description | Default |
+|  | `BTTUUID` | String | Unique identifier | Auto-generated |
+|  | `BTTTriggerTypeDescription` | String | User-visible name/description | Auto-generated |
+|  | `BTTEnabled` | Number | Enable/disable trigger (0 or 1) | 1 |
+|  | `BTTEnabled2` | Number | Secondary enabled state | 1 |
+|  | `BTTOrder` | Number | Sort order in list | Auto |
+|  | `BTTActionsToExecute` | Array | Actions to perform | [] |
+|  | `BTTRequiredModifierKeys` | Number | Modifier keys that must be held (see Modifier Keys section) | None |
+
+
+## Trigger Categories[​
+
+
+### 1. Trackpad Gestures[​
+
+
+**BTTTriggerClass Options**:
+
+
+- `"BTTTriggerTypeTouchpadAll"` - All trackpads
+
+- `"BTTTriggerTypeTouchpadBuiltIn"` - Built-in only
+
+- `"BTTTriggerTypeTouchpadMagicTrackpad"` - Magic Trackpad 1
+
+- `"BTTTriggerTypeTouchpadMagicTrackpad2"` - Magic Trackpad 2
+
+- `"BTTTriggerTypeTouchBarTrackpad"` - Touch Bar surface
+
+
+#### Zero Finger Gestures[​
+
+
+- `214` - Release Last Finger Regardless of How Many Were Touching Before
+
+- `209` - Release Last Finger After Previous Touch With 1 Finger
+
+- `210` - Release Last Finger After Previous Touch With 2 Fingers
+
+- `211` - Release Last Finger After Previous Touch With 3 Fingers
+
+- `212` - Release Last Finger After Previous Touch With 4 Fingers
+
+- `213` - Release Last Finger After Previous Touch With 5 Fingers
+
+
+#### Single Finger Gestures[​
+
+
+- `215` - 1 Finger Touch Start
+
+- `221` - 1 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `226` - 1 Finger Circle Clockwise (configurable circles via `BTTAdditionalConfiguration`, default 0.9)
+
+- `227` - 1 Finger Circle Counter-Clockwise (configurable circles via `BTTAdditionalConfiguration`, default 0.9)
+
+- `157` - Corner Click Bottom Left
+
+- `158` - Corner Click Bottom Right
+
+- `182` - Corner Click Top Left
+
+- `183` - Corner Click Top Right
+
+- `184` - Corner Force Click Top Left
+
+- `185` - Corner Force Click Top Right
+
+- `186` - Corner Force Click Bottom Left
+
+- `187` - Corner Force Click Bottom Right
+
+- `207` - 1 Finger Tap
+
+- `208` - 1 Finger Double Tap
+
+- `203` - Single Finger Force Click
+
+- `100` - 1 Finger Tap Left Side
+
+- `101` - 1 Finger Tap Right Side
+
+- `102` - 1 Finger Tap Bottom
+
+- `103` - 1 Finger Tap Top
+
+- `104` - 1 Finger Tap Left Side Middle
+
+- `105` - 1 Finger Tap Right Side Middle
+
+- `106` - 1 Finger Tap Upper Left
+
+- `107` - 1 Finger Tap Upper Right
+
+- `108` - 1 Finger Tap Bottom Left
+
+- `109` - 1 Finger Tap Bottom Right
+
+- `228` - 1 Finger Swipe Up on Left Edge (Continuous)
+
+- `229` - 1 Finger Swipe Down on Left Edge (Continuous)
+
+- `230` - 1 Finger Swipe Up on Right Edge (Continuous)
+
+- `231` - 1 Finger Swipe Down on Right Edge (Continuous)
+
+- `232` - 1 Finger Swipe Left on Top Edge (Continuous)
+
+- `233` - 1 Finger Swipe Right on Top Edge (Continuous)
+
+- `234` - 1 Finger Swipe Left on Bottom Edge (Continuous)
+
+- `235` - 1 Finger Swipe Right on Bottom Edge (Continuous)
+
+
+#### Two Finger Gestures[​
+
+
+- `236` - 2 Finger Swipe Up on Left Edge (Continuous)
+
+- `237` - 2 Finger Swipe Down on Left Edge (Continuous)
+
+- `238` - 2 Finger Swipe Up on Right Edge (Continuous)
+
+- `239` - 2 Finger Swipe Down on Right Edge (Continuous)
+
+- `240` - 2 Finger Swipe Left on Top Edge (Continuous)
+
+- `241` - 2 Finger Swipe Right on Top Edge (Continuous)
+
+- `242` - 2 Finger Swipe Left on Bottom Edge (Continuous)
+
+- `243` - 2 Finger Swipe Right on Bottom Edge (Continuous)
+
+- `216` - 2 Finger Touch Start
+
+- `222` - 2 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `173` - 2 Finger Tap
+
+- `179` - 2 Finger Double-Tap
+
+- `174` - 2 Finger Click
+
+- `175` - 2 Finger Force Click
+
+- `176` - 2 Finger Click (Left Finger Harder)
+
+- `177` - 2 Finger Click (Right Finger Harder)
+
+- `178` - 2 Finger Click (Both Fingers Same)
+
+- `180` - 2 Finger Force Click (Left Finger Harder)
+
+- `181` - 2 Finger Force Click (Right Finger Harder)
+
+- `159` - 2 Finger Swipe Left
+
+- `160` - 2 Finger Swipe Right
+
+- `161` - 2 Finger Swipe Up
+
+- `162` - 2 Finger Swipe Down
+
+- `165` - 2 Finger Swipe From Left Edge
+
+- `166` - 2 Finger Swipe From Right Edge
+
+- `167` - 2 Finger Swipe From Top Edge
+
+- `168` - 2 Finger Swipe From Bottom Edge
+
+- `121` - 2 Finger Pinch In
+
+- `122` - 2 Finger Pinch Out
+
+- `138` - TipTap Middle (2 Fingers Fix)
+
+- `132` - TipTap Left (2 Fingers Fix)
+
+- `133` - TipTap Right (2 Fingers Fix)
+
+- `142` - TipSwipe Left Finger Down (2 Fingers Fix)
+
+- `143` - TipSwipe Left Finger Up (2 Fingers Fix)
+
+- `145` - TipSwipe Left Finger Right (2 Fingers Fix)
+
+- `146` - TipSwipe Left Finger Left (2 Fingers Fix)
+
+
+#### Three Finger Gestures[​
+
+
+- `217` - 3 Finger Touch Start
+
+- `223` - 3 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `110` - 3 Finger Tap
+
+- `163` - 3 Finger Double-Tap
+
+- `111` - 3 Finger Click
+
+- `170` - 3 Finger Force Click
+
+- `181` - 3 Finger Click & Hold
+
+- `188` - 3 Finger Click (Left Finger Harder)
+
+- `189` - 3 Finger Click (Middle Finger Harder)
+
+- `190` - 3 Finger Click (Right Finger Harder)
+
+- `191` - 3 Finger Force Click (Left Finger Harder)
+
+- `192` - 3 Finger Force Click (Middle Finger Harder)
+
+- `193` - 3 Finger Force Click (Right Finger Harder)
+
+- `112` - 3 Finger Swipe Up
+
+- `113` - 3 Finger Swipe Down
+
+- `114` - 3 Finger Swipe Left
+
+- `115` - 3 Finger Swipe Right
+
+- `197` - 3 Finger Pinch In
+
+- `198` - 3 Finger Pinch Out
+
+- `139` - 3 Finger Tap Bottom
+
+- `140` - 3 Finger Tap Top
+
+- `152` - 3 Finger Dragging
+
+- `153` - 3 Finger Clickswipe Left
+
+- `154` - 3 Finger Clickswipe Right
+
+- `155` - 3 Finger Clickswipe Up
+
+- `156` - 3 Finger Clickswipe Down
+
+- `136` - TipTap Left (3 Fingers Fix)
+
+- `137` - TipTap Right (3 Fingers Fix)
+
+- `147` - Triangle Swipe Top Left Corner
+
+- `148` - Triangle Swipe Top Right Corner
+
+- `149` - Triangle Swipe Bottom Left Corner
+
+- `150` - Triangle Swipe Bottom Right Corner
+
+- `204` - 3 Finger Drawing
+
+
+#### Four Finger Gestures[​
+
+
+- `218` - 4 Finger Touch Start
+
+- `224` - 4 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `116` - 4 Finger Tap
+
+- `169` - 4 Finger Double Tap
+
+- `117` - 4 Finger Click
+
+- `171` - 4 Finger Force Click
+
+- `182` - 4 Finger Click & Hold
+
+- `123` - 4 Finger Swipe Up
+
+- `124` - 4 Finger Swipe Down
+
+- `125` - 4 Finger Swipe Left
+
+- `126` - 4 Finger Swipe Right
+
+- `194` - 4 Finger Pinch In
+
+- `195` - 4 Finger Pinch Out
+
+- `205` - 4 Finger Drawing
+
+
+#### Five And More Finger Gestures[​
+
+
+- `219` - 5 Finger Touch Start
+
+- `225` - 5 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `119` - 5 Finger Tap
+
+- `141` - 5 Finger Click
+
+- `172` - 5 Finger Force Click
+
+- `130` - 5 Finger Swipe Down
+
+- `131` - 5 Finger Swipe Up
+
+- `128` - 5 Finger Swipe Left
+
+- `129` - 5 Finger Swipe Right
+
+- `200` - 5 Finger Pinch In
+
+- `201` - 5 Finger Pinch Out
+
+- `206` - 5 Finger Drawing
+
+- `151` - 5 Finger Touch/Move
+
+- `199` - 11 Finger Tap / Whole Hand
+
+
+#### Your Own Gestures[​
+
+
+- `164` - Custom Tap Sequence (4 Fingers)
+
+- `220` - First Touch With X Fingers, Then Release Y Fingers
+
+
+#### Long Touch & Circle Gesture Configuration[​
+
+
+**Long Touch gestures** trigger after fingers have been held stationary for a configurable duration.
+
+
+- `BTTAdditionalConfiguration` (String): Duration in seconds before the gesture triggers. Range: 0.1–5.0, default: 0.5. Example: `"BTTAdditionalConfiguration": "0.8"`.
+
+
+**Circle gestures** trigger when one finger draws a circular motion on the trackpad or Magic Mouse surface.
+
+
+- `BTTAdditionalConfiguration` (String): Number of circles required before the gesture triggers. Fractional values are supported (e.g. 0.9 = 90% of a circle). Range: 0.5–20, default: 0.9. Example: `"BTTAdditionalConfiguration": "0.9"`.
+
+- The gesture re-triggers on every additional full circle after the initial trigger.
+
+- When the value is 1.0 or less, the circle must be completed within 2.5 seconds of initial touch to avoid false triggers. This time limit does not apply for higher values.
+
+
+### 2. Magic Mouse[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeMagicMouse"`
+
+
+#### Zero Finger Gestures[​
+
+
+- `51` - Release Last Finger Regardless of How Many Were Touching Before
+
+- `52` - Release Last Finger After Previous Touch With 1 Finger
+
+- `53` - Release Last Finger After Previous Touch With 2 Fingers
+
+- `54` - Release Last Finger After Previous Touch With 3 Fingers
+
+- `55` - Release Last Finger After Previous Touch With 4 Fingers
+
+- `56` - Release Last Finger After Previous Touch With 5 Fingers
+
+
+#### Single Finger Gestures[​
+
+
+- `52` - 1 Finger Touch Start
+
+- `57` - 1 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `62` - 1 Finger Circle Clockwise (configurable circles via `BTTAdditionalConfiguration`, default 0.9)
+
+- `63` - 1 Finger Circle Counter-Clockwise (configurable circles via `BTTAdditionalConfiguration`, default 0.9)
+
+- `1` - 1 Finger Tap
+
+- `2` - 1 Finger Tap Left
+
+- `3` - 1 Finger Tap Right
+
+- `23` - 1 Finger Middle Click
+
+- `24` - 1 Finger Tap Middle
+
+- `32` - 1 Finger Tap Above Apple
+
+- `18` - Scroll Up (modifier key needed)
+
+- `19` - Scroll Down (modifier key needed)
+
+- `33` - 1 Finger Swipe Down
+
+- `34` - 1 Finger Swipe Up
+
+- `35` - 1 Finger Swipe Left
+
+- `36` - 1 Finger Swipe Right
+
+
+#### Two Finger Gestures[​
+
+
+- `53` - 2 Finger Touch Start
+
+- `58` - 2 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `4` - 2 Finger Tap
+
+- `62` - 2 Finger Double-Tap
+
+- `20` - 2 Finger Click
+
+- `7` - 2 Finger Swipe Up
+
+- `8` - 2 Finger Swipe Down
+
+- `5` - 2 Finger Swipe Left
+
+- `6` - 2 Finger Swipe Right
+
+- `14` - Pinch In
+
+- `15` - Pinch Out
+
+- `16` - TipTap Left (1 Finger Fix)
+
+- `17` - TipTap Right (1 Finger Fix)
+
+
+#### Three Finger Gestures[​
+
+
+- `54` - 3 Finger Touch Start
+
+- `59` - 3 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `9` - 3 Finger Tap
+
+- `63` - 3 Finger Double-Tap
+
+- `21` - 3 Finger Click
+
+- `13` - 3 Finger Swipe Up
+
+- `12` - 3 Finger Swipe Down
+
+- `10` - 3 Finger Swipe Left
+
+- `11` - 3 Finger Swipe Right
+
+- `30` - TipTap Left (2 Fingers Fix)
+
+- `37` - TipTap Middle (2 Fingers Fix)
+
+- `31` - TipTap Right (2 Fingers Fix)
+
+- `60` - TipSwipe Left Finger Up
+
+- `61` - TipSwipe Left Finger Down
+
+
+#### Four Finger Gestures[​
+
+
+- `55` - 4 Finger Touch Start
+
+- `60` - 4 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+- `25` - 4 Finger Click
+
+- `27` - 4 Finger Swipe Up
+
+- `26` - 4 Finger Swipe Down
+
+- `28` - 4 Finger Swipe Left
+
+- `29` - 4 Finger Swipe Right
+
+
+#### Five Finger Gestures[​
+
+
+- `56` - 5 Finger Touch Start
+
+- `61` - 5 Finger Long Touch (configurable duration via `BTTAdditionalConfiguration`, default 0.5s)
+
+
+#### Moving, Resizing and Custom Drawings[​
+
+
+- `40` - 1 Finger Touch Top
+
+- `38` - 2 Finger Touch Top
+
+- `39` - 3 Finger Touch Top
+
+
+### 3. Other Triggers / Automations[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeOtherTriggers"`
+
+
+#### Named Trigger / Reusable Trigger Reference[​
+
+
+- `643` - Reusable Named Trigger
+
+
+|  | Property | Type | Description |
+|  | `BTTTriggerName` | String | The unique name for this trigger (used to call it from other triggers/scripts) |
+|  | `BTTNamedTriggerAIDescription` | String | Description for AI/h@llo.ai (what this trigger does) |
+|  | `BTTNamedTriggerAIAllow` | Number | Allow [h@llo.ai to use this trigger (0/1) |
+
+```
+`{
+  "BTTTriggerType": 643,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTTriggerName": "my_custom_trigger",
+  "BTTNamedTriggerAIDescription": "Trigger for opening Safari",
+  "BTTNamedTriggerAIAllow": 1,
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 49
+  }]
+}
+`
+```
+
+
+#### Launcher Simple JSON Item[​
+
+
+- `849` - Launcher Simple JSON Item
+
+
+A trigger that provides dynamic items for the BetterTouchTool Launcher. The trigger runs a JavaScript function (default `retrieveJSON`) that must return items in the [Simple JSON Format. The trigger itself appears as a top-level launcher item, and activating it runs the script and shows the returned items as launcher children.
+
+
+The script is stored as a JSON object in the trigger's secondary action data. The script must be configured using the BetterTouchTool UI script editor.
+
+
+|  | Property | Type | Description |
+|  | `BTTGestureConfig` | String | Display name of this launcher item |
+
+
+The trigger should have a Launcher Config with `BTTLauncherShowInLauncher` set to `1` (or `3` for always visible) so it appears in the launcher.
+
+```
+`{
+  "BTTTriggerType": 849,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTGestureConfig": "My Custom Items",
+  "BTTLauncherConfig": {
+    "BTTLauncherShowInLauncher": 1,
+    "BTTLauncherTitle": "My Custom Items"
+  },
+  "BTTActionsToExecute": []
+}
+`
+```
+
+
+#### Application Lifecycle[​
+
+
+- `670` - App Did Launch
+
+- `671` - App Did Activate
+
+- `672` - App Did Deactivate
+
+- `673` - App Did Terminate
+
+- `779` - App Did Change (Focus Changed to Different App)
+
+- `604` - Switch to Application (triggers when switching to the app this trigger is assigned to)
+
+
+|  | Property | Type | Description |
+|  | `BTTAdditionalConfiguration` | String | App path/URL to watch (e.g. `"file:///Applications/Safari.app/"`). Omit to trigger for any app. |
+
+```
+`{
+  "BTTTriggerType": 670,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "file:///Applications/Safari.app/",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Safari launched!"
+  }]
+}
+`
+```
+
+
+Note: `604` (Switch to Application) and `779` (App Did Change) do not use `BTTAdditionalConfiguration` - they trigger based on the app assignment scope (which app group the trigger is in).
+
+
+#### Window Events[​
+
+
+- `784` - Focused Window Did Change
+
+- `804` - Focused Window Or Window Title Did Change
+
+- `608` - Switch to Window
+
+- `822` - Specific App Did Create Window
+
+- `823` - Specific App Did Destroy Window
+
+
+These triggers have no additional configuration. They fire based on the app scope they are assigned to.
+
+
+#### System Events (No Configuration Needed)[​
+
+
+- `605` - Before Mac Goes To Sleep
+
+- `606` - After Mac Wakes From Sleep
+
+- `683` - Did Close Lid
+
+- `684` - Did Open Lid
+
+- `738` - Did Lock Screen
+
+- `739` - Did Unlock Screen
+
+- `736` - Did Start Screen Saver
+
+- `737` - Did Stop Screen Saver
+
+- `815` - Active Space Did Change
+
+- `824` - Spotlight Did Show
+
+- `825` - Spotlight Did Hide
+
+
+These are simple event triggers with no configuration - just assign actions.
+
+```
+`{
+  "BTTTriggerType": 815,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Space changed!"
+  }]
+}
+`
+```
+
+
+#### Battery[​
+
+
+- `706` - Battery Below X%
+
+- `707` - Battery Above X%
+
+- `798` - Battery Connected To AC (no config)
+
+- `799` - Battery Running On Battery (no config)
+
+
+|  | Property | Type | Description |
+|  | `BTTAdditionalConfiguration` | String | Battery percentage threshold (e.g. `"20"` for 20%) - for 706/707 only |
+
+```
+`{
+  "BTTTriggerType": 706,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "20",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Battery below 20%!"
+  }]
+}
+`
+```
+
+
+#### WiFi[​
+
+
+- `688` - Did Connect To WiFi With Name
+
+- `689` - Did Disconnect From WiFi With Name
+
+
+|  | Property | Type | Description |
+|  | `BTTWifiName` | String | WiFi network SSID to match. Omit or `"*"` to trigger for any WiFi. |
+
+```
+`{
+  "BTTTriggerType": 688,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTWifiName": "MyHomeNetwork",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Connected to home WiFi!"
+  }]
+}
+`
+```
+
+
+#### USB Device[​
+
+
+- `785` - USB Device Did Connect
+
+- `786` - USB Device Did Disconnect
+
+
+|  | Property | Type | Description |
+|  | `BTTUSBDeviceName` | String | Device name (supports regex) |
+|  | `BTTUSBDeviceSerial` | String | Device serial number |
+|  | `BTTUSBDeviceVendorID` | Number | Vendor ID |
+|  | `BTTUSBDeviceProductID` | Number | Product ID |
+
+```
+`{
+  "BTTTriggerType": 785,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTUSBDeviceName": "YubiKey.*",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "YubiKey connected!"
+  }]
+}
+`
+```
+
+
+#### Bluetooth Device[​
+
+
+- `787` - Bluetooth Device Did Connect
+
+- `788` - Bluetooth Device Did Disconnect
+
+
+Uses the same properties as USB Device: `BTTUSBDeviceName`, `BTTUSBDeviceSerial`, `BTTUSBDeviceVendorID`, `BTTUSBDeviceProductID`.
+
+
+#### Bluetooth LE Proximity[​
+
+
+- `616` - BT LE Come Close
+
+- `617` - BT LE Go Away
+
+- `618` - BT LE Out Of Range
+
+- `619` - BT LE In Range Again
+
+
+These are configured through the BTT UI to select a BT LE device.
+
+
+#### Display & Screen[​
+
+
+- `792` - Screen Did Connect
+
+- `793` - Screen Did Disconnect
+
+
+|  | Property | Type | Description |
+|  | `BTTAdditionalConfiguration` | String | Display name regex pattern (optional, omit to match any display) |
+
+
+#### Notch Interactions (No Configuration Needed)[​
+
+
+- `691` - Click Notch
+
+- `692` - Double Click Notch
+
+- `695` - Right Click Notch
+
+- `693` - Move Mouse To Notch
+
+- `694` - Move Mouse Away From Notch
+
+- `705` - Move Mouse Away From Notch And From Menubar
+
+
+#### Screen Corners[​
+
+
+- `609` - Top Left Corner
+
+- `610` - Top Right Corner
+
+- `611` - Bottom Left Corner
+
+- `612` - Bottom Right Corner
+
+- `664` - Mouse Away From Top Left Corner
+
+- `665` - Mouse Away From Top Right Corner
+
+- `666` - Mouse Away From Bottom Left Corner
+
+- `667` - Mouse Away From Bottom Right Corner
+
+
+|  | Property | Type | Description |
+|  | `BTTRepeatDelay` | Number | Delay in seconds before triggering (optional) |
+|  | `BTTAllowDragging` | Number | Allow trigger even while mouse button is pressed (0/1) |
+
+
+#### Screen Edges[​
+
+
+- `768` - Mouse To Left Screen Edge
+
+- `770` - Mouse To Right Screen Edge
+
+- `660` - Mouse To Bottom Screen Edge
+
+- `661` - Mouse To Top Screen Edge
+
+- `769` - Mouse Away From Left Screen Edge
+
+- `771` - Mouse Away From Right Screen Edge
+
+- `662` - Mouse Away From Bottom Screen Edge
+
+- `663` - Mouse Away From Top Screen Edge
+
+
+Same properties as Screen Corners: `BTTRepeatDelay`, `BTTAllowDragging`.
+
+
+#### Window Button Clicks (No Configuration Needed)[​
+
+
+- `600` - Doubleclick Window Titlebar
+
+- `613` - Doubleclick Mac Menubar
+
+- `622` - Leftclick Red Window Button
+
+- `621` - Leftclick Orange Window Button
+
+- `615` - Leftclick Green Window Button
+
+- `623` - Leftclick Full Screen Button
+
+- `601` - Rightclick Red Window Button
+
+- `602` - Rightclick Orange Window Button
+
+- `603` - Rightclick Green Window Button
+
+- `614` - Rightclick Full Screen Button
+
+- `626` - Other Click Red Window Button
+
+- `625` - Other Click Orange Window Button
+
+- `628` - Other Click Green Window Button
+
+- `627` - Other Click Full Screen Button
+
+
+#### Custom Menu Bar Icons[​
+
+
+- `674` - Menu Bar Icon
+
+- `680` - Menu Bar Icon (AppleScript content)
+
+- `681` - Menu Bar Icon (Shell Script content)
+
+- `803` - Always Hidden Status Item (no icon shown, just runs actions)
+
+
+These are configured via `BTTTriggerConfig` with Touch Bar-style properties for icon, font, color, and optional script.
+
+
+|  | Property (in BTTTriggerConfig) | Type | Description |
+|  | `BTTTouchBarButtonColor` | String | Background color (R,G,B,A) |
+|  | `BTTTouchBarFontColor` | String | Text color (R,G,B,A) |
+|  | `BTTTouchBarButtonFontSize` | Number | Font size |
+|  | `BTTTouchBarOnlyShowIcon` | Number | Show icon only (0/1) |
+|  | `BTTTouchBarItemSFSymbolDefaultIcon` | String | SF Symbol name |
+|  | `BTTTouchBarItemIconWidth` | Number | Icon width |
+|  | `BTTTouchBarItemIconHeight` | Number | Icon height |
+|  | `BTTTouchBarScriptUpdateInterval` | Number | Script refresh interval in seconds (for 680/681) |
+|  | `BTTTouchBarAppleScriptString` | String | AppleScript code (for 680) |
+|  | `BTTTouchBarShellScriptString` | String | Shell script code (for 681) |
+
+```
+`{
+  "BTTTriggerType": 674,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTTriggerConfig": {
+    "BTTTouchBarItemSFSymbolDefaultIcon": "star.fill",
+    "BTTTouchBarItemIconWidth": 18,
+    "BTTTouchBarItemIconHeight": 18,
+    "BTTTouchBarOnlyShowIcon": 1
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+#### Variable Value Changed[​
+
+
+- `789` - Variable Value Changed
+
+
+|  | Property | Type | Description |
+|  | `BTTAdditionalConfiguration` | String | Variable name to watch |
+
+```
+`{
+  "BTTTriggerType": 789,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "myVariableName",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Variable changed!"
+  }]
+}
+`
+```
+
+
+#### File Did Change[​
+
+
+- `807` - File Did Change
+
+
+|  | Property | Type | Description |
+|  | `BTTAdditionalConfiguration` | String | File/folder paths to watch (separate multiple paths with `;;`) |
+|  | `BTTFileChangeType` | Number | What type of change to watch for (see values below) |
+
+
+**BTTFileChangeType values:**
+
+
+- `0` - All changes (default)
+
+- `1` - Directory Created
+
+- `2` - Directory Removed
+
+- `3` - Directory Renamed
+
+- `4` - Directory Modified
+
+- `5` - File Created
+
+- `6` - File Removed
+
+- `7` - File Renamed / Moved Into Folder
+
+- `8` - File Modified
+
+- `9` - File Moved Out Of Folder
+
+
+**Variables available when triggered:** `BTTLastChangedFileOrFolder`, `BTTLastChangedFileOrFolderChangedType`
+
+```
+`{
+  "BTTTriggerType": 807,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "/Users/me/Documents;;/Users/me/Desktop",
+  "BTTFileChangeType": 8,
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "File modified!"
+  }]
+}
+`
+```
+
+
+#### Script Output Changed / Advanced Trigger Condition Changed[​
+
+
+- `796` - Script Output Changed
+
+- `797` - Advanced Trigger Condition Changed
+
+
+|  | Property | Type | Description |
+|  | `BTTATCCheckInterval` | Number | Check interval in seconds |
+|  | `BTTATCTriggerForInitialValue` | Number | Trigger on initial value (0/1) |
+
+
+#### Dynamic JS Variable[​
+
+
+- `766` - Dynamic JS Variable
+
+
+|  | Property | Type | Description |
+|  | `BTTAdditionalConfiguration` | String | JavaScript variable name (with `dynamic_` prefix) |
+
+
+#### Other Data Triggers[​
+
+
+- `654` - Conditional Activation Group Activated (no config)
+
+- `655` - Conditional Activation Group Deactivated (no config)
+
+- `806` - Text Selection Did Change (no config)
+
+- `783` - Clipboard Contents Changed (no config)
+
+- `820` - Clipboard Manager Did Add Item (no config)
+
+
+#### Did Open URL[​
+
+
+- `682` - Did Open URL
+
+
+|  | Property | Type | Description |
+|  | `BTTDidOpenURLAdress` | String | URL pattern/regex to match |
+
+
+#### Input Source Changed[​
+
+
+- `687` - Input Source Changed
+
+
+|  | Property | Type | Description |
+|  | `BTTInputSourceName` | String | Input source name to match (omit or `"*"` for any) |
+
+
+#### Clipboard Transformer[​
+
+
+- `679` - Clipboard Transformer
+
+
+|  | Property | Type | Description |
+|  | `BTTClipboardTransformerName` | String | Name of the transformer |
+
+
+#### Distributed / Workspace Notifications[​
+
+
+- `607` - Received Distributed Notification With Name
+
+
+|  | Property | Type | Description |
+|  | `BTTDistributedNotificationName` | String | Notification name to listen for |
+
+```
+`{
+  "BTTTriggerType": 607,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTDistributedNotificationName": "com.example.myNotification",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+- `669` - Receive Workspace Notification (no config)
+
+- `811` - User Notification Did Show (no config)
+
+
+#### Ambient Light Sensor[​
+
+
+- `780` - Ambient Light Goes Below
+
+- `781` - Ambient Light Goes Above
+
+- `782` - Ambient Light Abrupt Change By
+
+
+|  | Property | Type | Description |
+|  | `BTTAmbientLightValue` | Number | Light threshold value |
+|  | `BTTAmbientLightPollingInterval` | Number | Polling interval in seconds |
+|  | `BTTAmbientLightRetriggerTreshold` | Number | Re-trigger threshold (prevents re-triggering until value changes by this amount) |
+
+
+#### Lid Angle Sensor[​
+
+
+- `816` - Lid Angle Goes Below
+
+- `817` - Lid Angle Goes Above
+
+- `818` - Lid Angle Abrupt Change By
+
+
+|  | Property | Type | Description |
+|  | `BTTRepeatDelay` | Number | Angle threshold value |
+|  | `BTTRepeatRate` | Number | Polling interval in seconds |
+
+
+#### Accelerometer (Apple Silicon)[​
+
+
+Accelerometer triggers use the built-in Bosch BMI286 IMU on Apple Silicon MacBooks.
+
+
+##### Axis Threshold Triggers[​
+
+
+- `838` - Accelerometer X-Axis Goes Above
+
+- `839` - Accelerometer X-Axis Goes Below
+
+- `840` - Accelerometer Y-Axis Goes Above
+
+- `841` - Accelerometer Y-Axis Goes Below
+
+- `842` - Accelerometer Z-Axis Goes Above
+
+- `843` - Accelerometer Z-Axis Goes Below
+
+
+|  | Property | Type | Description |
+|  | `BTTRepeatDelay` | Number | Threshold value in g (e.g. 0.5 means 0.5g) |
+|  | `BTTNumber1` | Number | Re-trigger prevention: value must change by this amount before the trigger can fire again |
+|  | `BTTTriggerOnDown` | Number | If 1, trigger fires on the very first accelerometer reading if threshold is already crossed |
+
+```
+`{
+  "BTTTriggerType": 842,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTRepeatDelay": -0.9,
+  "BTTNumber1": 0.1,
+  "BTTTriggerOnDown": 0,
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Z-axis crossed -0.9g (laptop tilted!)"
+  }]
+}
+`
+```
+
+
+##### Shake / Abrupt Movement[​
+
+
+- `844` - Accelerometer Detects Shake / Abrupt Movement
+
+
+|  | Property | Type | Description |
+|  | `BTTRepeatDelay` | Number | Magnitude threshold in g - fires when combined per-sample delta across all axes exceeds this value |
+
+```
+`{
+  "BTTTriggerType": 844,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTRepeatDelay": 0.3,
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Shake detected!"
+  }]
+}
+`
+```
+
+
+##### Impact / Tap Detection (STA/LTA)[​
+
+
+- `845` - Accelerometer Detects Light Tap on Chassis
+
+- `846` - Accelerometer Detects Knock on Chassis
+
+- `847` - Accelerometer Detects Hard Hit / Slap on Chassis
+
+
+These use a Short-Term Average / Long-Term Average (STA/LTA) algorithm with a high-pass filter to detect impulsive events independent of device orientation.
+
+
+|  | Property | Type | Description |
+|  | `BTTRepeatDelay` | Number | Sensitivity (1–10, default 5). Lower = more sensitive, higher = stronger impact required |
+|  | `BTTNumber1` | Number | Required number of taps/knocks (default 1). E.g. 3 for triple-knock. Multi-tap window is 0.4s × count |
+
+```
+`{
+  "BTTTriggerType": 846,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTRepeatDelay": 5,
+  "BTTNumber1": 2,
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Double knock detected!"
+  }]
+}
+`
+```
+
+
+#### Audio Device Changes (No Configuration Needed)[​
+
+
+- `833` - Audio Output Changed
+
+- `834` - Audio Input Changed
+
+
+#### Power Mode Changed[​
+
+
+- `848` - Power Mode Did Change
+
+
+Fires when the macOS energy mode changes (e.g. switching between Automatic, Low Power, High Power in System Settings > Battery). Sets the BTT variable `power_mode` to the current mode.
+
+
+|  | Property | Type | Description |
+|  | `BTTGestureConfig` | String | Which power mode to trigger on: `all`, `automatic`, `low-power`, or `high-power` |
+
+
+When `BTTGestureConfig` is set to a specific mode (e.g. `low-power`), the trigger only fires when switching to that mode. Use `all` to fire on every power mode change.
+
+```
+`{
+  "BTTTriggerType": 848,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTGestureConfig": "low-power",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Switched to Low Power mode"
+  }]
+}
+`
+```
+
+
+#### Trigger Plugin[​
+
+
+- `837` - Trigger Plugin
+
+
+Trigger plugins are custom Swift plugins that observe arbitrary system events and fire BTT triggers when conditions are met. They appear under Other Triggers > Trigger Plugins in the trigger selector.
+
+
+|  | Property | Type | Description |
+|  | `BTTGestureConfig` | String | Plugin bundle identifier (selects which trigger plugin to use) |
+|  | `BTTAdditionalData` | JSON object | Optional per-trigger plugin configuration values, keyed as `plugin_var_<fieldID>` |
+
+
+The plugin identifier is stored in `BTTGestureConfig` (aka `gestureConfig`). When a trigger plugin fires, any context values it provides are stored as BTT variables with the `TriggerPlugin_` prefix (e.g. context key `clipboardContent` becomes variable `TriggerPlugin_clipboardContent`).
+
+
+Plugin-specific configuration values (defined by the plugin's `configurationFormItems`) are stored alongside the trigger in `BTTAdditionalData` / `icondata3` with keys prefixed by `plugin_var_`. Plugin authors can use plain `formFieldID` values such as `watchPath`; BTT adds the `plugin_var_` prefix when saving and when passing values to `didReceiveNewConfigurationValues(_:)`.
+
+```
+`{
+  "BTTTriggerType": 837,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTGestureConfig": "com.example.myTriggerPlugin",
+  "BTTAdditionalData": {
+    "plugin_var_watchPath": "~/Desktop"
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Plugin triggered!"
+  }]
+}
+`
+```
+
+
+#### BTT Mobile / Remote (No Configuration Needed)[​
+
+
+- `808` - BTT Mobile App Did Connect
+
+- `809` - BTT Mobile App Did Disconnect
+
+
+#### Key Remap[​
+
+
+- `805` - Key Remap
+
+
+|  | Property | Type | Description |
+|  | `BTTKeyRemapFromKey` | String | Key being remapped (shortcut definition) |
+|  | `BTTKeyRemapToKey` | String | Target key to remap to |
+|  | `BTTKeyRemapKeyboard` | String | Keyboard identifier (optional, for specific keyboards) |
+
+
+#### Other[​
+
+
+- `675` - Dock Icon (no config)
+
+- `791` - Finder Context Menu Extension (no config - provides variables `BTTFinderContextMenuTargetPath`, `BTTFinderContextMenuSelectedItemPaths`)
+
+- `819` - Input Text Received (no config)
+
+- `826` - Logitech Craft Crown (configured via BTT UI)
+
+
+#### Launch on Machine with Serial Number[​
+
+
+- `641` - Launch on Machine with Serial Number
+
+
+|  | Property | Type | Description |
+|  | `BTTMachineSerialNumber` | String | Machine serial number |
+
+
+#### Time-Based Trigger[​
+
+
+- `678` - Date/Time Based (Repeating)
+
+
+The time configuration is stored in `BTTAdditionalConfiguration` as a JSON string:
+
+
+|  | Property (inside JSON) | Type | Description |
+|  | `BTTTimedWhenToTrigger` | Number | 0 = repeat interval, 1 = specific date/time |
+|  | `BTTTimedRepeatEveryXSeconds` | String | Cron-like expression or interval in seconds |
+|  | `BTTTimedWeekday` | Number | Day of week (0=Sunday, 1=Monday, ... 6=Saturday) |
+|  | `BTTTimedDay` | Number | Day of month (1-31) |
+|  | `BTTTimedMonth` | Number | Month (1-12) |
+|  | `BTTTimedHour` | Number | Hour (0-23) |
+|  | `BTTTimedMinute` | Number | Minute (0-59) |
+|  | `BTTTimedSecond` | Number | Second (0-59) |
+
+```
+`{
+  "BTTTriggerType": 678,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "{\"BTTTimedRepeatEveryXSeconds\":\"0 0 * * * *\"}",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 153
+  }]
+}
+`
+```
+
+
+#### [h@llo.ai / AI Triggers[​
+
+
+- `827` - [h@llo.ai Assistant
+
+- `828` - Scheduled AI Trigger
+
+- `831` - [h@llo.ai Custom Skill
+
+- `832` - [h@llo.ai BTT Configuration Assistant
+
+- `812` - Custom AI Agent
+
+- `814` - Custom AI Context
+
+
+### 4. Keyboard Shortcuts[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeKeyboardShortcut"`
+
+
+|  | Property | Type | Description |
+|  | `BTTShortcutKeyCode` | Number | macOS virtual key code |
+|  | `BTTShortcutModifierKeys` | Number | Modifier key flags (see Modifier Keys section) |
+|  | `BTTTriggerOnDown` | Number | Trigger on key down (1) or key up (0). **Default: 1** - always set to 1 unless key-up triggering is explicitly needed |
+|  | `BTTLayoutIndependentChar` | String | Layout-independent character (the character the key produces, e.g. `"a"`, `"s"`) |
+|  | `BTTAutoAdaptToKeyboardLayout` | Number | Auto-adapt to keyboard layout (0/1) |
+|  | `BTTShortcutAdvancedModifierKeys` | String | Advanced modifier key combination as string (same value as `BTTShortcutModifierKeys` but as string, e.g. `"1179658"`) |
+|  | `BTTAdditionalConfiguration` | String | Additional modifier configuration as string (typically same value as `BTTShortcutAdvancedModifierKeys`) |
+|  | `BTTShortcutKeyboardType` | Number | Keyboard type identifier (internal keyboard ID, e.g. `-2052004921`). Optional - omit to match any keyboard |
+|  | `BTTShortcutScope` | Number | Where shortcut is active |
+|  | `BTTKeyboardShortcutMinTime` | Number | Minimum hold time in seconds |
+|  | `BTTKeyboardShortcutMaxTime` | Number | Maximum hold time in seconds |
+|  | `BTTKeyboardShortcutPerformDefaultOnAdvancedConditionMismatch` | Boolean | If true and this trigger has advanced conditions that evaluate to false, BetterTouchTool will pass the original keyboard event through so the frontmost app can handle it normally. Only applies to the standard action category - triggers with key long-press, release, or other keyboard action categories will still be swallowed. Default: false |
+
+```
+`{
+  "BTTTriggerType": 0,
+  "BTTTriggerClass": "BTTTriggerTypeKeyboardShortcut",
+  "BTTTriggerOnDown": 1,
+  "BTTShortcutKeyCode": 49,
+  "BTTShortcutModifierKeys": 1048576,
+  "BTTLayoutIndependentChar": "space",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+#### Common Key Codes[​
+
+
+|  | Key | Code | Key | Code |
+|  | A | 0 | S | 1 |
+|  | D | 2 | F | 3 |
+|  | H | 4 | G | 5 |
+|  | Z | 6 | X | 7 |
+|  | C | 8 | V | 9 |
+|  | B | 11 | Q | 12 |
+|  | W | 13 | E | 14 |
+|  | R | 15 | Y | 16 |
+|  | T | 17 | O | 31 |
+|  | U | 32 | I | 34 |
+|  | P | 35 | L | 37 |
+|  | J | 38 | K | 40 |
+|  | N | 45 | M | 46 |
+|  | Space | 49 | Return | 36 |
+|  | Tab | 48 | Delete | 51 |
+|  | Escape | 53 | F1-F12 | 122-111 |
+|  | Left Arrow | 123 | Right Arrow | 124 |
+|  | Down Arrow | 125 | Up Arrow | 126 |
+
+
+### 5. Key Sequences / Typed Words[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeKeySequence"`
+
+
+Key sequences use trigger type `624`.
+
+
+Common `BTTKeySequence` properties include:
+
+
+|  | Property | Type | Description |
+|  | `BTTCharactersToDeleteAfterwards` | Number | Number of typed characters to remove after recognition |
+|  | `BTTKeySequenceDeleteAfterwardsDelay` | Number | Delay in seconds between generated backspace presses |
+
+
+### 6. Drawings[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeDrawings"`
+
+
+Drawings use trigger type `620`.
+
+```
+`{
+  "BTTTriggerType": 620,
+  "BTTTriggerClass": "BTTTriggerTypeDrawings",
+  "BTTTriggerConfig": {
+    "BTTDrawingName": "My Gesture"
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+### 7. Normal Mouse[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeMouse"`
+
+
+Normal mouse triggers use button numbers for trigger type IDs. The formula is:
+
+
+- Single click: `1000 + buttonNumber` (button 0=left, 1=right, 2=middle, 3-23=extra buttons)
+
+- Double click: `1100 + buttonNumber`
+
+- Triple click: `1200 + buttonNumber`
+
+- Quadruple click: `1300 + buttonNumber`
+
+- Scroll: `996`=scroll down, `997`=scroll up, `998`=scroll left, `999`=scroll right
+
+
+#### Common Mouse Buttons[​
+
+
+- `996` - Scroll Down
+
+- `997` - Scroll Up
+
+- `998` - Scroll Left
+
+- `999` - Scroll Right
+
+- `1000` - Left Click (Button 0)
+
+- `1001` - Right Click (Button 1)
+
+- `1002` - Middle Click (Button 2)
+
+- `1003` - Mouse Button 3
+
+- `1004` - Mouse Button 4
+
+- `1005` - Mouse Button 5
+
+- `1100` - Left Double Click
+
+- `1101` - Right Double Click
+
+- `1102` - Middle Double Click
+
+
+```
+`{
+  "BTTTriggerType": 1004,
+  "BTTTriggerClass": "BTTTriggerTypeMouse",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+### 8. Siri Remote[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeSiriRemote"`
+
+
+#### Siri Remote Buttons[​
+
+
+- `320` - Volume Up
+
+- `321` - Volume Down
+
+- `322` - Siri
+
+- `323` - Play/Pause
+
+- `324` - TV/Screen
+
+- `325` - Menu
+
+- `332` - Volume Up Hold
+
+- `333` - Volume Down Hold
+
+- `334` - Siri Hold
+
+- `335` - Play/Pause Hold
+
+- `336` - TV/Screen Hold
+
+- `337` - Menu Hold
+
+
+#### Siri Remote Touchpad[​
+
+
+- `326` - Touchpad Click
+
+- `338` - Touchpad Click Hold
+
+- `327` - Touchpad Swipe Left
+
+- `328` - Touchpad Swipe Right
+
+- `329` - Touchpad Swipe Up
+
+- `330` - Touchpad Swipe Down
+
+- `331` - Touchpad Tap
+
+- `339` - Touchpad Click Left
+
+- `340` - Touchpad Click Right
+
+- `341` - Touchpad Click Top
+
+- `342` - Touchpad Click Bottom
+
+- `343` - Touchpad Tap Left
+
+- `344` - Touchpad Tap Right
+
+- `345` - Touchpad Tap Top
+
+- `346` - Touchpad Tap Bottom
+
+- `347` - Touchpad Click Hold Left
+
+- `348` - Touchpad Click Hold Right
+
+- `349` - Touchpad Click Hold Top
+
+- `350` - Touchpad Click Hold Bottom
+
+
+#### New Siri Remote 2 Buttons[​
+
+
+- `351` - Button Left
+
+- `352` - Button Right
+
+- `353` - Button Up
+
+- `354` - Button Down
+
+- `355` - Power
+
+- `356` - Button Left Hold
+
+- `357` - Button Right Hold
+
+- `358` - Button Up Hold
+
+- `359` - Button Down Hold
+
+- `360` - Power Hold
+
+- `361` - Mute
+
+- `362` - Mute Hold
+
+
+### 9. Touch Bar[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeTouchBar"`
+
+
+#### Touch Bar Item Types[​
+
+
+- `629` - Touch Bar Button
+
+- `630` - Group / Folder
+
+- `631` - Touch Bar Widget (generic)
+
+- `632` - Remaining Battery Widget
+
+- `633` - DateTime Widget
+
+- `635` - App Switcher Widget
+
+- `636` - Volume Slider Widget
+
+- `637` - Brightness Slider Widget
+
+- `638` - Custom Slider Widget
+
+- `639` - AppleScript Widget
+
+- `640` - Emoji Widget
+
+- `642` - Shell Script Widget
+
+- `650` - UUID Reference Widget
+
+- `651` - Weather Widget
+
+- `652` - Now Playing Widget
+
+- `653` - Control Strip Button
+
+- `656` - Dock Widget
+
+- `657` - Plugin
+
+- `658` - Calendar Widget
+
+- `659` - Calendar Today Widget
+
+- `668` - Clipboard Manager Widget
+
+- `690` - Apple Shortcut Widget
+
+
+#### Touch Bar Gestures[​
+
+
+- `676` - Single Finger Swipe Left
+
+- `677` - Single Finger Swipe Right
+
+- `644` - Two Finger Swipe Left
+
+- `645` - Two Finger Swipe Right
+
+- `646` - Three Finger Swipe Left
+
+- `647` - Three Finger Swipe Right
+
+- `648` - Four Finger Swipe Left
+
+- `649` - Four Finger Swipe Right
+
+
+```
+`{
+  "BTTTriggerType": 629,
+  "BTTTriggerClass": "BTTTriggerTypeTouchBar",
+  "BTTTouchBarButtonName": "My Button",
+  "BTTTriggerConfig": {
+    "BTTTouchBarButtonColor": "58.650002, 58.650002, 58.650002, 255.000000",
+    "BTTTouchBarFontColor": "255, 255, 255, 255",
+    "BTTTouchBarFontSize": 15
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+#### Touch Bar Top-Level Properties[​
+
+
+|  | Property | Type | Description |
+|  | `BTTTouchBarButtonName` | String | Button display name (for buttons) |
+|  | `BTTWidgetName` | String | Widget display name (for widgets) |
+|  | `BTTTriggerName` | String | Internal trigger name |
+
+
+#### Touch Bar Configuration Properties (in BTTTriggerConfig)[​
+
+
+These properties are shared by Touch Bar, Notch Bar, and Menu Bar Icon triggers.
+
+
+**Colors & Styling:**
+
+
+|  | Property | Type | Description | Default |
+|  | `BTTTouchBarButtonColor` | String | Background color (R,G,B,A) | "58.65, 58.65, 58.65, 255" |
+|  | `BTTTouchBarFontColor` | String | Text color (R,G,B,A) | "255, 255, 255, 255" |
+|  | `BTTTouchBarFontColorAlternate` | String | Alternate state text color | Same as primary |
+|  | `BTTTouchBarAlternateBackgroundColor` | String | Alternate state background | Same as primary |
+|  | `BTTTouchBarButtonHoverColor` | String | Hover background color | None |
+|  | `BTTTouchBarBorderColor` | String | Border color | None |
+|  | `BTTTouchBarColorRegex` | String | Regex to match for conditional coloring | None |
+|  | `BTTTouchBarButtonCornerRadius` | Number | Corner radius | Auto |
+
+
+**Text & Font:**
+
+
+|  | Property | Type | Description | Default |
+|  | `BTTTouchBarButtonFontSize` | Number | Font size | 15 |
+|  | `BTTTouchBarButtonFontSizeLine2` | Number | Second line font size | Same as line 1 |
+|  | `BTTTouchBarButtonTextAlignment` | Number | Text alignment | 0 |
+|  | `BTTTouchBarButtonLineHeight` | Number | Line height | Auto |
+|  | `BTTTouchBarButtonMonoSpace` | Number | Use monospace font (0/1) | 0 |
+|  | `BTTTouchBarButtonBaselineOffset` | Number | Baseline offset | 0 |
+|  | `BTTTouchBarButtonTopMargin` | Number | Top margin | 0 |
+|  | `BTTTouchBarLine1Format` | String | First line format template | None |
+|  | `BTTTouchBarLine2Format` | String | Second line format template | None |
+|  | `BTTTouchBarLine1MaxChars` | Number | Max characters for line 1 | Unlimited |
+|  | `BTTTouchBarLine2MaxChars` | Number | Max characters for line 2 | Unlimited |
+
+
+**Sizing & Layout:**
+
+
+|  | Property | Type | Description | Default |
+|  | `BTTTouchBarButtonWidth` | Number | Width in pixels | Auto |
+|  | `BTTTouchBarButtonHeight` | Number | Height in pixels | 30 |
+|  | `BTTTouchBarButtonUseFixedWidth` | Number | Use fixed width (0/1) | 0 |
+|  | `BTTTouchBarButtonUseFixedHeight` | Number | Use fixed height (0/1) | 0 |
+|  | `BTTTouchBarItemPadding` | Number | Internal padding | 0 |
+|  | `BTTTouchBarFreeSpaceBeforeButton` | Number | Space before item | 0 |
+|  | `BTTTouchBarFreeSpaceAfterButton` | Number | Space after item | 0 |
+|  | `BTTTouchBarItemPlacement` | Number | Item placement mode | 0 |
+
+
+**Icon & Symbol:**
+
+
+|  | Property | Type | Description | Default |
+|  | `BTTTouchBarOnlyShowIcon` | Number | Show icon only (0/1) | 0 |
+|  | `BTTTouchBarItemIconType` | Number | 0=image data, 1=SF Symbol | 0 |
+|  | `BTTTouchBarItemIconWidth` | Number | Icon width | 15 |
+|  | `BTTTouchBarItemIconHeight` | Number | Icon height | 15 |
+|  | `BTTTouchBarItemSFSymbolDefaultIcon` | String | SF Symbol name | None |
+|  | `BTTTouchBarItemSFSymbolWeight` | Number | SF Symbol weight | Regular |
+|  | `BTTTouchBarItemSFSymbolAlternateIcon` | String | Alternate SF Symbol name | None |
+|  | `BTTTouchBarIconInvert` | Number | Invert icon colors (0/1) | 0 |
+
+
+**Script Configuration (for widget items):**
+
+
+|  | Property | Type | Description | Default |
+|  | `BTTTouchBarScriptUpdateInterval` | Number | Refresh interval in seconds | None |
+|  | `BTTTouchBarAppleScriptString` | String | AppleScript code (for AppleScript widget) | None |
+|  | `BTTTouchBarAppleScriptPath` | String | Path to AppleScript file | None |
+|  | `BTTTouchBarAppleScriptUsePath` | Number | Use file path instead of inline (0/1) | 0 |
+|  | `BTTTouchBarShellScriptString` | String | Shell script code (for Shell Script widget) | None |
+|  | `BTTTouchBarAppleScriptStringRunOnInit` | Number | Run script on init (0/1) | 0 |
+|  | `BTTScriptType` | Number | Script type identifier | 0 |
+
+
+**Behavior:**
+
+
+|  | Property | Type | Description |
+|  | `BTTTouchBarLongPressActionName` | String | Named trigger for long press |
+|  | `BTTTouchBarAlwaysShowButton` | Number | Show regardless of app (0/1) |
+|  | `BTTKeepGroupOpenWhileSwitchingApps` | Boolean | Keep group open during app switch |
+
+
+**HUD (shown when triggered):**
+
+
+|  | Property | Type | Description |
+|  | `BTTShowHUD` | Number | Show HUD overlay (0/1) |
+|  | `BTTHUDText` | String | HUD title text |
+|  | `BTTHUDDetailText` | String | HUD detail text |
+|  | `BTTHUDSFSymbol` | String | HUD SF Symbol icon |
+
+
+**Widget-Specific (DateTime, Weather, Now Playing, Calendar):**
+
+
+|  | Property | Type | Description |
+|  | `BTTTouchBarDateFormat` | String | Date format string |
+|  | `BTTTouchBarWeatherFormat` | String | Weather display format |
+|  | `BTTTouchBarWeatherUnit` | Number | 0=Celsius, 1=Fahrenheit |
+|  | `BTTTouchBarWeatherAutoLocation` | Boolean | Auto-detect location |
+|  | `BTTTouchBarWeatherLatLon` | String | "latitude,longitude" |
+|  | `BTTTouchBarDefaultPlayer` | String | Now Playing: app bundle ID |
+|  | `BTTTouchBarHideWhenNoPlayer` | Boolean | Now Playing: hide if no player |
+|  | `BTTTouchBarHideCover` | Boolean | Now Playing: hide album cover |
+
+
+### 10. Stream Deck[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeStreamDeck"`
+
+
+#### Stream Deck Item Types[​
+
+
+- `719` - Button
+
+- `720` - Group / Folder
+
+- `721` - Plugin
+
+- `722` - Status Items Widget
+
+- `723` - DateTime Widget
+
+- `724` - Weather Widget
+
+- `725` - AppleScript Widget
+
+- `726` - Now Playing Widget
+
+- `727` - Emoji Widget
+
+- `728` - Next Events Widget
+
+- `729` - Apple Shortcut Widget
+
+- `730` - Shell Script Widget
+
+- `731` - Clipboard Widget
+
+- `732` - On/Off Toggle Button
+
+- `735` - Dock Widget
+
+- `790` - Neo LCD Button
+
+
+#### Stream Deck Touch LCD & Dials[​
+
+
+- `744` - Touch LCD
+
+- `745` - Dial 1 Rotate Left
+
+- `746` - Dial 2 Rotate Left
+
+- `747` - Dial 3 Rotate Left
+
+- `748` - Dial 4 Rotate Left
+
+- `749` - Dial 1 Rotate Right
+
+- `750` - Dial 2 Rotate Right
+
+- `751` - Dial 3 Rotate Right
+
+- `752` - Dial 4 Rotate Right
+
+- `753` - Dial 1 Press
+
+- `754` - Dial 2 Press
+
+- `755` - Dial 3 Press
+
+- `756` - Dial 4 Press
+
+- `757` - Dial 1 Double Press
+
+- `758` - Dial 2 Double Press
+
+- `759` - Dial 3 Double Press
+
+- `760` - Dial 4 Double Press
+
+- `761` - Dock Swipe To Left Half
+
+- `762` - Dock Swipe To Right Half
+
+
+#### Stream Deck Top-Level Properties[​
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckButtonName` | String | Display name of the button |
+
+
+#### Stream Deck BTTTriggerConfig Properties[​
+
+
+**Appearance:**
+
+
+|  | Property | Type | Description | Default |
+|  | `BTTStreamDeckBackgroundColor` | String | Background color (R,G,B,A) | "0, 0, 0, 255" |
+|  | `BTTStreamDeckAlternateBackgroundColor` | String | Alternate state background color | Same as primary |
+|  | `BTTStreamDeckCornerRadius` | Number | Corner radius in pixels | 12 |
+|  | `BTTStreamDeckAlternateCornerRadius` | Number | Alternate state corner radius | 12 |
+
+
+**Icon/Image:**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckIconType` | Number | 0=Text only, 1=Image, 2=SF Symbol |
+|  | `BTTStreamDeckSFSymbolName` | String | SF Symbol name (e.g. `"cloud.bolt.rain.circle.fill"`) |
+|  | `BTTStreamDeckSFSymbolStyle` | Number | SF Symbol rendering style |
+|  | `BTTStreamDeckImage` | String | Base64 encoded image data |
+|  | `BTTStreamDeckImageWidth` | Number | Image width in pixels |
+|  | `BTTStreamDeckImageHeight` | Number | Image height in pixels (default: 50) |
+|  | `BTTStreamDeckImageOffsetX` | Number | Horizontal image offset |
+|  | `BTTStreamDeckImageOffsetY` | Number | Vertical image offset |
+|  | `BTTStreamDeckIconColor1` | String | Primary icon color (R,G,B,A) |
+|  | `BTTStreamDeckIconColor2` | String | Secondary icon color (R,G,B,A) |
+|  | `BTTStreamDeckIconColor3` | String | Tertiary icon color (R,G,B,A) |
+|  | `BTTStreamDeckAlternateIconColor1` | String | Alternate state primary icon color |
+|  | `BTTStreamDeckAlternateIconColor2` | String | Alternate state secondary icon color |
+|  | `BTTStreamDeckAlternateIconColor3` | String | Alternate state tertiary icon color |
+
+
+**Text:**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckAttributedTitle` | String | RTF attributed string for button title |
+|  | `BTTStreamDeckTextOffsetX` | Number | Horizontal text offset |
+|  | `BTTStreamDeckTextOffsetY` | Number | Vertical text offset |
+
+
+**Behavior:**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckUsesActionCategories` | Boolean | Enable action categories for on/off states |
+|  | `BTTStreamDeckMainTab` | Number | Which config tab is selected (0=Main, 1=Appearance) |
+|  | `BTTStreamDeckAlwaysShowButton` | Boolean | Always show button regardless of app |
+|  | `BTTStreamDeckRepeatEnabled` | Boolean | Enable repeat on hold |
+|  | `BTTStreamDeckRepeatRate` | Number | Repeat interval in ms |
+|  | `BTTStreamDeckHapticFeedbackRelease` | Boolean | Haptic feedback on release |
+
+
+**Fixed Position:**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckUseFixedRowCol` | Boolean | Enable fixed positioning |
+|  | `BTTStreamDeckFixedRow` | Number | Row index (0-based) |
+|  | `BTTStreamDeckFixedCol` | Number | Column index (0-based) |
+
+
+**Long Press:**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckUseLongPressNamedTrigger` | Boolean | Enable long press action |
+|  | `BTTStreamDeckLongPressNamedTrigger` | String | Named trigger to call on long press |
+
+
+**Device Targeting:**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckOnlyOnSpecificDevices` | Boolean | Limit to specific device |
+|  | `BTTStreamDeckSN` | String | Target device serial number |
+
+```
+`{
+  "BTTTriggerType": 719,
+  "BTTTriggerClass": "BTTTriggerTypeStreamDeck",
+  "BTTStreamDeckButtonName": "Weather",
+  "BTTTriggerConfig": {
+    "BTTStreamDeckBackgroundColor": "255.000000, 96.000002, 94.000002, 255.000000",
+    "BTTStreamDeckCornerRadius": 12,
+    "BTTStreamDeckIconType": 2,
+    "BTTStreamDeckSFSymbolName": "cloud.bolt.rain.circle.fill",
+    "BTTStreamDeckIconColor1": "255, 255, 255, 255",
+    "BTTStreamDeckIconColor2": "255, 255, 255, 255",
+    "BTTStreamDeckIconColor3": "255, 255, 255, 255",
+    "BTTStreamDeckImageHeight": 50,
+    "BTTStreamDeckTextOffsetX": 10,
+    "BTTStreamDeckTextOffsetY": 10,
+    "BTTStreamDeckUsesActionCategories": true,
+    "BTTStreamDeckMainTab": 1
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+#### Stream Deck Widget Properties (in BTTTriggerConfig)[​
+
+
+**DateTime Widget (723):**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckDateTimeFormat` | String | Format string (e.g. `"{date}"`) |
+|  | `BTTStreamDeckSelectedTimezone` | String | Timezone identifier |
+|  | `BTTStreamDeckLine1Format` | String | First line format |
+|  | `BTTStreamDeckLine2Format` | String | Second line format |
+
+
+**Weather Widget (724):**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckWeatherFormat` | String | Display format |
+|  | `BTTStreamDeckWeatherUnit` | Number | 0=Celsius, 1=Fahrenheit |
+|  | `BTTStreamDeckWeatherLatLon` | String | "latitude,longitude" |
+|  | `BTTStreamDeckWeatherAutoLocation` | Boolean | Auto-detect location |
+
+
+**Now Playing Widget (726):**
+
+
+|  | Property | Type | Description |
+|  | `BTTStreamDeckDefaultPlayer` | String | App bundle ID |
+|  | `BTTStreamDeckHideWhenNoPlayer` | Boolean | Hide when no player active |
+|  | `BTTStreamDeckHideWhenPaused` | Boolean | Hide when paused |
+|  | `BTTStreamDeckBringPlayerToFront` | Boolean | Activate player app on tap |
+
+
+### 11. Notch Bar[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeNotchBar"`
+
+
+#### Notch Bar Item Types[​
+
+
+- `696` - Button
+
+- `697` - Group / Folder
+
+- `698` - Plugin
+
+- `699` - Status Items Widget
+
+- `700` - Custom HTML Widget
+
+- `701` - DateTime Widget
+
+- `702` - Weather Widget
+
+- `703` - AppleScript Widget
+
+- `704` - Now Playing Widget
+
+- `708` - Emoji Widget
+
+- `709` - Brightness Scroller Widget
+
+- `710` - Volume Scroller Widget
+
+- `711` - Next Events Widget
+
+- `712` - Shortcuts Widget
+
+- `713` - Shell Script Widget
+
+- `714` - Apple Shortcut Widget
+
+- `715` - Clipboard Widget
+
+- `741` - Menu Items Widget
+
+- `742` - Mini Menu Items Widget
+
+- `743` - Original Status Items
+
+
+Notch Bar items share all the Touch Bar BTTTriggerConfig properties (BTTTouchBar* keys) plus these Notch Bar-specific ones:
+
+
+#### Notch Bar-Specific BTTTriggerConfig Properties[​
+
+
+|  | Property | Type | Description |
+|  | `BTTNotchBarVisibilityNotchScreen` | Number | Visibility on notched screens (-1=Hidden, 0=Always, 1=Widget only) |
+|  | `BTTNotchBarVisibilityStandardScreen` | Number | Visibility on standard screens |
+|  | `BTTNotchBarUnhideForGroup` | Boolean | Unhide Notch Bar when this group activates |
+|  | `BTTNotchBarActivateWidgetModeForGroup` | Boolean | Switch to Widget Mode when group activates |
+
+
+**Custom HTML Widget (700):**
+
+
+|  | Property | Type | Description |
+|  | `BTTNotchBarHTML` | String | HTML content |
+|  | `BTTNotchBarCSS` | String | CSS styling |
+|  | `BTTNotchBarJS` | String | JavaScript code |
+|  | `BTTNotchBarCSSStyles` | String | Extra CSS styles |
+|  | `BTTNotchBarCSSClass` | String | Extra CSS class |
+|  | `BTTNotchBarJSFunctionOnLoad` | String | JS function called on load |
+|  | `BTTNotchBarJSFunctionOnRefresh` | String | JS function called on refresh |
+
+```
+`{
+  "BTTTriggerType": 696,
+  "BTTTriggerClass": "BTTTriggerTypeNotchBar",
+  "BTTTouchBarButtonName": "My Button",
+  "BTTTriggerConfig": {
+    "BTTTouchBarButtonColor": "75.323769, 75.323769, 75.323769, 255.000000",
+    "BTTTouchBarFontColor": "255, 255, 255, 255",
+    "BTTTouchBarFontSize": 15,
+    "BTTTouchBarItemSFSymbolDefaultIcon": "star.fill",
+    "BTTTouchBarItemIconWidth": 22,
+    "BTTTouchBarItemIconHeight": 22,
+    "BTTNotchBarVisibilityNotchScreen": 0,
+    "BTTNotchBarVisibilityStandardScreen": 0
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+### 12. Floating Menu[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeFloatingMenu"`
+
+
+#### Floating Menu Item Types[​
+
+
+- `767` - Floating Menu (container)
+
+- `772` - HTML Floating Menu
+
+- `773` - Menu Item (button)
+
+- `774` - Submenu
+
+- `775` - Slider Item
+
+- `776` - Text Field Item
+
+- `777` - Back Button
+
+- `778` - Webview
+
+- `794` - Status Items Widget
+
+- `795` - Status Item (individual)
+
+- `800` - iOS Trackpad Item
+
+- `801` - Row Breaker
+
+- `802` - Column Breaker
+
+- `810` - Text Area Item
+
+- `813` - Folder Widget
+
+- `821` - App Widget
+
+- `829` - Now Playing Widget
+
+- `830` - Weather Widget
+
+- `835` - Custom Widget
+
+- `836` - Drawer Widget
+
+
+Floating menus use `BTTMenuConfig` for detailed layout and style properties. See the Floating Menu reference tool for full documentation.
+
+
+### 13. MIDI[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeMIDI"`
+
+```
+`{
+  "BTTTriggerType": 650,
+  "BTTTriggerClass": "BTTTriggerTypeMIDI",
+  "BTTTriggerConfig": {
+    "BTTMidiTriggerDeviceName": "*"
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 45
+  }]
+}
+`
+```
+
+
+### 14. Generic Device[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeGenericDevice"`
+
+
+- `763` - Generic Device Analyzer
+
+- `764` - Generic Device Trigger
+
+- `765` - Generic Device Command
+
+
+|  | Property | Type | Description |
+|  | `BTTGenericDeviceName` | String | Device name |
+|  | `BTTGenericDeviceConfiguration` | Object | Device configuration |
+
+
+### 15. BTT Remote (Legacy)[​
+
+
+**BTTTriggerClass**: `"BTTTriggerTypeBTTRemote"`
+
+
+Legacy BTT Remote triggers are numbered from 300-362.
+
+
+## Special Configurations[​
+
+
+### Colors[​
+
+
+Colors are specified as comma-separated RGBA values:
+
+```
+`"255, 255, 255, 255" = White (fully opaque)
+"0, 0, 0, 255" = Black (fully opaque)
+"255, 0, 0, 128" = Red (50% transparent)
+`
+```
+
+
+### Modifier Keys[​
+
+
+Modifier keys use bitwise flags:
+
+
+- Command: `1048576`
+
+- Option: `524288`
+
+- Control: `262144`
+
+- Shift: `131072`
+
+- Function (fn): `8388608`
+
+
+Combine with bitwise OR:
+
+
+- Command+Shift: `1048576 | 131072 = 1179648`
+
+
+### Icons[​
+
+
+Icons can be specified as:
+
+
+- Base64 encoded image data in `BTTIconData`
+
+- SF Symbol names in `BTTTouchBarItemSFSymbolDefaultIcon`
+
+- File paths for Stream Deck icons
+
+
+### Conditions[​
+
+
+Advanced conditions use `BTTTriggerConditionsData` with base64 encoded predicates.
+
+
+## Complete Examples[​
+
+
+### Keyboard Shortcut with HUD[​
+
+```
+`{
+  "BTTTriggerType": 0,
+  "BTTTriggerClass": "BTTTriggerTypeKeyboardShortcut",
+  "BTTTriggerOnDown": 1,
+  "BTTShortcutKeyCode": 49,
+  "BTTShortcutModifierKeys": 1179648,
+  "BTTLayoutIndependentChar": "space",
+  "BTTShortcutAdvancedModifierKeys": "1179658",
+  "BTTAdditionalConfiguration": "1179658",
+  "BTTTriggerTypeDescription": "Open Terminal",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 49,
+    "BTTLaunchPath": "/System/Applications/Utilities/Terminal.app"
+  }]
+}
+`
+```
+
+
+### App Launch Trigger[​
+
+```
+`{
+  "BTTTriggerType": 670,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "file:///Applications/Safari.app/",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Safari launched!"
+  }]
+}
+`
+```
+
+
+### WiFi Connected Trigger[​
+
+```
+`{
+  "BTTTriggerType": 688,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTWifiName": "Office Network",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Connected to office WiFi"
+  }]
+}
+`
+```
+
+
+### Touch Bar Button with Icon[​
+
+```
+`{
+  "BTTTriggerType": 629,
+  "BTTTriggerClass": "BTTTriggerTypeTouchBar",
+  "BTTTouchBarButtonName": "Safari",
+  "BTTTriggerConfig": {
+    "BTTTouchBarButtonColor": "75.323769, 75.323769, 75.323769, 255.000000",
+    "BTTTouchBarItemIconWidth": 22,
+    "BTTTouchBarItemIconHeight": 22,
+    "BTTTouchBarItemSFSymbolDefaultIcon": "safari"
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 49,
+    "BTTLaunchPath": "/Applications/Safari.app"
+  }]
+}
+`
+```
+
+
+### Time-Based Trigger (Every Hour)[​
+
+```
+`{
+  "BTTTriggerType": 678,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "{\"BTTTimedRepeatEveryXSeconds\":\"0 0 * * * *\"}",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Take a break!",
+    "BTTNotificationDetails": "You've been working for an hour"
+  }]
+}
+`
+```
+
+
+### Trackpad Three Finger Swipe[​
+
+```
+`{
+  "BTTTriggerType": 112,
+  "BTTTriggerClass": "BTTTriggerTypeTouchpadAll",
+  "BTTTriggerTypeDescription": "Switch to Next Desktop",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 2
+  }]
+}
+`
+```
+
+
+### File Changed Trigger[​
+
+```
+`{
+  "BTTTriggerType": 807,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTAdditionalConfiguration": "/Users/me/Downloads",
+  "BTTFileChangeType": 5,
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "New file in Downloads!"
+  }]
+}
+`
+```
+
+
+### USB Device Connected Trigger[​
+
+```
+`{
+  "BTTTriggerType": 785,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTUSBDeviceName": "YubiKey.*",
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "YubiKey connected"
+  }]
+}
+`
+```
+
+
+## Action Categories[​
+
+
+Actions are placed in `BTTActionsToExecute` by default (standard action category). However, triggers can have multiple action groups for different events (long press, release, hover, etc.) using dedicated action category keys. Each category key holds an array of actions, just like `BTTActionsToExecute`.
+
+
+### Common Action Category Keys[​
+
+
+|  | JSON Key | Description |
+|  | `BTTActionsToExecute` | Standard/default actions (triggered on press/activation) |
+|  | `BTTActionCategoryLongPress` | Actions on long press |
+|  | `BTTActionCategoryTouchRelease` | Actions on touch/button release |
+|  | `BTTActionCategoryHover` | Actions when hovering over the item |
+|  | `BTTActionCategoryHoverEnd` | Actions when hover ends |
+|  | `BTTActionCategoryRightClick` | Actions on right-click |
+|  | `BTTActionCategoryPressDown` | Actions on press down (before release) |
+|  | `BTTActionCategoryCustomContextMenu` | Actions for custom context menu |
+
+
+### Additional Action Category Keys[​
+
+
+|  | JSON Key | Description |
+|  | `BTTActionCategoryHyperKeyRelease` | Actions on Hyper Key release |
+|  | `BTTActionCategoryChangeToFalse` | Actions when a toggle state changes to false |
+|  | `BTTActionCategoryAppear` | Actions when item appears |
+|  | `BTTActionCategoryDisappear` | Actions when item disappears |
+|  | `BTTActionCategoryOnDrop` | Actions when item receives a drag-and-drop |
+|  | `BTTActionCategoryScrollLeft` | Actions on scroll left |
+|  | `BTTActionCategoryScrollRight` | Actions on scroll right |
+|  | `BTTActionCategoryScrollUp` | Actions on scroll up |
+|  | `BTTActionCategoryScrollDown` | Actions on scroll down |
+|  | `BTTActionCategoryButtonRelease` | Actions on button release |
+|  | `BTTActionCategoryQuickRelease` | Actions on quick release (short press) |
+|  | `BTTActionCategoryReleaseAfterLongPress` | Actions on release after long press |
+|  | `BTTActionCategoryKeyRelease` | Actions on key release |
+|  | `BTTActionCategoryKeyQuickRelease` | Actions on quick key release |
+|  | `BTTActionCategoryKeyReleaseAfterLongPress` | Actions on key release after long press |
+|  | `BTTActionCategoryKeyLongPress` | Actions on key long press |
+|  | `BTTActionCategoryFirstScroll` | Actions on first scroll event |
+|  | `BTTActionCategoryConnect` | Actions on device connect |
+|  | `BTTActionCategoryDisconnect` | Actions on device disconnect |
+|  | `BTTActionCategoryAppIsRunning` | Actions when app is running |
+|  | `BTTActionCategoryAppIsNotRunning` | Actions when app is not running |
+|  | `BTTActionCategoryKeyReleaseAfterAllModifiersReleased` | Actions on key release after all modifiers released |
+
+
+### Drag Direction Categories[​
+
+
+|  | JSON Key | Description |
+|  | `BTTActionCategoryDragUp` | Actions on single drag up |
+|  | `BTTActionCategoryDragDown` | Actions on single drag down |
+|  | `BTTActionCategoryDragLeft` | Actions on single drag left |
+|  | `BTTActionCategoryDragRight` | Actions on single drag right |
+|  | `BTTActionCategoryDragUpContinuous` | Actions during continuous drag up |
+|  | `BTTActionCategoryDragDownContinuous` | Actions during continuous drag down |
+|  | `BTTActionCategoryDragLeftContinuous` | Actions during continuous drag left |
+|  | `BTTActionCategoryDragRightContinuous` | Actions during continuous drag right |
+
+
+### Logitech Craft Crown Categories[​
+
+
+|  | JSON Key | Description |
+|  | `BTTActionCategoryLogitechCrownTouch` | Actions on Crown touch |
+|  | `BTTActionCategoryLogitechCrownRotateLeft` | Actions on Crown rotate left |
+|  | `BTTActionCategoryLogitechCrownRotateRight` | Actions on Crown rotate right |
+|  | `BTTActionCategoryLogitechCrownRotateLeftCont` | Continuous Crown rotate left |
+|  | `BTTActionCategoryLogitechCrownRotateRightCont` | Continuous Crown rotate right |
+|  | `BTTActionCategoryLogitechCrownClick` | Actions on Crown click |
+|  | `BTTActionCategoryLogitechCrownRelease` | Actions on Crown release |
+
+
+### Example: Stream Deck Button with Multiple Action Categories[​
+
+```
+`{
+  "BTTTriggerType": 719,
+  "BTTTriggerClass": "BTTTriggerTypeStreamDeck",
+  "BTTStreamDeckButtonName": "Multi-Action Button",
+  "BTTTriggerConfig": {
+    "BTTStreamDeckUsesActionCategories": true,
+    "BTTStreamDeckBackgroundColor": "0, 0, 0, 255",
+    "BTTStreamDeckCornerRadius": 12
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Button pressed"
+  }],
+  "BTTActionCategoryLongPress": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Long press detected"
+  }],
+  "BTTActionCategoryTouchRelease": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Button released"
+  }]
+}
+`
+```
+
+
+### Example: Keyboard Shortcut with Key Release Action[​
+
+```
+`{
+  "BTTTriggerType": 0,
+  "BTTTriggerClass": "BTTTriggerTypeKeyboardShortcut",
+  "BTTShortcutKeyCode": 49,
+  "BTTShortcutModifierKeys": 1048576,
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Key pressed"
+  }],
+  "BTTActionCategoryKeyRelease": [{
+    "BTTPredefinedActionType": 172,
+    "BTTNotificationText": "Key released"
+  }]
+}
+`
+```
+
+
+**Note:** Not all triggers support all action categories. The most commonly used are `BTTActionsToExecute` (all triggers), `BTTActionCategoryLongPress` (buttons, keys), `BTTActionCategoryTouchRelease` / `BTTActionCategoryKeyRelease` (buttons, keys), and `BTTActionCategoryHover` / `BTTActionCategoryHoverEnd` (Touch Bar, Stream Deck, Notch Bar items).
+
+
+## Launcher Config[​
+
+
+Any trigger can optionally include a `BTTLauncherConfig` object to control how it appears in the BetterTouchTool Launcher.
+
+
+|  | Property | Type | Description |
+|  | `BTTLauncherShowInLauncher` | Number | 0 = hidden, 1 = show in launcher, 2 = embed in launcher below prompt (floating menus only), 3 = show in launcher even if prompt doesn't match, 4 = only show if the prompt starts with an assigned launcher keyword, 5 = only show if the prompt matches |
+|  | `BTTLauncherTitle` | String | Custom title in the launcher (overrides trigger name) |
+|  | `BTTLauncherDetails` | String | Subtitle/details text shown in the launcher |
+|  | `BTTLauncherKeywords` | Array or String | Search aliases/keywords for this launcher item. Accepts an array of strings or a single comma/newline separated string (e.g. `"dict, translate"`). Used for alias matching and by display mode 4 (keyword-only). |
+|  | `BTTLauncherOrder` | Number | Sort order for this item in the launcher. Lower values appear first. Use negative values to place items above the built-in sections. |
+|  | `BTTLauncherIconConfig` | String | JSON string describing the launcher icon configuration |
+
+
+Mode 3 (`launcherResultAlwaysVisible`) keeps the item visible in the launcher results even when the typed prompt does not match. This is useful for items that want to react to the current prompt text via the `BTTLauncherPrompt` variable.
+
+
+Mode 4 (`launcherResultKeywordOnly`) hides the item until the current prompt starts with one of its assigned launcher keywords (see `BTTLauncherKeywords`).
+
+
+Mode 5 (`launcherResultPromptMatchesOnly`) hides the item until the current prompt matches it.
+
+
+The launcher also exposes the current prompt through these variables:
+
+
+- `BTTLauncherPrompt` — the full current prompt text.
+
+- `BTTLauncherPromptKeyword` — the first whitespace-separated word of the prompt (useful when combined with display mode 4).
+
+- `BTTLauncherPromptInputWithoutKeyword` — the remainder of the prompt after the first word.
+
+
+```
+`{
+  "BTTTriggerType": 643,
+  "BTTTriggerClass": "BTTTriggerTypeOtherTriggers",
+  "BTTTriggerName": "quick_note",
+  "BTTLauncherConfig": {
+    "BTTLauncherShowInLauncher": 1,
+    "BTTLauncherTitle": "Quick Note",
+    "BTTLauncherDetails": "Create a new note",
+    "BTTLauncherOrder": -500
+  },
+  "BTTActionsToExecute": [{
+    "BTTPredefinedActionType": 49
+  }]
+}
+`
+```
+
+
+## Tips[​
+
+
+- Always include both `BTTTriggerType` and `BTTTriggerClass`
+
+- Use `BTTTriggerConfig` for Touch Bar, Stream Deck, Notch Bar, and Menu Bar Icon properties
+
+- Use `BTTAdditionalConfiguration` for most other trigger-specific settings (app paths, variable names, file paths, battery %)
+
+- Specific keys override `BTTAdditionalConfiguration`: `BTTWifiName`, `BTTDistributedNotificationName`, `BTTInputSourceName`, `BTTDidOpenURLAdress`, `BTTTriggerName`, `BTTMachineSerialNumber`, `BTTUSBDeviceName`
+
+- Actions go in `BTTActionsToExecute` for standard actions; use dedicated action category keys (e.g. `BTTActionCategoryLongPress`, `BTTActionCategoryTouchRelease`) for additional event-based action groups - see the [Action Categories section above for all available keys
+
+- Test your JSON with BTT's import feature before deploying
+
+- Use UUIDs to update existing triggers
+
+- Omit optional fields to use defaults
+[PreviousFloating Menu JSON Definitions[NextJSON Examples
+
+- [Basic Trigger Structure
+- [Required Fields
+- [Common Optional Fields
+- [Trigger Categories
+
+- [1. Trackpad Gestures
+- [2. Magic Mouse
+- [3. Other Triggers / Automations
+- [4. Keyboard Shortcuts
+- [5. Key Sequences / Typed Words
+- [6. Drawings
+- [7. Normal Mouse
+- [8. Siri Remote
+- [9. Touch Bar
+- [10. Stream Deck
+- [11. Notch Bar
+- [12. Floating Menu
+- [13. MIDI
+- [14. Generic Device
+- [15. BTT Remote (Legacy)
+- [Special Configurations
+
+- [Colors
+- [Modifier Keys
+- [Icons
+- [Conditions
+- [Complete Examples
+
+- [Keyboard Shortcut with HUD
+- [App Launch Trigger
+- [WiFi Connected Trigger
+- [Touch Bar Button with Icon
+- [Time-Based Trigger (Every Hour)
+- [Trackpad Three Finger Swipe
+- [File Changed Trigger
+- [USB Device Connected Trigger
+- [Action Categories
+
+- [Common Action Category Keys
+- [Additional Action Category Keys
+- [Drag Direction Categories
+- [Logitech Craft Crown Categories
+- [Example: Stream Deck Button with Multiple Action Categories
+- [Example: Keyboard Shortcut with Key Release Action
+- [Launcher Config
+- [TipsCommunity
+
+- [ForumMore
+
+- [Privacy Policy
+- [Website
+- [Documentation GitHubCopyright 2026 folivora.AI GmbH.

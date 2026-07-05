@@ -1,0 +1,1128 @@
+# Source: https://docs.folivora.ai/docs/scripting/simple-format
+
+- [
+- [Scripting BetterTouchTool
+- Simple JSON Format
+
+# BetterTouchTool Simple JSON Format
+
+
+BetterTouchTool 4.764 introduced a new "Simple JSON Format", which can currently be used with the predefined actions "Show Custom Context Menu (New)" and "Choose From List" and with Floating Menus. It allows you to retrieve the content for those menus dynamically using JavaScript & JSON.
+It allows you to use any of [BTT's JavaScript capabilities to produce the output JSON.
+
+
+## How to create dynamic menus based on the Simple JSON Format[​
+
+
+For the predefined actions "Show Custom Context Menu" and "Choose From List" you need to click the "Retrieve Content Dynamically Via JavaScript" checkbox.
+
+![alt text](/assets/images/choose_from_list_dynamic_script-186eb03413efb85d59b989d3f2c71326.png)
+
+
+For Floating Menus you need to set a Content Script.
+
+![alt text](/assets/images/floating_menu_content_script_setup-a164b3984076edb6bd89ff621091cba6.png)
+
+
+Then you can have an async function that returns a JSON. You can use any of BTT's [scripting functions inside that JavaScript (e.g. run Shell or AppleScripts and much more). **Note** Make sure to set the async function to call in the separate text field.
+
+
+### Alternative: Full JSON Definition[​
+
+
+While using the predefined actions "Show Custom Context Menu", "Choose From List" and the Floating Menu's Content Script work, they don't allow you to define **everything** via Simple JSON Format. For example you might want to dynamically switch between using a context menu, list or floating menu. To do that, starting with BetterTouchTool v5.790 there is a new action "Show Simple JSON Format Menu", which allows you to define everything.
+
+
+Example:
+
+```
+`async function showMenu() {
+  let items = [
+    {
+        "title": "trigger some shortcut",
+        "icon": "sfsymbol::globe",
+        "action": "shortcut::TheShortcutFromTheShortcutsApp"
+    },
+    {
+        "title": "trigger some named trigger",
+        "icon": "sfsymbol::house",
+        "action": "named::TheNameOfTheBTTNamedTrigger"
+    }
+  ];
+   
+   let container = {
+   	type: "floatingmenu", //other allowed values: contextmenu, floatingmenu, searchablelist
+	  items: items
+    // for floating menus you can extend the container definition by adding any floating menu properties. For example:
+    // "BTTMenuItemBackgroundColor" : "255.000000, 45.000001, 33.000002, 255.000000",
+
+   };
+
+   
+	return JSON.stringify(container);
+}
+`
+```
+
+
+## Supported Container Properties[​
+
+
+- **type** can be contextmenu, floatingmenu, searchablelist
+
+- **items** an array of items to show, defined by the properties described in "Supported Item Properties" below
+
+
+For Floating Menus the style defaults to your standard Floating Menu template. However you can extend the container definition by adding any floating menu properties to adapt that template. For example you could set a custom background color by adding "BTTMenuItemBackgroundColor" : "255.000000, 45.000001, 33.000002, 255.000000".
+
+
+To get the possible property definitions, best configure some template menu and copy it to a text editor.
+
+
+## Supported Item Properties[​
+
+
+## Simple example[​
+
+```
+`async function retrieveJSON() {
+  let items = [
+    {
+        "title": "trigger some shortcut",
+        "icon": "sfsymbol::globe",
+        "action": "shortcut::TheShortcutFromTheShortcutsApp"
+    },
+    {
+        "title": "trigger some named trigger",
+        "icon": "sfsymbol::house",
+        "action": "named::TheNameOfTheBTTNamedTrigger"
+    }
+  ];
+
+  return JSON.stringify(items);
+}
+`
+```
+
+
+**Complex example**
+
+```
+`async function retrieveJSON() {
+  let items = [
+    {
+        "title": "hello world",
+        "icon": "sfsymbol::globe",
+        // this shows various forms of actions. In case you are just triggering
+      // a single action, it does not need to be an array.
+      action: [
+        `btt::paste_text@@{"text": "hello world"}`,
+        "keyboard::0", //type a
+        "keyboard::11", //type b
+        "keyboard::8", //type c
+        "js::runShellScript({script: `say hello`})",
+        {
+          btt: "paste_text",
+          args: {
+            text: "hello world 2",
+            insert_by_pasting: true,
+          },
+        },
+
+        {
+          shortcut: "theNameOfTheShortcut",
+          input: "some optional input",
+        },
+      ]
+    },
+    {
+      title: "some title",
+      subtitle: "some subtitle",
+      subitems: [
+        {
+          title: "some sub-item",
+          action: "named::NameOfNamedTriggerInBTT",
+          icon: "sfsymbol::house::weight@@light::size@@30"
+        },
+        {
+          title: "some sub-item2",
+          icon: "base64::iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSF+FAP5FDvcfRYWgAAAAAElFTkSuQmCC",
+          action: "shortcut::NameOfShortcutInShortcutsApp@@OptionalInput"
+        },
+      ],
+      icon: "sfsymbol::star::color@@B53E93"
+      
+    },
+  ];
+
+  return JSON.stringify(items);
+}
+
+`
+```
+
+
+![](/media/context_menu_submenu_preview.png)
+
+
+![](/media/context_menu_searchable_preview.png)
+
+
+You'll find more examples on [https://community.folivora.ai for example here is an example that will list all apps / files in a specified folder:
+[Example to list all files in a folder
+
+
+# Allowed Properties:
+
+
+## title[​
+
+
+Supported properties: color & size.
+
+
+Examples:
+
+```
+`{
+"title": "hello::size@@30::color@@#000000"
+}
+`
+```
+
+
+Alternative syntax:
+
+```
+`{
+   "title": {
+      "text": "some title",
+      "size": 30,
+      "color": "#000000"
+   }
+}
+`
+```
+
+
+## subtitle[​
+
+
+Supported properties: color & size. Only works in the "choose from list" action.
+
+
+Examples:
+
+```
+`{
+"subtitle": "some subtitle::size@@30::color@@#000000"
+}
+`
+```
+
+
+Alternative syntax:
+
+```
+`{
+   "subtitle": {
+      "text": "some subtitle",
+      "size": 30,
+      "color": "#000000"
+   }
+}
+`
+```
+
+
+## subitems[​
+
+
+Examples:
+
+```
+`{
+    "title": "submenu",
+    "subitems": [
+        {
+           "title": "hello"
+        },
+        {
+           "title": "world"
+        }
+    ]
+}
+`
+```
+
+
+## subitemsFunction[​
+
+
+This is only relevant for using Simple JSON Format in the [Launcher.
+
+
+For Launcher Simple JSON items you can load submenu items lazily by providing a JavaScript function name instead of a static `subitems` array. BetterTouchTool calls that function only when the user opens the item in the Launcher.
+
+
+The loader function is called as:
+
+```
+`async function loadItems(prompt, itemIdentifier) {
+  // return JSON.stringify([...items])
+}
+`
+```
+
+
+- **prompt** is the current Launcher prompt text at the time the item is opened.
+
+- **itemIdentifier** is the full Simple JSON item path. It is built from each item's `meta` value if present, otherwise from the item title.
+
+
+Supported property: `subitemsFunction`.
+
+
+Example that creates three Launcher categories and loads each category's subitems asynchronously via `runShellScript` only when that category is opened:
+
+```
+`async function retrieveJSON(prompt) {
+  return JSON.stringify([
+    {
+      title: "Overview",
+      meta: "overview",
+      icon: "sfsymbol::desktopcomputer",
+      subitemsFunction: "loadOverviewItems"
+    },
+    {
+      title: "Hardware",
+      meta: "hardware",
+      icon: "sfsymbol::cpu",
+      subitemsFunction: "loadHardwareItems"
+    },
+    {
+      title: "Storage",
+      meta: "storage",
+      icon: "sfsymbol::internaldrive",
+      subitemsFunction: "loadStorageItems"
+    }
+  ]);
+}
+
+async function loadOverviewItems(prompt, itemIdentifier) {
+  const output = await runShellScript({
+    launchPath: "/bin/zsh",
+    parameters: "-lc",
+    script: `
+      printf 'macOS|%s\\n' "$(/usr/bin/sw_vers -productVersion)"
+      printf 'Uptime|%s\\n' "$(/usr/bin/uptime | /usr/bin/sed 's/^.*up //; s/, [0-9]* users.*$//')"
+      printf 'Computer Name|%s\\n' "$(/usr/sbin/scutil --get ComputerName 2>/dev/null || /bin/hostname)"
+    `
+  });
+
+  return JSON.stringify(itemsFromPipeOutput(output, "sfsymbol::info.circle"));
+}
+
+async function loadHardwareItems(prompt, itemIdentifier) {
+  const output = await runShellScript({
+    launchPath: "/bin/zsh",
+    parameters: "-lc",
+    script: `
+      printf 'Model|%s\\n' "$(/usr/sbin/sysctl -n hw.model)"
+      printf 'Chip|%s\\n' "$(/usr/sbin/sysctl -n machdep.cpu.brand_string 2>/dev/null || /usr/sbin/sysctl -n hw.model)"
+      printf 'CPU Cores|%s\\n' "$(/usr/sbin/sysctl -n hw.ncpu)"
+      printf 'Memory|%s\\n' "$(/usr/sbin/sysctl -n hw.memsize | /usr/bin/awk '{printf "%.1f GB", $1/1024/1024/1024}')"
+    `
+  });
+
+  return JSON.stringify(itemsFromPipeOutput(output, "sfsymbol::cpu"));
+}
+
+async function loadStorageItems(prompt, itemIdentifier) {
+  const output = await runShellScript({
+    launchPath: "/bin/zsh",
+    parameters: "-lc",
+    script: `
+      /bin/df -h / /System/Volumes/Data 2>/dev/null | /usr/bin/awk 'NR>1 {print $9 "|" $4 " free of " $2}'
+    `
+  });
+
+  return JSON.stringify(itemsFromPipeOutput(output, "sfsymbol::internaldrive"));
+}
+
+function itemsFromPipeOutput(output, icon) {
+  return String(output)
+    .trim()
+    .split("\n")
+    .filter(Boolean)
+    .map((line) => {
+      const [title, ...valueParts] = line.split("|");
+      const value = valueParts.join("|");
+      const text = `${title}: ${value}`;
+
+      return {
+        title,
+        subtitle: value,
+        icon,
+        action: `btt::paste_text@@${JSON.stringify({ text })}`
+      };
+    });
+}
+`
+```
+
+
+This is currently supported by Launcher Simple JSON items. Other Simple JSON consumers such as context menus, searchable lists and Floating Menus still use static `subitems`.
+
+
+## setvariable[​
+
+
+This allows you to set a variable value before the action is executed. If the simple string based action format is used, the **setvariable** must be at the top level of the item definition. If you have multiple actions all string based actions will use that setvariable definition.
+If you use the object based action definition you can set a variable per action.
+
+
+Examples:
+
+```
+`{
+"title": "some item title",
+"action": "keyboard::0",
+"setvariable": "variablename@@value"
+}
+`
+```
+
+
+Alternative syntax:
+
+```
+`{
+  "title": "some item title",
+   "setvariable": {
+      "name": "variablename",
+      "value": "test"
+   },
+   "action": [
+      "keyboard::0",
+      "keyboard::1"    
+   ]
+
+}
+`
+```
+
+
+Alternative syntax with actions as objects:
+
+```
+`{
+  "title": "some item title",
+   "action": [
+     {
+          btt: "paste_text",
+          setvariable: {
+            name: "the_variable",
+            value: "some text",
+          },
+
+          args: {
+            text: "(BTT)@variable:the_variable(BTT)",
+            insert_by_pasting: true,
+          },
+        },
+      {
+          btt: "paste_text",
+          setvariable: {
+            name: "some_other_variable",
+            value: "some other text",
+          },
+
+          args: {
+            text: "(BTT)@variable:some_other_variable(BTT)",
+            insert_by_pasting: true,
+          },
+        }   
+   ]
+
+}
+`
+```
+
+
+## templateitemuuid[​
+
+
+This is only for use within [Floating Menus, it allows you to use the configuration of any Floating Menu Item you have created in the BTT UI as a template.
+You can get the UUID of any item in BTT by right-clicking it. The item used as a template can also be from a disabled menu and can even be disabled itself.
+
+
+Examples:
+
+```
+`[{
+templateItemUUID: "1D974882-9376-4B09-81FC-E427F79CBD25",
+"title": "some title"
+},
+{
+templateItemUUID: "1D974882-9376-4B09-81FC-E427F79CBD25",
+"title": "another title",
+"icon": "sfsymbol::sun.max"
+},
+{
+templateItemUUID: "1D974882-9376-4B09-81FC-E427F79CBD25",
+"title": "third title",
+"icon": "sfsymbol::house"
+}
+]
+`
+```
+
+
+![](/media/floating_menu_template_items.png)
+
+
+## icon[​
+
+
+This allows you to define an icon.
+
+
+Supported properties:
+type (sfsymbol, size, path, base64, background, width, height)
+
+
+Examples:
+
+```
+`{
+"icon": "sfsymbol::star"
+}
+`
+```
+
+
+Or with more options:
+
+```
+`{
+"icon": "sfsymbol::star::weight@@light::color@@#fefefe::color@@#000000::background@@#B53E93"
+}
+`
+```
+
+
+From file:
+
+```
+`{
+"icon": "path::~/Downloads/test.png::width@@40::height@@40"
+}
+`
+```
+
+
+From base64:
+
+```
+`{
+"icon": "base64::base64code"
+}
+`
+```
+
+
+Alternative syntax:
+
+```
+`{
+   "icon": {
+      "type": "sfsymbol",
+      "sfsymbol": "star",
+      "weight": "light",
+       "colors" : ["#000000", "#fefefe"],
+      "background": "#B53E93",
+      "size" : 30
+   }
+}
+`
+```
+
+
+## action[​
+
+
+Supported properties: named, shortcut, js, keyboard, uuid, btt. Can also be an array of actions.
+
+
+### named[​
+
+
+This will trigger a named trigger configured in BTT (see [http://docs.folivora.ai/docs/1002_named_triggers.html).
+
+```
+`{"title": "trigger named trigger", "action": "named::theNameOfTheNamedTrigger"},
+`
+```
+
+
+Alternative syntax:
+
+```
+`
+{
+    "title": "trigger named trigger alternative", 
+    "action": {
+        "named": "helloworld"
+    },
+    "icon": "sfsymbol::star.leadinghalf.filled"
+}
+`
+```
+
+
+### uuid[​
+
+
+This will trigger any trigger configured in BTT using its UUID
+
+```
+`{"title": "trigger via uuid", "action": "uuid::4ff033d2-8f67-490d-b281-3124d452ef07"},
+`
+```
+
+
+Alternative syntax:
+
+```
+`{
+    "title": "trigger via UUID alternative", 
+    "action": {
+        "uuid": "4ff033d2-8f67-490d-b281-3124d452ef07"
+    }
+}
+`
+```
+
+
+### shortcut[​
+
+
+This will trigger a shortcut configured in Apple's Shortcuts app.
+
+```
+`{"title": "trigger shortcut from shortcuts app", "action": "shortcut::theNameOfTheShortcut@@someOptionalInput"},
+`
+```
+
+
+Alternative syntax:
+
+```
+`{
+    "title": "trigger shortcut from shortcuts app alternative", 
+    "action": {
+        "shortcut": "theNameOfTheShortcut",
+        "input": "some optional input"
+    }
+}
+`
+```
+
+
+### js[​
+
+
+This will run BTT JavaScript which also allows to run shell scripts or AppleScripts and trigger any of BTT's scripting functions ([http://docs.folivora.ai/docs/1106_java_script.html)
+
+
+E.g. run some shell script:
+
+```
+`{"title": "say hello", "action": "js::runShellScript({script: `say hello`})"},
+`
+```
+
+
+Or run some arbitrary AppleScript:
+
+```
+` {
+      title: "show some AppleScript dialog",
+      action: {
+        js: `(async () => {
+  
+                // put the AppleScript into a string (back ticks are great for multi-line strings)
+                let appleScript = \`
+                    set theDialogText to "The current date and time is " & (current date) & "."
+                    set result to display dialog theDialogText
+                    return result
+                \`;
+            
+                // this will execute the AppleScript and store the result in the result variable.
+                let result = await runAppleScript(appleScript);
+            
+                // do whatever you want with the result
+            
+                // at the end you always need to call returnToBTT to exit the script / return the value to BTT.
+                returnToBTT(result);
+            
+                // it is important that this function self-executes ()
+                })()
+            `,
+      },
+    },
+
+
+`
+```
+
+
+### btt[​
+
+
+This can run any of BTT's scripting functions ([http://docs.folivora.ai/docs/1102_apple_script.html). To see how to configure & trigger a specific action you can right-click the action in BTT and choose "Copy JavaScript to trigger action".
+
+```
+`"action": `btt::paste_text@@{"text": "hello world"}`
+`
+```
+
+
+Alternative syntax:
+
+```
+`{
+"title": "paste item 1",
+ "action": {
+      "btt":"paste_text", 
+      "args": {
+          "text": "ddasdas",
+          "insert_by_pasting": true
+       }
+  }
+},
+`
+```
+
+
+```
+`{
+  "title": "application expose",
+  "action": {
+    "btt": "trigger_action",
+    "args": {
+      "json": {
+        "BTTActionCategory": 0,
+        "BTTPredefinedActionType": 6,
+        "BTTPredefinedActionName": "Application Expose"
+      }
+    }
+  }
+}
+
+`
+```
+
+
+### keyboard[​
+
+
+This can trigger a keyboard shortcut.
+
+
+It needs to consist of comma separated modifier keys (cmd, shift, opt, fn, ctrl) and one key code at the end. A list of key codes can e.g. be found here: [https://eastmanreference.com/complete-list-of-applescript-key-codes
+
+```
+`"action": "keyboard::shift,opt,0"
+`
+```
+
+
+## Action Categories[​
+
+
+Some items in BTT support different action categories, e.g. a floating menu button that can trigger one action on left-click but another action on right-click. If you want to make use of that, instead of defining your action via the "action" property, you need to define it via the "actions" property.
+The syntax for every action trigger category defined in the "actions" object is the same as discussed in the previous section.
+
+```
+`{
+  title: "test item 0",
+  actions: {
+    standard: "keyboard::0",
+    rightclick: "keyboard::1"
+  },
+}
+`
+```
+
+
+Possible action trigger category names are listed here, however their availability depends on the BTT feature you are using:
+
+
+- standard
+
+- rightclick
+
+- hover
+
+- longpress
+
+- touchrelease
+
+- hoverend
+
+- hyperkeyrelease
+
+- changetofalse
+
+- appear
+
+- disappear
+
+- ondrop
+
+
+# Examples
+
+
+## Example: Create an AI / App Launcher:[​
+
+
+![alt text](/assets/images/image-3b80e26df4d0c7a7fd1e284d973b2ac7.jpg)
+
+
+The tutorial for this is available in our community forum:
+[https://community.folivora.ai/t/tutorial-ai-and-app-launcher-using-the-new-scriptable-choose-from-list/39811
+
+
+## Example: Get result from Apple Shortcut:[​
+
+```
+`async function retrieveJSON() {
+
+let weather = await runAppleShortcut({name: "weather", "input": ""});
+
+
+let items = [
+ {"title": weather},
+{"title": "test item 2"},
+{"title": "test item 3", "icon": "sfsymbol::star"}
+]; 
+
+ return JSON.stringify(items);
+
+}
+`
+```
+
+
+## Example: Execute multiple actions from one item (example types abc)[​
+
+```
+`async function retrieveJSON() {
+    let items = [
+       {
+        "title": "multiple actions (type abc)", 
+        "action": [
+            "keyboard::0", //type a
+            "keyboard::11", //type b
+            "keyboard::8", //type c
+        ],
+        "icon": "sfsymbol::keyboard"
+      },
+    ]; 
+
+    return JSON.stringify(items);
+
+}
+`
+```
+
+
+## Example: Fetch menu from some server:[​
+
+```
+`async function retrieveJSON() {
+    const response = await fetch('https://folivora.ai/various/test-menu.json');
+    
+    const data = await response.json();
+    const jsonString = JSON.stringify(data);
+    return jsonString;
+
+}
+`
+```
+
+
+## Example: Usage With Custom Menu Bar Items[​
+
+
+Works with custom menubar items as well when assigning the "Show Context Menu New" action:
+
+![alt text](/assets/images/context_menu_dynamic_script_example-9cbff532319a86ce49ebcf837034f82f.png)
+
+
+## Example: Floating Menu App Switcher[​
+
+
+Preset download:
+[https://share.folivora.ai/sharedPreset/55076196-7d17-4b8f-bbae-4dbd17c3ad87
+
+![](/media/floating_menu_app_icons_circle.png)
+
+
+Code:
+
+```
+`async function retrieveJSON() {
+    // this calls a internal BTT function to get all launched apps sorted by last usage
+		let apps = await BTTActions.copyLaunchedApplicationsInFrontToBackOrder();
+		let menuItems = [];
+		let i=0;
+		 for (let app of apps) {
+      // we only want to show 10 apps
+		 if(i>9) {break;}
+		 i++;
+    let item = {
+	    templateItemUUID: "BFBD1B46-0E72-49CF-B4DB-C2CB017E82B2",
+		  title: "",
+      action: `js::(async () => {runShellScript({script: 'open "${app.BundlePath}"'})})()`, 
+      icon: `path::${app.AppIconPath}::width@@40`
+    };
+    menuItems.push(item);
+  } 
+  
+ 
+  return JSON.stringify(menuItems);
+}
+`
+```
+
+
+# TypeScript Definition
+
+
+Here is a basic *.d.ts that tries to describe the structure:
+
+```
+`declare module "SimpleFormat" {
+
+   // The root format is an array of SimpleFormatItems.
+  export type SimpleFormat = SimpleFormatItemBase[];
+
+  export interface SimpleFormatItemBase {
+    title?: string | AttributedText;
+    meta?: string; // some meta information, can e.g. used when filtering searchable list
+    type?: SimpleFormatItemType;
+    submenu?: SimpleFormatItemBase[];
+    background?: string;
+    icon?: string | IconDefinition;
+    actions?: { [key in ActionCategory]?: Action }; // this can be used if an item supports more than one action trigger category
+    action?: Action;
+    setvariable?: string | SetVariableDefinition;
+  }
+
+  // Represents a single "Choose From List" Item
+  export interface SimpleFormatItemChooseFromList extends SimpleFormatItemBase {
+    subtitle?: string | AttributedText;
+  }
+
+  // Represents a single Floating Menu Item
+  export interface SimpleFormatItemFloatingMenu extends SimpleFormatItemBase {
+    width?: number;
+    height?: number;
+    templateitemuuid?: string; // defines the base item to use as template
+  }
+
+// Represents the definition of an icon, which can be specified in various ways.
+  export interface IconDefinition {
+    type: "sfsymbol" | "path" | "base64";
+    value?: string; // For 'sfsymbol' type.
+    path?: string; // For 'path' type.
+    base64?: string; // For 'base64' type.
+    weight?: string; // Applicable for 'sfsymbol'.
+    size?: number; // Applicable for 'sfsymbol'.
+    colors?: RGBAColor[]; // Applicable for 'sfsymbol'.
+    background?: RGBAColor;
+    width?: number;
+    height?: number;
+  }
+
+  // Represents a variable setting action.
+  export interface SetVariableDefinition {
+    name: string;
+    value: string;
+  }
+
+  // Base interface for actions that can have a 'setvariable' property.
+  interface BaseAction {
+    setvariable?: string | SetVariableDefinition;
+  }
+
+  // Action type for executing BTT scripts.
+  export interface BTTAction extends BaseAction {
+    btt: string;
+    input?: any;
+    args?: any;
+    json?: any;
+  }
+
+  // Action type for triggering named triggers in BTT.
+  export interface NamedAction extends BaseAction {
+    named: string;
+  }
+
+  // Action type for triggering actions by UUID in BTT.
+  export interface UUIDAction extends BaseAction {
+    uuid: string;
+  }
+
+  // Action type for executing JavaScript code.
+  export interface JSAction extends BaseAction {
+    js: string; 
+  }
+
+  // Action type for performing keyboard shortcuts.
+  export interface KeyboardAction extends BaseAction {
+    keyboard: string;
+  }
+
+  // Action type for running Shortcuts app shortcuts.
+  export interface ShortcutAction extends BaseAction {
+    shortcut: string;
+    input?: string;
+  }
+
+  // Defines the action, which can be a string, an action definition, or an array of actions.
+  export type Action =
+    | string
+    | ActionString
+    | ActionDefinition
+    | (string | ActionString | ActionDefinition)[];
+
+  // Union type of all possible action definitions.
+  export type ActionDefinition =
+    | BTTAction
+    | NamedAction
+    | UUIDAction
+    | JSAction
+    | KeyboardAction
+    | ShortcutAction;
+
+  export type ActionCategory =
+    | "standard"
+    | "hover"
+    | "longpress" //not yet supported
+    | "touchrelease" //not yet supported
+    | "hoverend"
+    | "hyperkeyrelease" //not yet supported
+    | "rightclick"
+    | "changetofalse" //not yet supported
+    | "appear"
+    | "disappear"
+    | "ondrop";
+
+
+  // Represents attributed text, which can be a simple string or an object with styling.
+  export type AttributedText =
+    | string
+    | {
+        text: string;
+        color?: RGBAColor;
+        size?: string;
+      };
+
+  // Represents the possible item types, matching the Swift enum.
+  export type SimpleFormatItemType =
+    | "standard"
+    | "separator" //requires BTT 4.805, in previous versions set the title of an item to ---
+    | "back" //floating menu only
+    | "textField" //floating menu only
+    | "slider"; //floating menu only
+
+
+  // these are attempts at defining the string based definitions
+
+  type Digit = `${number}`;
+  type Whitespace = " " | "";
+  type Comma = `${Whitespace},${Whitespace}`;
+  export type RGBAColor =
+    `rgba(${Whitespace}${Digit}${Whitespace}${Comma}${Digit}${Whitespace}${Comma}${Digit}${Whitespace}${Comma}${Digit}${Whitespace})`;
+
+  // Type representing known icon types.
+  type IconType = "sfsymbol" | "path" | "base64";
+
+  // Type representing known icon keys.
+  type IconKey =
+    | "weight"
+    | "color"
+    | "background"
+    | "size"
+    | "width"
+    | "height";
+
+  // Type representing a key-value pair in icon strings.
+  type IconKeyValuePair = `::${IconKey}@@${string}`;
+
+  // Icon string pattern with up to 5 key-value pairs.
+  export type IconString =
+    | `${IconType}::${string}`
+    | `${IconType}::${string}${IconKeyValuePair}`
+    | `${IconType}::${string}${IconKeyValuePair}${IconKeyValuePair}`
+    | `${IconType}::${string}${IconKeyValuePair}${IconKeyValuePair}${IconKeyValuePair}`
+    | `${IconType}::${string}${IconKeyValuePair}${IconKeyValuePair}${IconKeyValuePair}${IconKeyValuePair}`
+    | `${IconType}::${string}${IconKeyValuePair}${IconKeyValuePair}${IconKeyValuePair}${IconKeyValuePair}${IconKeyValuePair}`;
+
+  // Type representing known action types.
+  type ActionType = "btt" | "keyboard" | "js" | "uuid" | "named" | "shortcut";
+
+  // Type representing known action keys.
+  type ActionKey = "input" | "function" | "args" | "json";
+
+  // Type representing a key-value pair in action strings.
+  type ActionKeyValuePair = `@@${string}`;
+
+  // Action string pattern with optional key-value pair.
+  export type ActionString =
+    | `${ActionType}::${string}`
+    | `${ActionType}::${string}${ActionKeyValuePair}`;
+}
+`
+```
+[PreviousAvailable Standard Variables[NextUseful Script Examples
+
+- [How to create dynamic menus based on the Simple JSON Format
+
+- [Alternative: Full JSON Definition
+- [Supported Container Properties
+- [Supported Item Properties
+- [Simple example
+- [title
+- [subtitle
+- [subitems
+- [subitemsFunction
+- [setvariable
+- [templateitemuuid
+- [icon
+- [action
+
+- [named
+- [uuid
+- [shortcut
+- [js
+- [btt
+- [keyboard
+- [Action Categories
+- [Example: Create an AI / App Launcher:
+- [Example: Get result from Apple Shortcut:
+- [Example: Execute multiple actions from one item (example types abc)
+- [Example: Fetch menu from some server:
+- [Example: Usage With Custom Menu Bar Items
+- [Example: Floating Menu App SwitcherCommunity
+
+- [ForumMore
+
+- [Privacy Policy
+- [Website
+- [Documentation GitHubCopyright 2026 folivora.AI GmbH.

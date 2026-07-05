@@ -1,0 +1,306 @@
+# Source: https://docs.folivora.ai/docs/plugins/trigger
+
+- [
+- Plugins
+- Trigger Plugins
+
+# Trigger Plugins
+
+
+Trigger plugins monitor system events and fire BTT triggers when conditions are met. They conform to the `BTTTriggerPluginInterface` protocol and use the `.btttriggerplugin` bundle extension for Xcode projects.
+
+
+Trigger plugins appear in BTT under **Other Triggers > Trigger Plugins**. BTT creates a separate plugin object for every configured trigger, so two triggers using the same plugin can keep different configuration values and fire different assigned actions.
+
+
+## Protocol: `BTTTriggerPluginInterface`[​
+
+
+### Required Class Methods[​
+
+
+|  | Method | Description |
+|  | `triggerName() -> String` | Display name in BTT |
+|  | `triggerDescription() -> String` | Short description of what the trigger monitors |
+|  | `triggerIcon() -> String` | SF Symbol name for the icon |
+|  | `configurationFormItems() -> BTTPluginFormItem?` | Configuration form items (return `nil` for no configuration) |
+
+
+### Required Instance Methods[​
+
+
+|  | Method | Description |
+|  | `startObserving()` | Start monitoring for events. Called when the trigger becomes active. |
+|  | `stopObserving()` | Stop monitoring and clean up resources. Called when the trigger is no longer needed. |
+|  | `didReceiveNewConfigurationValues(_:)` | Handle saved and default configuration values. Called before observing starts and whenever this trigger instance's configuration changes. |
+
+
+## Lifecycle[​
+
+
+BTT manages the trigger plugin lifecycle:
+
+
+- BTT loads the plugin and creates one plugin object per configured trigger instance.
+
+- **`didReceiveNewConfigurationValues(_:)`** is called with the trigger's saved configuration plus default values from `configurationFormItems()`.
+
+- **`startObserving()`** is called when a trigger using this plugin is active (e.g. the app context matches, the trigger is enabled).
+
+- Your plugin monitors events and calls `delegate?.triggerFired(self)` or `delegate?.triggerFired(self, withContext:)` when conditions are met.
+
+- **`stopObserving()`** is called when the trigger is no longer needed (app change, trigger deleted, BTT quit, etc.).
+
+
+Always clean up resources (timers, file descriptors, observers) in `stopObserving()` to avoid leaks.
+
+
+## Firing Triggers[​
+
+
+### Without Context[​
+
+```
+`delegate?.triggerFired(self)
+`
+```
+
+
+### With Context[​
+
+
+Pass a dictionary of values that become BTT variables with the prefix `TriggerPlugin_`:
+
+```
+`delegate?.triggerFired(self, withContext: [
+    "clipboardContent": content,
+    "changeType": "text"
+])
+`
+```
+
+
+In this example, the user can access `{TriggerPlugin_clipboardContent}` and `{TriggerPlugin_changeType}` in their BTT actions.
+
+
+## Configuration Values[​
+
+
+Use plain `formFieldID` values in `configurationFormItems()`, for example `watchPath`. BTT stores and delivers the value as `plugin_var_watchPath` in `didReceiveNewConfigurationValues(_:)`. Including the `plugin_var_` prefix manually is supported, but not required.
+
+
+Trigger plugin configuration is saved per BTT trigger, not globally per plugin bundle. The delegate's `getVariable(_:)` checks the current trigger instance's configuration before falling back to global BTT variables, so both `delegate?.getVariable("watchPath")` and `delegate?.getVariable("plugin_var_watchPath")` can read the configured value.
+
+
+## Basic Example: Clipboard Monitor[​
+
+
+A trigger that fires whenever the clipboard content changes:
+
+```
+`// BTT-Plugin-Name: Clipboard Change
+// BTT-Plugin-Type: Trigger
+// BTT-Plugin-Icon: doc.on.clipboard
+
+import Cocoa
+
+class ClipboardChangeTrigger: NSObject, BTTTriggerPluginInterface {
+    weak var delegate: (any BTTTriggerPluginDelegate)?
+    private var timer: Timer?
+    private var lastChangeCount = NSPasteboard.general.changeCount
+
+    static func triggerName() -> String { "Clipboard Change" }
+    static func triggerDescription() -> String { "Fires when clipboard content changes" }
+    static func triggerIcon() -> String { "doc.on.clipboard" }
+    static func configurationFormItems() -> BTTPluginFormItem? { nil }
+    func didReceiveNewConfigurationValues(_ config: [String: Any]?) {}
+
+    func startObserving() {
+        lastChangeCount = NSPasteboard.general.changeCount
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            guard let self else { return }
+            let current = NSPasteboard.general.changeCount
+            if current != self.lastChangeCount {
+                self.lastChangeCount = current
+                let content = NSPasteboard.general.string(forType: .string) ?? ""
+                self.delegate?.triggerFired(self, withContext: ["clipboardContent": content])
+            }
+        }
+    }
+
+    func stopObserving() {
+        timer?.invalidate()
+        timer = nil
+    }
+}
+`
+```
+
+
+## Example with Configuration: File Watcher[​
+
+
+A trigger that monitors a user-configurable file or folder for changes using `DispatchSource`:
+
+```
+`// BTT-Plugin-Name: File Watcher
+// BTT-Plugin-Type: Trigger
+// BTT-Plugin-Icon: doc.badge.clock
+
+import Cocoa
+
+class FileWatcherTrigger: NSObject, BTTTriggerPluginInterface {
+    weak var delegate: (any BTTTriggerPluginDelegate)?
+    private var watchedPath: String = ""
+    private var fileDescriptor: Int32 = -1
+    private var dispatchSource: DispatchSourceFileSystemObject?
+
+    static func triggerName() -> String { "File Watcher" }
+    static func triggerDescription() -> String { "Fires when a file or folder changes" }
+    static func triggerIcon() -> String { "doc.badge.clock" }
+
+    static func configurationFormItems() -> BTTPluginFormItem? {
+        let group = BTTPluginFormItem()
+        group.formFieldType = BTTFormTypeFormGroup
+
+        let pathField = BTTPluginFormItem()
+        pathField.formFieldType = BTTFormTypeTextField
+        pathField.formFieldID = "watchPath"
+        pathField.formLabel1 = "Path to watch"
+        pathField.defaultValue = "~/Desktop" as NSString
+        pathField.dataType = BTTFormDataString
+
+        group.formOptions = [pathField]
+        return group
+    }
+
+    func didReceiveNewConfigurationValues(_ config: [String: Any]?) {
+        let newPath = (config?["plugin_var_watchPath"] as? String ?? "~/Desktop")
+            .replacingOccurrences(of: "~", with: NSHomeDirectory())
+        if newPath != watchedPath {
+            let wasObserving = dispatchSource != nil
+            if wasObserving { stopObserving() }
+            watchedPath = newPath
+            if wasObserving { startObserving() }
+        }
+    }
+
+    func startObserving() {
+        guard !watchedPath.isEmpty else { return }
+        fileDescriptor = open(watchedPath, O_EVTONLY)
+        guard fileDescriptor >= 0 else { return }
+
+        let path = watchedPath
+        dispatchSource = DispatchSource.makeFileSystemObjectSource(
+            fileDescriptor: fileDescriptor,
+            eventMask: [.write, .delete, .rename, .attrib, .extend],
+            queue: .main
+        )
+        dispatchSource?.setEventHandler { [weak self] in
+            guard let self else { return }
+            self.delegate?.triggerFired(self, withContext: ["changedPath": path])
+        }
+        dispatchSource?.setCancelHandler { [weak self] in
+            guard let self else { return }
+            if self.fileDescriptor >= 0 {
+                close(self.fileDescriptor)
+                self.fileDescriptor = -1
+            }
+        }
+        dispatchSource?.resume()
+    }
+
+    func stopObserving() {
+        dispatchSource?.cancel()
+        dispatchSource = nil
+    }
+}
+`
+```
+
+
+## Configuration Form Items[​
+
+
+Trigger plugins use the same `BTTPluginFormItem` system as other Swift plugin types. See [Configuration Forms Reference for the full field list.
+
+
+Common field types:
+
+
+- `BTTFormTypeTextField` - Text input field
+
+- `BTTFormTypeCheckbox` - Boolean toggle
+
+- `BTTFormTypePopupButton` - Dropdown selector. If `defaultValue` is omitted, BTT uses the first option.
+
+- `BTTFormTypeSlider` - Numeric slider (use `minValue`, `maxValue`, and `BTTFormDataNumber`)
+
+- `BTTFormTypeDescription` - Static description text
+
+- `BTTFormTypeDetailTitleField` - Detailed title/description text
+
+- `BTTFormTypeFormGroup` - Container for grouping fields
+
+
+Useful properties:
+
+
+- `formFieldID` - Plain field key. BTT automatically stores and delivers it with a `plugin_var_` prefix.
+
+- `formLabel1` - Display label
+
+- `dataType` - `BTTFormDataString`, `BTTFormDataNumber`, `BTTFormDataJSON`, `BTTFormDataIcon`, or `BTTFormDataData`
+
+- `defaultValue` - Initial value
+
+- `formOptions` - Array of child items for groups or popup options
+
+
+## Delegate Methods[​
+
+
+The `delegate` property (type `BTTTriggerPluginDelegate`) provides:
+
+
+|  | Method | Description |
+|  | `triggerFired(_:)` | Fire the trigger (no context) |
+|  | `triggerFired(_:withContext:)` | Fire with a context dictionary - values become `TriggerPlugin_<key>` BTT variables |
+|  | `setVariable(_:value:)` | Set a BTT variable |
+|  | `getVariable(_:)` | Read this trigger instance's config value first, then fall back to global BTT variables |
+
+
+## Xcode Bundle Setup[​
+
+
+For Xcode-based trigger plugins, the bundle extension is `.btttriggerplugin`. Set these `Info.plist` keys:
+
+
+|  | Key | Value |
+|  | `BTTPluginType` | `Trigger` |
+|  | `NSPrincipalClass` | `$(PRODUCT_MODULE_NAME).YourClassName` |
+
+
+See [Xcode Bundle Plugins & Distribution for the full setup process.[PreviousLauncher Plugins[NextJSON Action Plugins
+
+- [Protocol: `BTTTriggerPluginInterface`
+
+- [Required Class Methods
+- [Required Instance Methods
+- [Lifecycle
+- [Firing Triggers
+
+- [Without Context
+- [With Context
+- [Configuration Values
+- [Basic Example: Clipboard Monitor
+- [Example with Configuration: File Watcher
+- [Configuration Form Items
+- [Delegate Methods
+- [Xcode Bundle SetupCommunity
+
+- [ForumMore
+
+- [Privacy Policy
+- [Website
+- [Documentation GitHubCopyright 2026 folivora.AI GmbH.

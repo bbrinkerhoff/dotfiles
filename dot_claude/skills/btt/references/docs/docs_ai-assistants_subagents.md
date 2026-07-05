@@ -1,0 +1,48 @@
+# Source: https://docs.folivora.ai/docs/ai-assistants/subagents
+
+- [
+- [AI Assistants
+- Subagents
+
+# Subagents
+
+
+Subagents are specialized assistants that a main assistant can call for focused work.
+
+
+Use them when a task benefits from a separate role, for example:
+
+
+- code review
+
+- UI testing
+
+- workflow building
+
+- research
+
+- plugin repair
+
+
+## How They Differ From Skills[​
+
+
+Skills define what the main assistant can do. Subagents are helper assistants with their own instructions, tool access, iteration limits, and optional model settings.
+
+
+Some built-in skills already include useful subagents. You can also configure custom subagents and allow them from the main assistant configuration.
+
+
+## Good Practice[​
+
+
+- Keep each subagent narrow.
+
+- Give it only the tools it needs.
+
+- Use a different model only when that role needs it.
+
+- Let the main assistant summarize the result for you.
+
+
+Subagent activity is shown in the parent conversation so you can see what was delegated.

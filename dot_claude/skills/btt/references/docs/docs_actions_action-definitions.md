@@ -1,0 +1,14212 @@
+# Source: https://docs.folivora.ai/docs/actions/action-definitions
+
+- [
+- [Actions
+- Action JSON Definitions
+
+# BetterTouchTool Action JSON Definition Reference
+
+
+This document provides a first, incomplete, reference for all BetterTouchTool actions and how to define them via JSON. Actions are configured using the `BTTPredefinedActionType` field with the corresponding action ID.
+
+
+** NOTE: WORK IN PROGRESS ** This page is mostly AI generated and might contain hallucinated properties. I'm currently working through it.
+
+
+## Important Notes[​
+
+
+### JSON Format[​
+
+
+- JSON objects will be automatically recognized on import - you don't need to escape them as strings
+
+- Fields that accept JSON objects (like `BTTGenericActionConfig`, `BTTAdditionalActionData`, etc.) can be provided as regular JSON objects instead of escaped strings
+
+
+### Common Fields[​
+
+
+- **BTTAdditionalActionData**: Many actions support this field for extended configuration options. It contains a JSON object with action-specific properties
+
+- **BTTGenericActionConfig**: Used for simple configurations, can be a string or JSON object depending on the action
+
+- **BTTGenericActionConfig2**: Secondary configuration field when additional data is needed
+
+
+## Table of Contents[​
+
+
+- [Mouse & Trackpad Actions
+
+- [Keyboard Actions
+
+- [Window Management Actions
+
+- [System Actions
+
+- [Application Control
+
+- [Media Controls
+
+- [Display & Brightness
+
+- [Spaces & Mission Control
+
+- [Screenshot Actions
+
+- [Clipboard Actions
+
+- [Text & Typing Actions
+
+- [Script Execution
+
+- [BetterTouchTool Control
+
+- [Touch Bar Actions
+
+- [Notch Bar Actions
+
+- [Stream Deck Actions
+
+- [Floating Menu Actions
+
+- [Control Flow Actions
+
+- [Variable Actions
+
+- [Device Control
+
+- [UI Automation
+
+- [Custom Actions
+
+- [AI Actions (h@llo.ai)
+
+- [Action Categories
+
+
+## Mouse & Trackpad Actions[​
+
+
+### Left Click[​
+
+> 
+
+
+Performs a standard left mouse click at the current cursor position. It will include the currently pressed modifier keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 3
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 3
+}
+`
+```
+
+
+### Left Click - Without Modifier Keys[​
+
+> 
+
+
+Performs a left mouse click at the current location. It will NOT include any modifier keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 421
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 421
+}
+`
+```
+
+
+### Right Click[​
+
+> 
+
+
+Performs a right mouse click at the current cursor position. It will include the currently pressed modifier keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 4
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 4
+}
+`
+```
+
+
+### Middle Click[​
+
+> 
+
+
+Performs a middle mouse click at the current location. It will include the currently pressed modifier keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 1
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 1
+}
+`
+```
+
+
+### Double Left Click[​
+
+> 
+
+
+Performs a double left mouse click at the current location. It will include the current modifier keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 54
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 54
+}
+`
+```
+
+
+### Ctrl + Left Click[​
+
+> 
+
+
+Presses the ctrl modifier key and then performs a left click.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 87
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 87
+}
+`
+```
+
+
+### Opt + Left Click[​
+
+> 
+
+
+Presses the option modifier key and then performs a left click.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 88
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 88
+}
+`
+```
+
+
+### CMD + Left Click[​
+
+> 
+
+
+Presses the command modifier key and then performs a left click.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 2
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 2
+}
+`
+```
+
+
+### CMD + Double Left Click[​
+
+> 
+
+
+Presses the command modifier key and then performs a double left click. This can e.g. be used to open a file in a new tab in Finder.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 149
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 149
+}
+`
+```
+
+
+### CMD + Shift + Left Click[​
+
+> 
+
+
+Presses the command and shift modifier keys and then performs a left click.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 111
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 111
+}
+`
+```
+
+
+### Custom Click (Custom Mouse Buttons & Modifiers)[​
+
+> 
+
+
+Performs custom mouse clicks with various options including button type, modifiers, and click behavior.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 119
+
+- **BTTClickType**: Which mouse button/action to simulate. Possible values:
+
+
+- `"left"`
+
+- `"right"`
+
+- `"middle"`
+
+- `"double_left"`
+
+- `"triple_left"`
+
+- `"button3"` through `"button8"`
+
+
+- **BTTModifiers**: Array of modifier keys to be held during the click. Possible items:
+
+
+- `"shift"`
+
+- `"control"`, `"left_control"`, `"right_control"`
+
+- `"option"`, `"left_option"`, `"right_option"`
+
+- `"command"`, `"left_command"`, `"right_command"`
+
+- `"function"`
+
+
+- **BTTIncludePressedModifiers**: Boolean - if true, includes physically pressed modifier keys in addition to specified ones
+
+- **BTTClickDownUpConfig**: Defines how the click is performed:
+
+
+- `"downAndUp"` - normal click (mouse-down + mouse-up)
+
+- `"downOnly"` - press and hold only
+
+- `"upOnly"` - release only
+
+
+- **BTTCustomClickConfig**: JSON object containing click configuration (alternative format)
+
+
+- `BTTClickCount`: Number of clicks (e.g., 1 for single click, 2 for double click)
+
+- `BTTClickButton`: Mouse button (0=left, 1=right, 2=middle)
+
+
+- **BTTCustomClickUpDownConfig**: Additional up/down configuration (optional)
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTCustomClickIncludePressedModifiers`: boolean - include currently pressed modifiers
+
+- `BTTCustomClickSendToHoveredWindow`: boolean - if true, routes the click to the window currently under the mouse cursor (even if that window is not focused)
+
+
+Example 1 - Left Click + Shift + Command:
+
+```
+`{
+  "BTTPredefinedActionType": 119,
+  "BTTClickType": "left",
+  "BTTModifiers": ["shift", "command"],
+  "BTTIncludePressedModifiers": false,
+  "BTTClickDownUpConfig": "downAndUp"
+}
+`
+```
+
+
+Example 2 - Right Click with physically pressed keys:
+
+```
+`{
+  "BTTPredefinedActionType": 119,
+  "BTTClickType": "right",
+  "BTTModifiers": [],
+  "BTTIncludePressedModifiers": true,
+  "BTTClickDownUpConfig": "downAndUp"
+}
+`
+```
+
+
+Example 3 - Middle Click, Down-Only, with Shift and Left Control:
+
+```
+`{
+  "BTTPredefinedActionType": 119,
+  "BTTClickType": "middle",
+  "BTTModifiers": ["shift", "left_control"],
+  "BTTIncludePressedModifiers": false,
+  "BTTClickDownUpConfig": "downOnly"
+}
+`
+```
+
+
+Example 4 - Alternative format using BTTCustomClickConfig:
+
+```
+`{
+  "BTTPredefinedActionType": 119,
+  "BTTCustomClickConfig": {
+    "BTTClickCount": 2,
+    "BTTClickButton": 0
+  },
+  "BTTAdditionalActionData": {
+    "BTTCustomClickIncludePressedModifiers": true
+  }
+}
+`
+```
+
+
+Example 5 - Left Click routed to the window currently under the cursor (without focusing it):
+
+```
+`{
+  "BTTPredefinedActionType": 119,
+  "BTTClickType": "left",
+  "BTTModifiers": [],
+  "BTTClickDownUpConfig": "downAndUp",
+  "BTTAdditionalActionData": {
+    "BTTCustomClickSendToHoveredWindow": true
+  }
+}
+`
+```
+
+
+### Move Mouse To Position[​
+
+> 
+
+
+Moves the mouse cursor to a specific position on screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 153
+
+- **BTTMoveMouseToPosition**: Position coordinates as "x,y" (legacy)
+
+- **BTTMoveMouseRelative**: 1 for relative movement, 0 for absolute (legacy)
+
+- **BTTAdditionalActionData**: JSON object with all mouse movement configuration
+
+
+- `BTTMouseMoveX`: X coordinate position
+
+- `BTTMouseMoveY`: Y coordinate position
+
+- `BTTMouseMoveUnitX`: X unit type (0=px absolute, 1=% of window width, 2=% of screen width)
+
+- `BTTMouseMoveUnitY`: Y unit type (0=px absolute, 1=% of window height, 2=% of screen height)
+
+- `BTTMouseMoveAnchor`: Reference point for position (see below for values)
+
+- `BTTMouseMoveDuration`: Animation duration in seconds (default: 0.2)
+
+- `BTTMouseMoveWithoutPressedModifierKeys`: boolean - ignore currently pressed modifiers
+
+- `BTTMouseMoveScreenNameOrUUID`: Target screen identifier (for named screen anchors)
+
+- `BTTMouseMoveDragType`: Drag type for drag actions (left/right/middle button)
+
+- `BTTMouseMoveContinueDrag`: boolean - continue existing drag
+
+- `BTTMouseMoveRelativeVariableName`: Variable name containing a saved position (used with anchor 23)
+
+
+Anchor values:
+
+
+- 0: Default - Global position (origin top left corner of main screen)
+
+- 1-4: Relative to corners of active window (1=top left, 2=top right, 3=bottom left, 4=bottom right)
+
+- 5: Relative to center of active window
+
+- 6: Relative to current mouse cursor position
+
+- 7-10: Relative to text cursor position (7=top left, 8=top right, 9=bottom left, 10=bottom right)
+
+- 11-15: Relative to focused element (11=top left, 12=top right, 13=bottom left, 14=bottom right, 15=center)
+
+- 17: Relative to window default button center
+
+- 18: Relative to window cancel button center
+
+- 20: Relative to center of text cursor
+
+- 21: Relative to saved mouse cursor position (variable: saved_mouse_position)
+
+- 22: Relative to found image location (variable: image_location)
+
+- 23: Relative to position saved in variable with name (uses BTTMouseMoveRelativeVariableName)
+
+- 1001-1003: Relative to corners of main screen (1001=top right, 1002=bottom left, 1003=bottom right)
+
+- 1004-1007: Relative to corners of screen with mouse
+
+- 1008-1011: Relative to corners of screen with name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 153,
+  "BTTAdditionalActionData": {
+    "BTTMouseMoveX": 100,
+    "BTTMouseMoveY": 50,
+    "BTTMouseMoveUnitX": 1,
+    "BTTMouseMoveUnitY": 1,
+    "BTTMouseMoveAnchor": 5,
+    "BTTMouseMoveDuration": 0.3
+  }
+}
+`
+```
+
+
+### Save Current Mouse Position[​
+
+> 
+
+
+Saves the current mouse cursor position for later restoration.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 154
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 154
+}
+`
+```
+
+
+### Restore Saved Mouse Position[​
+
+> 
+
+
+Restores the mouse cursor to a previously saved position. If a variable identifier is provided, it first checks the BTT variable with that name for a saved position before falling back to UserDefaults.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 155
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 155
+}
+`
+```
+
+
+### Start Drag[​
+
+> 
+
+
+Initiates a drag operation at the current mouse position.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 65
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 65
+}
+`
+```
+
+
+### Stop Drag[​
+
+> 
+
+
+Ends the current drag operation.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 66
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 66
+}
+`
+```
+
+
+### Toggle Mouse Speed[​
+
+> 
+
+
+Toggles between different mouse speed settings.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 126
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 126
+}
+`
+```
+
+
+### Toggle Cursor Size[​
+
+> 
+
+
+Toggles the cursor between normal and large size.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 123
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 123
+}
+`
+```
+
+
+### Set Cursor Size[​
+
+> 
+
+
+Sets the cursor to a specific size.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 411
+
+- **BTTGenericActionConfig**: Cursor size value
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 411,
+  "BTTGenericActionConfig": "2.0"
+}
+`
+```
+
+
+### Scroll[​
+
+> 
+
+
+Sends scroll events.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 272
+
+- **BTTScrollBy**: Scroll amount and direction
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 272,
+  "BTTScrollBy": "5,0"
+}
+`
+```
+
+
+### Shift + Click[​
+
+> 
+
+
+Presses the shift modifier key and then performs a left click.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 89
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 89
+}
+`
+```
+
+
+### Start Drag By Double-Click[​
+
+> 
+
+
+Starts a mouse drag operation initiated by a double-click.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 296
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 296
+}
+`
+```
+
+
+### Toggle Magic Mouse Touchpad Mode[​
+
+> 
+
+
+Toggles Magic Mouse touchpad mode on or off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 68
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 68
+}
+`
+```
+
+
+### Change Mouse Speed And Acceleration[​
+
+> 
+
+
+Changes mouse tracking speed and acceleration settings.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 559
+
+- **BTTAdditionalActionData**: JSON object with speed configuration
+
+
+- `BTTActionMouseSpeed`: number - Mouse tracking speed
+
+- `BTTActionMouseAcceleration`: number - Mouse acceleration value
+
+- `BTTActionMouseName`: string - Name of the specific mouse device
+
+- `BTTActionMouseVendorID`: number - USB vendor ID of the mouse
+
+- `BTTActionMouseProductID`: number - USB product ID of the mouse
+
+- `BTTActionMouseDropdownSelection`: string - Selected device from dropdown
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 559,
+  "BTTAdditionalActionData": {
+    "BTTActionMouseSpeed": 3.0,
+    "BTTActionMouseAcceleration": 1.5,
+    "BTTActionMouseName": "Magic Mouse"
+  }
+}
+`
+```
+
+
+### Pick Color On Screen And Write To Clipboard[​
+
+> 
+
+
+Opens a color picker to select a color from anywhere on screen and writes the result to the clipboard.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 546
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 546
+}
+`
+```
+
+
+### All Modifier Keys UP[​
+
+> 
+
+
+Releases all modifier keys (Fn, Shift, Ctrl, Option, Command). Useful in action sequences to ensure a clean modifier state.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 547
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 547
+}
+`
+```
+
+
+## Keyboard Actions[​
+
+
+### Type String[​
+
+> 
+
+
+Types a predefined string of text.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 193
+
+- **BTTStringToType**: The string to type
+
+- **BTTMoveCursorLeftBy**: Number of characters to move cursor left after typing (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 193,
+  "BTTStringToType": "Hello World",
+  "BTTMoveCursorLeftBy": 0
+}
+`
+```
+
+
+### Paste String[​
+
+> 
+
+
+Pastes a predefined string of text (faster than typing).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 118
+
+- **BTTStringToType**: The string to paste
+
+- **BTTMoveCursorLeftBy**: Number of characters to move cursor left after pasting (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 118,
+  "BTTStringToType": "This text will be pasted",
+  "BTTMoveCursorLeftBy": 0
+}
+`
+```
+
+
+### Send Keyboard Shortcut[​
+
+> 
+
+
+Sends a keyboard shortcut to the system - just as if you had pressed it on your keyboard.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 264
+
+- **BTTShortcutToSend**: Key codes as comma-separated string. Format: modifier key codes (sorted highest to lowest), then standard key code
+
+- **BTTShortcutModifierKeys**: Modifier keys as integer (alternative to including in BTTShortcutToSend)
+
+- **BTTShortcutUpDown**: Optional - "onlyDown" to send only key down event, "onlyUp" to send only key up event
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 264,
+  "BTTShortcutToSend": "63,59,58,56,55,49"
+}
+`
+```
+
+
+To only send the key down event:
+
+```
+`{
+  "BTTPredefinedActionType": 264,
+  "BTTShortcutToSend": "63,59,58,56,55,49",
+  "BTTShortcutUpDown": "onlyDown"
+}
+`
+```
+
+
+**Supported modifier key codes:**
+
+
+|  | Key Code | Modifier Key |
+|  | 63 | function / fn |
+|  | 62 | right ctrl |
+|  | 61 | right option / opt |
+|  | 60 | right shift |
+|  | 59 | ctrl |
+|  | 58 | option / opt |
+|  | 56 | shift |
+|  | 55 | cmd |
+|  | 54 | right command |
+
+
+**Supported Standard key codes:**
+
+
+|  | Key Symbol | Key Code | Key Symbol | Key Code |
+|  | `0` | 29 | `Numpad 0` | 82 |
+|  | `1` | 18 | `Numpad 1` | 83 |
+|  | `2` | 19 | `Numpad 2` | 84 |
+|  | `3` | 20 | `Numpad 3` | 85 |
+|  | `4` | 21 | `Numpad 4` | 86 |
+|  | `5` | 23 | `Numpad 5` | 87 |
+|  | `6` | 22 | `Numpad 6` | 88 |
+|  | `7` | 26 | `Numpad 7` | 89 |
+|  | `8` | 28 | `Numpad 8` | 91 |
+|  | `9` | 25 | `Numpad 9` | 92 |
+|  | `A` | 0 | `Numpad *` | 67 |
+|  | `B` | 11 | `Numpad +` | 69 |
+|  | `C` | 8 | `Numpad -` | 78 |
+|  | `D` | 2 | `Numpad .` | 65 |
+|  | `E` | 14 | `Numpad /` | 75 |
+|  | `F` | 3 | `Numpad =` | 81 |
+|  | `G` | 5 | `Numpad clear` | 71 |
+|  | `H` | 4 | `:` or `;` | 41 |
+|  | `I` | 34 | `< or ,` | 43 |
+|  | `J` | 38 | `= or +` | 24 |
+|  | `K` | 40 | `>` or .` | 47 |
+|  | `L` | 37 | `? or /` | 44 |
+|  | `M` | 46 | `! or 1` | 18 |
+|  | `N` | 45 | `"` or '`' | 39 |
+|  | `O` | 31 | `# or 3` | 20 |
+|  | `P` | 35 | `$ or 4` | 21 |
+|  | `Q` | 12 | `% or 5` | 23 |
+|  | `R` | 15 | `& or 7` | 26 |
+|  | `S` | 1 | `' or "` | 39 |
+|  | `T` | 17 | `( or 9` | 25 |
+|  | `U` | 32 | `) or 0` | 29 |
+|  | `V` | 9 | `* or 8` | 28 |
+|  | `W` | 13 | `+ or =` | 24 |
+|  | `X` | 7 | `, or <` | 43 |
+|  | `Y` | 16 | `- or _` | 27 |
+|  | `Z` | 6 | `. or >` | 47 |
+|  | `[ or {` | 33 | `/ or ?` | 44 |
+|  | `\ or | ` | 42 | `] or }` |
+|  | `^ or 6` | 22 | `_ or -` | 27 |
+|  | `{ or [` | 33 | ` | or ` |
+|  | `} or ]` | 30 | `~ or `` | 50 |
+
+
+### Send Shortcut to Specific App[​
+
+> 
+
+
+Sends a keyboard shortcut to a specific application.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 128
+
+- **BTTShortcutToSend**: Key codes as comma-separated string (same format as Send Keyboard Shortcut)
+
+- **BTTShortcutApp**: Bundle identifier or path of the target app, or `"active app"` to target the currently active/frontmost app, or `"app under mouse cursor"` to target the app under the mouse cursor
+
+- **BTTShortcutSwitchToAppFirst**: 1 to switch to app first, 0 otherwise
+
+- **BTTShortcutAppUnderCursor**: Set to `"app under mouse cursor"` for app-under-cursor mode, or `"active app"` for active-app mode (optional)
+
+
+Example (send to specific app):
+
+```
+`{
+  "BTTPredefinedActionType": 128,
+  "BTTShortcutToSend": "55,1",
+  "BTTShortcutApp": "com.apple.finder",
+  "BTTShortcutSwitchToAppFirst": 1
+}
+`
+```
+
+
+Example (send to active/frontmost app):
+
+```
+`{
+  "BTTPredefinedActionType": 128,
+  "BTTShortcutToSend": "55,1",
+  "BTTShortcutApp": "active app",
+  "BTTShortcutAppUnderCursor": "active app"
+}
+`
+```
+
+
+### Function Keys (F1-F24)[​
+
+> 
+
+
+Simulates pressing function keys.
+
+
+Parameters vary by key:
+
+
+- **BTTPredefinedActionType**:
+
+
+- F1: 33
+
+- F2: 34
+
+- F3: 35
+
+- F4: 36
+
+- F5: 37
+
+- F6: 38
+
+- F7: 39
+
+- F8: 40
+
+- F9: 41
+
+- F10: 42
+
+- F11: 43
+
+- F12: 44
+
+- F13: 130
+
+- F14: 131
+
+- F15: 132
+
+- F16: 133
+
+- F17: 134
+
+- F18: 135
+
+- F19: 303
+
+- F20: 304
+
+- F21: 305
+
+- F22: 306
+
+- F23: 307
+
+- F24: 308
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 43
+}
+`
+```
+
+
+### Modifier Key Actions[​
+
+> 
+
+
+Simulates pressing and releasing modifier keys.
+
+
+Parameters vary by modifier:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Shift Down: 178
+
+- Shift Up: 179
+
+- Fn Down: 180
+
+- Fn Up: 181
+
+- Control Down: 182
+
+- Control Up: 183
+
+- Option Down: 184
+
+- Option Up: 185
+
+- Command Down: 186
+
+- Command Up: 187
+
+- Right Shift Down: 437
+
+- Right Shift Up: 438
+
+- Right Control Down: 439
+
+- Right Control Up: 440
+
+- Right Option Down: 441
+
+- Right Option Up: 442
+
+- Right Command Down: 443
+
+- Right Command Up: 444
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 186
+}
+`
+```
+
+
+### ESC Key[​
+
+> 
+
+
+Simulates pressing the Escape key.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 189
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 189
+}
+`
+```
+
+
+### Toggle Caps Lock[​
+
+> 
+
+
+Toggles the Caps Lock state on/off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 194
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 194
+}
+`
+```
+
+
+### Page Navigation Keys[​
+
+> 
+
+
+Simulates page navigation keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Page Up: 60
+
+- Page Down: 61
+
+- Home: 62
+
+- End: 63
+
+- Forward Delete: 64
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 60
+}
+`
+```
+
+
+### Arrow Keys[​
+
+> 
+
+
+Simulates arrow key presses.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Page Forward: 51
+
+- Page Backward: 52
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 51
+}
+`
+```
+
+
+### Remap Key[​
+
+> 
+
+
+Remaps one key to another.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 483
+
+- **BTTActionKeyRemapKeyboard**: Keyboard identifier
+
+- **BTTActionKeyRemapFromKey**: Key to remap from
+
+- **BTTActionKeyRemapToKey**: Key to remap to
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 483,
+  "BTTActionKeyRemapKeyboard": "all",
+  "BTTActionKeyRemapFromKey": 50,
+  "BTTActionKeyRemapToKey": 51
+}
+`
+```
+
+
+### Reset All Key Remappings[​
+
+> 
+
+
+Resets all low-level keyboard key remappings to their defaults.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 482
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 482
+}
+`
+```
+
+
+### Act as Hyper Key[​
+
+> 
+
+
+Makes the trigger key act as a Hyper Key (simultaneous Ctrl+Shift+Opt+Cmd).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 293
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionHyperkeyExcludeShift`: boolean - Exclude Shift from the Hyper Key combo (only Ctrl+Opt+Cmd)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 293,
+  "BTTAdditionalActionData": {
+    "BTTActionHyperkeyExcludeShift": false
+  }
+}
+`
+```
+
+
+### Reset Current Key Sequence[​
+
+> 
+
+
+Resets / stops the currently active key sequence recognition.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 422
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 422
+}
+`
+```
+
+
+### Press Context Menu Key[​
+
+> 
+
+
+Simulates pressing the context menu key to show the context menu for the current selection.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 532
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 532
+}
+`
+```
+
+
+## Window Management Actions[​
+
+
+### Maximize Window[​
+
+> 
+
+
+Maximizes the current window to full screen (not fullscreen mode).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 21
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 21
+}
+`
+```
+
+
+### Maximize Window Left[​
+
+> 
+
+
+Maximizes window to the left half of the screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 19
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 19
+}
+`
+```
+
+
+### Maximize Window Right[​
+
+> 
+
+
+Maximizes window to the right half of the screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 20
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 20
+}
+`
+```
+
+
+### Resize Window to Quarters[​
+
+> 
+
+
+Resizes window to specific quarter of the screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Top Left Quarter: 90
+
+- Top Right Quarter: 92
+
+- Bottom Left Quarter: 91
+
+- Bottom Right Quarter: 93
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 90
+}
+`
+```
+
+
+### Resize Window to Thirds[​
+
+> 
+
+
+Resizes window to specific third of the screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Left Third: 108
+
+- Middle Third: 109
+
+- Right Third: 110
+
+- Left Two Thirds: 174
+
+- Right Two Thirds: 175
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 108
+}
+`
+```
+
+
+### Resize Window to Halves[​
+
+> 
+
+
+Resizes window to top or bottom half of the screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Top Half: 96
+
+- Bottom Half: 95
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 96
+}
+`
+```
+
+
+### Center Window[​
+
+> 
+
+
+Centers the current window on screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 97
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 97
+}
+`
+```
+
+
+### Center Window on Next Monitor[​
+
+> 
+
+
+Centers the window on the next monitor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 98
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 98
+}
+`
+```
+
+
+### Move Window to Next Monitor[​
+
+> 
+
+
+Moves the current window to the next monitor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 47
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 47
+}
+`
+```
+
+
+### Maximize Window on Next Monitor[​
+
+> 
+
+
+Maximizes the window on the next monitor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 48
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 48
+}
+`
+```
+
+
+### Restore Old Window Size[​
+
+> 
+
+
+Restores window to its previous size before maximizing.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 84
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 84
+}
+`
+```
+
+
+### Close Window Under Cursor[​
+
+> 
+
+
+Closes the window under the mouse cursor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 102
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 102
+}
+`
+```
+
+
+### Minimize Window Under Cursor[​
+
+> 
+
+
+Minimizes the window under the mouse cursor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 106
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 106
+}
+`
+```
+
+
+### Zoom Window Under Cursor[​
+
+> 
+
+
+Zooms (green button) the window under cursor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 107
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 107
+}
+`
+```
+
+
+### Bring Window Under Cursor to Front[​
+
+> 
+
+
+Brings the window under the cursor to the front.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 204
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 204
+}
+`
+```
+
+
+### Move Window Left/Right[​
+
+> 
+
+
+Moves window by a small amount left or right.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Move Left: 17
+
+- Move Right: 18
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 17
+}
+`
+```
+
+
+### Start/Stop Moving Windows[​
+
+> 
+
+
+Enables window moving mode with modifier keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start Moving: 69
+
+- Stop Moving: 70
+
+- Toggle Moving: 74
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 69
+}
+`
+```
+
+
+### Start/Stop Resizing Windows[​
+
+> 
+
+
+Enables window resizing mode with modifier keys.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start Resizing: 71
+
+- Stop Resizing: 72
+
+- Toggle Resizing: 73
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 71
+}
+`
+```
+
+
+### Custom Move/Resize[​
+
+> 
+
+
+Moves and resizes window with custom parameters.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 251
+
+- **BTTActionMoveResizeConfig**: JSON object with configuration (deprecated - use BTTAdditionalActionData)
+
+
+- `BTTWindowResizeX`: X position of window
+
+- `BTTWindowResizeY`: Y position of window
+
+- `BTTWindowResizeWidth`: Width of window
+
+- `BTTWindowResizeHeight`: Height of window
+
+
+- **BTTActionMoveResizeName**: Name/description (optional)
+
+- **BTTAdditionalActionData**: JSON object with advanced configuration
+
+
+- `BTTActionCustomMoveResizeUseRelativeValues`: boolean - Use relative positioning from current position
+
+- `BTTActionCustomMoveResizeMaintainAspectRatio`: boolean - Keep window aspect ratio when resizing
+
+- `BTTActionCustomMoveResizeX`: string - X position (supports variables like @variable_name)
+
+- `BTTActionCustomMoveResizeY`: string - Y position (supports variables)
+
+- `BTTActionCustomMoveResizeWidth`: string - Width (supports variables)
+
+- `BTTActionCustomMoveResizeHeight`: string - Height (supports variables)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 251,
+  "BTTAdditionalActionData": {
+    "BTTActionCustomMoveResizeX": "100",
+    "BTTActionCustomMoveResizeY": "100",
+    "BTTActionCustomMoveResizeWidth": "800",
+    "BTTActionCustomMoveResizeHeight": "600",
+    "BTTActionCustomMoveResizeUseRelativeValues": false,
+    "BTTActionCustomMoveResizeMaintainAspectRatio": true
+  }
+}
+`
+```
+
+
+### Move Window to Specific Size and Position[​
+
+> 
+
+
+Moves window to exact coordinates and size.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 446
+
+- **BTTGenericActionConfig**: "x,y,width,height"
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 446,
+  "BTTGenericActionConfig": "100,100,1024,768"
+}
+`
+```
+
+
+### Window Layout Management[​
+
+> 
+
+
+Save and restore window layouts.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Save Current Layout: 269
+
+- Restore Saved Layout: 268
+
+- Restore Last Saved Layout: 270
+
+- Save Layout with Name: 269 (with BTTWindowLayoutName)
+
+- Restore Layout with Name: 513 (with BTTWindowLayoutName)
+
+- Restore Layout with Name & Launch Apps: 580 (with BTTWindowLayoutName)
+
+
+- **BTTWindowLayoutName**: Layout name (for named layouts)
+
+- **BTTWindowLayout**: Layout data (for restore)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 269,
+  "BTTWindowLayoutName": "Work Layout"
+}
+`
+```
+
+
+### Save/Restore Focused Window Size And Position[​
+
+> 
+
+
+Saves or restores the size and position of the currently focused window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Save: 539
+
+- Restore: 540
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 539
+}
+`
+```
+
+
+### Close Window, If Last Window Quit App[​
+
+> 
+
+
+Closes the current window. If it is the last window of the application, quits the app entirely.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 560
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTCloseWindowOrQuitAppAskBeforeQuit`: boolean - Ask for confirmation before quitting the app
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 560,
+  "BTTAdditionalActionData": {
+    "BTTCloseWindowOrQuitAppAskBeforeQuit": true
+  }
+}
+`
+```
+
+
+### Pin/Unpin Window to Float on Top[​
+
+> 
+
+
+Makes window float above all others or removes float status.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Toggle Pin: 337
+
+- Pin: 402
+
+- Unpin: 401
+
+- Remove All Float: 338
+
+
+- **BTTAdditionalActionData**: JSON object with pin configuration
+
+
+- `BTTActionPinOnTopWindowMode`: number - Which window to pin (0=focused window, 1=by window ID, 2=by window index, 3=by window title)
+
+- `BTTActionPinOnTopWindowID`: number - Window ID (when mode=1)
+
+- `BTTActionPinOnTopWindowIndex`: number - Window index (when mode=2)
+
+- `BTTActionPinOnTopWindowTitle`: string - Window title substring (when mode=3)
+
+- `BTTActionPinOnTopWindowBelongsToApp`: string - Bundle ID of the app the window belongs to
+
+- `BTTActionPinOnTopMode`: number - Titlebar style/mode
+
+- `BTTActionPinOnTopMargin`: number - Margin around the pinned window
+
+- `BTTActionPinOnTopBackground`: string - Background color (RGBA string)
+
+- `BTTActionPinOnTopOpacity`: number - Window opacity (0-1)
+
+- `BTTActionPinOnTopOnlyChangeFocusOnClick`: boolean - Only change focus when clicking on the window
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 337,
+  "BTTAdditionalActionData": {
+    "BTTActionPinOnTopWindowMode": 0,
+    "BTTActionPinOnTopOpacity": 0.9,
+    "BTTActionPinOnTopOnlyChangeFocusOnClick": true
+  }
+}
+`
+```
+
+
+### Window Switcher[​
+
+> 
+
+
+Shows a window switcher for the current app or all apps.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Current App: 99
+
+- All Apps: 100
+
+- Backwards: 378
+
+- Activate Hovered: 476
+
+
+- **BTTAdditionalActionData**: JSON object with window switcher configuration
+
+
+- `BTTWindowSwitcherShowPopover`: number - Popover display mode (0=screenshot+shortcuts, 1=screenshot only, 2=shortcuts only, 3=no popover, 4=preview of actual window, 5=preview+shortcuts)
+
+- `BTTWindowSwitcherShowThumbnail`: number - Thumbnail mode (0=app icon, 1=window thumbnail)
+
+- `BTTWindowSwitcherDisableMouseHover`: boolean - Disable selection by mouse hover
+
+- `BTTWindowSwitcherSelectNextOnRepeat`: boolean - On repeated trigger, select next window in list
+
+- `BTTWindowSwitcherTriggerOnRelease`: boolean - Activate selected after releasing modifier keys (requires SelectNextOnRepeat)
+
+- `BTTWindowSwitcherAppearance`: number - Appearance (0=automatic, 1=light, 2=dark)
+
+- `BTTWindowSwitcherFontSize`: number - Font size in points (default: 12)
+
+- `BTTWindowSwitcherItemHeight`: number - Item height in pixels
+
+- `BTTWindowSwitcherWidth`: number - Width in pixels (default: 600)
+
+- `BTTWindowSwitcherHeight`: number - Height in pixels (default: 600)
+
+- `BTTWindowSwitcherMousePos`: number - Position mode (0=mouse centered left, 1=mouse left to first item, 2=mouse left to second item, 3=centered on screen with mouse, 4=centered on screen with focused window, 5=custom position)
+
+- `BTTWindowSwitcherSort`: number - Sort order (0=last used grouped by desktop, 2=alphabetically app+window name, 3=alphabetically app+window name, 4=last used all desktops mixed)
+
+- `BTTWindowSwitcherInitialFocus`: number - Initial focus (0=search field, 1=window list)
+
+- `BTTWindowSwitcherFocus`: number - Selected item (0=currently active window, 1=second window in list)
+
+- `BTTWindowSwitcherExcludeSpecific`: boolean - Enable exclude specific apps/windows
+
+- `BTTWindowSwitcherExclude`: string - Exclusion filter text
+
+- `BTTWindowSwitcherExcludeWindowsFromOtherSpaces`: boolean - Exclude windows from other spaces
+
+- `BTTWindowSwitcherExcludeHiddenAndMinimizedWindows`: boolean - Exclude hidden and minimized windows
+
+- `BTTWindowSwitcherExcludeAllButHiddenAndMinimizedWindows`: boolean - Show only hidden and minimized windows
+
+- `BTTWindowSwitcherExcludeVisibleWindows`: boolean - Exclude visible windows
+
+- `BTTWindowSwitcherOverrideDefaultShortcuts`: boolean - Override default keyboard shortcuts
+
+- `BTTWindowSwitcherAction1` through `BTTWindowSwitcherAction15`: number - Custom keyboard shortcut action bindings
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 99,
+  "BTTAdditionalActionData": {
+    "BTTWindowSwitcherWidth": 800,
+    "BTTWindowSwitcherHeight": 600,
+    "BTTWindowSwitcherAppearance": 2,
+    "BTTWindowSwitcherSort": 0,
+    "BTTWindowSwitcherSelectNextOnRepeat": true,
+    "BTTWindowSwitcherTriggerOnRelease": true,
+    "BTTWindowSwitcherShowPopover": 4,
+    "BTTWindowSwitcherInitialFocus": 1
+  }
+}
+`
+```
+
+
+### Arrange Windows Side by Side[​
+
+> 
+
+
+Arranges multiple windows side by side.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Two Windows: 317
+
+- Two Windows (Last Used Right): 318
+
+- Three Windows: 319
+
+- Three Windows (Last Used Right): 320
+
+- Four Windows: 322
+
+- Four Windows (Last Used Right): 321
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 317
+}
+`
+```
+
+
+## System Actions[​
+
+
+### Sleep Display[​
+
+> 
+
+
+Puts the display to sleep.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 13
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 13
+}
+`
+```
+
+
+### Sleep Computer[​
+
+> 
+
+
+Puts the computer to sleep.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 14
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 14
+}
+`
+```
+
+
+### Logout[​
+
+> 
+
+
+Logs out the current user.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 15
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 15
+}
+`
+```
+
+
+### Lock Screen[​
+
+> 
+
+
+Locks the screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 158
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 158
+}
+`
+```
+
+
+### Unlock Screen[​
+
+> 
+
+
+Unlocks the screen (requires password to be set).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 159
+
+- **BTTGenericActionConfig**: Password (stored securely)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 159,
+  "BTTGenericActionConfig": "encrypted_password_data"
+}
+`
+```
+
+
+### Start Screen Saver[​
+
+> 
+
+
+Starts the configured screen saver.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 202
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 202
+}
+`
+```
+
+
+### Empty Trash[​
+
+> 
+
+
+Empties the trash.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 156
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 156
+}
+`
+```
+
+
+### Toggle Do Not Disturb[​
+
+> 
+
+
+Toggles Do Not Disturb mode on/off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 200
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 200
+}
+`
+```
+
+
+### Toggle Dark Mode[​
+
+> 
+
+
+Toggles between light and dark mode.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 197
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 197
+}
+`
+```
+
+
+### Toggle Night Shift[​
+
+> 
+
+
+Toggles Night Shift on/off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 201
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 201
+}
+`
+```
+
+
+### Toggle True Tone[​
+
+> 
+
+
+Toggles True Tone display on/off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 257
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 257
+}
+`
+```
+
+
+### Show Desktop[​
+
+> 
+
+
+Shows the desktop by hiding all windows.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 45
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 45
+}
+`
+```
+
+
+### Hide All Windows[​
+
+> 
+
+
+Hides all windows of all applications.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 50
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 50
+}
+`
+```
+
+
+### Hide All But Active Window[​
+
+> 
+
+
+Hides all windows except the currently active one.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 53
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 53
+}
+`
+```
+
+
+### Show All Windows[​
+
+> 
+
+
+Shows all hidden windows.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 488
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 488
+}
+`
+```
+
+
+### Show/Hide Hidden Files[​
+
+> 
+
+
+Toggles visibility of hidden files in Finder.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 16
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 16
+}
+`
+```
+
+
+### Notification Center[​
+
+> 
+
+
+Shows the Notification Center.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 122
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 122
+}
+`
+```
+
+
+### Control Center[​
+
+> 
+
+
+Shows the Control Center.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 290
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 290
+}
+`
+```
+
+
+### Close All Notifications[​
+
+> 
+
+
+Closes all visible notifications.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 289
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 289
+}
+`
+```
+
+
+### Show Character Viewer[​
+
+> 
+
+
+Shows the macOS Character Viewer.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 167
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 167
+}
+`
+```
+
+
+### Start Siri[​
+
+> 
+
+
+Activates Siri.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 173
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 173
+}
+`
+```
+
+
+### Eject[​
+
+> 
+
+
+Ejects removable media.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 30
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 30
+}
+`
+```
+
+
+### Refresh Status Bar Items[​
+
+> 
+
+
+Refreshes all status bar items.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 302
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 302
+}
+`
+```
+
+
+### Search Selected Text With Google[​
+
+> 
+
+
+Searches for the currently selected text using Google.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 58
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 58
+}
+`
+```
+
+
+### Switch to Login Screen[​
+
+> 
+
+
+Switches to the macOS login screen without logging out.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 9
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 9
+}
+`
+```
+
+
+## Application Control[​
+
+
+### Launch Application[​
+
+> 
+
+
+Launches a specific application.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 49
+
+- **BTTLaunchPath**: Path to application or bundle identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 49,
+  "BTTLaunchPath": "/Applications/Safari.app"
+}
+`
+```
+
+
+### Show/Hide Specific Application[​
+
+> 
+
+
+Shows or hides a specific application.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 177
+
+- **BTTAppToShowOrHide**: Bundle identifier or path
+
+- **BTTShowHideAppConfig**: Configuration options (optional)
+
+- **BTTGenericActionConfig2**: JSON object with behavior configuration (optional)
+
+
+- Additional show/hide behavior settings
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 177,
+  "BTTAppToShowOrHide": "com.apple.finder",
+  "BTTGenericActionConfig2": {
+    "showIfHidden": true,
+    "hideIfVisible": true
+  }
+}
+`
+```
+
+
+### Quit Specific Application[​
+
+> 
+
+
+Quits a specific application. Supports standard quit and force quit.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 592
+
+- **BTTAppToQuit**: Bundle identifier or path of the app to quit
+
+- **BTTQuitAppConfig**: JSON string with quit configuration (optional)
+
+
+- `BTTQuitAppForceQuit`: boolean - if true, force quits the app without allowing it to save changes
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 592,
+  "BTTAppToQuit": "com.apple.Safari"
+}
+`
+```
+
+
+Example with force quit:
+
+```
+`{
+  "BTTPredefinedActionType": 592,
+  "BTTAppToQuit": "com.apple.Safari",
+  "BTTQuitAppConfig": "{\"BTTQuitAppForceQuit\":true}"
+}
+`
+```
+
+
+### Quit App Under Cursor[​
+
+> 
+
+
+Quits the application that owns the window under cursor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 247
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 247
+}
+`
+```
+
+
+### Hide App Under Cursor[​
+
+> 
+
+
+Hides the application under cursor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 294
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 294
+}
+`
+```
+
+
+### Application Switcher[​
+
+> 
+
+
+Shows the application switcher.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 46
+
+- **BTTPredefinedActionType**: 142 (Backward)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 46
+}
+`
+```
+
+
+### Activate Previous App[​
+
+> 
+
+
+Switches to the previously active application.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 367
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 367
+}
+`
+```
+
+
+### Activate Previous Window[​
+
+> 
+
+
+Activates the previous window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 383
+
+- **BTTPredefinedActionType**: 491 (Excluding Minimized)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 383
+}
+`
+```
+
+
+### Save Active Window[​
+
+> 
+
+
+Saves reference to currently active window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 368
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 368
+}
+`
+```
+
+
+### Go Back to Saved Active Window[​
+
+> 
+
+
+Returns to previously saved active window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 369
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 369
+}
+`
+```
+
+
+### Activate Specific Window[​
+
+> 
+
+
+Activates a window by title or other criteria.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 364
+
+- **BTTGenericActionConfig**: Window title or identifier
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionActivateSpecificWindowIndex`: number - Activate window by index (0-based)
+
+- `BTTActionActivateSpecificWindowOnlyFullScreen`: boolean - Only target fullscreen windows
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 364,
+  "BTTGenericActionConfig": "Document.txt"
+}
+`
+```
+
+
+### Expose And Sort[​
+
+> 
+
+
+Shows Expose and sorts windows automatically.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 103
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 103
+}
+`
+```
+
+
+### Show Menu Bar in Context Menu[​
+
+> 
+
+
+Shows the application's menu bar as a context menu at the current mouse position.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 125
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 125
+}
+`
+```
+
+
+### Show Shortcuts in Context Menu[​
+
+> 
+
+
+Shows macOS Shortcuts app shortcuts in a context menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 298
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 298
+}
+`
+```
+
+
+### Activate Hovered App in Dock[​
+
+> 
+
+
+Activates the application whose Dock icon is currently hovered.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 150
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 150
+}
+`
+```
+
+
+### Open Finder[​
+
+> 
+
+
+Opens a new Finder window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 10
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 10
+}
+`
+```
+
+
+### Create New File in Finder[​
+
+> 
+
+
+Creates a new file in the current Finder location.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 85
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 85
+}
+`
+```
+
+
+### Open Finder Selection with Specific App[​
+
+> 
+
+
+Opens selected files in Finder with a specific application.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 157
+
+- **BTTLaunchPath**: Path to application
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 157,
+  "BTTLaunchPath": "/Applications/TextEdit.app"
+}
+`
+```
+
+
+### Open Selected Folder with App[​
+
+> 
+
+
+Opens selected folder with specific app.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 176
+
+- **BTTLaunchPath**: Path to application
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 176,
+  "BTTLaunchPath": "/Applications/Visual Studio Code.app"
+}
+`
+```
+
+
+## Media Controls[​
+
+
+### Play/Pause[​
+
+> 
+
+
+Toggles media playback.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 23
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 23
+}
+`
+```
+
+
+### Next Track[​
+
+> 
+
+
+Skips to the next track.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 27
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 27
+}
+`
+```
+
+
+### Previous Track[​
+
+> 
+
+
+Goes to the previous track.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 26
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 26
+}
+`
+```
+
+
+### Volume Up[​
+
+> 
+
+
+Increases system volume.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 24
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 24
+}
+`
+```
+
+
+### Volume Down[​
+
+> 
+
+
+Decreases system volume.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 25
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 25
+}
+`
+```
+
+
+### Volume Up (Small Step)[​
+
+> 
+
+
+Increases volume by a small amount.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 198
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 198
+}
+`
+```
+
+
+### Volume Down (Small Step)[​
+
+> 
+
+
+Decreases volume by a small amount.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 199
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 199
+}
+`
+```
+
+
+### Mute[​
+
+> 
+
+
+Toggles system mute on/off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 22
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 22
+}
+`
+```
+
+
+### Set Volume[​
+
+> 
+
+
+Sets volume to specific level.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 373
+
+- **BTTGenericActionConfig**: Volume level (0-100)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 373,
+  "BTTGenericActionConfig": "50"
+}
+`
+```
+
+
+### Set Audio Output Device[​
+
+> 
+
+
+Changes the system audio output device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 583
+
+- **BTTAdditionalActionData**: JSON object with audio device configuration
+
+
+- `BTTAudioDeviceName`: string - Audio device name
+
+- `BTTAudioDeviceUID`: string - Audio device unique identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 583,
+  "BTTAdditionalActionData": {
+    "BTTAudioDeviceName": "MacBook Pro Speakers",
+    "BTTAudioDeviceUID": "BuiltInSpeakerDevice"
+  }
+}
+`
+```
+
+
+### Set Audio Input Device[​
+
+> 
+
+
+Changes the system audio input device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 584
+
+- **BTTAdditionalActionData**: JSON object with audio device configuration
+
+
+- `BTTAudioDeviceName`: string - Audio device name
+
+- `BTTAudioDeviceUID`: string - Audio device unique identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 584,
+  "BTTAdditionalActionData": {
+    "BTTAudioDeviceName": "MacBook Pro Microphone",
+    "BTTAudioDeviceUID": "BuiltInMicrophoneDevice"
+  }
+}
+`
+```
+
+
+### Play Sound File[​
+
+> 
+
+
+Plays a sound file.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 582
+
+- **BTTGenericActionConfig**: Path to sound file
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTPlaySoundCustomPath`: string - Custom path to sound file
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 582,
+  "BTTGenericActionConfig": "/System/Library/Sounds/Glass.aiff"
+}
+`
+```
+
+
+## Display & Brightness[​
+
+
+### Brightness Up[​
+
+> 
+
+
+Increases display brightness.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 28
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 28
+}
+`
+```
+
+
+### Brightness Down[​
+
+> 
+
+
+Decreases display brightness.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 29
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 29
+}
+`
+```
+
+
+### Brightness Up (Small Step)[​
+
+> 
+
+
+Increases brightness by a small amount.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 259
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 259
+}
+`
+```
+
+
+### Brightness Down (Small Step)[​
+
+> 
+
+
+Decreases brightness by a small amount.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 260
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 260
+}
+`
+```
+
+
+### External Monitor Brightness Up[​
+
+> 
+
+
+Increases external monitor brightness.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 120
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 120
+}
+`
+```
+
+
+### External Monitor Brightness Down[​
+
+> 
+
+
+Decreases external monitor brightness.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 121
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 121
+}
+`
+```
+
+
+### External Brightness Up (Small Step)[​
+
+> 
+
+
+Increases external brightness by small amount.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 261
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 261
+}
+`
+```
+
+
+### External Brightness Down (Small Step)[​
+
+> 
+
+
+Decreases external brightness by small amount.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 262
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 262
+}
+`
+```
+
+
+### Set Brightness[​
+
+> 
+
+
+Sets display brightness to specific level.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 370
+
+- **BTTGenericActionConfig**: Brightness level (0-100)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 370,
+  "BTTGenericActionConfig": "75"
+}
+`
+```
+
+
+### Keyboard Illumination Up[​
+
+> 
+
+
+Increases keyboard backlight brightness.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 31
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 31
+}
+`
+```
+
+
+### Keyboard Illumination Down[​
+
+> 
+
+
+Decreases keyboard backlight brightness.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 32
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 32
+}
+`
+```
+
+
+### Set Keyboard Brightness[​
+
+> 
+
+
+Sets keyboard brightness to specific level.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 477
+
+- **BTTGenericActionConfig**: Brightness level (0-100)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 477,
+  "BTTGenericActionConfig": "50"
+}
+`
+```
+
+
+### Toggle Mirroring[​
+
+> 
+
+
+Toggles display mirroring on/off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 266
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 266
+}
+`
+```
+
+
+### AirPlay Mirroring[​
+
+> 
+
+
+Opens AirPlay mirroring options.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 127
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 127
+}
+`
+```
+
+
+### Toggle Super Brightness[​
+
+> 
+
+
+Toggles super brightness mode for current display.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 326
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTSuperBrightnessIncrease`: number - Extra brightness level (0-100, default: 100)
+
+- `BTTSuperBrightnessBrightness`: number - brightness level (default: 4)
+
+- `BTTSuperBrightnessSaturation`: float - saturation (default: 0.7)
+
+- `BTTSuperBrightnessContrast`: number - contrast (default: 9)
+
+- `BTTSuperBrightnessVideoMode`: boolean - video mode (default: false)
+
+- `BTTSuperBrightnessOpacity`: float - opacity (default: 0.5)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 326,
+  "BTTAdditionalActionData": {
+    "BTTSuperBrightnessBrightness": 5,
+    "BTTSuperBrightnessSaturation": 0.8,
+    "BTTSuperBrightnessContrast": 10
+  }
+}
+`
+```
+
+
+### Enable Super Brightness[​
+
+> 
+
+
+Enables super brightness for current display.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 324
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTSuperBrightnessIncrease`: number - Extra brightness level (0-100, default: 100)
+
+- `BTTSuperBrightnessBrightness`: number - brightness level (default: 4)
+
+- `BTTSuperBrightnessSaturation`: float - saturation (default: 0.7)
+
+- `BTTSuperBrightnessContrast`: number - contrast (default: 9)
+
+- `BTTSuperBrightnessVideoMode`: boolean - video mode (default: false)
+
+- `BTTSuperBrightnessOpacity`: float - opacity (default: 0.5)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 324,
+  "BTTAdditionalActionData": {
+    "BTTSuperBrightnessBrightness": 5,
+    "BTTSuperBrightnessSaturation": 0.8,
+    "BTTSuperBrightnessContrast": 10
+  }
+}
+`
+```
+
+
+### Disable Super Brightness[​
+
+> 
+
+
+Disables super brightness for current display.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 325
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTSuperBrightnessBrightness`: number - brightness level (default: 4)
+
+- `BTTSuperBrightnessSaturation`: float - saturation (default: 0.7)
+
+- `BTTSuperBrightnessContrast`: number - contrast (default: 9)
+
+- `BTTSuperBrightnessVideoMode`: boolean - video mode (default: false)
+
+- `BTTSuperBrightnessOpacity`: float - opacity (default: 0.5)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 325,
+  "BTTAdditionalActionData": {
+    "BTTSuperBrightnessBrightness": 5,
+    "BTTSuperBrightnessSaturation": 0.8,
+    "BTTSuperBrightnessContrast": 10
+  }
+}
+`
+```
+
+
+### Move & Maximize All Windows to Mouse Display[​
+
+> 
+
+
+Moves and maximizes all windows to the display where the mouse is.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 267
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 267
+}
+`
+```
+
+
+### Move All Windows to Mouse Display[​
+
+> 
+
+
+Moves all windows to the display where the mouse is, preserving each window's size and relative position.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 273
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 273
+}
+`
+```
+
+
+### Rotate Display Clockwise[​
+
+> 
+
+
+Rotates the display 90 degrees clockwise.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 314
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 314
+}
+`
+```
+
+
+### Rotate Display Counter-Clockwise[​
+
+> 
+
+
+Rotates the display 90 degrees counter-clockwise.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 315
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 315
+}
+`
+```
+
+
+## Spaces & Mission Control[​
+
+
+### Mission Control[​
+
+> 
+
+
+Shows Mission Control.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 7
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 7
+}
+`
+```
+
+
+### Mission Control & Show Desktop Preview[​
+
+> 
+
+
+Shows Mission Control with desktop preview.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 165
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 165
+}
+`
+```
+
+
+### Application Exposé[​
+
+> 
+
+
+Shows all windows of current application.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 6
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 6
+}
+`
+```
+
+
+### Switch to Desktop (1-19)[​
+
+> 
+
+
+Switches to a specific desktop/space.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Desktop 1: 207
+
+- Desktop 2: 208
+
+- Desktop 3: 209
+
+- Desktop 4: 210
+
+- Desktop 5: 211
+
+- Desktop 6: 212
+
+- Desktop 7: 213
+
+- Desktop 8: 214
+
+- Desktop 9: 215
+
+- Desktop 10-19: 226-235
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 207
+}
+`
+```
+
+
+### Move Window to Desktop (1-19)[​
+
+> 
+
+
+Moves current window to specific desktop.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Desktop 1: 216
+
+- Desktop 2: 217
+
+- Desktop 3: 218
+
+- Desktop 4: 219
+
+- Desktop 5: 220
+
+- Desktop 6: 222
+
+- Desktop 7: 223
+
+- Desktop 8: 224
+
+- Desktop 9: 225
+
+- Desktop 10-19: 236-245
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 216
+}
+`
+```
+
+
+### Switch Space Left/Right[​
+
+> 
+
+
+Switches to the space on the left or right.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Left: 113
+
+- Right: 114
+
+- Left (No Animation): 527
+
+- Right (No Animation): 528
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 113
+}
+`
+```
+
+
+### Move Window to Left/Right Space[​
+
+> 
+
+
+Moves window to adjacent space.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Left Space: 151
+
+- Right Space: 152
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 151
+}
+`
+```
+
+
+### Add New Space[​
+
+> 
+
+
+Creates a new desktop space.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 196
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 196
+}
+`
+```
+
+
+### Launchpad[​
+
+> 
+
+
+Shows Launchpad.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 115
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 115
+}
+`
+```
+
+
+### Dashboard[​
+
+> 
+
+
+Shows Dashboard (deprecated in newer macOS).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 8
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 8
+}
+`
+```
+
+
+### Navigate To Space Or Fullscreen App By ID or Index[​
+
+> 
+
+
+Navigates to a specific space or fullscreen app using either its index or its unique ID.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 550
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionGoToSpaceByIndex`: number or string - The space index (supports BTT variables)
+
+- `BTTActionGoToSpaceByID`: number or string - The space ID (supports BTT variables)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 550,
+  "BTTAdditionalActionData": {
+    "BTTActionGoToSpaceByIndex": 3
+  }
+}
+`
+```
+
+
+## Screenshot Actions[​
+
+
+### Take Screenshot[​
+
+> 
+
+
+Takes a screenshot with configurable options.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 169
+
+- **BTTScreenshotOptions**: Screenshot configuration as integer or string
+
+- **BTTScreenshotDateFormat**: Date format for filename (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 169,
+  "BTTScreenshotOptions": "0"
+}
+`
+```
+
+
+### Screenshot Window[​
+
+> 
+
+
+Takes a screenshot of a specific window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 170
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 170
+}
+`
+```
+
+
+### Screenshot and Edit[​
+
+> 
+
+
+Takes a screenshot and opens it for editing.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 171
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 171
+}
+`
+```
+
+
+### Screenshot to Clipboard[​
+
+> 
+
+
+Takes a screenshot directly to clipboard.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 316
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 316
+}
+`
+```
+
+
+### Screenshot to Clipboard (New)[​
+
+> 
+
+
+Enhanced screenshot to clipboard with more options.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 500
+
+- **BTTGenericActionConfig**: Configuration options
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 500,
+  "BTTGenericActionConfig": "{\"BTTScreenshotType\":1}"
+}
+`
+```
+
+
+### Take Screenshot or Video[​
+
+> 
+
+
+Opens screenshot/recording toolbar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 263
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 263
+}
+`
+```
+
+
+### Take Screenshot (Configurable)[​
+
+> 
+
+
+Takes a screenshot with advanced configuration options.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 495
+
+- **BTTAdditionalActionData**: JSON object with screenshot configuration
+
+
+- `BTTActionScreenCaptureConfigurableMode`: number - Capture mode (0=selection, 1=window, 2=fullscreen)
+
+- `BTTActionScreenCaptureConfigurableShowSelection`: boolean - Show selection UI
+
+- `BTTActionScreenCaptureConfigurableRecordVideo`: boolean - Record video instead of screenshot
+
+- `BTTActionScreenCaptureConfigurableShowDesktopIcons`: boolean - Include desktop icons
+
+- `BTTActionScreenCaptureConfigurableCopyToClipboard`: boolean - Copy to clipboard
+
+- `BTTActionScreenCaptureConfigurableOpenWith`: string - App bundle ID to open screenshot with
+
+- `BTTActionScreenCaptureConfigurableVariableName`: string - Variable name to store file path
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 495,
+  "BTTAdditionalActionData": {
+    "BTTActionScreenCaptureConfigurableMode": 0,
+    "BTTActionScreenCaptureConfigurableShowSelection": true,
+    "BTTActionScreenCaptureConfigurableCopyToClipboard": true,
+    "BTTActionScreenCaptureConfigurableVariableName": "screenshot_path"
+  }
+}
+`
+```
+
+
+### Measure Area on Screen[​
+
+> 
+
+
+Shows tool to measure distances on screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 501
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 501
+}
+`
+```
+
+
+## Clipboard Actions[​
+
+
+### Toggle Clipboard Manager[​
+
+> 
+
+
+Shows/hides the clipboard manager.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 203
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTActionClipboardManagerAutoSaveName`: string - auto-save identifier
+
+- `BTTActionClipboardManagerDontHide`: boolean - keep manager visible
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 203,
+  "BTTAdditionalActionData": {
+    "BTTActionClipboardManagerAutoSaveName": "work-clipboard",
+    "BTTActionClipboardManagerDontHide": true
+  }
+}
+`
+```
+
+
+### Show Clipboard Manager[​
+
+> 
+
+
+Shows the clipboard manager window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 480
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTActionClipboardManagerAutoSaveName`: string - auto-save identifier
+
+- `BTTActionClipboardManagerDontHide`: boolean - keep manager visible
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 480,
+  "BTTAdditionalActionData": {
+    "BTTActionClipboardManagerAutoSaveName": "work-clipboard",
+    "BTTActionClipboardManagerDontHide": true
+  }
+}
+`
+```
+
+
+### Hide Clipboard Manager[​
+
+> 
+
+
+Hides the clipboard manager window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 481
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 481
+}
+`
+```
+
+
+### Save Clipboard Contents[​
+
+> 
+
+
+Temporarily saves current clipboard contents.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 508
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 508
+}
+`
+```
+
+
+### Restore Clipboard Contents[​
+
+> 
+
+
+Restores previously saved clipboard contents.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 509
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 509
+}
+`
+```
+
+
+### Set Clipboard Contents[​
+
+> 
+
+
+Sets clipboard to specific text or formatted content.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 529
+
+- **BTTAdditionalActionData**: JSON object with clipboard configuration
+
+
+- `BTTActionSetClipboardContentsString`: string - Plain text to set
+
+- `BTTActionSetClipboardContentsAttributedString`: string - Rich text/attributed string
+
+- `BTTActionSetClipboardContentsFormat`: number - Content format (0=plain text, 1=rich text)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 529,
+  "BTTAdditionalActionData": {
+    "BTTActionSetClipboardContentsString": "Text to copy",
+    "BTTActionSetClipboardContentsFormat": 0
+  }
+}
+`
+```
+
+
+### Upload Clipboard to Imgur[​
+
+> 
+
+
+Uploads clipboard image to Imgur and copies URL.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 297
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 297
+}
+`
+```
+
+
+### Copy Selected Text with JavaScript[​
+
+> 
+
+
+Copies selected text transformed by JavaScript.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 287
+
+- **BTTRealJavaScriptString**: JavaScript code
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 287,
+  "BTTRealJavaScriptString": "return selectedText.toUpperCase();"
+}
+`
+```
+
+
+### Transform Clipboard with JavaScript[​
+
+> 
+
+
+Transforms clipboard contents using a JavaScript transformer function.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 448
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTClipboardTransformerName`: string - Name for the transformer (stored in launchPath)
+
+- `BTTClipboardTransformerJS`: string - JavaScript transformer function (receives clipboardContentString, returns transformed string)
+
+- `BTTClipboardTransformerExampleInput`: string - Example input for testing
+
+- `BTTClipboardTransformerExampleResult`: string - Example result (read-only, for testing)
+
+- `BTTActionPasteFormat`: string - Transform output format (e.g., "public.utf8-plain-text", "public.rtf", "public.html")
+
+- `BTTActionPasteInputFormat`: string - Transform input format
+
+- `BTTActionCustomTextTransformer`: string - Use an existing custom text transformer by name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 448,
+  "BTTAdditionalActionData": {
+    "BTTClipboardTransformerName": "Uppercase",
+    "BTTClipboardTransformerJS": "async (clipboardContentString) => {\nreturn clipboardContentString.toUpperCase()\n}",
+    "BTTActionPasteFormat": "public.utf8-plain-text"
+  }
+}
+`
+```
+
+
+### Transform Clipboard with ChatGPT[​
+
+> 
+
+
+Transforms clipboard using ChatGPT.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 449
+
+- **BTTChatGPTPrompt**: Prompt for transformation (stored in launchPath)
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTChatGPTModelSelection`: Model to use ("gpt-4o-mini", "custom") - default: "gpt-4o-mini"
+
+- `BTTChatGPTModel`: Custom model identifier (when using "custom" selection)
+
+- `BTTChatGPTTransformerSystemPrompt`: System prompt for the AI
+
+- `BTTChatGPTTransformerUserPrompt`: User prompt template - default: "Make everything uppercase, don't add any comment:"
+
+- `BTTChatGPTTransformerExampleInput`: Example input for testing - default: "Some Test Text"
+
+- `BTTChatGPTNumberOfHistoryItems`: Number of previous requests to include - default: 0
+
+- `BTTChatGPTTransformerShowMiniHUD`: boolean - show mini HUD while waiting - default: true
+
+- `BTTChatGPTTransformerAskWhatToDo`: boolean - always ask what to do when executing
+
+- `BTTChatGPTTransformerCustomURL`: Custom API endpoint URL
+
+- `BTTChatGPTKeepSelectedText`: boolean - keep text selected after transformation - default: true
+
+- `BTTChatGPTAppendSelectedText`: boolean - append selected text to user prompt - default: true
+
+- `BTTChatGPTImageFilePath`: Path to image file to attach
+
+- `BTTChatGPTImageType`: Image source type (0=clipboard, 1=file)
+
+- `BTTChatGPTAppendImage`: boolean - attach image to request
+
+- `BTTChatGPTUseStreaming`: boolean - stream response instead of waiting - default: false for clipboard
+
+- `BTTChatGPTCopyResponseToClipboard`: boolean - copy result to clipboard
+
+- `BTTChatGPTCopyResponseToVariable`: boolean - save result to variable
+
+- `BTTChatGPTCopyResponseToVariableName`: Variable name to store result
+
+- `BTTActionPasteFormat`: Paste format options
+
+- `BTTActionPasteInputFormat`: Input format for processing
+
+- `BTTChatGPTAPIKey`: OpenAI API key (stored securely)
+
+- `BTTChatGPTTransformerExtraParameters`: string - Extra JSON parameters to pass to the API
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 449,
+  "BTTChatGPTPrompt": "Translate this to Spanish",
+  "BTTAdditionalActionData": {
+    "BTTChatGPTModelSelection": "gpt-4o-mini",
+    "BTTChatGPTTransformerSystemPrompt": "You are a professional translator.",
+    "BTTChatGPTTransformerUserPrompt": "Translate the following text to Spanish:",
+    "BTTChatGPTCopyResponseToClipboard": true,
+    "BTTChatGPTUseStreaming": true,
+    "BTTChatGPTTransformerShowMiniHUD": true
+  }
+}
+`
+```
+
+
+### Paste Specific Clipboard Item[​
+
+> 
+
+
+Pastes item from clipboard history.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 489
+
+- **BTTActionPasteFirstOrLast**: "first" or "last" or index
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 489,
+  "BTTActionPasteFirstOrLast": "first"
+}
+`
+```
+
+
+### Delete Items from Clipboard Manager[​
+
+> 
+
+
+Deletes selected items from clipboard history.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 487
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 487
+}
+`
+```
+
+
+### Delete Specific Item from Clipboard[​
+
+> 
+
+
+Deletes specific item from clipboard manager.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 512
+
+- **BTTGenericActionConfig**: Item identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 512,
+  "BTTGenericActionConfig": "0"
+}
+`
+```
+
+
+### Paste and Remove Item[​
+
+> 
+
+
+Pastes and removes item from clipboard manager.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 484
+
+- **BTTActionPasteAndRemoveGroupName**: Group name (optional)
+
+- **BTTActionPasteFirstOrLast**: "first" or "last"
+
+- **BTTActionPasteOption**: Paste options (optional)
+
+- **BTTActionPasteTransformer**: Transformation to apply (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 484,
+  "BTTActionPasteFirstOrLast": "first"
+}
+`
+```
+
+
+### Custom Paste[​
+
+> 
+
+
+Pastes with custom options like plain text.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 250
+
+- **BTTActionItemsToPaste**: Items to paste
+
+- **BTTActionPasteOptions**: Paste options
+
+- **BTTActionPasteTransformer**: Transform option
+
+- **BTTActionPasteDeleteAfter**: Delete after paste flag
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 250,
+  "BTTActionPasteOptions": "{\"BTTPastePlainText\":true}"
+}
+`
+```
+
+
+### Check Clipboard Change[​
+
+> 
+
+
+Checks if clipboard has changed.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 328
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 328
+}
+`
+```
+
+
+### Wait for Clipboard Change[​
+
+> 
+
+
+Waits until clipboard content changes.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 499
+
+- **BTTGenericActionConfig**: Timeout in seconds (deprecated - use BTTAdditionalActionData)
+
+- **BTTAdditionalActionData**: JSON object with wait configuration
+
+
+- `BTTActionWaitForClipboardTimeout`: number - Wait timeout in seconds (default: 5)
+
+- `BTTActionWaitForClipboardAllowedTypes`: string - Optional comma-separated pasteboard UTIs to accept, e.g. `public.rtf, public.png`
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 499,
+  "BTTAdditionalActionData": {
+    "BTTActionWaitForClipboardTimeout": 10,
+    "BTTActionWaitForClipboardAllowedTypes": "public.rtf, public.png"
+  }
+}
+`
+```
+
+
+### Enable/Disable Clipboard Manager Watcher[​
+
+> 
+
+
+Controls clipboard monitoring.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Enable: 434
+
+- Disable: 433
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 434
+}
+`
+```
+
+
+### Copy to Snippet Group[​
+
+> 
+
+
+Copies to a specific snippet group.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 485
+
+- **BTTGenericActionConfig**: Group name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 485,
+  "BTTGenericActionConfig": "Code Snippets"
+}
+`
+```
+
+
+### Copy/Paste Text Style[​
+
+> 
+
+
+Copies or pastes text formatting.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Copy Style: 496
+
+- Paste Style: 497
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 496
+}
+`
+```
+
+
+### Change Formatting of Selected Text[​
+
+> 
+
+
+Changes formatting of selected text with extensive customization options.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 494
+
+- **BTTAdditionalActionData**: JSON object with formatting configuration
+
+
+- `BTTActionChangeTextFormattingSetFontSize`: boolean - Set specific font size
+
+- `BTTActionChangeTextFormattingFontSizeFix`: number - Fixed font size to set (when SetFontSize is true)
+
+- `BTTActionChangeTextFormattingChangeFontSize`: boolean - Change font size relatively
+
+- `BTTActionChangeTextFormattingFontSizeChange`: number - Font size change amount (positive/negative)
+
+- `BTTActionChangeTextFormattingChangeFontColor`: boolean - Change font color
+
+- `BTTActionChangeTextFormattingFontColor`: string - Font color (hex format, e.g., "#FF0000")
+
+- `BTTActionChangeTextFormattingChangeBackgroundColor`: boolean - Change background color
+
+- `BTTActionChangeTextFormattingBackgroundColor`: string - Background color (hex format)
+
+- `BTTActionChangeTextFormattingUseTemplateString`: boolean - Use template string for advanced formatting
+
+- `BTTActionChangeTextFormattingTemplateString`: string - Template string with placeholders
+
+- `BTTActionChangeTextFormattingIgnoreFontSize`: boolean - Preserve original font size
+
+- `BTTActionChangeTextFormattingIgnoreFont`: boolean - Preserve original font
+
+- `BTTActionChangeTextFormattingIgnoreAlignment`: boolean - Preserve original alignment
+
+
+Example (Set fixed font size):
+
+```
+`{
+  "BTTPredefinedActionType": 494,
+  "BTTAdditionalActionData": {
+    "BTTActionChangeTextFormattingSetFontSize": true,
+    "BTTActionChangeTextFormattingFontSizeFix": 16
+  }
+}
+`
+```
+
+
+Example (Change font size relatively):
+
+```
+`{
+  "BTTPredefinedActionType": 494,
+  "BTTAdditionalActionData": {
+    "BTTActionChangeTextFormattingChangeFontSize": true,
+    "BTTActionChangeTextFormattingFontSizeChange": 2
+  }
+}
+`
+```
+
+
+Example (Change colors):
+
+```
+`{
+  "BTTPredefinedActionType": 494,
+  "BTTAdditionalActionData": {
+    "BTTActionChangeTextFormattingChangeFontColor": true,
+    "BTTActionChangeTextFormattingFontColor": "#FF0000",
+    "BTTActionChangeTextFormattingChangeBackgroundColor": true,
+    "BTTActionChangeTextFormattingBackgroundColor": "#FFFF00"
+  }
+}
+`
+```
+
+
+Example (Use template string):
+
+```
+`{
+  "BTTPredefinedActionType": 494,
+  "BTTAdditionalActionData": {
+    "BTTActionChangeTextFormattingUseTemplateString": true,
+    "BTTActionChangeTextFormattingTemplateString": "**{{text}}**",
+    "BTTActionChangeTextFormattingIgnoreFont": true
+  }
+}
+`
+```
+
+
+### Change Formatting of Clipboard Contents[​
+
+> 
+
+
+Changes formatting of clipboard contents with extensive customization options.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 495
+
+- **BTTAdditionalActionData**: JSON object with formatting configuration
+
+
+- `BTTActionChangeTextFormattingSetFontSize`: boolean - Set specific font size
+
+- `BTTActionChangeTextFormattingFontSizeFix`: number - Fixed font size to set (when SetFontSize is true)
+
+- `BTTActionChangeTextFormattingChangeFontSize`: boolean - Change font size relatively
+
+- `BTTActionChangeTextFormattingFontSizeChange`: number - Font size change amount (positive/negative)
+
+- `BTTActionChangeTextFormattingChangeFontColor`: boolean - Change font color
+
+- `BTTActionChangeTextFormattingFontColor`: string - Font color (hex format, e.g., "#FF0000")
+
+- `BTTActionChangeTextFormattingChangeBackgroundColor`: boolean - Change background color
+
+- `BTTActionChangeTextFormattingBackgroundColor`: string - Background color (hex format)
+
+- `BTTActionChangeTextFormattingUseTemplateString`: boolean - Use template string for advanced formatting
+
+- `BTTActionChangeTextFormattingTemplateString`: string - Template string with placeholders
+
+- `BTTActionChangeTextFormattingIgnoreFontSize`: boolean - Preserve original font size
+
+- `BTTActionChangeTextFormattingIgnoreFont`: boolean - Preserve original font
+
+- `BTTActionChangeTextFormattingIgnoreAlignment`: boolean - Preserve original alignment
+
+
+Example (Multiple formatting changes):
+
+```
+`{
+  "BTTPredefinedActionType": 495,
+  "BTTAdditionalActionData": {
+    "BTTActionChangeTextFormattingSetFontSize": true,
+    "BTTActionChangeTextFormattingFontSizeFix": 14,
+    "BTTActionChangeTextFormattingChangeFontColor": true,
+    "BTTActionChangeTextFormattingFontColor": "#0000FF",
+    "BTTActionChangeTextFormattingIgnoreAlignment": true
+  }
+}
+`
+```
+
+
+## Text & Typing Actions[​
+
+
+### Save Selected Text to Variable[​
+
+> 
+
+
+Saves currently selected text to a variable.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 256
+
+- **BTTVariableName**: Variable name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 256,
+  "BTTVariableName": "selectedText"
+}
+`
+```
+
+
+### Transform Selected Text with JavaScript[​
+
+> 
+
+
+Transforms selected text using JavaScript.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 284
+
+- **BTTRealJavaScriptString**: JavaScript code
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 284,
+  "BTTRealJavaScriptString": "return selectedText.toLowerCase();"
+}
+`
+```
+
+
+### Transform Selected Text with ChatGPT[​
+
+> 
+
+
+Transforms selected text using ChatGPT.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 384
+
+- **BTTChatGPTPrompt**: Transformation prompt (stored in launchPath)
+
+- **BTTAdditionalActionData**: JSON object with configuration - same keys as Transform Clipboard with ChatGPT
+
+
+- `BTTChatGPTModelSelection`: Model to use ("gpt-4o-mini", "custom") - default: "gpt-4o-mini"
+
+- `BTTChatGPTModel`: Custom model identifier (when using "custom" selection)
+
+- `BTTChatGPTTransformerSystemPrompt`: System prompt for the AI
+
+- `BTTChatGPTTransformerUserPrompt`: User prompt template
+
+- `BTTChatGPTTransformerExampleInput`: Example input for testing
+
+- `BTTChatGPTNumberOfClipboardItemsToInclude`: number - Include clipboard history items
+
+- `BTTChatGPTClipboardItemSeparator`: string - Separator for clipboard items
+
+- `BTTChatGPTReplaceSelection`: boolean - Replace selected text with result
+
+- `BTTChatGPTInsertAsTyping`: boolean - Type out the response instead of pasting
+
+- `BTTChatGPTUsePrimaryLanguageModel`: boolean - Use primary language model
+
+- `BTTChatGPTScreenshotOption`: number - Screenshot option (0=none, 1=interactive, 2=focused window)
+
+- `BTTChatGPTAddTimeDate`: boolean - Include timestamp in prompt
+
+- `BTTChatGPTTokenCountOption`: number - Token counting mode
+
+- `BTTChatGPTAddNotchBarContent`: boolean - Include notch bar content
+
+- `BTTChatGPTAddMenuBarContent`: boolean - Include menu bar content
+
+- `BTTChatGPTAddHistoryModeDescription`: boolean - Include history mode description
+
+- `BTTChatGPTOpenAIKey`: string - OpenAI API key (stored securely)
+
+- `BTTChatGPTSystemPrompt`: string - System prompt (alternative to BTTChatGPTTransformerSystemPrompt)
+
+- `BTTChatGPTUserPrompt`: string - User prompt (alternative to BTTChatGPTTransformerUserPrompt)
+
+- `BTTChatGPTModelToUse`: string - Model to use (alternative to BTTChatGPTModel)
+
+- `BTTChatGPTNumberOfRecentChatMessages`: number - Include recent chat messages
+
+- `BTTChatGPTCustomURL`: string - Custom URL (alternative to BTTChatGPTTransformerCustomURL)
+
+- `BTTChatGPTPassPreviousMessages`: boolean - Pass previous messages in conversation
+
+- `BTTChatGPTNumberOfHistoryItems`: Number of previous requests to include
+
+- `BTTChatGPTTransformerShowMiniHUD`: boolean - show mini HUD while waiting
+
+- `BTTChatGPTTransformerAskWhatToDo`: boolean - always ask what to do
+
+- `BTTChatGPTTransformerCustomURL`: Custom API endpoint URL
+
+- `BTTChatGPTKeepSelectedText`: boolean - keep text selected
+
+- `BTTChatGPTAppendSelectedText`: boolean - append selected text to prompt
+
+- `BTTChatGPTImageFilePath`: Path to image file to attach
+
+- `BTTChatGPTImageType`: Image source type (0=clipboard, 1=file)
+
+- `BTTChatGPTAppendImage`: boolean - attach image to request
+
+- `BTTChatGPTUseStreaming`: boolean - stream response - default: true
+
+- `BTTChatGPTCopyResponseToClipboard`: boolean - copy result to clipboard
+
+- `BTTChatGPTCopyResponseToVariable`: boolean - save result to variable
+
+- `BTTChatGPTCopyResponseToVariableName`: Variable name to store result
+
+- `BTTActionPasteFormat`: Paste format options
+
+- `BTTActionPasteInputFormat`: Input format for processing
+
+- `BTTChatGPTAPIKey`: OpenAI API key (stored securely)
+
+- `BTTChatGPTTransformerExtraParameters`: string - Extra JSON parameters to pass to the API (e.g., temperature, max_tokens)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 384,
+  "BTTChatGPTPrompt": "Fix grammar and spelling",
+  "BTTAdditionalActionData": {
+    "BTTChatGPTModelSelection": "gpt-4o-mini",
+    "BTTChatGPTTransformerSystemPrompt": "You are a professional editor.",
+    "BTTChatGPTCopyResponseToClipboard": true,
+    "BTTChatGPTUseStreaming": true,
+    "BTTChatGPTReplaceSelection": true,
+    "BTTChatGPTScreenshotOption": 0
+  }
+}
+`
+```
+
+
+### ChatGPT Selection to Clipboard & Variable[​
+
+> 
+
+
+Processes selection with ChatGPT, saves to clipboard and variable.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 471
+
+- **BTTChatGPTPrompt**: Processing prompt (stored in launchPath)
+
+- **BTTVariableName**: Variable to save result (deprecated - use BTTChatGPTCopyResponseToVariableName)
+
+- **BTTAdditionalActionData**: JSON object with configuration - same keys as other ChatGPT actions
+
+
+- `BTTChatGPTModelSelection`: Model to use ("gpt-4o-mini", "custom")
+
+- `BTTChatGPTModel`: Custom model identifier
+
+- `BTTChatGPTTransformerSystemPrompt`: System prompt
+
+- `BTTChatGPTTransformerUserPrompt`: User prompt template
+
+- `BTTChatGPTTransformerExampleInput`: Example input
+
+- `BTTChatGPTNumberOfHistoryItems`: History items to include
+
+- `BTTChatGPTTransformerShowMiniHUD`: boolean - show mini HUD
+
+- `BTTChatGPTTransformerAskWhatToDo`: boolean - ask what to do
+
+- `BTTChatGPTTransformerCustomURL`: Custom API URL
+
+- `BTTChatGPTKeepSelectedText`: boolean - keep selected
+
+- `BTTChatGPTAppendSelectedText`: boolean - append selected text
+
+- `BTTChatGPTImageFilePath`: Image file path
+
+- `BTTChatGPTImageType`: Image source (0=clipboard, 1=file)
+
+- `BTTChatGPTAppendImage`: boolean - attach image
+
+- `BTTChatGPTUseStreaming`: boolean - stream response
+
+- `BTTChatGPTCopyResponseToClipboard`: boolean - copy to clipboard - default: true
+
+- `BTTChatGPTCopyResponseToVariable`: boolean - save to variable - default: true
+
+- `BTTChatGPTCopyResponseToVariableName`: Variable name - default: "BTTChatGPTResponse"
+
+- `BTTActionPasteFormat`: Paste format
+
+- `BTTActionPasteInputFormat`: Input format
+
+- `BTTChatGPTAPIKey`: API key (secure)
+
+- `BTTChatGPTTransformerExtraParameters`: string - Extra JSON parameters to pass to the API
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 471,
+  "BTTChatGPTPrompt": "Summarize this text",
+  "BTTAdditionalActionData": {
+    "BTTChatGPTModelSelection": "gpt-4o-mini",
+    "BTTChatGPTCopyResponseToClipboard": true,
+    "BTTChatGPTCopyResponseToVariable": true,
+    "BTTChatGPTCopyResponseToVariableName": "summary",
+    "BTTChatGPTUseStreaming": true
+  }
+}
+`
+```
+
+
+### Reset ChatGPT Conversation[​
+
+> 
+
+
+Resets the current ChatGPT conversation context.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 385
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 385
+}
+`
+```
+
+
+### Cancel ChatGPT Request[​
+
+> 
+
+
+Cancels ongoing ChatGPT request.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 470
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 470
+}
+`
+```
+
+
+### OCR Area on Screen[​
+
+> 
+
+
+Performs OCR on selected screen area.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 498
+
+- **BTTOCRLanguages**: Language codes (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 498,
+  "BTTOCRLanguages": "en,de"
+}
+`
+```
+
+
+### Find Text on Screen[​
+
+> 
+
+
+Searches for text on screen and clicks it.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 426
+
+- **BTTGenericActionConfig**: Text to find (deprecated - use BTTAdditionalActionData)
+
+- **BTTAdditionalActionData**: JSON object with find text configuration
+
+
+- `BTTActionFindTextAction`: number - Action on find (0=nothing, 1=move mouse, 2=click, 3=double click)
+
+- `BTTActionFindTextScreenArea`: string - Screen area to search (coordinates)
+
+- `BTTActionFindTextIsRegex`: boolean - Use regular expression matching
+
+- `BTTActionFindTextUseOCR`: boolean - Use OCR for text detection
+
+- `BTTActionFindTextString`: string - Text to find
+
+- `BTTActionFindTextCaseSensitive`: boolean - Case sensitive search
+
+- `BTTActionFindTextScreen`: number - Screen to search (0=all, 1=main, 2=mouse screen)
+
+- `BTTActionFindTextEnableVisualFeedback`: boolean - Show visual feedback on matches
+
+- `BTTActionFindTextVariableIdentifier`: string - Variable name to store result
+
+- `BTTActionFindTextMatchMultiple`: boolean - Find all matches
+
+- `BTTActionFindTextWaitFor`: number - Wait duration in seconds
+
+- `BTTActionFindTextWaitMode`: number - Wait behavior (0=fail if not found, 1=wait up to duration)
+
+- `BTTActionFindTextSelectElementContainingText`: boolean - Select container element
+
+- `BTTActionFindTextMaxDistanceElements`: number - Max distance between elements
+
+- `BTTActionFindTextHideMouseCursor`: boolean - Hide cursor during search
+
+- `BTTFindTextContinueActionExecution`: boolean - Continue action execution even if text is not found
+
+- `BTTFindTextRequiredOccurences`: number - Required number of occurrences to consider a match
+
+
+After execution, the following BTT variables are set:
+
+
+- `last_find_text_on_screen_result`: JSON string with `recognizedText` and `boundingRects` arrays (empty string if no match)
+
+- `last_find_text_on_screen_success`: `1` if text was found, `0` otherwise
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 426,
+  "BTTAdditionalActionData": {
+    "BTTActionFindTextString": "Submit",
+    "BTTActionFindTextAction": 2,
+    "BTTActionFindTextUseOCR": true,
+    "BTTActionFindTextEnableVisualFeedback": true,
+    "BTTActionFindTextWaitFor": 5
+  }
+}
+`
+```
+
+
+### Wait for Text on Screen[​
+
+> 
+
+
+Waits until specific text appears on screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 427
+
+- **BTTGenericActionConfig**: Text to wait for
+
+- **BTTGenericActionConfig2**: Timeout in seconds
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 427,
+  "BTTGenericActionConfig": "Loading complete",
+  "BTTGenericActionConfig2": "10"
+}
+`
+```
+
+
+### Force Check Selection Change[​
+
+> 
+
+
+Forces check for text selection change.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 493
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 493
+}
+`
+```
+
+
+## Script Execution[​
+
+
+### Run AppleScript (Blocking)[​
+
+> 
+
+
+Runs AppleScript and waits for completion.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 172
+
+- **BTTAdditionalActionData**: Object with:
+
+
+- **BTTAppleScriptString**: AppleScript code
+
+- **BTTScriptType**: 0
+
+- **BTTAppleScriptRunInBackground**: false
+
+- **BTTAppleScriptUsePath**: false (set true to use file path instead)
+
+- **BTTScriptLocation**: 0
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 172,
+  "BTTAdditionalActionData": {
+    "BTTScriptType": 0,
+    "BTTAppleScriptUsePath": false,
+    "BTTScriptLocation": 0,
+    "BTTAppleScriptRunInBackground": false,
+    "BTTAppleScriptString": "tell application \"Finder\" to activate"
+  }
+}
+`
+```
+
+
+### Run AppleScript (Background)[​
+
+> 
+
+
+Runs AppleScript in background without blocking.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 195
+
+- **BTTAdditionalActionData**: Object with:
+
+
+- **BTTAppleScriptString**: AppleScript code
+
+- **BTTScriptType**: 0
+
+- **BTTAppleScriptRunInBackground**: true
+
+- **BTTAppleScriptUsePath**: false (set true to use file path instead)
+
+- **BTTScriptLocation**: 0
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 195,
+  "BTTAdditionalActionData": {
+    "BTTScriptType": 0,
+    "BTTAppleScriptUsePath": false,
+    "BTTScriptLocation": 0,
+    "BTTAppleScriptRunInBackground": true,
+    "BTTAppleScriptString": "display notification \"Task Complete\""
+  }
+}
+`
+```
+
+
+### Run JavaScript (Background)[​
+
+> 
+
+
+Executes JavaScript code in background.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 252
+
+- **BTTAdditionalActionData**: Object with:
+
+
+- **BTTAppleScriptString**: JavaScript code
+
+- **BTTScriptType**: 1
+
+- **BTTAppleScriptRunInBackground**: true
+
+- **BTTAppleScriptUsePath**: false
+
+- **BTTScriptLocation**: 0
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 252,
+  "BTTAdditionalActionData": {
+    "BTTScriptType": 1,
+    "BTTAppleScriptUsePath": false,
+    "BTTScriptLocation": 0,
+    "BTTAppleScriptRunInBackground": true,
+    "BTTAppleScriptString": "returnToBTT('Hello from JS');"
+  }
+}
+`
+```
+
+
+### Run JavaScript (Main Thread)[​
+
+> 
+
+
+Executes JavaScript code on main thread.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 253
+
+- **BTTAdditionalActionData**: Object with:
+
+
+- **BTTAppleScriptString**: JavaScript code
+
+- **BTTScriptType**: 1
+
+- **BTTAppleScriptRunInBackground**: false
+
+- **BTTAppleScriptUsePath**: false
+
+- **BTTScriptLocation**: 0
+
+
+### Run Core JavaScript[​
+
+> 
+
+
+Executes Core JavaScript code (BTT's built-in JS engine with async/await support).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 281
+
+- **BTTAdditionalActionData**: Object with:
+
+
+- **BTTAppleScriptString**: JavaScript code
+
+- **BTTScriptType**: 3
+
+- **BTTAppleScriptRunInBackground**: true
+
+- **BTTAppleScriptUsePath**: false
+
+- **BTTScriptLocation**: 0
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 281,
+  "BTTAdditionalActionData": {
+    "BTTScriptType": 3,
+    "BTTAppleScriptUsePath": false,
+    "BTTScriptLocation": 0,
+    "BTTAppleScriptRunInBackground": true,
+    "BTTAppleScriptString": "let result = await callBTT('trigger_named', {trigger_name: 'MyTrigger'}); returnToBTT(result);"
+  }
+}
+`
+```
+
+
+### Terminal Command (Blocking)[​
+
+> 
+
+
+Runs terminal command and waits for completion.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 246
+
+- **BTTTerminalCommand**: Command to execute
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 246,
+  "BTTTerminalCommand": "ls -la"
+}
+`
+```
+
+
+### Terminal Command (Background)[​
+
+> 
+
+
+Runs terminal command in background.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 137
+
+- **BTTTerminalCommand**: Command to execute
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 137,
+  "BTTTerminalCommand": "open /Applications/Safari.app"
+}
+`
+```
+
+
+### Shell Script Task[​
+
+> 
+
+
+Runs shell script with more options.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 206
+
+- **BTTShellTaskActionScript**: Script content
+
+- **BTTShellTaskActionConfig**: Shell configuration (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 206,
+  "BTTShellTaskActionScript": "#!/bin/bash\necho 'Hello World'",
+  "BTTShellTaskActionConfig": "/bin/bash"
+}
+`
+```
+
+
+### Automator Workflow[​
+
+> 
+
+
+Runs an Automator workflow.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 138
+
+- **BTTLaunchPath**: Path to workflow
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 138,
+  "BTTLaunchPath": "/path/to/workflow.workflow"
+}
+`
+```
+
+
+### Run Apple Shortcut[​
+
+> 
+
+
+Runs a Shortcuts app shortcut.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 295
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTFormAppleShortcutName`: string - Name of the Apple Shortcut to run
+
+- `BTTShortcutInput`: string - Input value to pass to the shortcut
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 295,
+  "BTTAdditionalActionData": {
+    "BTTFormAppleShortcutName": "My Shortcut",
+    "BTTShortcutInput": "Hello"
+  }
+}
+`
+```
+
+
+### Trigger Apple Shortcut from System Settings[​
+
+> 
+
+
+Triggers system-level shortcut.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 519
+
+- **BTTGenericActionConfig**: Shortcut identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 519,
+  "BTTGenericActionConfig": "com.apple.shortcuts.12345"
+}
+`
+```
+
+
+## BetterTouchTool Control[​
+
+
+### Open BTT Preferences[​
+
+> 
+
+
+Opens BetterTouchTool preferences window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 105
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 105
+}
+`
+```
+
+
+### Open Specific BTT Settings[​
+
+> 
+
+
+Opens specific section in BTT preferences.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 374
+
+- **BTTGenericActionConfig**: Settings section identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 374,
+  "BTTGenericActionConfig": "gestures"
+}
+`
+```
+
+
+### Restart BetterTouchTool[​
+
+> 
+
+
+Restarts BetterTouchTool.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 55
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 55
+}
+`
+```
+
+
+### Quit BetterTouchTool[​
+
+> 
+
+
+Quits BetterTouchTool.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 56
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 56
+}
+`
+```
+
+
+### Toggle BetterTouchTool[​
+
+> 
+
+
+Enables/disables BetterTouchTool.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 101
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 101
+}
+`
+```
+
+
+### Disable Gesture Recognition[​
+
+> 
+
+
+Temporarily disables gesture recognition.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 144
+
+- **BTTDisableGestureRecognitionFor**: Duration (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 144
+}
+`
+```
+
+
+### Disable Triggers for X Seconds[​
+
+> 
+
+
+Disables all triggers temporarily.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 502
+
+- **BTTDisableTriggerForXSeconds**: Duration in seconds
+
+- **BTTDisableTriggerForUUID**: Specific trigger UUID (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 502,
+  "BTTDisableTriggerForXSeconds": "10"
+}
+`
+```
+
+
+### Switch to Preset[​
+
+> 
+
+
+Switches to a specific preset.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 139
+
+- **BTTPresetSwitchConfig**: Preset configuration
+
+- **BTTMasterPresetName**: Master preset name (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 139,
+  "BTTPresetSwitchConfig": "Default"
+}
+`
+```
+
+
+### Toggle Preset[​
+
+> 
+
+
+Enables/disables a specific preset.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 258
+
+- **BTTPresetSwitchConfig**: Preset configuration
+
+- **BTTMasterPresetName**: Master preset name (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 258,
+  "BTTPresetSwitchConfig": "Gaming"
+}
+`
+```
+
+
+### Trigger Named Trigger[​
+
+> 
+
+
+Executes a named trigger by name.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 248
+
+- **BTTNamedTriggerToTrigger**: Trigger name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 248,
+  "BTTNamedTriggerToTrigger": "My Custom Action"
+}
+`
+```
+
+
+### Trigger Actions for Item with UUID[​
+
+> 
+
+
+Triggers actions of specific item by UUID.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 400
+
+- **BTTGenericActionConfig**: Item UUID
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 400,
+  "BTTGenericActionConfig": "12345-67890-abcdef"
+}
+`
+```
+
+
+### Show BTT Menu Bar Status Item Menu[​
+
+> 
+
+
+Shows BTT's menu bar menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 425
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 425
+}
+`
+```
+
+
+### Disable Configured Trigger[​
+
+> 
+
+
+Disables a specific trigger identified by its UUID.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 552
+
+- **BTTGenericActionConfig**: UUID of the trigger to disable
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 552,
+  "BTTGenericActionConfig": "12345678-1234-1234-1234-123456789012"
+}
+`
+```
+
+
+### Enable Configured Trigger[​
+
+> 
+
+
+Enables a previously disabled trigger identified by its UUID.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 553
+
+- **BTTGenericActionConfig**: UUID of the trigger to enable
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 553,
+  "BTTGenericActionConfig": "12345678-1234-1234-1234-123456789012"
+}
+`
+```
+
+
+### Save Menu Bar Status Item Layout / Ordering[​
+
+> 
+
+
+Saves the current arrangement and ordering of menu bar status items so it can be restored later.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 543
+
+- **BTTGenericActionConfig**: Optional identifier for the saved layout
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 543,
+  "BTTGenericActionConfig": "my_menubar_layout"
+}
+`
+```
+
+
+### Restore Saved Menu Bar Status Item Layout / Ordering[​
+
+> 
+
+
+Restores a previously saved menu bar status item arrangement.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 544
+
+- **BTTGenericActionConfig**: Identifier of the saved layout to restore
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 544,
+  "BTTGenericActionConfig": "my_menubar_layout"
+}
+`
+```
+
+
+### Change Menu Bar Status Item Spacing[​
+
+> 
+
+
+Changes the spacing and padding between menu bar status items.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 545
+
+- **BTTAdditionalActionData**: JSON object with spacing configuration
+
+
+- `BTTActionChangeMenubarStatusItemSpacingSpacing`: number - Spacing between items in pixels
+
+- `BTTActionChangeMenubarStatusItemSpacingPadding`: number - Padding around items in pixels
+
+- `BTTActionChangeMenubarStatusItemSpacingAutorestart`: boolean - Whether to auto-restart affected apps
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 545,
+  "BTTAdditionalActionData": {
+    "BTTActionChangeMenubarStatusItemSpacingSpacing": 8,
+    "BTTActionChangeMenubarStatusItemSpacingPadding": 4,
+    "BTTActionChangeMenubarStatusItemSpacingAutorestart": false
+  }
+}
+`
+```
+
+
+### Show Simple JSON Format Menu[​
+
+> 
+
+
+Shows a customizable menu built from a simple JSON format. Can use JavaScript to generate menu content dynamically.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 551
+
+- **BTTAdditionalActionData**: JSON object with menu configuration
+
+
+- `BTTActionShowWithSimpleJSONFormatScriptSettings`: object - Script settings
+
+- `BTTScriptFunctionToCall`: string - JavaScript function to call
+
+- `BTTJavaScriptUseIsolatedContext`: boolean - Use isolated JavaScript context
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 551,
+  "BTTAdditionalActionData": {
+    "BTTActionShowWithSimpleJSONFormatScriptSettings": {},
+    "BTTScriptFunctionToCall": "generateMenu"
+  }
+}
+`
+```
+
+
+## Touch Bar Actions[​
+
+
+### Toggle Touch Bar[​
+
+> 
+
+
+Shows/hides the Touch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 188
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 188
+}
+`
+```
+
+
+### Show Touch Bar[​
+
+> 
+
+
+Shows the Touch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 282
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 282
+}
+`
+```
+
+
+### Hide Touch Bar[​
+
+> 
+
+
+Hides the Touch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 283
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 283
+}
+`
+```
+
+
+### Toggle Global Touch Bar[​
+
+> 
+
+
+Toggles global Touch Bar visibility.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 190
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 190
+}
+`
+```
+
+
+### Open Touch Bar Group[​
+
+> 
+
+
+Opens a specific Touch Bar group.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 205
+
+- **BTTOpenGroupWithName**: Group name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 205,
+  "BTTOpenGroupWithName": "Media Controls"
+}
+`
+```
+
+
+### Close Current Touch Bar Group[​
+
+> 
+
+
+Closes the currently open Touch Bar group.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 191
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 191
+}
+`
+```
+
+
+## Notch Bar Actions[​
+
+
+### Toggle Notch Bar Hidden[​
+
+> 
+
+
+Shows/hides the Notch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 301
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 301
+}
+`
+```
+
+
+### Show Notch Bar[​
+
+> 
+
+
+Shows the Notch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 312
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 312
+}
+`
+```
+
+
+### Hide Notch Bar[​
+
+> 
+
+
+Hides the Notch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 311
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 311
+}
+`
+```
+
+
+### Disable Notch Bar[​
+
+> 
+
+
+Completely disables the Notch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 299
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 299
+}
+`
+```
+
+
+### Disable Notch Bar for X Seconds[​
+
+> 
+
+
+Temporarily disables Notch Bar.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 299
+
+- **BTTGenericActionConfig**: Duration in seconds
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 299,
+  "BTTGenericActionConfig": "30"
+}
+`
+```
+
+
+### Toggle Notch Bar Mode[​
+
+> 
+
+
+Toggles between Notch Bar modes.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 300
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 300
+}
+`
+```
+
+
+### Open Notch Bar Group[​
+
+> 
+
+
+Opens specific Notch Bar group.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 310
+
+- **BTTOpenGroupWithName**: Group name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 310,
+  "BTTOpenGroupWithName": "System Info"
+}
+`
+```
+
+
+### Close Current Notch Bar Group[​
+
+> 
+
+
+Closes current Notch Bar group.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 309
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 309
+}
+`
+```
+
+
+## Stream Deck Actions[​
+
+
+### Open Stream Deck Group[​
+
+> 
+
+
+Opens a Stream Deck button group.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 341
+
+- **BTTOpenGroupWithName**: Group name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 341,
+  "BTTOpenGroupWithName": "Productivity"
+}
+`
+```
+
+
+### Close Current Stream Deck Group[​
+
+> 
+
+
+Closes current Stream Deck group.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 340
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 340
+}
+`
+```
+
+
+### Switch Stream Deck Plugin Profile[​
+
+> 
+
+
+Switches the Stream Deck plugin to a different profile. Bundled starter profiles are available for all supported BTT Stream Deck plugin device types, and the amount is configurable when installing the BTT Stream Deck plugin. Leave the profile name empty to return to the previous profile. An optional page number (1-based) can be specified to jump directly to a specific page within the profile. If no target device serial is specified, BetterTouchTool switches all connected Stream Deck plugin devices. Legacy names such as `BTT Main` and `BTT Focus` are still recognized and mapped to the numbered starter profiles.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 593
+
+- **BTTStreamDeckPluginProfileName** (launchPath): Profile name to switch to (empty = return to previous profile)
+
+- **BTTStreamDeckPluginTargetDeviceSerial** (actionData): Optional target Stream Deck serial number (empty = switch all connected plugin devices)
+
+- **BTTStreamDeckPluginProfilePage** (additionalActionString): Optional page number (1-based)
+
+
+Bundled starter profiles use numbered names such as:
+
+
+- BTT-01
+
+- BTT-02
+
+- BTT-03
+
+- BTT-04
+
+- BTT-05
+
+- BTT-06
+
+- BTT-07
+
+- BTT-08
+
+
+If you install more bundled profiles, the numbering simply continues (`BTT-09`, `BTT-10`, etc.).
+
+
+Example (switch to a named profile):
+
+```
+`{
+  "BTTPredefinedActionType": 593,
+  "BTTStreamDeckPluginProfileName": "BTT-03"
+}
+`
+```
+
+
+Example (switch to profile page 2):
+
+```
+`{
+  "BTTPredefinedActionType": 593,
+  "BTTStreamDeckPluginProfileName": "BTT-05",
+  "BTTStreamDeckPluginProfilePage": "2"
+}
+`
+```
+
+
+Example (switch only one connected Stream Deck):
+
+```
+`{
+  "BTTPredefinedActionType": 593,
+  "BTTStreamDeckPluginProfileName": "BTT-07",
+  "BTTStreamDeckPluginTargetDeviceSerial": "fc636d61da59e05b74d0120a0c917418"
+}
+`
+```
+
+
+Example (return to previous profile):
+
+```
+`{
+  "BTTPredefinedActionType": 593
+}
+`
+```
+
+
+### Stream Deck Brightness Control[​
+
+> 
+
+
+Controls Stream Deck brightness.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Change Brightness: 343
+
+- Set Brightness: 344
+
+
+- **BTTGenericActionConfig**: Brightness value (0-100 for set, +/- for change)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 344,
+  "BTTGenericActionConfig": "75"
+}
+`
+```
+
+
+### Stream Deck Power Control[​
+
+> 
+
+
+Controls Stream Deck power state.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Turn Off: 347
+
+- Turn On: 348
+
+- Toggle On/Off: 349
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 349
+}
+`
+```
+
+
+### Show/Hide Stream Deck Emulator[​
+
+> 
+
+
+Controls Stream Deck emulator window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 365
+
+- **BTTAdditionalActionData**: JSON object with emulator configuration
+
+
+- `BTTStreamDeckDeviceSerial`: string - Serial number of the Stream Deck device to emulate
+
+- `BTTStreamDeckRows`: number - Number of rows in the emulator grid
+
+- `BTTStreamDeckColumns`: number - Number of columns in the emulator grid
+
+- `BTTStreamDeckShowTitlebar`: boolean - Show window titlebar
+
+- `BTTStreamDeckPaging`: boolean - Enable paging
+
+- `BTTStreamDeckFloatOnTop`: boolean - Float emulator window on top
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 365,
+  "BTTAdditionalActionData": {
+    "BTTStreamDeckRows": 3,
+    "BTTStreamDeckColumns": 5,
+    "BTTStreamDeckFloatOnTop": true,
+    "BTTStreamDeckShowTitlebar": false
+  }
+}
+`
+```
+
+
+### Activate Stream Deck Touch Screen Group[​
+
+> 
+
+
+Activates touch screen configuration on Stream Deck+.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 376
+
+- **BTTGenericActionConfig**: Configuration group name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 376,
+  "BTTGenericActionConfig": "Video Editing"
+}
+`
+```
+
+
+### Temporarily Change Stream Deck Item[​
+
+> 
+
+
+Temporarily changes display of Stream Deck button.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 377
+
+- **BTTGenericActionConfig**: Item UUID
+
+- **BTTGenericActionConfig2**: New display configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 377,
+  "BTTGenericActionConfig": "button-uuid-123",
+  "BTTGenericActionConfig2": "{\"title\":\"Temp Text\",\"backgroundColor\":\"#FF0000\"}"
+}
+`
+```
+
+
+## Floating Menu Actions[​
+
+
+### Show Floating Menu[​
+
+> 
+
+
+Shows a specific floating menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 386
+
+- **BTTAdditionalActionData**: JSON object with menu configuration
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier (primary way to specify the menu)
+
+- `BTTMenuActionMenuName`: Menu name (alternative to UUID, for display/lookup)
+
+- `BTTMenuActionActivateKeyboardFocus`: Keyboard focus mode (0 = do NOT steal keyboard focus, 1 = activate window & steal keyboard focus, 2 = steal keyboard focus without activating window)
+
+- `BTTMenuActionHideOnModifierRelease`: boolean - hide the menu after releasing all pressed modifier keys
+
+- `BTTMenuActionRestorePosition`: boolean - always move & resize to defined position when showing (defaults to true)
+
+- `BTTMenuActionTriggerHoveredOnHide`: boolean - trigger hovered item when menu is being hidden
+
+- `BTTMenuActionCloseSubmenuOnHide`: boolean - close submenus when menu is being hidden
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 386,
+  "BTTPredefinedActionName": "Show Floating Menu",
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuName": "Move Window to Space",
+    "BTTMenuActionActivateKeyboardFocus": 0,
+    "BTTMenuActionHideOnModifierRelease": 0,
+    "BTTMenuActionRestorePosition": true,
+    "BTTMenuActionTriggerHoveredOnHide": 0,
+    "BTTMenuActionCloseSubmenuOnHide": 0
+  }
+}
+`
+```
+
+
+### Hide Floating Menu[​
+
+> 
+
+
+Hides a specific floating menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 387
+
+- **BTTAdditionalActionData**: JSON object with menu configuration
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+- `BTTMenuActionMenuName`: Menu name (alternative to UUID)
+
+- `BTTMenuActionTriggerHoveredOnHide`: boolean - trigger hovered item when menu is being hidden
+
+- `BTTMenuActionCloseSubmenuOnHide`: boolean - close submenus when menu is being hidden
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 387,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuName": "QuickActions",
+    "BTTMenuActionTriggerHoveredOnHide": 0,
+    "BTTMenuActionCloseSubmenuOnHide": 0
+  }
+}
+`
+```
+
+
+### Toggle Floating Menu[​
+
+> 
+
+
+Toggles visibility of floating menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 388
+
+- **BTTAdditionalActionData**: JSON object with menu configuration
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+- `BTTMenuActionMenuName`: Menu name (alternative to UUID)
+
+- `BTTMenuActionActivateKeyboardFocus`: Keyboard focus mode (0 = don't steal, 1 = activate window & steal, 2 = steal without activating)
+
+- `BTTMenuActionHideOnModifierRelease`: boolean - hide after releasing all pressed modifier keys
+
+- `BTTMenuActionRestorePosition`: boolean - always move & resize to defined position when showing (defaults to true)
+
+- `BTTMenuActionTriggerHoveredOnHide`: boolean - trigger hovered item when menu is being hidden
+
+- `BTTMenuActionCloseSubmenuOnHide`: boolean - close submenus when menu is being hidden
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 388,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuName": "QuickActions",
+    "BTTMenuActionActivateKeyboardFocus": 0,
+    "BTTMenuActionRestorePosition": true
+  }
+}
+`
+```
+
+
+### Open Floating Menu Submenu[​
+
+> 
+
+
+Opens a submenu in floating menu. You can specify the target either by item UUID, or by menu name + item name.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 472
+
+- **BTTAdditionalActionData**: JSON object with submenu configuration
+
+
+- `BTTMenuActionMenuItemUUID`: UUID of the menu item (right-click item in BTT to copy UUID)
+
+- `BTTMenuActionMenuName`: Menu name to find the item in
+
+- `BTTMenuActionMenuItemName`: Item name within the menu
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 472,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuName": "MainMenu",
+    "BTTMenuActionMenuItemName": "FileSubmenu"
+  }
+}
+`
+```
+
+
+### Close Floating Menu Submenu[​
+
+> 
+
+
+Closes current floating menu submenu. You can optionally provide the parent menu name or UUID. If no identifier is provided, all open submenus will be closed.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 445
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTMenuActionMenuID`: Parent menu name or UUID containing the submenu
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 445,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "MainMenu"
+  }
+}
+`
+```
+
+
+### Floating Menu Execute JavaScript[​
+
+> 
+
+
+Executes JavaScript in a floating menu web view item. Target the item by UUID, or by menu name + item name.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 398
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTMenuActionMenuItemUUID`: UUID of the web view menu item
+
+- `BTTMenuActionMenuName`: Menu name (alternative to UUID)
+
+- `BTTMenuActionMenuItemName`: Item name within the menu
+
+- `BTTMenuActionMenuItemContentJS`: JavaScript code to execute
+
+- `BTTMenuActionMenuItemUserAgent`: Custom user agent string (optional)
+
+- `BTTMenuActionActivateKeyboardFocus`: Keyboard focus mode (0/1/2)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 398,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuName": "MainMenu",
+    "BTTMenuActionMenuItemName": "WebViewItem",
+    "BTTMenuActionMenuItemContentJS": "document.title = 'Updated';"
+  }
+}
+`
+```
+
+
+### Floating Menu Load HTML[​
+
+> 
+
+
+Loads HTML or URL into a floating menu web view item. Target the item by UUID, or by menu name + item name.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 397
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTMenuActionMenuItemUUID`: UUID of the web view menu item
+
+- `BTTMenuActionMenuName`: Menu name (alternative to UUID)
+
+- `BTTMenuActionMenuItemName`: Item name within the menu
+
+- `BTTMenuActionMenuItemContentHTML`: HTML content or URL to load
+
+- `BTTMenuActionMenuItemContentJS`: JavaScript to execute after loading (optional)
+
+- `BTTMenuActionMenuItemUserAgent`: Custom user agent string (optional)
+
+- `BTTMenuActionActivateKeyboardFocus`: Keyboard focus mode (0/1/2)
+
+- `BTTMenuActionUpdateDefaults`: boolean - persist update to the web view item
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 397,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuName": "WebMenu",
+    "BTTMenuActionMenuItemName": "Browser",
+    "BTTMenuActionMenuItemContentHTML": "<html><body>Hello World</body></html>",
+    "BTTMenuActionActivateKeyboardFocus": 1
+  }
+}
+`
+```
+
+
+### Floating Menu Evaluate Scripts[​
+
+> 
+
+
+Re-evaluates all scripts in a floating menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 389
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 389,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Floating Menu Re-evaluate Position[​
+
+> 
+
+
+Recalculates floating menu position based on its positioning configuration.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 390
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 390,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Floating Menu Bring to Mouse Screen[​
+
+> 
+
+
+Moves floating menu to the screen where the mouse cursor is located.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 399
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 399,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Trigger Floating Menu Highlighted Item[​
+
+> 
+
+
+Triggers the currently highlighted menu item in a floating menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 393
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 393,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Trigger Highlighted Item and Hide Menu[​
+
+> 
+
+
+Triggers the currently highlighted item and then hides the menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 404
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 404,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Floating Menu Hover/Unhover[​
+
+> 
+
+
+Controls hover state of a floating menu item.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Hover: 394
+
+- Unhover: 395
+
+- Toggle Hover: 396
+
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 394,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Update Floating Menu Item Properties[​
+
+> 
+
+
+Dynamically updates properties of a floating menu item at runtime. This is configured through the floating menu item property editor in BTT preferences.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 447
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 447,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Update Floating Menu Properties[​
+
+> 
+
+
+Dynamically updates properties of a floating menu itself at runtime. This is configured through the floating menu property editor in BTT preferences.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 450
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 450,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Reset Floating Menu Item Properties[​
+
+> 
+
+
+Resets dynamically changed item properties back to their defaults. Right-click an item in BTT to copy its UUID. If no UUID is provided, the action applies to the item this action is assigned to.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 451
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Item or menu UUID
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 451,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Run Floating Menu Content Scripts[​
+
+> 
+
+
+Executes content scripts in a floating menu (re-runs shell scripts, AppleScripts, etc. assigned to menu items).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 469
+
+- **BTTAdditionalActionData**: JSON object
+
+
+- `BTTMenuActionMenuID`: Menu UUID or identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 469,
+  "BTTAdditionalActionData": {
+    "BTTMenuActionMenuID": "12345678-1234-1234-1234-123456789012"
+  }
+}
+`
+```
+
+
+### Toggle Attach / Pin Floating Menu To Active Window[​
+
+> 
+
+
+Attaches or detaches a floating menu to/from the currently active window, so the menu moves with the window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 548
+
+- **BTTAdditionalActionData**: JSON object with floating menu configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 548,
+  "BTTAdditionalActionData": {}
+}
+`
+```
+
+
+## Control Flow Actions[​
+
+
+### Delay (Async / Non-Blocking)[​
+
+> 
+
+
+This action pauses the execution of the current action sequence but allows the BTT process to continue processing other stuff. Usually you'd use this action to add some delays to your action sequences, e.g. when waiting for some UI to react. If you need longer timeouts (e.g. to trigger something after 10 minutes) use the "Trigger Action Sequence After Timeout" action instead.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 345
+
+- **BTTDelayNextActionBy**: The amount of time to pause the action execution. Provided as number with a dot as decimal separator.
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 345,
+  "BTTDelayNextActionBy": 2.5
+}
+`
+```
+
+
+### Delay (Blocking)[​
+
+> 
+
+
+This one freezes the BTT process for the specified amount of time, preventing any action processing during that time. You should only ever use this with small delays.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 129
+
+- **BTTDelayNextActionBy**: The amount of time to freeze / block the action execution. Provided as number with a dot as decimal separator.
+
+
+**Note**: Usually you should use the "Delay (Async / Non-Blocking) action instead. The blocking one is only helpful for very few usecases.
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 129,
+  "BTTDelayNextActionBy": 2.5
+}
+`
+```
+
+
+### Start Repeat[​
+
+> 
+
+
+This marks the start of a for loop / repeat. All actions that come between this and the "End / Stop Repeat" action will be repeated.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 329
+
+- **BTTGenericActionConfig**: The name of the for loop
+
+- **BTTAdditionalActionData**: Contains further action configuration object
+
+
+- `BTTActionForLoopRepeat`: Number of times the for loop should repeat (number)
+
+- `BTTActionForLoopRepeatVariable`: If the number of repeats is controlled by a BTT variable, you can specify the variable here
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 329,
+  "BTTAdditionalActionData": {
+    "BTTActionForLoopRepeat": 99
+  },
+  "BTTGenericActionConfig": "nameOfTheLoop"
+}
+`
+```
+
+
+### End / Stop Repeat[​
+
+> 
+
+
+Marks the end of the repeat / for loop.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 332
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 332
+}
+`
+```
+
+
+### Break[​
+
+> 
+
+
+Can only be used between "Start Repeat" and "End/Stop Repeat". Behaves like a standard break e.g. in JavaScript.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 332
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 332
+}
+`
+```
+
+
+### Cancel Repeat[​
+
+> 
+
+
+This will cancel the specified repeat loop (if it is running).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 424
+
+- **BTTGenericActionConfig**: The name of the repeat / loop that shall be canceled.
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 424,
+  "BTTGenericActionConfig": "theLoopIdentifier"
+}
+`
+```
+
+
+### IF Condition[​
+
+> 
+
+
+Starts conditional block based on variable.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 330
+
+- **BTTIfConditionFormat**: Condition format string
+
+- **BTTIfConditionData**: Condition data (base64 encoded)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 330,
+  "BTTIfConditionFormat": "myVar == 'true'",
+  "BTTIfConditionData": "base64_encoded_data"
+}
+`
+```
+
+
+### IF JavaScript True[​
+
+> 
+
+
+Conditional based on JavaScript evaluation.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 431
+
+- **BTTRealJavaScriptString**: JavaScript that returns boolean
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 431,
+  "BTTRealJavaScriptString": "return window.innerWidth > 1024;"
+}
+`
+```
+
+
+### IF AppleScript True[​
+
+> 
+
+
+Conditional based on AppleScript evaluation.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 432
+
+- **BTTInlineAppleScript**: AppleScript that returns boolean
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 432,
+  "BTTInlineAppleScript": "tell application \"System Events\" to return (name of first process whose frontmost is true) is \"Safari\""
+}
+`
+```
+
+
+### IF Image Visible[​
+
+> 
+
+
+Conditional based on image visibility on screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 405
+
+- **BTTFindPositionOfImageImage**: Base64 encoded image
+
+- **BTTFindPositionOfImageImageDark**: Base64 encoded dark mode image (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 405,
+  "BTTFindPositionOfImageImage": "base64_image_data"
+}
+`
+```
+
+
+### IF Text Visible[​
+
+> 
+
+
+Conditional based on text visibility on screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 428
+
+- **BTTGenericActionConfig**: Text to find
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 428,
+  "BTTGenericActionConfig": "Submit Button"
+}
+`
+```
+
+
+### ELSE[​
+
+> 
+
+
+Else clause for IF conditions.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 333
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 333
+}
+`
+```
+
+
+### END IF[​
+
+> 
+
+
+Ends conditional block.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 331
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 331
+}
+`
+```
+
+
+### Execute Action Sequence After Timeout (Cancellable)[​
+
+> 
+
+
+This allows to execute an action sequence after a specific amount of time. While the previously described delay actions are only meant to be used for short delays, this one can also be used for longer delays. Additionally you can specify a name for the timer, which allows you to cancel it if necessary.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 351
+
+- **BTTGenericActionConfig**: The timeout in seconds as string using a dot as decimal separator
+
+- **BTTGenericActionConfig2**: The name of the timer
+
+- **BTTAdditionalActions**: An array of actions that shall be executed after the timeout
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 351,
+  "BTTGenericActionConfig2": "timerName",
+  "BTTGenericActionConfig": "3.5",
+  "BTTAdditionalActions": [
+    {
+      "BTTTriggerType": 740,
+      "BTTPredefinedActionType": 366,
+      "BTTTriggerClass": "BTTTriggerTypeCustomActionConfig",
+      "BTTAdditionalActions": [
+        {
+          "BTTTriggerClass": "BTTTriggerTypeCustomActionConfig",
+          "BTTPredefinedActionType": 3
+        },
+        {
+          "BTTTriggerClass": "BTTTriggerTypeCustomActionConfig",
+          "BTTPredefinedActionType": 3
+        }
+      ]
+    }
+  ]
+}
+`
+```
+
+
+### Cancel Timed / Delayed Action Sequences[​
+
+> 
+
+
+Cancels the execution of action sequences that has been scheduled via predefined action "Execute Action Sequence After Timeout (Cancellable)".
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 352
+
+- **BTTGenericActionConfig2**: The name of the scheduled action sequence you want to cancel
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 352,
+  "BTTGenericActionConfig2": "theNameOfTheTimer"
+}
+`
+```
+
+
+### Ask For Input & Save To Variable[​
+
+> 
+
+
+Shows a floating input field and saves the entered text into a variable.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 403
+
+- **BTTAdditionalActionData**: Contains the configuration object
+
+
+- `BTTActionAskForInputPrompt`: The input prompt (string)
+
+- `BTTActionAskForInputVariableName`: The variable name (string)
+
+- `BTTActionAskForInputVariableType`: 0 - String or 1 Number
+
+- `BTTActionAskForInputOnlyHideOnEnterOrEsc`: 0: Hide when clicking outside, when hitting esc or when hitting enter. 1: Hide when hitting esc or when hitting enter
+
+- `BTTActionAskForInputUseActivatingWindow`: If set to 1 the window will take focus - might be necessary in some situations to receive keyboard input
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 403,
+  "BTTAdditionalActionData": {
+    "BTTActionAskForInputVariableName": "address",
+    "BTTActionAskForInputPrompt": "Enter your address:"
+  }
+}
+`
+```
+
+
+### Wait for Keyboard Input[​
+
+> 
+
+
+This will pause the currently executing action sequence until the specified continue or cancel key has been pressed.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 486
+
+- **BTTActionWaitForKeyboardInputCancelKeyCode**: A keycode that cancels the action sequence when pressed (number)
+
+- **BTTActionWaitForKeyboardInputContinueKeyCode**: A keycode that continues the action sequence when pressed (number)
+
+- **BTTActionWaitForKeyboardInputTimeout**: Timeout in seconds (number)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 486,
+  "BTTActionWaitForKeyboardInputCancelKeyCode": 7,
+  "BTTActionWaitForKeyboardInputContinueKeyCode": 8,
+  "BTTActionWaitForKeyboardInputTimeout": 10
+}
+`
+```
+
+
+### Wait for Conditions To Become True[​
+
+> 
+
+
+This will pause the currently executing action sequence until the specified conditions have been met.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 417
+
+- **BTTWaitForConditionFormat**: The condition to be met (read only)
+
+- **BTTWaitForConditionData**: The condition to be met (data, can only be created via BTT UI)
+
+- **BTTGenericActionConfig**: An identifier to reference the wait
+
+- **BTTGenericActionConfig2**: A JSON string with the properties BTTActionWaitForConditionsInterval and BTTActionWaitForConditionsTimeout
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 417,
+  "BTTWaitForConditionFormat": "fingers_touching_trackpad >= 5",
+  "BTTWaitForConditionData": "base64encodedconditiondata",
+  "BTTGenericActionConfig": "identifier",
+  "BTTGenericActionConfig2": "{\"BTTActionWaitForConditionsInterval\": 2, \"BTTActionWaitForConditionsTimeout\": 10}"
+}
+`
+```
+
+
+### Cancel Wait for Conditions To Become True[​
+
+> 
+
+
+This will cancel a wait for conditions action.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 418
+
+- **BTTGenericActionConfig**: The identifier of the condition wait that you want to cancel
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 418,
+  "BTTGenericActionConfig": "example"
+}
+`
+```
+
+
+### Wait for Change Of Focused Window[​
+
+> 
+
+
+This will pause the currently executing action sequence until the focused window changes.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 423
+
+- **BTTGenericActionConfig2**: A JSON string with the properties BTTActionWaitForFocusChangeInterval and BTTActionWaitForFocusChangeTimeout
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 423,
+  "BTTGenericActionConfig2": "{\"BTTActionWaitForFocusChangeInterval\": 2,\"BTTActionWaitForFocusChangeTimeout\": 10}"
+}
+`
+```
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 334
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 334
+}
+`
+```
+
+
+### Break[​
+
+> 
+
+
+Breaks out of current loop or control structure.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 331
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 331
+}
+`
+```
+
+
+### Continue With Next Action[​
+
+> 
+
+
+Continues to next action in sequence.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 366
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 366
+}
+`
+```
+
+
+### Stop All Action Sequences[​
+
+> 
+
+
+Stops all running action sequences.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 531
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 531
+}
+`
+```
+
+
+### Wait For Conditions[​
+
+> 
+
+
+Waits for specific conditions to become true.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 417
+
+- **BTTWaitForConditionFormat**: Condition format
+
+- **BTTWaitForConditionData**: Condition data (base64)
+
+- **BTTGenericActionConfig2**: JSON object with configuration (optional)
+
+
+- `BTTActionWaitForConditionsInterval`: Check interval in seconds
+
+- `BTTActionWaitForConditionsTimeout`: Wait timeout in seconds
+
+- Other `BTTActionWaitForConditions*` keys for specific conditions
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 417,
+  "BTTWaitForConditionFormat": "variable == 'ready'",
+  "BTTWaitForConditionData": "base64_data",
+  "BTTGenericActionConfig2": {
+    "BTTActionWaitForConditionsInterval": 0.5,
+    "BTTActionWaitForConditionsTimeout": 30
+  }
+}
+`
+```
+
+
+### Cancel Wait For Conditions[​
+
+> 
+
+
+Cancels waiting for conditions.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 418
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 418
+}
+`
+```
+
+
+### Wait For App Launch/Terminate[​
+
+> 
+
+
+Waits for app state changes.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Launch: 413
+
+- Terminate: 414
+
+- Activate: 415
+
+- Deactivate: 416
+
+
+- **BTTGenericActionConfig**: App bundle identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 413,
+  "BTTGenericActionConfig": "com.apple.Safari"
+}
+`
+```
+
+
+### Wait For Image to Become Visible[​
+
+> 
+
+
+Waits for image to appear on screen.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 419
+
+- **BTTFindPositionOfImageImage**: Base64 encoded image
+
+- **BTTGenericActionConfig2**: Timeout in seconds
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 419,
+  "BTTFindPositionOfImageImage": "base64_image_data",
+  "BTTGenericActionConfig2": "10"
+}
+`
+```
+
+
+### Wait For Focus Change[​
+
+> 
+
+
+Waits for window focus to change.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 423
+
+- **BTTGenericActionConfig2**: JSON object with configuration
+
+
+- `BTTActionWaitForFocusChangeInterval`: Check interval in seconds (default: 0)
+
+- `BTTActionWaitForFocusChangeTimeout`: Wait timeout in seconds (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 423,
+  "BTTGenericActionConfig2": {
+    "BTTActionWaitForFocusChangeInterval": 2,
+    "BTTActionWaitForFocusChangeTimeout": 10
+  }
+}
+`
+```
+
+
+### Wait For Keyboard Input[​
+
+> 
+
+
+Waits for specific keyboard input.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 486
+
+- **BTTActionWaitForKeyboardInputContinueKeyCode**: Key code to continue (e.g., "36" for Return key)
+
+- **BTTActionWaitForKeyboardInputCancelKeyCode**: Key code to cancel (optional)
+
+- **BTTActionWaitForKeyboardInputTimeout**: Timeout in seconds (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 486,
+  "BTTActionWaitForKeyboardInputContinueKeyCode": "36",
+  "BTTActionWaitForKeyboardInputCancelKeyCode": "53",
+  "BTTActionWaitForKeyboardInputTimeout": 10
+}
+`
+```
+
+
+### Trigger Action Sequence After Timeout[​
+
+> 
+
+
+Schedules actions to run after delay.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 351
+
+- **BTTGenericActionConfig**: Delay in seconds
+
+- **BTTActionImmediatelyContinueWithNext**: Continue flag (optional)
+
+- **BTTGenericActionConfig2**: Actions to trigger
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 351,
+  "BTTGenericActionConfig": "60",
+  "BTTGenericActionConfig2": "{\"actions\":[{\"BTTPredefinedActionType\":371}]}"
+}
+`
+```
+
+
+### Cancel Action Sequence After Timeout[​
+
+> 
+
+
+Cancels scheduled action sequence.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 352
+
+- **BTTGenericActionConfig**: Sequence identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 352,
+  "BTTGenericActionConfig": "scheduled-123"
+}
+`
+```
+
+
+### Wait For Other BetterTouchTool Trigger To Fire[​
+
+> 
+
+
+Pauses the action sequence and waits until a specific trigger (identified by UUID) fires. If the trigger doesn't fire within the timeout, the wait is cancelled.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 567
+
+- **BTTGenericActionConfig**: UUID of the trigger to wait for
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionWaitForTriggerTimeout`: number - Timeout in seconds (default: very large value)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 567,
+  "BTTGenericActionConfig": "12345678-1234-1234-1234-123456789012",
+  "BTTAdditionalActionData": {
+    "BTTActionWaitForTriggerTimeout": 30
+  }
+}
+`
+```
+
+
+### Debounce[​
+
+> 
+
+
+Only continues the action sequence if the last execution has been more than X seconds ago. Useful to prevent rapid repeated execution of expensive actions.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 579
+
+- **BTTGenericActionConfig**: Debounce time in seconds (as string)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 579,
+  "BTTGenericActionConfig": "2.0"
+}
+`
+```
+
+
+## Variable Actions[​
+
+
+### Set Variable[​
+
+> 
+
+
+Sets a persistent or temporary variable.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 292
+
+- **BTTVariableName**: Variable name (string)
+
+- **BTTVariableValue**: Value to set (string)
+
+- **BTTVariablePersist**: 1 for persistent (survives restart), 0 for temporary
+
+- **BTTVariableType**: Variable type (0 = string, 1 = number)
+
+- **BTTVariableOnlySetIfNotYetDefined**: boolean - Only set the variable if it has not been defined yet
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 292,
+  "BTTVariableName": "counter",
+  "BTTVariableValue": "0",
+  "BTTVariablePersist": 1,
+  "BTTVariableType": 1
+}
+`
+```
+
+
+### Increase Variable[​
+
+> 
+
+
+Increases numeric variable value.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 412
+
+- **BTTVariableName**: Variable name
+
+- **BTTGenericActionConfig**: Amount to increase
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 412,
+  "BTTVariableName": "counter",
+  "BTTGenericActionConfig": "1"
+}
+`
+```
+
+
+### Toggle Variable[​
+
+> 
+
+
+Toggles variable between values.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 335
+
+- **BTTVariableName**: Variable name
+
+- **BTTGenericActionConfig**: Toggle values configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 335,
+  "BTTVariableName": "mode",
+  "BTTGenericActionConfig": "{\"values\":[\"on\",\"off\"]}"
+}
+`
+```
+
+
+### Toggle Multiple Variables / Cycle Through Multiple Actions[​
+
+> 
+
+
+Toggles multiple variables at once or cycles through multiple actions.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 335
+
+- **BTTGenericActionConfig**: Multiple variable configuration
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTActionCycleThroughMultipleResetAfterTimeout`: boolean - reset to first action after timeout
+
+- `BTTActionCycleThroughMultipleResetTimeout`: float - timeout in seconds
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 335,
+  "BTTGenericActionConfig": "{\"variables\":[{\"name\":\"var1\",\"values\":[\"a\",\"b\"]},{\"name\":\"var2\",\"values\":[\"1\",\"2\"]}]}",
+  "BTTAdditionalActionData": {
+    "BTTActionCycleThroughMultipleResetAfterTimeout": true,
+    "BTTActionCycleThroughMultipleResetTimeout": 5.0
+  }
+}
+`
+```
+
+
+### Toggle On/Off[​
+
+> 
+
+
+Simple on/off toggle for variable.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 346
+
+- **BTTVariableName**: Variable name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 346,
+  "BTTVariableName": "enabled"
+}
+`
+```
+
+
+### Ask For Input & Save to Variable[​
+
+> 
+
+
+Shows input dialog and saves to variable.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 403
+
+- **BTTVariableName**: Variable to save to
+
+- **BTTGenericActionConfig**: Input prompt text
+
+- **BTTAdditionalActionData**: JSON object with dialog configuration (optional)
+
+
+- `BTTActionAskForInputTitle`: Dialog title
+
+- `BTTActionAskForInputPlaceholder`: Placeholder text
+
+- `BTTActionAskForInputDefaultValue`: Default value
+
+- `BTTActionAskForInputIsSecure`: boolean - secure text entry
+
+- `BTTActionAskForInputAllowEmpty`: boolean - allow empty input
+
+- Other dialog configuration options
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 403,
+  "BTTVariableName": "userName",
+  "BTTGenericActionConfig": "Please enter your name:",
+  "BTTAdditionalActionData": {
+    "BTTActionAskForInputTitle": "User Registration",
+    "BTTActionAskForInputPlaceholder": "John Doe",
+    "BTTActionAskForInputAllowEmpty": false
+  }
+}
+`
+```
+
+
+### Refresh Condition Values[​
+
+> 
+
+
+Re-evaluates all condition-based variables.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 350
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 350
+}
+`
+```
+
+
+### Show Variables View[​
+
+> 
+
+
+Shows window with all current variables.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 523
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 523
+}
+`
+```
+
+
+## Device Control[​
+
+
+### Connect Bluetooth Device[​
+
+> 
+
+
+Connects to a Bluetooth device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 274
+
+- **BTTActionBluetoothDeviceAddress**: Device address
+
+- **BTTActionBluetoothDeviceName**: Device name (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 274,
+  "BTTActionBluetoothDeviceAddress": "00:11:22:33:44:55"
+}
+`
+```
+
+
+### Disconnect Bluetooth Device[​
+
+> 
+
+
+Disconnects a Bluetooth device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 275
+
+- **BTTActionBluetoothDeviceAddress**: Device address
+
+- **BTTActionBluetoothDeviceName**: Device name (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 275,
+  "BTTActionBluetoothDeviceName": "AirPods Pro"
+}
+`
+```
+
+
+### Toggle Bluetooth Device[​
+
+> 
+
+
+Toggles Bluetooth device connection.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 276
+
+- **BTTActionBluetoothDeviceAddress**: Device address
+
+- **BTTActionBluetoothDeviceName**: Device name (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 276,
+  "BTTActionBluetoothDeviceAddress": "00:11:22:33:44:55"
+}
+`
+```
+
+
+### Enable Bluetooth[​
+
+> 
+
+
+Enables Bluetooth on the system.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 277
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 277
+}
+`
+```
+
+
+### Disable Bluetooth[​
+
+> 
+
+
+Disables Bluetooth on the system.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 278
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 278
+}
+`
+```
+
+
+### Toggle Bluetooth[​
+
+> 
+
+
+Toggles Bluetooth on/off.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 279
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 279
+}
+`
+```
+
+
+### Connect MIDI Device[​
+
+> 
+
+
+Connects to a MIDI device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 271
+
+- **BTTMidiDeviceName**: Device identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 271,
+  "BTTMidiDeviceName": "MIDI Controller"
+}
+`
+```
+
+
+### Send MIDI Command[​
+
+> 
+
+
+Sends MIDI command to device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 462
+
+- **BTTGenericActionConfig**: MIDI command data
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 462,
+  "BTTGenericActionConfig": "{\"channel\":1,\"note\":60,\"velocity\":127}"
+}
+`
+```
+
+
+### Send Raw Data to Generic Device[​
+
+> 
+
+
+Sends raw data to connected device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 379
+
+- **BTTGenericActionConfig**: Device and data configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 379,
+  "BTTGenericActionConfig": "{\"device\":\"device-id\",\"data\":\"raw-hex-data\"}"
+}
+`
+```
+
+
+### Execute Generic Device Command[​
+
+> 
+
+
+Executes command on generic device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 380
+
+- **BTTGenericActionConfig2**: Command configuration
+
+- **BTTGenericActionConfig**: Command name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 380,
+  "BTTGenericActionConfig": "Toggle LED",
+  "BTTGenericActionConfig2": "{\"command\":\"led_toggle\"}"
+}
+`
+```
+
+
+### Connect Sidecar[​
+
+> 
+
+
+Connects iPad as Sidecar display.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 506
+
+- **BTTGenericActionConfig**: Device identifier (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 506
+}
+`
+```
+
+
+### Disconnect Sidecar[​
+
+> 
+
+
+Disconnects Sidecar display.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 507
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 507
+}
+`
+```
+
+
+### BTT Mobile Actions[​
+
+> 
+
+
+Controls BTT Mobile companion app.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Show Specific Menu: 452
+
+- Show Trackpad: 453 (see Mobile Trackpad Widget below for configuration)
+
+- Show Menu Overview: 454
+
+- Show Default Actions: 455
+
+- Show File Browser: 456
+
+- Disconnect: 457
+
+- Show Menubar: 510
+
+- Go Back: 511
+
+- Enable: 514
+
+- Disable: 515
+
+- Start Keyboard Input: 598 (shows the keyboard input overlay on the connected iOS device)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 453
+}
+`
+```
+
+
+### Mobile Trackpad Widget[​
+
+> 
+
+
+Shows a configurable trackpad on BTT Mobile device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 453
+
+- **BTTAdditionalActionData**: JSON object with trackpad configuration
+
+
+- `BTTMenuWidgetTrackpadTwoFingerScroll`: boolean - Enable two-finger scrolling
+
+- `BTTMenuWidgetTrackpadThreeFingerDrag`: boolean - Enable three-finger drag
+
+- `BTTMenuWidgetTrackpadDisableOnHost`: boolean - Disable when host is active
+
+- `BTTMenuWidgetTrackpadWidth`: number - Trackpad width
+
+- `BTTMenuWidgetTrackpadHeight`: number - Trackpad height
+
+- `BTTMenuWidgetTrackpadBorderWidth`: number - Border width
+
+- `BTTMenuWidgetTrackpadCornerRadius`: number - Corner radius
+
+- `BTTMenuWidgetTrackpadBorderColor`: string - Border color (hex)
+
+- `BTTMenuWidgetTrackpadFingerMoveColor`: string - Finger move color (hex)
+
+- `BTTMenuWidgetTrackpadFingerDragColor`: string - Finger drag color (hex)
+
+- `BTTMenuWidgetTrackpadFingerScrollColor`: string - Finger scroll color (hex)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 453,
+  "BTTAdditionalActionData": {
+    "BTTMenuWidgetTrackpadTwoFingerScroll": true,
+    "BTTMenuWidgetTrackpadThreeFingerDrag": true,
+    "BTTMenuWidgetTrackpadWidth": 300,
+    "BTTMenuWidgetTrackpadHeight": 200,
+    "BTTMenuWidgetTrackpadBorderColor": "#CCCCCC",
+    "BTTMenuWidgetTrackpadCornerRadius": 10
+  }
+}
+`
+```
+
+
+### Siri Remote Mouse Mode[​
+
+> 
+
+
+Controls Siri Remote mouse mode.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Enable: 516
+
+- Disable: 517
+
+- Toggle: 166
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 166
+}
+`
+```
+
+
+### Logitech: Change Mouse DPI[​
+
+> 
+
+
+Changes the DPI (sensitivity) setting of a Logitech mouse (e.g. MX Master).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 554
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechDPI`: number - DPI value
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 554,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechDPI": 1600,
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+### Logitech: Change Smart Shift / Ratchet Mode / Scroll Settings[​
+
+> 
+
+
+Changes smart shift, ratchet mode, and scroll settings of a Logitech mouse.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 555
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechTorque`: number - Torque value
+
+- `BTTActionLogitechSmartshiftMode`: number - Smart shift mode
+
+- `BTTActionLogitechAutoDisengange`: number - Auto disengage setting
+
+- `BTTActionLogitechScrollWheelHighResolutionMode`: number - High resolution scroll mode
+
+- `BTTActionLogitechScrollWheelInvertMain`: number - Invert main scroll wheel
+
+- `BTTActionLogitechScrollWheelInvertThumb`: number - Invert thumb scroll wheel
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 555,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechSmartshiftMode": 1,
+    "BTTActionLogitechTorque": 20,
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+### Logitech: Change LED Color[​
+
+> 
+
+
+Changes the LED color of a Logitech device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 556
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechLEDColor`: string - RGBA color string
+
+- `BTTActionLogitechLEDMode`: number - LED mode
+
+- `BTTActionLogitechLEDIntensity`: number - LED intensity
+
+- `BTTActionLogitechLEDPeriod`: number - LED period
+
+- `BTTActionLogitechLEDWaveform`: number - LED waveform
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 556,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechLEDColor": "1.0,0.0,0.0,1.0",
+    "BTTActionLogitechLEDMode": 1,
+    "BTTActionLogitechLEDIntensity": 100,
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+### Logitech: Change Report Rate[​
+
+> 
+
+
+Changes the report rate (polling rate in Hz) of a Logitech mouse.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 557
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechReportRate`: number - Report rate in Hz
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 557,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechReportRate": 1000,
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+### Logitech: Change Profile[​
+
+> 
+
+
+Switches the onboard profile of a Logitech device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 558
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechProfile`: number - Profile index
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 558,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechProfile": 0,
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+### Logitech: Increase / Decrease Keyboard Brightness[​
+
+> 
+
+
+Increases or decreases the keyboard backlight brightness of a Logitech keyboard.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Increase: 561
+
+- Decrease: 562
+
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechDeviceName`: string - Name of the Logitech keyboard
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 561,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechDeviceName": "MX Keys"
+  }
+}
+`
+```
+
+
+### Logitech: Increase / Decrease Mouse DPI[​
+
+> 
+
+
+Incrementally increases or decreases the mouse DPI by a scale factor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Increase: 563
+
+- Decrease: 564
+
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechDPIScaleFactor`: number - Scale factor (default: 1.2)
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 563,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechDPIScaleFactor": 1.5,
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+### Logitech: Toggle Ratchet Mode[​
+
+> 
+
+
+Toggles the scroll wheel ratchet mode (free-spin vs. ratchet) of a Logitech mouse.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 565
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 565,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+### Logitech: Haptic Feedback[​
+
+> 
+
+
+Triggers haptic feedback on a supported Logitech mouse (MX Master 4 only).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 566
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechHapticPattern`: number - Haptic pattern ID
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 566,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechHapticPattern": 1,
+    "BTTActionLogitechMouseName": "MX Master 4"
+  }
+}
+`
+```
+
+
+### Logitech: Change Host / Channel[​
+
+> 
+
+
+Switches the active host/channel (1-3) on a multi-device Logitech device.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 568
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionLogitechChannel`: number - Channel number (1-3)
+
+- `BTTActionLogitechMouseName`: string - Name of the Logitech device
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 568,
+  "BTTAdditionalActionData": {
+    "BTTActionLogitechChannel": 2,
+    "BTTActionLogitechMouseName": "MX Master 3S"
+  }
+}
+`
+```
+
+
+## UI Automation Actions[​
+
+
+### Find Position of Image on Screen[​
+
+> 
+
+
+Finds image on screen and optionally clicks it.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 291
+
+- **BTTFindPositionOfImageImage**: Base64 encoded image (deprecated - use BTTAdditionalActionData)
+
+- **BTTFindPositionOfImageImageDark**: Base64 encoded dark mode image (optional, deprecated)
+
+- **BTTFindPositionOfImageConfig**: Configuration options (deprecated - use BTTAdditionalActionData)
+
+- **BTTAdditionalActionData**: JSON object with find image configuration
+
+
+- `BTTActionFindImagePath`: string - Path to image file
+
+- `BTTActionFindImageTolerance`: number - Match tolerance (0-100, default: 80)
+
+- `BTTActionFindImageContrastEnhance`: boolean - Enhance contrast before matching
+
+- `BTTActionFindImageMakeGrayscale`: boolean - Convert to grayscale before matching
+
+- `BTTActionFindImageBinaryThreshold`: number - Binary threshold for image processing (0-255)
+
+- `BTTActionFindImageMatchMultiple`: boolean - Find all matches instead of just the first
+
+- `BTTActionFindImageWaitFor`: number - Wait duration in seconds for image to appear
+
+- `BTTActionFindImageScreen`: number - Screen to search (0=all, 1=main, 2=mouse screen)
+
+- `BTTActionFindImageEnableVisualFeedback`: boolean - Show visual feedback on matches
+
+- `BTTActionFindImageVariableIdentifier`: string - Variable name to store result coordinates
+
+- `BTTActionFindImageWaitMode`: number - Wait behavior (0=fail if not found, 1=wait up to duration)
+
+- `BTTActionFindImageFuzzyMatching`: number - Fuzzy matching level (0-100)
+
+- `BTTActionFindImageAction`: number - Action on find (0=nothing, 1=move mouse, 2=click, 3=double click)
+
+- `BTTActionFindImageHideMouseCursor`: boolean - Hide mouse cursor during search
+
+- `BTTFindImageUseDifferentDarkModeImage`: boolean - Use a different image when dark mode is active
+
+- `BTTFindImageSkipFirstMatches`: number - Skip the first N matches and use the next one
+
+- `BTTFindImageSearchRegion`: string - Limit search to a specific screen region (coordinates)
+
+- `BTTFindImageSquareSize`: number - Square size for grid-based search
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 291,
+  "BTTAdditionalActionData": {
+    "BTTActionFindImagePath": "/path/to/image.png",
+    "BTTActionFindImageTolerance": 85,
+    "BTTActionFindImageAction": 2,
+    "BTTActionFindImageWaitFor": 5,
+    "BTTActionFindImageEnableVisualFeedback": true,
+    "BTTActionFindImageVariableIdentifier": "found_image_location"
+  }
+}
+`
+```
+
+
+### Scroll[​
+
+> 
+
+
+Sends scroll events.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 272
+
+- **BTTScrollBy**: Scroll configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 272,
+  "BTTScrollBy": "0,5"
+}
+`
+```
+
+
+### Start/Stop Scroll Blocking[​
+
+> 
+
+
+Blocks scroll events from reaching apps.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start Blocking: 381
+
+- Stop Blocking: 382
+
+
+- **BTTAdditionalActionData** (for Start Blocking): JSON object with configuration
+
+
+- `BTTActionBlockScrollingConfig`: number - Blocking configuration mode
+
+- `BTTActionBlockScrollingOnlyOnTouchDevices`: boolean - Only block scrolling from touch input devices (trackpad, Magic Mouse)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 381,
+  "BTTAdditionalActionData": {
+    "BTTActionBlockScrollingOnlyOnTouchDevices": true
+  }
+}
+`
+```
+
+
+### Zoom (Pinch)[​
+
+> 
+
+
+Performs zoom/pinch gesture.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 478
+
+- **BTTGenericActionConfig**: Zoom configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 478,
+  "BTTGenericActionConfig": "{\"zoomIn\":true,\"amount\":1.5}"
+}
+`
+```
+
+
+### Rotate[​
+
+> 
+
+
+Performs rotation gesture.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 479
+
+- **BTTGenericActionConfig**: Rotation configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 479,
+  "BTTGenericActionConfig": "{\"degrees\":90,\"clockwise\":true}"
+}
+`
+```
+
+
+### Smart Zoom[​
+
+> 
+
+
+Performs smart zoom (double tap with two fingers).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 117
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 117
+}
+`
+```
+
+
+### Look Up[​
+
+> 
+
+
+Shows definition/info for selected text.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 116
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 116
+}
+`
+```
+
+
+### Show Context Menu[​
+
+> 
+
+
+Shows context menu at current position.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 288
+
+- **BTTCustomContextMenu**: Custom menu configuration (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 288
+}
+`
+```
+
+
+### Show Context Menu for Selection[​
+
+> 
+
+
+Shows context menu for selected text.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 353
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 353
+}
+`
+```
+
+
+### Trigger Menu Bar Item[​
+
+> 
+
+
+Clicks a menu bar menu item.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 124
+
+- **BTTMenubarPath**: Menu path (e.g., "File;New")
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 124,
+  "BTTMenubarPath": "File;Save"
+}
+`
+```
+
+
+### Trigger Context Menu Item[​
+
+> 
+
+
+Clicks item in context menu.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 162
+
+- **BTTTriggerContextMenuPath**: Menu item path
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 162,
+  "BTTTriggerContextMenuPath": "Copy"
+}
+`
+```
+
+
+### Click Status Bar Item[​
+
+> 
+
+
+Clicks a status bar item.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 375
+
+- **BTTActionStatusItem**: Item identifier or position
+
+- **BTTActionStatusItemClickType**: Click type (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 375,
+  "BTTActionStatusItem": "Wi-Fi"
+}
+`
+```
+
+
+### Show/Hide Status Bar Items[​
+
+> 
+
+
+Controls visibility of status bar items.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Show Specific Item: 458
+
+- Hide Items Left of Item: 460
+
+- Show Items Left of Item: 461
+
+- Toggle Items Left: 265
+
+- Show All Items: 463
+
+- Hide from Always Hidden: 467
+
+- Show from Always Hidden: 466
+
+- Toggle Always Hidden: 468
+
+
+- **BTTActionStatusItem**: Item identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 265,
+  "BTTActionStatusItem": "Bluetooth"
+}
+`
+```
+
+
+### Move Status Bar Item[​
+
+> 
+
+
+Moves status bar item to new position.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 459
+
+- **BTTActionStatusItem**: Item identifier
+
+- **BTTActionMoveToStatusItem**: New position
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 459,
+  "BTTActionStatusItem": "VPN",
+  "BTTActionMoveToStatusItem": 3
+}
+`
+```
+
+
+### Search Menu Bar Status Items[​
+
+> 
+
+
+Opens search for status bar items.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 464
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 464
+}
+`
+```
+
+
+### Click Button in Active Window[​
+
+> 
+
+
+Clicks a button by name in active window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 520
+
+- **BTTGenericActionConfig**: Button name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 520,
+  "BTTGenericActionConfig": "OK"
+}
+`
+```
+
+
+### Change Slider Value[​
+
+> 
+
+
+Changes slider value in active window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 521
+
+- **BTTGenericActionConfig**: Slider identifier
+
+- **BTTGenericActionConfig2**: New value
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 521,
+  "BTTGenericActionConfig": "Volume",
+  "BTTGenericActionConfig2": "75"
+}
+`
+```
+
+
+### Interact with UI Element[​
+
+> 
+
+
+Generic UI element interaction using accessibility (AX) paths.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 522
+
+- **BTTActionInteractWithUIElementAction**: Action type
+
+- **BTTActionInteractWithUIElementBringToFront**: Bring to front flag
+
+- **BTTActionInteractWithUIElementOnlyFocusedWindow**: Only focused window
+
+- **BTTActionInteractWithUIElementOptions**: Additional options
+
+- **BTTAdditionalActionData**: JSON object with AX path configuration
+
+
+- `BTTActionAXPath`: string - Accessibility path to the UI element
+
+- `BTTActionAXPathOnlySearchInFocusedWindow`: boolean - Only search within the focused window
+
+- `BTTActionAXBringToFront`: boolean - Bring the target app to front before interacting
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 522,
+  "BTTActionInteractWithUIElementAction": "click",
+  "BTTAdditionalActionData": {
+    "BTTActionAXPath": "AXMenuBar/AXMenuBarItem[title='File']/AXMenu/AXMenuItem[title='Save']",
+    "BTTActionAXPathOnlySearchInFocusedWindow": true,
+    "BTTActionAXBringToFront": true
+  }
+}
+`
+```
+
+
+### Show UI Element Viewers[​
+
+> 
+
+
+Shows debugging viewers for UI elements.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Focused Element: 503
+
+- Hovered Element: 504
+
+- Visible Windows: 505
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 503
+}
+`
+```
+
+
+### Get Hovered Link/URL[​
+
+> 
+
+
+Gets link or URL under mouse cursor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Get Link: 524
+
+- Get URL: 526
+
+
+- **BTTVariableName**: Variable to store result
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 526,
+  "BTTVariableName": "hoveredURL"
+}
+`
+```
+
+
+### Start/End Keyboard Input Blocking[​
+
+> 
+
+
+Blocks keyboard input from reaching apps.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start Blocking: 429
+
+- End Blocking: 430
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 429
+}
+`
+```
+
+
+### Lock Mouse Axis Movement[​
+
+> 
+
+
+Locks mouse movement to specific axis.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Lock X Start: 533
+
+- Lock X End: 534
+
+- Lock Y Start: 535
+
+- Lock Y End: 536
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 533
+}
+`
+```
+
+
+### Start / Stop Smooth Scroll[​
+
+> 
+
+
+Starts or stops continuous smooth scrolling. Can be used to simulate touchpad-like smooth scrolling.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start: 569
+
+- Stop: 570
+
+
+- **BTTAdditionalActionData** (for Start): JSON object with configuration
+
+
+- `BTTScrollModifierSpeedVertical`: number - Vertical scroll speed
+
+- `BTTScrollModifierSpeedHorizontal`: number - Horizontal scroll speed
+
+- `BTTScrollModifierDuration`: number - Duration of scroll deceleration in seconds
+
+- `BTTScrollModifierEmaAlpha`: number - EMA alpha smoothing factor (0-1)
+
+- `BTTScrollModifierSubPixelBoost`: number - Sub-pixel boost multiplier
+
+
+- **BTTAdditionalActionData** (for Stop): JSON object with configuration
+
+
+- `BTTScrollStopImmediate`: boolean - Stop immediately without deceleration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 569,
+  "BTTAdditionalActionData": {
+    "BTTScrollModifierSpeedVertical": 5.0,
+    "BTTScrollModifierSpeedHorizontal": 0,
+    "BTTScrollModifierDuration": 0.5
+  }
+}
+`
+```
+
+
+### Start / Stop Smooth Zoom[​
+
+> 
+
+
+Starts or stops continuous smooth zooming (pinch zoom gesture simulation).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start: 571
+
+- Stop: 572
+
+
+- **BTTAdditionalActionData** (for Start): JSON object with configuration
+
+
+- `BTTZoomSpeed`: number - Magnification per second
+
+
+- **BTTAdditionalActionData** (for Stop): JSON object with configuration
+
+
+- `BTTZoomStopImmediate`: boolean - Stop immediately without deceleration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 571,
+  "BTTAdditionalActionData": {
+    "BTTZoomSpeed": 2.0
+  }
+}
+`
+```
+
+
+### Start / Stop Smooth Rotate[​
+
+> 
+
+
+Starts or stops continuous smooth rotation (rotation gesture simulation).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start: 573
+
+- Stop: 574
+
+
+- **BTTAdditionalActionData** (for Start): JSON object with configuration
+
+
+- `BTTRotateSpeed`: number - Degrees per second
+
+
+- **BTTAdditionalActionData** (for Stop): JSON object with configuration
+
+
+- `BTTRotateStopImmediate`: boolean - Stop immediately without deceleration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 573,
+  "BTTAdditionalActionData": {
+    "BTTRotateSpeed": 45.0
+  }
+}
+`
+```
+
+
+### Start / Stop Smooth Space Switch[​
+
+> 
+
+
+Starts or stops smooth space switching animation (smooth horizontal desktop transition).
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Start: 575
+
+- Stop: 578
+
+
+- **BTTAdditionalActionData** (for Start): JSON object with configuration
+
+
+- `BTTSpaceSwitchSpeed`: number - Offset progress per second
+
+- `BTTSpaceSwitchDragSensitivity`: number - Drag sensitivity multiplier
+
+
+- **BTTAdditionalActionData** (for Stop): JSON object with configuration
+
+
+- `BTTSpaceSwitchStopImmediate`: boolean - Stop immediately without deceleration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 575,
+  "BTTAdditionalActionData": {
+    "BTTSpaceSwitchSpeed": 1.5
+  }
+}
+`
+```
+
+
+### Start Dictation / Speech Recognition[​
+
+> 
+
+
+Starts recognizing and transcribing speech using macOS speech recognition.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 576
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 576
+}
+`
+```
+
+
+### Stop Dictation & Paste or Copy[​
+
+> 
+
+
+Stops speech recognition and pastes or copies the transcribed text.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 577
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 577
+}
+`
+```
+
+
+## Custom Actions[​
+
+
+### Show Custom Context Menu[​
+
+> 
+
+
+Shows a custom context menu with items.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 327
+
+- **BTTGenericActionConfig**: Menu configuration JSON
+
+- **BTTActionCustomScriptSettings**: Script settings (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 327,
+  "BTTGenericActionConfig": "{\"items\":[{\"title\":\"Option 1\",\"action\":248,\"trigger\":\"action1\"},{\"title\":\"Option 2\",\"action\":248,\"trigger\":\"action2\"}]}"
+}
+`
+```
+
+
+### Show Custom HTML Menu[​
+
+> 
+
+
+Shows menu with HTML content.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 339
+
+- **BTTGenericActionConfig**: HTML menu configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 339,
+  "BTTGenericActionConfig": "{\"html\":\"<div>Custom Menu</div>\",\"width\":200,\"height\":300}"
+}
+`
+```
+
+
+### Show Searchable List[​
+
+> 
+
+
+Shows a searchable list of items. Items can be provided statically or retrieved dynamically from a script.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 465
+
+- **BTTAdditionalActionData**: JSON object with searchable list configuration
+
+
+- `BTTActionSearchableListIconBackgroundColor`: string - Icon background color (hex)
+
+- `BTTActionSearchableListInputBehavior`: number - Input behavior mode
+
+- `BTTActionSearchableListPosition`: number - List position on screen
+
+- `BTTActionEmbeddedFloatingMenuIdentifier`: string - UUID of a floating menu to embed in the list
+
+- `BTTActionShowWithSimpleJSONFormatScriptSettings`: object - Script settings for retrieving list content dynamically (AppleScript/Shell Script)
+
+
+- **BTTActionCustomScriptSettingsJSON**: JSON object with script configuration for dynamic content (optional, stored separately)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 465,
+  "BTTAdditionalActionData": {
+    "BTTActionSearchableListIconBackgroundColor": "#0084FF",
+    "BTTActionSearchableListInputBehavior": 0,
+    "BTTActionSearchableListPosition": 0
+  }
+}
+`
+```
+
+
+### Show Floating Web View[​
+
+> 
+
+
+Shows floating window with web content.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 249
+
+- **BTTActionURLToLoad**: URL or HTML file path
+
+- **BTTActionFloatingHTMLConfig**: Window configuration as JSON string (contains width, height, x, y, etc.)
+
+- **BTTActionFloatingHTMLName**: Window name/identifier (optional)
+
+- **BTTAdditionalActionData**: JSON object with additional configuration
+
+
+- `BTTWebviewClickThrough`: boolean - Allow clicks to pass through the webview
+
+- `BTTWebviewDoNotAutofocus`: boolean - Do not automatically focus the webview
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 249,
+  "BTTActionURLToLoad": "https://example.com",
+  "BTTActionFloatingHTMLConfig": "{\"width\":800,\"height\":600,\"x\":100,\"y\":100}",
+  "BTTAdditionalActionData": {
+    "BTTWebviewClickThrough": false,
+    "BTTWebviewDoNotAutofocus": true
+  }
+}
+`
+```
+
+
+### Close Floating Web View[​
+
+> 
+
+
+Closes floating web view window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 372
+
+- **BTTGenericActionConfig**: Window identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 372,
+  "BTTGenericActionConfig": "webview-1"
+}
+`
+```
+
+
+### Show HUD[​
+
+> 
+
+
+Shows a heads-up display overlay with a message.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 254
+
+- **BTTHUDActionConfiguration**: HUD configuration JSON string (legacy compatibility format)
+
+- **BTTAdditionalActionData**: JSON object with HUD configuration (recommended)
+
+
+- `BTTActionHUDTitle`: string - Main title text (plain text)
+
+- `BTTActionHUDAttributedTitle`: string - Attributed title (rich text, alternative to BTTActionHUDTitle)
+
+- `BTTActionHUDDetail`: string - Detail/subtitle text
+
+- `BTTActionHUDBackground`: string - Background color. Accepts legacy RGBA strings and common CSS color strings such as `#000000CC`
+
+- `BTTActionHUDBlur`: boolean - Enable system blur effect behind HUD
+
+- `BTTActionHUDDuration`: number - Display duration in seconds (0 = stays until dismissed)
+
+- `BTTActionHUDHideWhenOtherHUDAppears`: boolean - Close immediately when another HUD appears
+
+- `BTTActionHUDCloseOnClick`: boolean - Close the HUD when clicked
+
+- `BTTActionHUDPosition`: number - Screen position (0=center, 1=top-center, 2=bottom-center, 3=top-left, 4=top-right, 5=bottom-left, 6=bottom-right)
+
+- `BTTActionHUDOffsetX`: number - Horizontal offset from position in pixels
+
+- `BTTActionHUDOffsetY`: number - Vertical offset from position in pixels
+
+- `BTTActionHUDSlideDirection`: number - Animation slide direction
+
+- `BTTActionHUDDisplayToUse`: number - Which display to show on (0=main, 1=mouse screen, etc.)
+
+- `BTTActionHUDWidth`: number - HUD width in pixels (0 = auto)
+
+- `BTTActionHUDHeight`: number - HUD height in pixels (0 = auto)
+
+- `BTTActionHUDPadding`: number - Inner padding in pixels
+
+- `BTTActionHUDBorderColor`: string - Border color. Accepts the same formats as `BTTActionHUDBackground`
+
+- `BTTActionHUDBorderWidth`: number - Border width in pixels
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 254,
+  "BTTAdditionalActionData": {
+    "BTTActionHUDTitle": "Action completed!",
+    "BTTActionHUDDetail": "Your files have been saved.",
+    "BTTActionHUDDuration": 2,
+    "BTTActionHUDBackground": "#000000CC",
+    "BTTActionHUDBlur": true,
+    "BTTActionHUDPosition": 0,
+    "BTTActionHUDCloseOnClick": true
+  }
+}
+`
+```
+
+
+### Show Notification[​
+
+> 
+
+
+Shows system notification.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 371
+
+- **BTTAdditionalActionData**: JSON object with notification configuration
+
+
+- `BTTActionSendNotificationTitle`: string - Notification title
+
+- `BTTActionSendNotificationSubTitle`: string - Notification subtitle
+
+- `BTTActionSendNotificationMessage`: string - Notification body message
+
+- `BTTActionSendNotificationSound`: string - Sound name to play (optional)
+
+- `BTTActionSendNotificationAttachment`: string - Path to image attachment (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 371,
+  "BTTAdditionalActionData": {
+    "BTTActionSendNotificationTitle": "BetterTouchTool",
+    "BTTActionSendNotificationSubTitle": "Task Update",
+    "BTTActionSendNotificationMessage": "Task completed successfully",
+    "BTTActionSendNotificationSound": "default"
+  }
+}
+`
+```
+
+
+### Haptic Feedback[​
+
+> 
+
+
+Triggers haptic feedback on trackpad.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 255
+
+- **BTTHapticFeedbackAction**: Pattern type (1-22)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 255,
+  "BTTHapticFeedbackAction": 1
+}
+`
+```
+
+
+### Show Color Picker[​
+
+> 
+
+
+Shows the color picker dialog.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 94
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 94
+}
+`
+```
+
+
+### Show Cheat Sheet[​
+
+> 
+
+
+Shows keyboard shortcut cheat sheet.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 354
+
+- **BTTAdditionalActionData**: JSON object with cheat sheet configuration
+
+
+- `BTTActionCheatSheetTitleTextColor`: string - Title text color (hex)
+
+- `BTTActionCheatSheetDescriptionTextColor`: string - Description text color (hex)
+
+- `BTTActionCheatSheetBackground`: string - Background color (hex)
+
+- `BTTActionCheatSheetBackgroundAlpha`: number - Background transparency (0-1)
+
+- `BTTActionCheatSheetItemsPerColumn`: number - Number of items per column
+
+- `BTTActionCheatSheetItemHeight`: number - Height of each item
+
+- `BTTActionCheatSheetWindowCornerRadius`: number - Window corner radius
+
+- `BTTActionCheatSheetWindowWidth`: number - Window width
+
+- `BTTActionCheatSheetWindowPadding`: number - Window padding
+
+- `BTTActionCheatSheetItemBackground`: string - Item background color (hex)
+
+- `BTTActionCheatSheetItemBorderColor`: string - Item border color (hex)
+
+- `BTTActionCheatSheetShowIcon`: boolean - Show app icons
+
+- `BTTActionCheatSheetShowActiveAppOnly`: boolean - Show only active app shortcuts
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 354,
+  "BTTAdditionalActionData": {
+    "BTTActionCheatSheetBackground": "#000000",
+    "BTTActionCheatSheetBackgroundAlpha": 0.9,
+    "BTTActionCheatSheetTitleTextColor": "#FFFFFF",
+    "BTTActionCheatSheetDescriptionTextColor": "#CCCCCC",
+    "BTTActionCheatSheetItemsPerColumn": 10,
+    "BTTActionCheatSheetShowIcon": true
+  }
+}
+`
+```
+
+
+### Hide/Toggle Cheat Sheet[​
+
+> 
+
+
+Controls cheat sheet visibility.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Hide: 355
+
+- Toggle: 356
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 356
+}
+`
+```
+
+
+### Open URL[​
+
+> 
+
+
+Opens URL in default browser.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 59
+
+- **BTTOpenURL**: URL to open
+
+- **BTTOpenURLBrowser**: Specific browser (optional)
+
+- **BTTOpenURLTerminalCommand**: Use terminal command flag (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 59,
+  "BTTOpenURL": "https://folivora.ai",
+  "BTTOpenURLBrowser": "com.apple.Safari"
+}
+`
+```
+
+
+### Post Distributed Notification[​
+
+> 
+
+
+Posts a system-wide notification.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 136
+
+- **BTTPostDistributedNotificationName**: Notification name
+
+- **BTTActionUserInfo**: Notification data (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 136,
+  "BTTPostDistributedNotificationName": "com.myapp.notification"
+}
+`
+```
+
+
+### Change Input Source[​
+
+> 
+
+
+Changes keyboard input source/language.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 420
+
+- **BTTGenericActionConfig**: Input source ID
+
+- **BTTAdditionalActionData**: JSON object with configuration (optional)
+
+
+- `BTTActionChangeInputSourceID`: Input source identifier
+
+- Other `BTTActionChangeInputSource*` keys for additional settings
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 420,
+  "BTTGenericActionConfig": "com.apple.keylayout.US",
+  "BTTAdditionalActionData": {
+    "BTTActionChangeInputSourceID": "com.apple.keylayout.US"
+  }
+}
+`
+```
+
+
+### Change Default Browser[​
+
+> 
+
+
+Changes system default browser.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 492
+
+- **BTTGenericActionConfig**: Browser bundle identifier
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 492,
+  "BTTGenericActionConfig": "com.google.Chrome"
+}
+`
+```
+
+
+### Set Function Key Mode[​
+
+> 
+
+
+Sets function key behavior.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 436
+
+- **BTTGenericActionConfig**: Mode (0=F keys, 1=media keys)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 436,
+  "BTTGenericActionConfig": "1"
+}
+`
+```
+
+
+### Call macOS Service[​
+
+> 
+
+
+Calls a macOS service by name.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 435
+
+- **BTTGenericActionConfig**: Service name
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 435,
+  "BTTGenericActionConfig": "Look Up in Dictionary"
+}
+`
+```
+
+
+### Set Icon for File[​
+
+> 
+
+
+Sets custom icon for file/folder/app.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 473
+
+- **BTTGenericActionConfig**: File path
+
+- **BTTGenericActionConfig2**: Icon path or data
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 473,
+  "BTTGenericActionConfig": "/Applications/MyApp.app",
+  "BTTGenericActionConfig2": "/path/to/icon.icns"
+}
+`
+```
+
+
+### Create Snap Area[​
+
+> 
+
+
+Creates a new window snap area.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 391
+
+- **BTTGenericActionConfig**: Snap area configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 391,
+  "BTTGenericActionConfig": "{\"x\":0,\"y\":0,\"width\":640,\"height\":480}"
+}
+`
+```
+
+
+### Edit Snap Areas[​
+
+> 
+
+
+Opens snap area editor.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 392
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 392
+}
+`
+```
+
+
+### Trigger Snap Area[​
+
+> 
+
+
+Triggers specific snap area.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 168
+
+- **BTTDragPointUUID**: Snap area identifier
+
+- **BTTResizeWindowToRect**: Window rect (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 168,
+  "BTTDragPointUUID": "left-half"
+}
+`
+```
+
+
+### Plugin Action[​
+
+> 
+
+
+Executes a BTT plugin action.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 280
+
+- **BTTGenericActionConfig2**: Plugin identifier
+
+- **BTTAdditionalActionData**: Plugin parameters
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 280,
+  "BTTGenericActionConfig2": "com.example.plugin",
+  "BTTAdditionalActionData": "{\"action\":\"custom\"}"
+}
+`
+```
+
+
+### JSON Action Plugin[​
+
+> 
+
+
+Executes a JSON-based action plugin (.bttjsonplugin). JSON plugins are simple JSON files that define actions with configurable form fields and placeholder substitution. They do not require compiled code - just a .bttjsonplugin file placed in the BetterTouchTool Plugins folder.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 588
+
+- **BTTGenericActionConfig2**: Plugin identifier (e.g. "com.btt.jsonplugin.my-plugin")
+
+- **BTTAdditionalActionData**: JSON object with plugin form field values (keys prefixed with `plugin_var_`)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 588,
+  "BTTGenericActionConfig2": "com.btt.jsonplugin.my-plugin",
+  "BTTAdditionalActionData": {
+    "plugin_var_message": "Hello World",
+    "plugin_var_delay": "0.5"
+  }
+}
+`
+```
+
+
+### Comment[​
+
+> 
+
+
+No-op action for adding comments in action sequences.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 490
+
+- **BTTComment**: Comment text
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 490,
+  "BTTComment": "This is a comment explaining the next actions"
+}
+`
+```
+
+
+### Separator[​
+
+> 
+
+
+Visual separator in action lists.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 323
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 323
+}
+`
+```
+
+
+### AI Actions[​
+
+> 
+
+
+AI-related actions for ChatGPT integration.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Add User Message: 530
+
+- Switch Model: 537
+
+
+- **BTTGenericActionConfig**: AI configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 530,
+  "BTTGenericActionConfig": "{\"message\":\"Hello AI\",\"conversation\":\"main\"}"
+}
+`
+```
+
+
+### AI Chat Window[​
+
+> 
+
+
+Opens an AI chat window with customizable settings.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 999
+
+- **BTTAdditionalActionData**: JSON object with AI configuration
+
+
+- `BTTAISystemPrompt`: string - System prompt for the AI
+
+- `BTTAIAPIKey`: string - API key for AI service (secure)
+
+- `BTTAIAPIKey1`: string - Alternative API key 1
+
+- `BTTAIAPIKey2`: string - Alternative API key 2
+
+- `BTTAICustomURL`: string - Custom API endpoint URL
+
+- `BTTAIModel`: string - Model identifier (e.g., "gpt-4o", "claude-3-5-sonnet-latest")
+
+- `BTTAISInitialScreenshot`: number - Screenshot capture option (0=None, 1=Interactive, 2=Focused Window)
+
+- `BTTAIUserChatBubbleColor`: string - Custom color for user messages (hex)
+
+- `BTTAISystemChatBubbleColor`: string - Custom color for AI responses (hex)
+
+- `BTTAIWindowBackgroundColor`: string - Background color for AI window (hex)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 999,
+  "BTTAdditionalActionData": {
+    "BTTAIModel": "gpt-4o",
+    "BTTAISystemPrompt": "You are a helpful assistant",
+    "BTTAISInitialScreenshot": 1,
+    "BTTAIUserChatBubbleColor": "#0084FF",
+    "BTTAISystemChatBubbleColor": "#E9E9EB"
+  }
+}
+`
+```
+
+
+### [h@llo.ai - Show Customizable AI Assistant[​
+
+> 
+
+
+Shows the customizable [h@llo.ai (hello.ai) AI assistant window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 525
+
+- **BTTAdditionalActionData**: JSON object with AI assistant configuration
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 525,
+  "BTTAdditionalActionData": {}
+}
+`
+```
+
+
+### [h@llo.ai - Update AI Chat Properties[​
+
+> 
+
+
+Updates properties of an active [h@llo.ai chat session.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 538
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTAIChatIdentifier`: string - Identifier of the chat to update
+
+- `BTTAIShowProgressIndicator`: boolean - Show/hide progress indicator
+
+- `BTTAIBackgroundReuseConversation`: boolean - Reuse existing conversation
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 538,
+  "BTTAdditionalActionData": {
+    "BTTAIChatIdentifier": "my_chat",
+    "BTTAIShowProgressIndicator": true,
+    "BTTAIBackgroundReuseConversation": true
+  }
+}
+`
+```
+
+
+### [h@llo.ai - Cancel All Ongoing Requests[​
+
+> 
+
+
+Cancels all ongoing [h@llo.ai AI requests.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 541
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 541
+}
+`
+```
+
+
+### [h@llo.ai - Close All Assistant Windows[​
+
+> 
+
+
+Closes all open [h@llo.ai assistant windows.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 542
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 542
+}
+`
+```
+
+
+### [h@llo.ai - Run AI Task In Background[​
+
+> 
+
+
+Runs an AI task in the background without showing a window.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 581
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTAIChatIdentifier`: string - Chat identifier
+
+- `BTTAIUserMessage`: string - The user message/prompt to send
+
+- `BTTAIShowProgressIndicator`: boolean - Show progress indicator
+
+- `BTTAIBackgroundReuseConversation`: boolean - Reuse existing conversation
+
+- `BTTAIUserMessageFileType`: number - File type for the message
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 581,
+  "BTTAdditionalActionData": {
+    "BTTAIChatIdentifier": "background_task",
+    "BTTAIUserMessage": "Summarize the clipboard contents",
+    "BTTAIShowProgressIndicator": false,
+    "BTTAIBackgroundReuseConversation": false
+  }
+}
+`
+```
+
+
+### Show Launcher[​
+
+> 
+
+
+Shows the BetterTouchTool Launcher. Requires macOS 13.0 or later. Supports optional positioning configuration to control where the launcher window appears. You can also set a stable launcher ID so multiple actions target the same launcher instance. In "Move & Resize Freely" mode (default), BetterTouchTool remembers the last position per launcher ID when one is set, otherwise it keeps the legacy per-trigger behavior.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 594
+
+- **BTTAdditionalActionData**: JSON object (optional) with positioning configuration
+
+
+- `BTTActionLauncherID`: string (optional) - stable launcher instance identifier. Actions that use the same launcher ID operate on the same launcher window. Leave empty for the default launcher.
+
+- `BTTActionLauncherShortcut`: string (optional) - shortcut for the launcher’s per-item actions popover, in the same recorded shortcut format used elsewhere in BetterTouchTool. Defaults to `⌘P`.
+
+- `BTTActionLauncherInitialRoute`: JSON object (optional) - a specific Launcher item, group, or surface to open immediately when the launcher appears. Preferred over the legacy `BTTActionLauncherOpenGroup`. Recognized keys:
+
+
+- `BTTLauncherRouteType`: string - one of `group`, `surface`, or `item`.
+
+- `BTTLauncherRouteID`: string - identifier of the route (for groups: the group title or identifier; for surfaces: e.g. `surface:clipboard`; or one of the built-in IDs `builtin:clipboard`, `builtin:calendar`, `builtin:timer`, `builtin:appleTVRemote`, `builtin:emojiPicker`, `builtin:speechDictation`, `builtin:fileBrowser`, `builtin:bttActions`).
+
+- `BTTLauncherRouteTitle`: string (optional) - human-readable title shown in the configuration UI.
+
+- `BTTLauncherSurfaceKind`: string (optional, surfaces/items only) - explicit surface kind, e.g. `clipboard`, `calendar`, `timer`, `appleTVRemote`, `emojiPicker`, `speechDictation`, `fileBrowser`, `bttActions`.
+
+- `BTTLauncherRouteSystemImage`: string (optional) - SF Symbol name for display.
+
+- `BTTLauncherInitialClipboardItemID`: string (optional) - clipboard item to focus when entering the clipboard surface.
+
+- `BTTLauncherInitialAppleTVDeviceIdentifier`: string (optional) - Apple TV device to target when entering the Apple TV remote surface.
+
+- `BTTLauncherInitialFloatingMenuIdentifier` / `BTTLauncherInitialFloatingMenuTitle`: string (optional) - floating menu to focus.
+
+- `BTTLauncherInitialPluginIdentifier` / `BTTLauncherInitialPluginItemIdentifier` / `BTTLauncherInitialPluginSurfaceIdentifier` / `BTTLauncherInitialPluginSurfaceTitle`: string (optional) - plugin surface targeting.
+
+- `BTTLauncherInitialTimerInput`: string (optional) - text to seed in the timer surface.
+
+- `BTTLauncherInitialTimerDuration`: number (optional) - timer duration in seconds.
+
+- `BTTLauncherInitialTimerIdentifier`: string (optional) - existing timer to focus.
+
+- `BTTLauncherInitialFileBrowserDirectoryPath`: string (optional) - starting directory for the file browser surface.
+
+
+- `BTTActionLauncherOpenGroup`: string (optional, legacy) - title of a top-level launcher group to open immediately when the launcher appears (for example `Apps`). Matched case- and diacritic-insensitively against the group title or identifier. Superseded by `BTTActionLauncherInitialRoute`; still supported for existing configurations.
+
+- `BTTMenuPositioningType`: int - how the window is positioned (0=Move & Resize Freely (default), 1=Fixed Position, 3=Center on Focused Screen, 4=Fixed Initial Position then Free)
+
+- `BTTMenuPositionRelativeTo`: int - reference frame for fixed positioning (0=Focused Window, 1=Focused Screen, 2=Notch, 3=Focused Menubar, etc.)
+
+- `BTTMenuAnchorMenu`: int - which point of the launcher to anchor (0=Top Left, 1=Top Right, 2=Bottom Left, 3=Bottom Right, 4=Center)
+
+- `BTTMenuAnchorRelation`: int - which point of the reference to anchor to (same values as BTTMenuAnchorMenu)
+
+- `BTTMenuOffsetX`: float - horizontal offset from the anchor position
+
+- `BTTMenuOffsetY`: float - vertical offset from the anchor position
+
+- `BTTMenuOffsetXUnit`: int - offset unit for X (0=Pixels, 1=% of Menu Width, 2=% of Reference Width)
+
+- `BTTMenuOffsetYUnit`: int - offset unit for Y (0=Pixels, 1=% of Menu Height, 2=% of Reference Height)
+
+
+Example (default - free move, remembers position):
+
+```
+`{
+  "BTTPredefinedActionType": 594
+}
+`
+```
+
+
+Example (centered on focused screen):
+
+```
+`{
+  "BTTPredefinedActionType": 594,
+  "BTTAdditionalActionData": {
+    "BTTMenuPositioningType": 3
+  }
+}
+`
+```
+
+
+Example (fixed position relative to focused screen):
+
+```
+`{
+  "BTTPredefinedActionType": 594,
+  "BTTAdditionalActionData": {
+    "BTTMenuPositioningType": 1,
+    "BTTMenuPositionRelativeTo": 1,
+    "BTTMenuAnchorMenu": 4,
+    "BTTMenuAnchorRelation": 4,
+    "BTTMenuOffsetX": 0,
+    "BTTMenuOffsetY": 0
+  }
+}
+`
+```
+
+
+Example (open the clipboard surface immediately):
+
+```
+`{
+  "BTTPredefinedActionType": 594,
+  "BTTAdditionalActionData": {
+    "BTTActionLauncherInitialRoute": {
+      "BTTLauncherRouteType": "surface",
+      "BTTLauncherRouteID": "surface:clipboard",
+      "BTTLauncherSurfaceKind": "clipboard",
+      "BTTLauncherRouteTitle": "Clipboard"
+    }
+  }
+}
+`
+```
+
+
+Example (open a top-level Launcher group immediately):
+
+```
+`{
+  "BTTPredefinedActionType": 594,
+  "BTTAdditionalActionData": {
+    "BTTActionLauncherInitialRoute": {
+      "BTTLauncherRouteType": "group",
+      "BTTLauncherRouteID": "Apps",
+      "BTTLauncherRouteTitle": "Apps"
+    }
+  }
+}
+`
+```
+
+
+### Hide Launcher[​
+
+> 
+
+
+Hides the BetterTouchTool Launcher. Requires macOS 13.0 or later. You can optionally target a specific launcher instance via `BTTActionLauncherID`. If no launcher ID is provided, BetterTouchTool hides the currently active launcher.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 595
+
+- **BTTAdditionalActionData**: JSON object (optional)
+
+
+- `BTTActionLauncherID`: string (optional) - stable launcher instance identifier to hide. Leave empty to hide the currently active launcher.
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 595
+}
+`
+```
+
+
+Example (hide a specific launcher instance):
+
+```
+`{
+  "BTTPredefinedActionType": 595,
+  "BTTAdditionalActionData": {
+    "BTTActionLauncherID": "work"
+  }
+}
+`
+```
+
+
+### Toggle Launcher[​
+
+> 
+
+
+Toggles the BetterTouchTool Launcher visibility. Requires macOS 13.0 or later. Supports the same optional positioning configuration as Show Launcher to control where the launcher window appears, including stable launcher IDs and the optional `BTTActionLauncherInitialRoute` (or legacy `BTTActionLauncherOpenGroup`) to open a specific Launcher item or group immediately.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 596
+
+- **BTTAdditionalActionData**: JSON object (optional) - same launcher ID, item-actions shortcut, initial route, and positioning options as Show Launcher (see above)
+
+
+Example (default):
+
+```
+`{
+  "BTTPredefinedActionType": 596
+}
+`
+```
+
+
+Example (centered on focused screen):
+
+```
+`{
+  "BTTPredefinedActionType": 596,
+  "BTTAdditionalActionData": {
+    "BTTMenuPositioningType": 3
+  }
+}
+`
+```
+
+
+### Stage Manager Actions[​
+
+> 
+
+
+Controls macOS Stage Manager.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Enable/Disable: 360
+
+- Activate Stage: 357
+
+- Cycle Stages: 358
+
+- Cycle Backward: 363
+
+- Activate Stage with Apps: 359
+
+- Show Switcher: 361
+
+- Toggle Recent: 362
+
+
+- **BTTStageManagerStageNumber**: Stage number (for activate)
+
+- **BTTStageManagerRequiredApps**: App identifiers (for activate with apps)
+
+- **BTTStageManagerRequiredWindows**: Window identifiers (optional)
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 357,
+  "BTTStageManagerStageNumber": "1"
+}
+`
+```
+
+
+### Dock Actions[​
+
+> 
+
+
+Performs actions on dock items.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Quit App: 145
+
+- Minimize: 146
+
+- Show All Windows: 147
+
+- Send Shortcut: 148
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 145
+}
+`
+```
+
+
+### Toggle Actions[​
+
+> 
+
+
+Various toggle actions.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Mouse Cursor Hidden: 140
+
+- Cursor Size: 123
+
+- Mouse Speed: 126
+
+- Black Screen: 313
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 140
+}
+`
+```
+
+
+### Login/Security Actions[​
+
+> 
+
+
+Login and security related actions.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Login Screen: 9
+
+- Free Menu Bar: 86
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 9
+}
+`
+```
+
+
+### Advanced Click Actions[​
+
+> 
+
+
+Clicks with specific modifiers.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Cmd+Click: 2
+
+- Ctrl+Click: 87
+
+- Alt+Click: 88
+
+- Shift+Click: 89
+
+- Cmd+Shift+Click: 111
+
+- Cmd+Double Click: 149
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 2
+}
+`
+```
+
+
+### Gesture Control[​
+
+> 
+
+
+Controls for trackpad/mouse gestures.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Begin Gesture: 75
+
+- End Gesture: 76
+
+- End Immediately: 83
+
+- Swipe Left: 77
+
+- Swipe Right: 78
+
+- Swipe Up: 79
+
+- Swipe Down: 80
+
+- Rotate Left: 81
+
+- Rotate Right: 82
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 75
+}
+`
+```
+
+
+### Zoom In/Out[​
+
+> 
+
+
+System zoom controls.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Zoom In: 11
+
+- Zoom Out: 12
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 11
+}
+`
+```
+
+
+### Window Snapping[​
+
+> 
+
+
+Split screen and window snapping.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**:
+
+
+- Split Screen Left: 163
+
+- Split Screen Right: 164
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 163
+}
+`
+```
+
+
+### Fullscreen[​
+
+> 
+
+
+Fullscreen control.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: 112
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": 112
+}
+`
+```
+
+
+### No Action[​
+
+> 
+
+
+Placeholder that performs no action.
+
+
+Parameters:
+
+
+- **BTTPredefinedActionType**: -1
+
+
+Example:
+
+```
+`{
+  "BTTPredefinedActionType": -1
+}
+`
+```
+
+
+## Additional Missing Actions[​
+
+
+### Change Default Browser/Handler[​
+
+> 
+
+
+Changes the default application handler for specific file types, URL schemes, or UTIs.
+Parameters:
+
+
+- **BTTPredefinedActionType**: 492
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionChangeDefaultBrowserUTI`: string - Scheme/UTI/Extension (e.g. "http://", "adobe.pdf", ".txt")
+
+- `BTTActionChangeDefaultBrowserApp`: object - Application info
+
+
+- `name`: string - Application name
+
+- `path`: string - Path to application
+
+- `bundleIdentifier`: string - Bundle ID
+Example:
+
+
+```
+`{
+  "BTTPredefinedActionType": 492,
+  "BTTAdditionalActionData": {
+    "BTTActionChangeDefaultBrowserUTI": "http://",
+    "BTTActionChangeDefaultBrowserApp": {
+      "name": "Safari",
+      "path": "/Applications/Safari.app",
+      "bundleIdentifier": "com.apple.Safari"
+    }
+  }
+}
+`
+```
+
+
+### OCR (Extract Text from Image)[​
+
+> 
+
+
+Performs optical character recognition on screen content or images.
+Parameters:
+
+
+- **BTTPredefinedActionType**: 498
+
+- **BTTAdditionalActionData**: JSON object with OCR configuration
+
+
+- `BTTOCRSourceType`: number - Source type (0=screenshot, 1=file, 2=clipboard)
+
+- `BTTOCRFileAtPath`: string - Path to image file (when sourceType=1)
+
+- `BTTOCRAutoDetectLanguage`: boolean - Auto-detect language
+
+- `BTTOCRLanguages`: array - Language codes (e.g., ["en-US", "de-DE"])
+
+- `BTTOCRCustomWords`: array - Custom words for recognition
+
+- `BTTOCRJoinBasedOnScreenCoordinates`: boolean - Join text based on position
+
+- `BTTOCRJoinFoundStringsWithCharacter`: string - Character to join text (e.g., " " or "\n")
+
+- `BTTOCRSaveToVariable`: string - Variable name to save result
+
+- `BTTOCRCopyToClipboard`: boolean - Copy result to clipboard
+Example:
+
+
+```
+`{
+  "BTTPredefinedActionType": 498,
+  "BTTAdditionalActionData": {
+    "BTTOCRSourceType": 0,
+    "BTTOCRAutoDetectLanguage": true,
+    "BTTOCRCopyToClipboard": true,
+    "BTTOCRSaveToVariable": "ocr_result"
+  }
+}
+`
+```
+
+
+### Remap Key[​
+
+> 
+
+
+Remaps keyboard input with customizable modifier keys and key codes.
+Parameters:
+
+
+- **BTTPredefinedActionType**: 483
+
+- **BTTAdditionalActionData**: JSON object with key remapping configuration
+
+
+- `BTTActionRemapKeyOutDownCommand`: number (0/1) - Command key on key down
+
+- `BTTActionRemapKeyOutDownControl`: number (0/1) - Control key on key down
+
+- `BTTActionRemapKeyOutDownShift`: number (0/1) - Shift key on key down
+
+- `BTTActionRemapKeyOutDownOption`: number (0/1) - Option key on key down
+
+- `BTTActionRemapKeyOutDownFn`: number (0/1) - Fn key on key down
+
+- `BTTActionRemapKeyOutUpCommand`: number (0/1) - Command key on key up
+
+- `BTTActionRemapKeyOutUpControl`: number (0/1) - Control key on key up
+
+- `BTTActionRemapKeyOutUpShift`: number (0/1) - Shift key on key up
+
+- `BTTActionRemapKeyOutUpOption`: number (0/1) - Option key on key up
+
+- `BTTActionRemapKeyOutUpFn`: number (0/1) - Fn key on key up
+
+- `BTTActionRemapKeyOutKeyUsingKeyCode`: boolean - Use key code instead of string
+
+- `BTTActionRemapKeyOutKeyUsingString`: boolean - Use string instead of key code
+
+- `BTTActionRemapKeyOutKeyString`: string - Key as string (when using string mode)
+
+- `BTTActionRemapKeyOutKeyCode`: number - Key code (when using key code mode)
+Example:
+
+
+```
+`{
+  "BTTPredefinedActionType": 483,
+  "BTTAdditionalActionData": {
+    "BTTActionRemapKeyOutDownCommand": 1,
+    "BTTActionRemapKeyOutDownShift": 1,
+    "BTTActionRemapKeyOutKeyUsingKeyCode": true,
+    "BTTActionRemapKeyOutKeyCode": 0
+  }
+}
+`
+```
+
+
+### Send Data to Connected BTT Mobile/iOS Device[​
+
+> 
+
+
+Sends data to a connected BetterTouchTool mobile device.
+Parameters:
+
+
+- **BTTPredefinedActionType**: 285
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `BTTActionSendDataData`: string - The data to send
+
+- `BTTActionSendDataMaxPayloadSize`: number - Maximum payload size in bytes
+Example:
+
+
+```
+`{
+  "BTTPredefinedActionType": 285,
+  "BTTAdditionalActionData": {
+    "BTTActionSendDataData": "Hello from Mac!",
+    "BTTActionSendDataMaxPayloadSize": 1024
+  }
+}
+`
+```
+
+
+### Unlock Screen (with Password)[​
+
+> 
+
+
+Unlocks the Mac screen using a stored password.
+Parameters:
+
+
+- **BTTPredefinedActionType**: 159
+
+- **BTTAdditionalActionData**: JSON object with configuration
+
+
+- `unlockPassword`: string - The password (stored securely)
+Example:
+
+
+```
+`{
+  "BTTPredefinedActionType": 159,
+  "BTTAdditionalActionData": {
+    "unlockPassword": "encrypted_password_data"
+  }
+}
+`
+```
+
+
+## Additional Notes[​
+
+
+### Action Sequences[​
+
+
+Multiple actions can be chained together by including them in an array:
+
+```
+`[
+  {
+    "BTTPredefinedActionType": 345,
+    "BTTDelayNextActionBy": "1.0"
+  },
+  {
+    "BTTPredefinedActionType": 193,
+    "BTTStringToType": "Hello World"
+  }
+]
+`
+```
+
+
+### Helper Functions[​
+
+```
+`function getModifierBitmask(modifiers) {
+    const modifierMap = {
+        "Shift": 1 << 17,
+        "Control": 1 << 18,
+        "Left Control": 1 << 0,
+        "Right Control": 1 << 13,
+        "Option": 1 << 19,
+        "Left Option": 1 << 5,
+        "Right Option": 1 << 6,
+        "Command": 1 << 20,
+        "Left Command": 1 << 3,
+        "Right Command": 1 << 4,
+        "Function": 1 << 23
+    };
+
+    let bitmask = 0;
+
+    for (const modifier of modifiers) {
+        if (modifierMap[modifier] !== undefined) {
+            bitmask |= modifierMap[modifier];
+        } else {
+            console.warn(`Unknown modifier: ${modifier}`);
+        }
+    }
+
+    return bitmask;
+}
+`
+```
+
+
+- 18: Custom Context Menu
+
+
+### Generic Configuration Fields[​
+
+
+When specific property names aren't mapped for an action, these generic fields are used as fallbacks:
+
+
+- `BTTGenericActionConfig`: Primary configuration string/JSON (used when gesture.launchPath isn't specifically mapped)
+
+- `BTTGenericActionConfig2`: Secondary configuration (used when gesture.additionalActionString isn't specifically mapped)
+
+- `BTTAdditionalActionData`: Complex data as JSON or base64 (typically from gesture.actionData)
+
+
+### Special Data Handling[​
+
+
+Some actions use special data storage:
+
+
+- `BTTFindPositionOfImageImage`: Base64 encoded image data
+
+- `BTTFindPositionOfImageImageDark`: Base64 encoded dark mode variant
+
+- `BTTActionCustomScriptSettings`: Base64 encoded script settings
+
+- `BTTAdditionalActionData`: Can contain JSON objects or base64 encoded data
+
+
+### Shortcuts and Modifiers[​
+
+
+When using keyboard shortcuts:
+
+
+- `BTTShortcutToSend`: The actual key or key combination
+
+- `BTTShortcutModifierKeys`: Modifier keys for general shortcuts
+
+- `BTTRequiredModifierKeys`: Modifier keys for non-shortcut triggers
+
+- `BTTShortcutUpDown`: Whether to send key up/down events
+
+
+### Best Practices[​
+
+
+- Always include `BTTPredefinedActionType` with the correct action ID
+
+- Use the specific property names documented here instead of generic fallbacks when possible
+
+- String values should be properly escaped in JSON
+
+- Numeric values can be strings or numbers depending on the action
+
+- Test actions individually before combining in sequences
+
+- Use conditions to make actions context-aware
+
+- Leverage variables for dynamic behavior
+
+- Group related actions using control flow structures
+
+
+## Action Categories[​
+
+
+Many trigger types in BetterTouchTool support multiple **action categories**. Action categories allow a single trigger to execute different actions depending on *how* the trigger is activated (e.g., on key down vs. key release, on hover vs. click, etc.).
+
+
+Each action assigned to a trigger has a `BTTActionCategory` integer value that determines when it fires. The available categories depend on the trigger type.
+
+
+### BTTActionCategory Values[​
+
+
+|  | Value | Constant | Description |
+|  | 0 | `BTTActionCategoryStandard` | Default/primary action |
+|  | 1 | `BTTActionCategoryHover` | Hover start |
+|  | 2 | `BTTActionCategoryLongPress` | Long press / long hold down |
+|  | 3 | `BTTActionCategoryTouchRelease` | Touch release / button up |
+|  | 4 | `BTTActionCategoryHoverEnd` | Hover end |
+|  | 5 | `BTTActionCategoryHyperKeyRelease` | Hyper key release (unused) |
+|  | 6 | `BTTActionCategoryRightClick` | Right click |
+|  | 7 | `BTTActionCategoryChangeToFalse` | Condition changed to false |
+|  | 8 | `BTTActionCategoryAppear` | Item appeared |
+|  | 9 | `BTTActionCategoryDisappear` | Item disappeared |
+|  | 10 | `BTTActionCategoryOnDrop` | Item received a drop |
+|  | 11 | `BTTActionCategoryScrollLeft` | Scroll left |
+|  | 12 | `BTTActionCategoryScrollRight` | Scroll right |
+|  | 13 | `BTTActionCategoryScrollUp` | Scroll up |
+|  | 14 | `BTTActionCategoryScrollDown` | Scroll down |
+|  | 15 | `BTTActionCategoryBTTMobileThreeFingerSwipeLeft` | BTT Remote three-finger swipe left |
+|  | 16 | `BTTActionCategoryBTTMobileThreeFingerSwipeRight` | BTT Remote three-finger swipe right |
+|  | 17 | `BTTActionCategoryPressDown` | Button press down |
+|  | 18 | `BTTActionCategoryCustomContextMenu` | Custom context menu |
+|  | 19 | `BTTActionCategoryAppIsRunning` | App is running |
+|  | 20 | `BTTActionCategoryAppIsNotRunning` | App is not running |
+|  | 21 | `BTTActionCategoryDragDown` | Drag down (discrete) |
+|  | 22 | `BTTActionCategoryDragUp` | Drag up (discrete) |
+|  | 23 | `BTTActionCategoryDragLeft` | Drag left (discrete) |
+|  | 24 | `BTTActionCategoryDragRight` | Drag right (discrete) |
+|  | 25 | `BTTActionCategoryDragDownContinuous` | Drag down (continuous) |
+|  | 26 | `BTTActionCategoryDragUpContinuous` | Drag up (continuous) |
+|  | 27 | `BTTActionCategoryDragLeftContinuous` | Drag left (continuous) |
+|  | 28 | `BTTActionCategoryDragRightContinuous` | Drag right (continuous) |
+|  | 29 | `BTTActionCategoryConnect` | Device connected |
+|  | 30 | `BTTActionCategoryDisconnect` | Device disconnected |
+|  | 31 | `BTTActionCategoryButtonRelease` | Button/click release |
+|  | 32 | `BTTActionCategoryButtonQuickRelease` | Quick button/click release |
+|  | 33 | `BTTActionCategoryButtonReleaseAfterLongPress` | Button/click release after long hold |
+|  | 34 | `BTTActionCategorySeparator` | Separator (UI only, not assignable) |
+|  | 35 | `BTTActionCategoryKeyRelease` | Key release |
+|  | 36 | `BTTActionCategoryKeyQuickRelease` | Quick key release |
+|  | 37 | `BTTActionCategoryKeyReleaseAfterLongPress` | Key release after long hold |
+|  | 38 | `BTTActionCategoryKeyLongPress` | Long key hold down |
+|  | 39 | `BTTActionCategoryFirstScroll` | First scroll only |
+|  | 40 | `BTTActionCategoryCrownRotateLeftSmooth` | Logitech Craft Crown rotate left (smooth) |
+|  | 41 | `BTTActionCategoryCrownRotateRightSmooth` | Logitech Craft Crown rotate right (smooth) |
+|  | 42 | `BTTActionCategoryCrownRotateLeftRatchet` | Logitech Craft Crown rotate left (ratchet) |
+|  | 43 | `BTTActionCategoryCrownRotateRightRatchet` | Logitech Craft Crown rotate right (ratchet) |
+|  | 44 | `BTTActionCategoryCrownTap` | Logitech Craft Crown tap |
+|  | 45 | `BTTActionCategoryCrownPressDown` | Logitech Craft Crown press down |
+|  | 46 | `BTTActionCategoryCrownPressUp` | Logitech Craft Crown press up |
+|  | 47 | `BTTActionCategoryKeyReleaseAfterAllModifiersReleased` | Key release after all modifier keys released |
+
+
+### Categories by Trigger Type[​
+
+
+#### Keyboard Shortcuts[​
+
+
+Regular keyboard shortcuts support the following action categories:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on key down |
+|  | `BTTActionCategoryKeyLongPress` | 38 | Actions executed on long key hold down |
+|  | `BTTActionCategoryKeyRelease` | 35 | Actions executed on key release |
+|  | `BTTActionCategoryKeyQuickRelease` | 36 | Actions executed on quick key release |
+|  | `BTTActionCategoryKeyReleaseAfterLongPress` | 37 | Actions executed on key release after long hold |
+|  | `BTTActionCategoryKeyReleaseAfterAllModifiersReleased` | 47 | Actions executed after all modifier keys released |
+
+
+**Hyper Key** shortcuts only support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on trigger |
+|  | `BTTActionCategoryHyperKeyRelease` | 5 | Actions executed on (unused) hyper key release |
+
+
+#### Mouse Triggers[​
+
+
+**Mouse button triggers** support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on press |
+|  | `BTTActionCategoryLongPress` | 2 | Actions executed on long hold down |
+|  | `BTTActionCategoryButtonRelease` | 31 | Actions executed on click release |
+|  | `BTTActionCategoryButtonQuickRelease` | 32 | Actions executed on quick click release |
+|  | `BTTActionCategoryButtonReleaseAfterLongPress` | 33 | Actions executed on click release after long hold |
+|  | `BTTActionCategoryDragUp` | 22 | Actions executed on drag up (discrete) |
+|  | `BTTActionCategoryDragDown` | 21 | Actions executed on drag down (discrete) |
+|  | `BTTActionCategoryDragLeft` | 23 | Actions executed on drag left (discrete) |
+|  | `BTTActionCategoryDragRight` | 24 | Actions executed on drag right (discrete) |
+|  | `BTTActionCategoryDragUpContinuous` | 26 | Actions executed on drag up (continuous) |
+|  | `BTTActionCategoryDragDownContinuous` | 25 | Actions executed on drag down (continuous) |
+|  | `BTTActionCategoryDragLeftContinuous` | 27 | Actions executed on drag left (continuous) |
+|  | `BTTActionCategoryDragRightContinuous` | 28 | Actions executed on drag right (continuous) |
+
+
+**Mouse scroll triggers** support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on scroll (repeating) |
+|  | `BTTActionCategoryFirstScroll` | 39 | Actions executed on first scroll only |
+
+
+**Mouse scroll+button combo triggers** additionally support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryButtonRelease` | 31 | Actions executed on button release |
+|  | `BTTActionCategoryButtonQuickRelease` | 32 | Actions executed on quick button release |
+|  | `BTTActionCategoryButtonReleaseAfterLongPress` | 33 | Actions executed on button release after long hold |
+
+
+#### Trackpad / Magic Mouse / Siri Remote Triggers[​
+
+
+Most trackpad, Magic Mouse, and Siri Remote gesture triggers support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on trigger |
+|  | `BTTActionCategoryTouchRelease` | 3 | Actions executed on touch release |
+
+
+#### Stream Deck Triggers[​
+
+
+**Stream Deck button triggers** support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on button down |
+|  | `BTTActionCategoryTouchRelease` | 3 | Actions executed on button up |
+|  | `BTTActionCategoryLongPress` | 2 | Actions executed on long press |
+
+
+**Stream Deck dial triggers** support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on dial turn |
+|  | `BTTActionCategoryTouchRelease` | 3 | Actions executed on dial press |
+|  | `BTTActionCategoryLongPress` | 2 | Actions executed on dial long press |
+
+
+#### Floating Menu Triggers[​
+
+
+**Standard floating menu items and submenus** support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryHover` | 1 | Actions executed on hover start |
+|  | `BTTActionCategoryHoverEnd` | 4 | Actions executed on hover end |
+|  | `BTTActionCategoryOnDrop` | 10 | Actions executed on drop |
+|  | `BTTActionCategoryAppear` | 8 | Actions executed on appear |
+|  | `BTTActionCategoryDisappear` | 9 | Actions executed on disappear |
+
+
+**Other floating menu items (buttons, widgets, etc.)** support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on trigger (button release) |
+|  | `BTTActionCategoryPressDown` | 17 | Actions executed on button press down |
+|  | `BTTActionCategoryHover` | 1 | Actions executed on hover start |
+|  | `BTTActionCategoryHoverEnd` | 4 | Actions executed on hover end |
+|  | `BTTActionCategoryOnDrop` | 10 | Actions executed on drop |
+|  | `BTTActionCategoryRightClick` | 6 | Actions executed on right click |
+|  | `BTTActionCategoryScrollLeft` | 11 | Actions executed on scroll left |
+|  | `BTTActionCategoryScrollRight` | 12 | Actions executed on scroll right |
+|  | `BTTActionCategoryScrollUp` | 13 | Actions executed on scroll up |
+|  | `BTTActionCategoryScrollDown` | 14 | Actions executed on scroll down |
+
+
+**BTT Remote trackpad items** in floating menus support:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on trigger |
+|  | `BTTActionCategoryBTTMobileThreeFingerSwipeLeft` | 15 | Actions executed on three-finger swipe left |
+|  | `BTTActionCategoryBTTMobileThreeFingerSwipeRight` | 16 | Actions executed on three-finger swipe right |
+
+
+#### Menu Bar / Status Icon Triggers[​
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on left click |
+|  | `BTTActionCategoryRightClick` | 6 | Actions executed on right click |
+
+
+#### Dock Icon Triggers[​
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on click |
+|  | `BTTActionCategoryCustomContextMenu` | 18 | Custom dock context menu |
+
+
+#### Conditional Triggers (Advanced Trigger Conditions / Script Output Changed)[​
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on change to TRUE |
+|  | `BTTActionCategoryChangeToFalse` | 7 | Actions executed on change to FALSE |
+
+
+#### Logitech Craft Crown Triggers[​
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryCrownRotateLeftSmooth` | 40 | Actions executed on rotate left (smooth) |
+|  | `BTTActionCategoryCrownRotateRightSmooth` | 41 | Actions executed on rotate right (smooth) |
+|  | `BTTActionCategoryCrownRotateLeftRatchet` | 42 | Actions executed on rotate left (ratchet) |
+|  | `BTTActionCategoryCrownRotateRightRatchet` | 43 | Actions executed on rotate right (ratchet) |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on crown tap |
+|  | `BTTActionCategoryCrownPressDown` | 45 | Actions executed on crown press down |
+|  | `BTTActionCategoryCrownPressUp` | 46 | Actions executed on crown press up |
+
+
+#### Default (All Other Trigger Types)[​
+
+
+Trigger types not listed above (Touch Bar, Notch Bar, generic devices, key sequences, drawings, etc.) use only:
+
+
+|  | Category | Value | Description |
+|  | `BTTActionCategoryStandard` | 0 | Actions executed on trigger |
+
+
+### Using Action Categories in JSON[​
+
+
+When defining actions in JSON, set the `BTTActionCategory` field on the action to assign it to a specific category:
+
+```
+`{
+  "BTTPredefinedActionType": 3,
+  "BTTActionCategory": 35
+}
+`
+```
+
+
+This example assigns a left-click action to the **key release** category (value 35) of a keyboard shortcut trigger, meaning the left click will be performed when the key is released rather than when it is pressed down.
+
+
+This documentation covers all available BetterTouchTool actions as of the current version. Actions may be added or modified in future releases.[PreviousScreenshot Tool[NextJSON Action Plugins
+
+- [Important Notes
+
+- [JSON Format
+- [Common Fields
+- [Table of Contents
+- [Mouse & Trackpad Actions
+
+- [Left Click
+- [Left Click - Without Modifier Keys
+- [Right Click
+- [Middle Click
+- [Double Left Click
+- [Ctrl + Left Click
+- [Opt + Left Click
+- [CMD + Left Click
+- [CMD + Double Left Click
+- [CMD + Shift + Left Click
+- [Custom Click (Custom Mouse Buttons & Modifiers)
+- [Move Mouse To Position
+- [Save Current Mouse Position
+- [Restore Saved Mouse Position
+- [Start Drag
+- [Stop Drag
+- [Toggle Mouse Speed
+- [Toggle Cursor Size
+- [Set Cursor Size
+- [Scroll
+- [Shift + Click
+- [Start Drag By Double-Click
+- [Toggle Magic Mouse Touchpad Mode
+- [Change Mouse Speed And Acceleration
+- [Pick Color On Screen And Write To Clipboard
+- [All Modifier Keys UP
+- [Keyboard Actions
+
+- [Type String
+- [Paste String
+- [Send Keyboard Shortcut
+- [Send Shortcut to Specific App
+- [Function Keys (F1-F24)
+- [Modifier Key Actions
+- [ESC Key
+- [Toggle Caps Lock
+- [Page Navigation Keys
+- [Arrow Keys
+- [Remap Key
+- [Reset All Key Remappings
+- [Act as Hyper Key
+- [Reset Current Key Sequence
+- [Press Context Menu Key
+- [Window Management Actions
+
+- [Maximize Window
+- [Maximize Window Left
+- [Maximize Window Right
+- [Resize Window to Quarters
+- [Resize Window to Thirds
+- [Resize Window to Halves
+- [Center Window
+- [Center Window on Next Monitor
+- [Move Window to Next Monitor
+- [Maximize Window on Next Monitor
+- [Restore Old Window Size
+- [Close Window Under Cursor
+- [Minimize Window Under Cursor
+- [Zoom Window Under Cursor
+- [Bring Window Under Cursor to Front
+- [Move Window Left/Right
+- [Start/Stop Moving Windows
+- [Start/Stop Resizing Windows
+- [Custom Move/Resize
+- [Move Window to Specific Size and Position
+- [Window Layout Management
+- [Save/Restore Focused Window Size And Position
+- [Close Window, If Last Window Quit App
+- [Pin/Unpin Window to Float on Top
+- [Window Switcher
+- [Arrange Windows Side by Side
+- [System Actions
+
+- [Sleep Display
+- [Sleep Computer
+- [Logout
+- [Lock Screen
+- [Unlock Screen
+- [Start Screen Saver
+- [Empty Trash
+- [Toggle Do Not Disturb
+- [Toggle Dark Mode
+- [Toggle Night Shift
+- [Toggle True Tone
+- [Show Desktop
+- [Hide All Windows
+- [Hide All But Active Window
+- [Show All Windows
+- [Show/Hide Hidden Files
+- [Notification Center
+- [Control Center
+- [Close All Notifications
+- [Show Character Viewer
+- [Start Siri
+- [Eject
+- [Refresh Status Bar Items
+- [Search Selected Text With Google
+- [Switch to Login Screen
+- [Application Control
+
+- [Launch Application
+- [Show/Hide Specific Application
+- [Quit Specific Application
+- [Quit App Under Cursor
+- [Hide App Under Cursor
+- [Application Switcher
+- [Activate Previous App
+- [Activate Previous Window
+- [Save Active Window
+- [Go Back to Saved Active Window
+- [Activate Specific Window
+- [Expose And Sort
+- [Show Menu Bar in Context Menu
+- [Show Shortcuts in Context Menu
+- [Activate Hovered App in Dock
+- [Open Finder
+- [Create New File in Finder
+- [Open Finder Selection with Specific App
+- [Open Selected Folder with App
+- [Media Controls
+
+- [Play/Pause
+- [Next Track
+- [Previous Track
+- [Volume Up
+- [Volume Down
+- [Volume Up (Small Step)
+- [Volume Down (Small Step)
+- [Mute
+- [Set Volume
+- [Set Audio Output Device
+- [Set Audio Input Device
+- [Play Sound File
+- [Display & Brightness
+
+- [Brightness Up
+- [Brightness Down
+- [Brightness Up (Small Step)
+- [Brightness Down (Small Step)
+- [External Monitor Brightness Up
+- [External Monitor Brightness Down
+- [External Brightness Up (Small Step)
+- [External Brightness Down (Small Step)
+- [Set Brightness
+- [Keyboard Illumination Up
+- [Keyboard Illumination Down
+- [Set Keyboard Brightness
+- [Toggle Mirroring
+- [AirPlay Mirroring
+- [Toggle Super Brightness
+- [Enable Super Brightness
+- [Disable Super Brightness
+- [Move & Maximize All Windows to Mouse Display
+- [Move All Windows to Mouse Display
+- [Rotate Display Clockwise
+- [Rotate Display Counter-Clockwise
+- [Spaces & Mission Control
+
+- [Mission Control
+- [Mission Control & Show Desktop Preview
+- [Application Exposé
+- [Switch to Desktop (1-19)
+- [Move Window to Desktop (1-19)
+- [Switch Space Left/Right
+- [Move Window to Left/Right Space
+- [Add New Space
+- [Launchpad
+- [Dashboard
+- [Navigate To Space Or Fullscreen App By ID or Index
+- [Screenshot Actions
+
+- [Take Screenshot
+- [Screenshot Window
+- [Screenshot and Edit
+- [Screenshot to Clipboard
+- [Screenshot to Clipboard (New)
+- [Take Screenshot or Video
+- [Take Screenshot (Configurable)
+- [Measure Area on Screen
+- [Clipboard Actions
+
+- [Toggle Clipboard Manager
+- [Show Clipboard Manager
+- [Hide Clipboard Manager
+- [Save Clipboard Contents
+- [Restore Clipboard Contents
+- [Set Clipboard Contents
+- [Upload Clipboard to Imgur
+- [Copy Selected Text with JavaScript
+- [Transform Clipboard with JavaScript
+- [Transform Clipboard with ChatGPT
+- [Paste Specific Clipboard Item
+- [Delete Items from Clipboard Manager
+- [Delete Specific Item from Clipboard
+- [Paste and Remove Item
+- [Custom Paste
+- [Check Clipboard Change
+- [Wait for Clipboard Change
+- [Enable/Disable Clipboard Manager Watcher
+- [Copy to Snippet Group
+- [Copy/Paste Text Style
+- [Change Formatting of Selected Text
+- [Change Formatting of Clipboard Contents
+- [Text & Typing Actions
+
+- [Save Selected Text to Variable
+- [Transform Selected Text with JavaScript
+- [Transform Selected Text with ChatGPT
+- [ChatGPT Selection to Clipboard & Variable
+- [Reset ChatGPT Conversation
+- [Cancel ChatGPT Request
+- [OCR Area on Screen
+- [Find Text on Screen
+- [Wait for Text on Screen
+- [Force Check Selection Change
+- [Script Execution
+
+- [Run AppleScript (Blocking)
+- [Run AppleScript (Background)
+- [Run JavaScript (Background)
+- [Run JavaScript (Main Thread)
+- [Run Core JavaScript
+- [Terminal Command (Blocking)
+- [Terminal Command (Background)
+- [Shell Script Task
+- [Automator Workflow
+- [Run Apple Shortcut
+- [Trigger Apple Shortcut from System Settings
+- [BetterTouchTool Control
+
+- [Open BTT Preferences
+- [Open Specific BTT Settings
+- [Restart BetterTouchTool
+- [Quit BetterTouchTool
+- [Toggle BetterTouchTool
+- [Disable Gesture Recognition
+- [Disable Triggers for X Seconds
+- [Switch to Preset
+- [Toggle Preset
+- [Trigger Named Trigger
+- [Trigger Actions for Item with UUID
+- [Show BTT Menu Bar Status Item Menu
+- [Disable Configured Trigger
+- [Enable Configured Trigger
+- [Save Menu Bar Status Item Layout / Ordering
+- [Restore Saved Menu Bar Status Item Layout / Ordering
+- [Change Menu Bar Status Item Spacing
+- [Show Simple JSON Format Menu
+- [Touch Bar Actions
+
+- [Toggle Touch Bar
+- [Show Touch Bar
+- [Hide Touch Bar
+- [Toggle Global Touch Bar
+- [Open Touch Bar Group
+- [Close Current Touch Bar Group
+- [Notch Bar Actions
+
+- [Toggle Notch Bar Hidden
+- [Show Notch Bar
+- [Hide Notch Bar
+- [Disable Notch Bar
+- [Disable Notch Bar for X Seconds
+- [Toggle Notch Bar Mode
+- [Open Notch Bar Group
+- [Close Current Notch Bar Group
+- [Stream Deck Actions
+
+- [Open Stream Deck Group
+- [Close Current Stream Deck Group
+- [Switch Stream Deck Plugin Profile
+- [Stream Deck Brightness Control
+- [Stream Deck Power Control
+- [Show/Hide Stream Deck Emulator
+- [Activate Stream Deck Touch Screen Group
+- [Temporarily Change Stream Deck Item
+- [Floating Menu Actions
+
+- [Show Floating Menu
+- [Hide Floating Menu
+- [Toggle Floating Menu
+- [Open Floating Menu Submenu
+- [Close Floating Menu Submenu
+- [Floating Menu Execute JavaScript
+- [Floating Menu Load HTML
+- [Floating Menu Evaluate Scripts
+- [Floating Menu Re-evaluate Position
+- [Floating Menu Bring to Mouse Screen
+- [Trigger Floating Menu Highlighted Item
+- [Trigger Highlighted Item and Hide Menu
+- [Floating Menu Hover/Unhover
+- [Update Floating Menu Item Properties
+- [Update Floating Menu Properties
+- [Reset Floating Menu Item Properties
+- [Run Floating Menu Content Scripts
+- [Toggle Attach / Pin Floating Menu To Active Window
+- [Control Flow Actions
+
+- [Delay (Async / Non-Blocking)
+- [Delay (Blocking)
+- [Start Repeat
+- [End / Stop Repeat
+- [Break
+- [Cancel Repeat
+- [IF Condition
+- [IF JavaScript True
+- [IF AppleScript True
+- [IF Image Visible
+- [IF Text Visible
+- [ELSE
+- [END IF
+- [Execute Action Sequence After Timeout (Cancellable)
+- [Cancel Timed / Delayed Action Sequences
+- [Ask For Input & Save To Variable
+- [Wait for Keyboard Input
+- [Wait for Conditions To Become True
+- [Cancel Wait for Conditions To Become True
+- [Wait for Change Of Focused Window
+- [Break
+- [Continue With Next Action
+- [Stop All Action Sequences
+- [Wait For Conditions
+- [Cancel Wait For Conditions
+- [Wait For App Launch/Terminate
+- [Wait For Image to Become Visible
+- [Wait For Focus Change
+- [Wait For Keyboard Input
+- [Trigger Action Sequence After Timeout
+- [Cancel Action Sequence After Timeout
+- [Wait For Other BetterTouchTool Trigger To Fire
+- [Debounce
+- [Variable Actions
+
+- [Set Variable
+- [Increase Variable
+- [Toggle Variable
+- [Toggle Multiple Variables / Cycle Through Multiple Actions
+- [Toggle On/Off
+- [Ask For Input & Save to Variable
+- [Refresh Condition Values
+- [Show Variables View
+- [Device Control
+
+- [Connect Bluetooth Device
+- [Disconnect Bluetooth Device
+- [Toggle Bluetooth Device
+- [Enable Bluetooth
+- [Disable Bluetooth
+- [Toggle Bluetooth
+- [Connect MIDI Device
+- [Send MIDI Command
+- [Send Raw Data to Generic Device
+- [Execute Generic Device Command
+- [Connect Sidecar
+- [Disconnect Sidecar
+- [BTT Mobile Actions
+- [Mobile Trackpad Widget
+- [Siri Remote Mouse Mode
+- [Logitech: Change Mouse DPI
+- [Logitech: Change Smart Shift / Ratchet Mode / Scroll Settings
+- [Logitech: Change LED Color
+- [Logitech: Change Report Rate
+- [Logitech: Change Profile
+- [Logitech: Increase / Decrease Keyboard Brightness
+- [Logitech: Increase / Decrease Mouse DPI
+- [Logitech: Toggle Ratchet Mode
+- [Logitech: Haptic Feedback
+- [Logitech: Change Host / Channel
+- [UI Automation Actions
+
+- [Find Position of Image on Screen
+- [Scroll
+- [Start/Stop Scroll Blocking
+- [Zoom (Pinch)
+- [Rotate
+- [Smart Zoom
+- [Look Up
+- [Show Context Menu
+- [Show Context Menu for Selection
+- [Trigger Menu Bar Item
+- [Trigger Context Menu Item
+- [Click Status Bar Item
+- [Show/Hide Status Bar Items
+- [Move Status Bar Item
+- [Search Menu Bar Status Items
+- [Click Button in Active Window
+- [Change Slider Value
+- [Interact with UI Element
+- [Show UI Element Viewers
+- [Get Hovered Link/URL
+- [Start/End Keyboard Input Blocking
+- [Lock Mouse Axis Movement
+- [Start / Stop Smooth Scroll
+- [Start / Stop Smooth Zoom
+- [Start / Stop Smooth Rotate
+- [Start / Stop Smooth Space Switch
+- [Start Dictation / Speech Recognition
+- [Stop Dictation & Paste or Copy
+- [Custom Actions
+
+- [Show Custom Context Menu
+- [Show Custom HTML Menu
+- [Show Searchable List
+- [Show Floating Web View
+- [Close Floating Web View
+- [Show HUD
+- [Show Notification
+- [Haptic Feedback
+- [Show Color Picker
+- [Show Cheat Sheet
+- [Hide/Toggle Cheat Sheet
+- [Open URL
+- [Post Distributed Notification
+- [Change Input Source
+- [Change Default Browser
+- [Set Function Key Mode
+- [Call macOS Service
+- [Set Icon for File
+- [Create Snap Area
+- [Edit Snap Areas
+- [Trigger Snap Area
+- [Plugin Action
+- [JSON Action Plugin
+- [Comment
+- [Separator
+- [AI Actions
+- [AI Chat Window
+- [h@llo.ai - Show Customizable AI Assistant
+- [h@llo.ai - Update AI Chat Properties
+- [h@llo.ai - Cancel All Ongoing Requests
+- [h@llo.ai - Close All Assistant Windows
+- [h@llo.ai - Run AI Task In Background
+- [Show Launcher
+- [Hide Launcher
+- [Toggle Launcher
+- [Stage Manager Actions
+- [Dock Actions
+- [Toggle Actions
+- [Login/Security Actions
+- [Advanced Click Actions
+- [Gesture Control
+- [Zoom In/Out
+- [Window Snapping
+- [Fullscreen
+- [No Action
+- [Additional Missing Actions
+
+- [Change Default Browser/Handler
+- [OCR (Extract Text from Image)
+- [Remap Key
+- [Send Data to Connected BTT Mobile/iOS Device
+- [Unlock Screen (with Password)
+- [Additional Notes
+
+- [Action Sequences
+- [Helper Functions
+- [Generic Configuration Fields
+- [Special Data Handling
+- [Shortcuts and Modifiers
+- [Best Practices
+- [Action Categories
+
+- [BTTActionCategory Values
+- [Categories by Trigger Type
+- [Using Action Categories in JSONCommunity
+
+- [ForumMore
+
+- [Privacy Policy
+- [Website
+- [Documentation GitHubCopyright 2026 folivora.AI GmbH.

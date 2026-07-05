@@ -1,0 +1,73 @@
+# Source: https://docs.folivora.ai/docs/ai-assistants/usage-without-ui
+
+- [
+- [AI Assistants
+- Usage Without UI
+
+# Usage Without UI
+
+
+AI Assistants can run without showing the chat window. This is useful for shortcuts, scheduled reports, text transformations, and background automations.
+
+
+## Invisible Assistant[​
+
+
+In the assistant action, provide an initial user message and enable:
+
+
+- **Stop & Close After Processing Initial User Message**
+
+- **Invisible Operation / Don't Show UI**
+
+
+This uses the same assistant configuration, skills, context, and model as the visible chat.
+
+
+## Run AI Task In Background[​
+
+
+The predefined action **[h@llo.ai - Run AI Task In Background** runs a prompt silently from any BTT trigger.
+
+
+It can:
+
+
+- use a selected AI assistant
+
+- send a fixed or variable-based user message
+
+- attach a screenshot or file
+
+- reuse an existing conversation
+
+- temporarily disable selected skills
+
+- write the result to `BTTLastAIResult`
+
+
+Use `BTTLastAIResult` in later actions to show a HUD, paste text, run a script, or update a variable.
+
+
+## Scheduled AI Trigger[​
+
+
+The **Scheduled AI Trigger** runs an AI task on an interval or CRON-like schedule.
+
+
+Use it for:
+
+
+- daily briefings
+
+- periodic status checks
+
+- recurring summaries
+
+- automated reports
+
+
+## External Clients[​
+
+
+For headless control from tools such as Codex or Claude Code, enable [BTT as MCP Provider.

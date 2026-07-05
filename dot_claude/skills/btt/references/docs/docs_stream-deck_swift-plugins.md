@@ -1,0 +1,78 @@
+# Source: https://docs.folivora.ai/docs/stream-deck/swift-plugins
+
+- [
+- [Stream Deck
+- Custom Swift Plugins
+
+# Custom Swift / Objective-C Plugins
+Moved to Plugins Section
+
+The full plugin documentation has been consolidated into a dedicated **Plugins** section. Please see:
+
+
+- **[Stream Deck Plugins** - full protocol reference, all 4 rendering options, button handling, delegate methods
+
+- **[Swift Source Plugins** - how to create simple `.swift` file plugins (no Xcode required)
+
+- **[Plugin Overview** - overview of all plugin types and development approaches
+
+
+BetterTouchTool allows you to add your own custom Swift or Objective-C plugins for the Stream Deck.
+
+
+For a quick start, create a `.swift` file and drop it onto the BTT preferences window:
+
+```
+`// BTT-Plugin-Name: Counter
+// BTT-Plugin-Type: StreamDeck
+// BTT-Plugin-Icon: number.circle.fill
+
+import Cocoa
+
+class Counter: NSObject, BTTStreamDeckPluginInterface {
+    weak var delegate: (any BTTStreamDeckPluginDelegate)?
+    private var count = 0
+
+    static func configurationFormItems() -> BTTPluginFormItem? { nil }
+
+    func widgetTitleStrings() -> [String]? {
+        return ["\(count)"]
+    }
+
+    func buttonDown(_ identifier: String) -> Bool {
+        count += 1
+        delegate?.requestUpdate(self)
+        return false
+    }
+
+    func buttonUp(_ identifier: String) -> Bool {
+        return false
+    }
+}
+`
+```
+
+
+See the [Stream Deck Plugins page for the complete documentation including all rendering options, appearance configuration, and delegate methods.
+
+
+## Example: CPU Usage Plugin[​
+
+
+A ready-to-use CPU usage plugin is available for download:
+[http://folivora.ai/releases/BTTStreamDeckPluginCPUUsage.zip
+
+
+The source code is available on GitHub:
+[https://github.com/folivoraAI/BetterTouchToolPlugins/tree/master/xcode-bundle-examples/BTTStreamDeckPluginCPUUsage
+
+
+Plugins can be installed in either `~/Library/Application Support/BetterTouchTool/Plugins/` or `/Library/Application Support/BetterTouchTool/Plugins/`[PreviousScript Widgets[NextGeneric Devices
+
+- [Example: CPU Usage PluginCommunity
+
+- [ForumMore
+
+- [Privacy Policy
+- [Website
+- [Documentation GitHubCopyright 2026 folivora.AI GmbH.

@@ -1,0 +1,40 @@
+# Source: https://docs.folivora.ai/docs/ai-assistants/example-assistants
+
+- [
+- [AI Assistants
+- Example Assistants
+
+# Example Assistants
+
+
+The best assistants are now usually skill combinations, not long manual tool lists.
+
+
+## Useful Starting Points[​
+
+
+- **BTT helper:** General Assistant + BTT Expert
+
+- **Visible app operator:** General Assistant + Computer Use
+
+- **Background app operator:** General Assistant + Background Computer Use
+
+- **Text helper:** General Assistant with selected text context and text replacement tools
+
+- **Research helper:** Research Assistant + Memory
+
+- **Floating menu builder:** BTT Expert + Floating Menu & Widget Creator
+
+- **Plugin builder:** BTT Expert + BTT Plugin Creator as an optional skill
+
+
+## Importable Example[​
+
+
+This older preset still demonstrates a powerful automation assistant:
+
+
+[Example Automation Assistant
+
+
+Review its enabled skills and permissions before using it. Automation assistants can click, type, run scripts, and change BTT configuration.

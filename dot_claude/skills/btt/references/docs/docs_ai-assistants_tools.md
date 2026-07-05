@@ -1,0 +1,60 @@
+# Source: https://docs.folivora.ai/docs/ai-assistants/tools
+
+- [
+- [AI Assistants
+- Tools
+
+# Tools
+
+
+Tools are the low-level actions an assistant can call. Skills decide which tools are available, so most users should configure [Skills first and only adjust individual tools for advanced use cases.
+
+
+## Common Tool Groups[​
+
+
+- **BTT configuration:** Search BTT docs, look up action and trigger definitions, create or update triggers, edit action lists, create snippets, and inspect selected triggers.
+
+- **Computer use:** Screenshots, windows, accessibility trees, UI element search, clicks, typing, shortcuts, OCR, and menu bar actions.
+
+- **Background computer use:** Targeted background clicks, shortcuts, key presses, scrolling, window state, app launching, and fake cursor display.
+
+- **Text workflows:** Read selected text, transform it, replace it, paste text, and update the clipboard.
+
+- **Files and code:** Read, write, search, edit, diff, patch, run diagnostics, and execute scripts when the skill allows it.
+
+- **Web and research:** Search the web, fetch pages, inspect browser content, and automate Safari.
+
+- **Memory:** Save, recall, and forget persistent memories.
+
+- **UI output:** Show HUDs, status messages, interactive chat content, and files.
+
+- **MCP:** Use tools from configured external MCP servers.
+
+
+## When To Edit Tools Manually[​
+
+
+Manual tool selection is useful when you want a very narrow assistant, when you are migrating an older setup, or when a custom skill needs one extra capability.
+
+
+For new assistants, prefer this order:
+
+
+- Pick the right built-in skill.
+
+- Add a custom skill if the workflow is recurring.
+
+- Only then add or remove individual tools.
+
+
+## Custom User Tools[​
+
+
+Custom tools can be created from BetterTouchTool Named Triggers. This is useful when you already have a trusted BTT automation and want an assistant to call it by name.
+
+
+## Safety[​
+
+
+Tools such as shell scripts, AppleScript, file writes, plugin compilation, and desktop control can affect your Mac directly. Keep powerful tools inside focused skills and avoid granting full access to general chat assistants.
