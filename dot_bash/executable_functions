@@ -620,6 +620,85 @@ gpgd()
   gpg -o "${f%.gpg}" -d "$f"
 }
 
+#######################
+## History functions ##
+#######################
+history_purge()
+{
+  # Removes history entries containing given phrases, then keeps the
+  # current shell's live history and $HISTFILE in sync. Must live here
+  # (sourced into the shell) rather than as a standalone script, since
+  # an executed script runs in a child process and can never edit its
+  # parent shell's in-memory history.
+  #
+  # Prefix the call with a leading space (relies on HISTCONTROL
+  # containing ignorespace/ignoreboth) so this invocation itself isn't
+  # recorded — otherwise the phrase you just purged gets written right
+  # back into history the moment you press enter, since bash only
+  # appends a line to history after it finishes running.
+  local histfile backup count offset entry phrase matched suffix i
+  local -a to_delete
+
+  if ((${#} == 0)); then
+    echo "usage: history_purge <phrase> [phrase ...]" >&2
+    return 1
+  fi
+
+  histfile="${HISTFILE:-${HOME}/.bash_history}"
+  if [[ ! -f ${histfile} ]]; then
+    echo "history_purge: history file not found: ${histfile}" >&2
+    return 1
+  fi
+
+  backup="${histfile}.bak.$(date +%Y%m%d%H%M%S)"
+  cp -p -- "${histfile}" "${backup}" || return 1
+
+  # Flush this session's unwritten commands, then reload so the live
+  # history list matches the file exactly before editing it.
+  history -a
+  history -c
+  history -r "${histfile}"
+
+  if [[ -z $(history 1) ]]; then
+    echo "history_purge: history is empty"
+    rm -f -- "${backup}"
+    return 0
+  fi
+
+  read -r count _ < <(history 1)
+
+  # Walk every entry via fc rather than grepping `history`'s text
+  # output: a multi-line command's continuation lines have no leading
+  # offset number and would otherwise look like a new entry.
+  to_delete=()
+  for ((i = 1; i <= count; i++)); do
+    entry="$(fc -ln "${i}" "${i}" 2>/dev/null)"
+    matched=0
+    for phrase in "${@}"; do
+      [[ ${entry} == *"${phrase}"* ]] && matched=1 && break
+    done
+    ((matched)) && to_delete+=("${i}")
+  done
+
+  if ((${#to_delete[@]} == 0)); then
+    echo "history_purge: no matching entries found"
+    rm -f -- "${backup}"
+    return 0
+  fi
+
+  # Delete from the highest offset down so lower offsets stay valid.
+  for ((i = ${#to_delete[@]} - 1; i >= 0; i--)); do
+    offset="${to_delete[i]}"
+    history -d "${offset}"
+  done
+
+  history -w "${histfile}"
+
+  suffix="ies"
+  ((${#to_delete[@]} == 1)) && suffix="y"
+  echo "history_purge: removed ${#to_delete[@]} entr${suffix} (backup: ${backup})"
+}
+
 videoInfo()
 {
   local file
