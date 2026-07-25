@@ -2,7 +2,7 @@
 ## macOS-specific                       ##
 ##########################################
 export BASH_SILENCE_DEPRECATION_WARNING=1
-export FIGNORE="${FIGNORE}DS_Store"
+export FIGNORE="${FIGNORE}:DS_Store"
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWUNTRACKEDFILES=true
