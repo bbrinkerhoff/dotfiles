@@ -1,14 +1,12 @@
-{{ if eq .chezmoi.os "darwin" }}
-####################
-# Function Aliases #
-####################
-alias duh='duDir'
-alias ip='showIPS'
-alias act='activateVirtualenv'
+##########################################
+## macOS-specific                       ##
+##########################################
 
-###################
-# Utility Aliases #
-###################
+# Function Aliases
+
+alias ip='showIPS'
+
+# Utility Aliases
 alias _du='diskutil'
 alias _dul='diskutil list'
 alias cleanup='find . -type f -name "*.DS_Store" -ls -delete'
@@ -27,9 +25,8 @@ alias tdate='date "+%Y%m%d"'
 alias vi='vim'
 alias wolpc="osascript -e 'tell application \"BetterTouchTool\" to trigger_named \"Launch Windows App\"'"
 
-####################
-# Settings Aliases #
-####################
+# Settings Aliases
+
 alias _bt-off='sudo nvram bluetoothHostControllerSwitchBehavior=always'
 alias _bt-on='sudo nvram -d bluetoothHostControllerSwitchBehavior'
 alias hidedesktop='defaults write com.apple.finder CreateDesktop -bool false && killall Finder'
@@ -40,37 +37,3 @@ alias showdesktop='defaults write com.apple.finder CreateDesktop -bool true && k
 alias showf='defaults write com.apple.finder AppleShowAllFiles TRUE && killall Finder'
 alias stfu='osascript -e "set volume output muted true"'
 alias unquarantine='xattr -d com.apple.quarantine'
-
-###############
-# Git Aliases #
-###############
-alias gb='git branch'
-alias gc='git checkout'
-alias gd='git diff'
-alias gp='git pull'
-alias gs='git status'
-alias gpm='git pull origin main'
-alias gcm='git switch main'
-alias gcb='git switch bbrinkerhoff 2>/dev/null || git switch -c bbrinkerhoff'
-alias gbd='pruneGitBranches'
-alias gbD='pruneGitBranches all'
-alias gnb='git switch main && git switch -c'
-alias mkpr='makePullRequest'
-
-###################
-# Vagrant Aliases #
-###################
-alias v='vagrant'
-alias vb='vagrant box'
-alias vgs='vagrant global-status'
-alias vrm='vagrant destroy -f'
-alias vs='vagrantSSH'
-alias vu='vagrant up'
-
-######################
-# Misc Env Variables #
-######################
-export HOMEBREW_NO_ENV_HINTS=true
-export HOMEBREW_CASK_OPTS="--no-quarantine --adopt"
-export MAS_NO_AUTO_INDEX=1
-{{ end }}

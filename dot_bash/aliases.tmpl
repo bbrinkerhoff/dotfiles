@@ -1,0 +1,68 @@
+{{- $aliases := output "find" (joinPath .chezmoi.sourceDir ".chezmoitemplates/BASH/aliases") "-name" .osID "-exec" "cat" "{}" ";" -}}
+#!/usr/bin/env bash
+
+{{ $aliases }}
+
+##############################################
+## Cross-platform (macOS, Linux, WSL Ubuntu)##
+##############################################
+
+################
+# BASH Aliases #
+################
+alias ...='cd ../../'
+alias ..='cd ../'
+alias dd='sudo dd'
+alias diff='colordiff'
+alias grep='grep --color=always'
+alias ll='ls -lAh'
+alias ls='ls --color=always'
+alias lsa='ls -A'
+alias lt='ls -lAtrh'
+alias mount='sudo mount'
+alias reboot='sudo reboot'
+alias sbp='. ${HOME}/.bash_profile'
+alias shutdown='sudo shutdown'
+alias sudo='sudo ' # Enable aliases to be sudo’ed
+alias umount='sudo umount'
+
+####################
+# Function Aliases #
+####################
+alias act='activateVirtualenv'
+alias duh='duDir'
+
+###################
+# Chezmoi Aliases #
+###################
+alias cm='chezmoi'
+alias cma='chezmoi apply -v'
+alias cmcd='cd $(chezmoi source-path)'
+alias cmd='chezmoi diff'
+alias cmr='chezmoi re-add'
+
+###############
+# Git Aliases #
+###############
+alias gb='git branch'
+alias gbD='pruneGitBranches all'
+alias gbd='pruneGitBranches'
+alias gc='git checkout'
+alias gcb='git switch bbrinkerhoff 2>/dev/null || git switch -c bbrinkerhoff'
+alias gcm='git switch main'
+alias gd='git diff'
+alias gnb='git switch main && git switch -c'
+alias gp='git pull'
+alias gpm='git pull origin main'
+alias gs='git status'
+alias mkpr='makePullRequest'
+
+###################
+# Vagrant Aliases #
+###################
+alias v='vagrant'
+alias vb='vagrant box'
+alias vgs='vagrant global-status'
+alias vrm='vagrant destroy -f'
+alias vs='vagrantSSH'
+alias vu='vagrant up'

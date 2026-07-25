@@ -1,0 +1,7 @@
+##########################################
+## WSL-specific                         ##
+##########################################
+alias systemctl='sudo systemctl'
+alias arrStackStart='sudo systemctl start radarr sonarr prowlarr jackett flaresolverr'
+alias arrStackStop='sudo systemctl stop radarr sonarr prowlarr jackett flaresolverr'
+alias shut='wsl.exe --shutdown'

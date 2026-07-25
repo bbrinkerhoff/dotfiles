@@ -1,40 +1,65 @@
+{{- $functions := output "find" (joinPath .chezmoi.sourceDir ".chezmoitemplates/BASH/functions") "-name" .osID "-exec" "cat" "{}" ";" -}}
 #!/usr/bin/env bash
 
-######################
-## System functions ##
-######################
-showIPS()
+{{ $functions }}
+##############################################
+## Cross-platform (macOS, Linux, WSL Ubuntu)##
+##############################################
+
+## Portability helpers ##
+
+_md5sum()
 {
-  local x ip
-  for x in $(ipconfig getiflist); do
-    ip="$(ipconfig getifaddr $x)"
-    if [[ -n ${ip:+x} ]]; then
-      printf '%-7s %s\n' "$x:" "${ip}"
-    fi
-  done | sort
+  # Picks the native hasher per platform; both emit "hash  file" so
+  # callers don't need to care which one ran.
+  if command -v md5sum &>/dev/null; then
+    md5sum "$@"
+  else
+    md5 -r "$@"
+  fi
 }
 
-cdf()
+_pidof()
 {
-  # Change working directory to the top-most Finder window location
-  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
+  if command -v pidof &>/dev/null; then
+    pidof "$@"
+  else
+    pgrep -d' ' -x "$@"
+  fi
 }
 
-finder()
+_clipboardPaste()
 {
-  # Open a Finder window at the current or given location
-  osascript -e "tell application \"Finder\" to open POSIX file \"${@:-$PWD}\""
+  if command -v pbpaste &>/dev/null; then
+    pbpaste
+  elif command -v wl-paste &>/dev/null; then
+    wl-paste
+  elif command -v xclip &>/dev/null; then
+    xclip -selection clipboard -o
+  elif command -v xsel &>/dev/null; then
+    xsel --clipboard --output
+  elif command -v powershell.exe &>/dev/null; then
+    powershell.exe -NoProfile -Command Get-Clipboard | tr -d '\r'
+  fi
 }
 
-appID()
+_urlOpen()
 {
-  # Return bundle ID of a given application
-  osascript -e "id of app \"$*\""
+  local opener
+  if command -v open &>/dev/null; then
+    opener=open
+  elif command -v wslview &>/dev/null; then
+    opener=wslview
+  elif command -v xdg-open &>/dev/null; then
+    opener=xdg-open
+  elif command -v explorer.exe &>/dev/null; then
+    opener=explorer.exe
+  fi
+  [[ -n ${opener} ]] && "${opener}" "$@"
 }
 
-###################
-## Git functions ##
-###################
+## Everything else ##
+
 makePullRequest()
 {
   local msg prOut prURL openURL
@@ -51,7 +76,7 @@ makePullRequest()
   prOut="$(git push 2>&1 | tee /dev/tty)"
   prURL="$(echo "${prOut}" | sed -E '/https:.*merge_requests/!d;s/^.*(https:\/\/[^ ]*).*$/\1/')"
   if [[ ${openURL} == true ]] && [[ -n ${prURL:+x} ]]; then
-    open "$(printf '%b' "${prURL//%/\\x}")"
+    _urlOpen "$(printf '%b' "${prURL//%/\\x}")"
   elif [[ ${openURL} == true ]] && [[ -z ${prURL:+x} ]]; then
     echo "${R}No PR URL found.${RS}" >&2
   fi
@@ -73,9 +98,6 @@ pruneGitBranches()
     echo -e "\n${R}Failed to prune git branches.${RS}"
 }
 
-###################
-## Menu function ##
-###################
 menu()
 {
   local ESC=$(printf "\033")
@@ -146,45 +168,40 @@ menu()
   return $selected
 }
 
-#########################
-# Text Output Functions #
-#########################
 _txt()
 {
   tput -T xterm-256color $@
-} # set text attributes
+}
 _fg()
 {
   _txt setaf ${1}
-} # set the foreground text color
+}
 _bg()
 {
   _txt setab ${1}
-} # set the background text color
+}
 _join()
 {
   local IFS=${1}
   printf "${*:2}"
-} # join arguments with ${1} delimiter
+}
 _info()
 {
   local IFS=$'\n'
   printf "${G} *  INFO${RS}: %s\n" "$*"
-} # print 'INFO' text to stdout
+}
 _warn()
 {
   local IFS=$'\n'
   printf "${Y} *  WARN${RS}: %s\n" "$*"
-} # print 'WARN' text to stdout
+}
 _error()
 {
-  # print 'ERROR' text to stderr
   local IFS=$'\n'
   printf "${R} * ERROR${RS}: %s\n" "$*" 1>&2
 }
 _erase()
 {
-  # move cursor up a line and erase x times
   for ((i = 1; i <= ${1:-1}; i++)); do
     tput cuu1
     tput el
@@ -192,17 +209,12 @@ _erase()
 }
 _print()
 {
-  # print arguments with an optional color arg +
-  #  to stdout separated by a newline
   local IFS=$'\n' c
   c="${1:0:2}" c="${c^^}" c="${!c}"
   shift 0${c:+1}
   printf "$c%b\n" "$*${RS}"
 }
 
-##################
-# Misc Functions #
-##################
 vagrantSSH()
 {
   gum style --foreground="${GREEN}" \
@@ -229,11 +241,15 @@ getCERT()
 
 duDir()
 {
-  du -h --max-depth=1 "${@:-.}" 2>/dev/null | sort -h
+  # `-d` is accepted by both GNU coreutils du and BSD/macOS du
+  # (unlike `--max-depth`, which is GNU-only)
+  du -h -d 1 "${@:-.}" 2>/dev/null | sort -h
 }
 
 makeRPM()
 {
+  # fpm itself runs on macOS/Linux/WSL alike; only the *output*
+  # package targets Linux/RPM
   local fpm m t s os C p v
   fpm='/usr/bin/env fpm'
   m='ops@solutionreach.com'
@@ -281,7 +297,7 @@ processTime()
   local E=$(tput el) local EL=${UP}${E}
   while true; do
     printf "\n%30s\n" " " | tr " " "-"
-    echo "Elapsed Time: $(ps -p $(pidof "$@" 2>/dev/null) -o etime= 2>/dev/null)"
+    echo "Elapsed Time: $(ps -p $(_pidof "$@" 2>/dev/null) -o etime= 2>/dev/null)"
     printf "%30s\n\n" " " | tr " " "-"
     sleep ${refresh:-2.5}
     echo -ne "${EL}${EL}${EL}${EL}${EL}"
@@ -290,9 +306,16 @@ processTime()
 
 hostAlive()
 {
+  # BSD ping's -W is milliseconds; GNU ping's -W is whole seconds
   local status host=${1:-8.8.8.8} UP=$(tput cuu1) E=$(tput el)
+  local waitFlag
+  if [[ $(uname) == Darwin ]]; then
+    waitFlag=1500
+  else
+    waitFlag=2
+  fi
   while true; do
-    if ping -c 1 -W 1500 "${host}" &>/dev/null; then
+    if ping -c 1 -W "${waitFlag}" "${host}" &>/dev/null; then
       status="${GREEN}Host: Alive${RESET} (${host})"
     else
       status="${RED}Host: Unreachable${RESET} (${host})"
@@ -343,7 +366,7 @@ sanitizeFilePaths()
 
 cleanDupes()
 {
-  local IFS=$'\n' fileList="$(find . \! -type d -exec md5 -r {} \; | sort -k1)"
+  local IFS=$'\n' fileList="$(find . \! -type d -exec bash -c '_md5sum "$0"' {} \; | sort -k1)"
   local hashDupes=($(cut -d' ' -f1 <<<"${fileList}" | uniq -d))
   for hash in ${hashDupes[*]}; do
     local oc rmList dupes=($(grep "${hash}" <<<"${fileList}" | perl -pe 's/^.*? //g;s/\ /\\ /g' | xargs ls -1cr))
@@ -386,10 +409,9 @@ help()
 man()
 {
   case "$(bash -c "type -t \"$1\""):$1" in
-    builtin:*) help "$1" ;; # built-in
-    *[[?*]*) help "$1" ;;   # pattern
-    *) command man "$@" ;;  # something else, presumed to be an external command
-      # or options for the man command or a section number
+    builtin:*) help "$1" ;;
+    *[[?*]*) help "$1" ;;
+    *) command man "$@" ;;
   esac
 }
 
@@ -423,7 +445,7 @@ cleanDupesAuto()
   IFS=$'\n' hashFile="${srcPath}/.hashfile" sortedFile="${srcPath}/.sortedHash" pids=()
   echo >"${hashFile}"
   for file in $(find "${srcPath}" -type f ! -iname ".*"); do
-    sudo nice -n -18 md5sum -t "${file}" >>"${hashFile}" 2>/dev/null &
+    sudo nice -n -18 bash -c '_md5sum "$0"' "${file}" >>"${hashFile}" 2>/dev/null &
     pids+=($!)
   done &>/dev/null
   for pid in "${pids[@]}"; do
@@ -445,60 +467,20 @@ countFiles()
   du -a ${path:-.} | cut -d/ -f2 | sort | uniq -c | sort -nr | sed '$d'
 }
 
-SetSound()
-{
-  local search device
-  search="$@"
-
-  device="$(SwitchAudioSource -a | grep -m1 -i "${search}")"
-
-  [[ -n ${device:+x} ]] && SwitchAudioSource -s "${device}"
-}
-
-osa()
-{
-  local IFS=$'\n'
-  osascript <<EOF
-$*
-EOF
-}
-
-showAlert()
-{
-  osascript <<EOF
-tell me to activate
-display alert "$*"
-EOF
-}
-
-1pBackupCodes()
-{
-  local IFS=$'\n'
-  local opEntry backupCodes backupCode index errorOut
-  opEntry="${1}" backupCodes=(${*:2}) index=0 errorOut=0
-  [[ -z ${backupCodes[*]} ]] && backupCodes=($(pbpaste))
-
-  op item get "${opEntry}" &>/dev/null ||
-    echo "${R}No 1Password entry found for \"${RS}${opEntry}${R}\"${RS}"
-
-  while ((index < ${#backupCodes[@]})); do
-    backupCode=${backupCodes[${index}]}
-    ((index++))
-    op item edit "${opEntry}" Backup\ Codes.Code\ ${index}[password]="${backupCode}" &>/dev/null || ((errorOut++))
-  done
-
-  if ((errorOut > 0)); then
-    echo "${R}Failed to add backup code(s) to 1Password entry \"${RS}${opEntry}${R}\"${RS}"
-  else
-    op item get "${opEntry}"
-    echo -e "${G}\n${#backupCodes[@]} backup code(s) have been added to 1Password entry \"${RS}${opEntry}${G}\"${RS}\n"
-  fi
-}
+osa_localFind_lsFlag=""
 
 localFind()
 {
-  local searchDir type IFS
+  # `--color=auto` is GNU-only; BSD/macOS ls uses `-G`.
+  # `-printf` is a GNU find extension; `-print` is the portable
+  # equivalent for just printing the path.
+  local searchDir type IFS lsColorFlag
   IFS=$'\n' searchDir="." type="f,d"
+  if ls --color=auto . &>/dev/null; then
+    lsColorFlag="--color=auto"
+  else
+    lsColorFlag="-G"
+  fi
   for x in 1 2; do
     case "${1}" in
       b | c | d | p | f | l | s | D | b,* | c,* | d,* | p,* | f,* | l,* | s,* | D,*)
@@ -510,8 +492,8 @@ localFind()
     esac
     shift
   done
-  for x in $(find "${searchDir}" -maxdepth 1 -type ${type} ! -name "." ${@} -printf '%p\n' | sort); do
-    [[ -d ${x} ]] && ls --color=auto -A -d "${x}" || ls --color=auto "${x}"
+  for x in $(find "${searchDir}" -maxdepth 1 -type ${type} ! -name "." ${@} -print | sort); do
+    [[ -d ${x} ]] && ls ${lsColorFlag} -A -d "${x}" || ls ${lsColorFlag} "${x}"
   done
   return $?
 }
@@ -538,7 +520,9 @@ dlSong()
 
 rmSSH()
 {
-  [[ -n $@ ]] && sed -i "/^$@ /d" ${HOME}/.ssh/known_hosts
+  # `-i''` (empty attached suffix) is the portable form GNU/BSD sed
+  # both accept — same idiom already used in `virtualenv()` below
+  [[ -n $@ ]] && sed -i'' "/^$@ /d" ${HOME}/.ssh/known_hosts
 }
 
 showBASHEnv()
@@ -567,7 +551,7 @@ stripEditList()
 pasteScript()
 {
   local script scriptname
-  script="$(pbpaste)"
+  script="$(_clipboardPaste)"
   read -ep "Script name: " scriptname
   echo "${script}" >"${scriptname}"
   chmod +x "${scriptname}"
@@ -575,32 +559,10 @@ pasteScript()
 
 virtualenv()
 {
-
   local venvOutput venvDir
   venvOutput="$(command virtualenv $@ 2>&1 | tee /dev/tty)"
   venvDir="$(grep -oP --color=never 'dest=\K[^,]*' <<<"${venvOutput}")"
   sed -E -i'' 's/(PS1=")\(/\1\\n(/' "${venvDir}"/bin/*
-}
-
-appPath()
-{
-  find /Applications ~/Applications /System/Applications -iname "$@.app" -print -quit 2>/dev/null
-}
-
-bundleID()
-{
-  defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
-}
-
-tccServices()
-{
-  {
-    sudo sqlite3 -json "/Library/Application Support/com.apple.TCC/TCC.db" \
-      "SELECT DISTINCT service, client FROM access ORDER BY service, client"
-    sqlite3 -json "${HOME}/Library/Application Support/com.apple.TCC/TCC.db" \
-      "SELECT DISTINCT service, client FROM access ORDER BY service, client"
-  } |
-    jq -s 'add | unique_by(.service,.client) | group_by(.service) | map({(.[0].service | ltrimstr("kTCCService")): map(.client)}) | add'
 }
 
 activateVirtualenv()
@@ -620,9 +582,30 @@ gpgd()
   gpg -o "${f%.gpg}" -d "$f"
 }
 
-#######################
-## History functions ##
-#######################
+1pBackupCodes()
+{
+  local IFS=$'\n'
+  local opEntry backupCodes backupCode index errorOut
+  opEntry="${1}" backupCodes=(${*:2}) index=0 errorOut=0
+  [[ -z ${backupCodes[*]} ]] && backupCodes=($(_clipboardPaste))
+
+  op item get "${opEntry}" &>/dev/null ||
+    echo "${R}No 1Password entry found for \"${RS}${opEntry}${R}\"${RS}"
+
+  while ((index < ${#backupCodes[@]})); do
+    backupCode=${backupCodes[${index}]}
+    ((index++))
+    op item edit "${opEntry}" Backup\ Codes.Code\ ${index}[password]="${backupCode}" &>/dev/null || ((errorOut++))
+  done
+
+  if ((errorOut > 0)); then
+    echo "${R}Failed to add backup code(s) to 1Password entry \"${RS}${opEntry}${R}\"${RS}"
+  else
+    op item get "${opEntry}"
+    echo -e "${G}\n${#backupCodes[@]} backup code(s) have been added to 1Password entry \"${RS}${opEntry}${G}\"${RS}\n"
+  fi
+}
+
 history_purge()
 {
   # Removes history entries containing given phrases, then keeps the
@@ -653,8 +636,6 @@ history_purge()
   backup="${histfile}.bak.$(date +%Y%m%d%H%M%S)"
   cp -p -- "${histfile}" "${backup}" || return 1
 
-  # Flush this session's unwritten commands, then reload so the live
-  # history list matches the file exactly before editing it.
   history -a
   history -c
   history -r "${histfile}"
@@ -667,9 +648,6 @@ history_purge()
 
   read -r count _ < <(history 1)
 
-  # Walk every entry via fc rather than grepping `history`'s text
-  # output: a multi-line command's continuation lines have no leading
-  # offset number and would otherwise look like a new entry.
   to_delete=()
   for ((i = 1; i <= count; i++)); do
     entry="$(fc -ln "${i}" "${i}" 2>/dev/null)"
@@ -686,7 +664,6 @@ history_purge()
     return 0
   fi
 
-  # Delete from the highest offset down so lower offsets stay valid.
   for ((i = ${#to_delete[@]} - 1; i >= 0; i--)); do
     offset="${to_delete[i]}"
     history -d "${offset}"

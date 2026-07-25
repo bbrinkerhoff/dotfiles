@@ -1,0 +1,78 @@
+##########################################
+## macOS-specific                       ##
+## (Finder/AppleScript, CoreAudio, app  ##
+## bundles, TCC — no Linux/WSL analog)  ##
+##########################################
+
+showIPS()
+{
+  local x ip
+  for x in $(ipconfig getiflist); do
+    ip="$(ipconfig getifaddr $x)"
+    if [[ -n ${ip:+x} ]]; then
+      printf '%-7s %s\n' "$x:" "${ip}"
+    fi
+  done | sort
+}
+
+cdf()
+{
+  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')"
+}
+
+finder()
+{
+  osascript -e "tell application \"Finder\" to open POSIX file \"${@:-$PWD}\""
+}
+
+appID()
+{
+  osascript -e "id of app \"$*\""
+}
+
+osa()
+{
+  local IFS=$'\n'
+  osascript <<EOF
+$*
+EOF
+}
+
+showAlert()
+{
+  osascript <<EOF
+tell me to activate
+display alert "$*"
+EOF
+}
+
+SetSound()
+{
+  local search device
+  search="$@"
+
+  device="$(SwitchAudioSource -a | grep -m1 -i "${search}")"
+
+  [[ -n ${device:+x} ]] && SwitchAudioSource -s "${device}"
+}
+
+appPath()
+{
+  find /Applications ~/Applications /System/Applications -iname "$@.app" -print -quit 2>/dev/null
+}
+
+bundleID()
+{
+  defaults read "$(find /Applications ~/Applications /System/Applications -maxdepth 1 -iname "$@.app" -printf '%p/Contents/Info.plist' -quit 2>/dev/null)" CFBundleIdentifier 2>/dev/null
+}
+
+tccServices()
+{
+  {
+    sudo sqlite3 -json "/Library/Application Support/com.apple.TCC/TCC.db" \
+      "SELECT DISTINCT service, client FROM access ORDER BY service, client"
+    sqlite3 -json "${HOME}/Library/Application Support/com.apple.TCC/TCC.db" \
+      "SELECT DISTINCT service, client FROM access ORDER BY service, client"
+  } |
+    jq -s 'add | unique_by(.service,.client) | group_by(.service) | map({(.[0].service | ltrimstr("kTCCService")): map(.client)}) | add'
+}

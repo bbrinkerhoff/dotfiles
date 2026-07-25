@@ -1,8 +1,7 @@
-#!/usr/bin/env bash
+##########################################
+## macOS-specific                       ##
+##########################################
 
-##################################
-## System Path variable exports ##
-##################################
 # Get Brew 'gnubin'/'gnuman' PATHs to prefer GNU versions of commands
 BREW_PREFIX=${BREW_PREFIX:-$(brew --prefix)}
 shopt -s nullglob
@@ -16,12 +15,9 @@ PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
 PATH="${BREW_GNUPATHS[*]}:${PATH}"
 MANPATH="${BREW_MANPATHS[*]}:${MANPATH}"
 unset IFS
-PATH+=":/usr/local/sbin:/usr/local/bin"
+export MANPATH
+
 PATH+=":/Applications/iTerm.app/Contents/Resources/utilities"
 PATH+=":/Applications/Sublime Text.app/Contents/SharedSupport/bin"
 PATH+=":/opt/homebrew/opt/openjdk/bin"
 PATH+=":/Applications/BetterTouchTool.app/Contents/SharedSupport/bin"
-PATH=$(echo "$PATH" | tr ':' '\n' | awk '!seen[$0]++' | tr '\n' ':' | sed 's/:$//')
-export PATH MANPATH
-
-# PS4='+$BASH_SOURCE> ' BASH_XTRACEFD=7 bash -xl 7>&2

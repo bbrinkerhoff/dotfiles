@@ -1,0 +1,11 @@
+{{- $paths := output "find" (joinPath .chezmoi.sourceDir ".chezmoitemplates/BASH/paths") "-name" .osID "-exec" "cat" "{}" ";" -}}
+#!/usr/bin/env bash
+
+{{ $paths }}
+
+##################################
+## System Path variable exports ##
+##################################
+PATH+=":/usr/local/sbin:/usr/local/bin"
+PATH=$(echo "$PATH" | tr ':' '\n' | awk '!seen[$0]++' | tr '\n' ':' | sed 's/:$//')
+export PATH
