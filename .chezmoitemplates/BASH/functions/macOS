@@ -3,7 +3,6 @@
 ## (Finder/AppleScript, CoreAudio, app  ##
 ## bundles, TCC — no Linux/WSL analog)  ##
 ##########################################
-
 showIPS()
 {
   local x ip

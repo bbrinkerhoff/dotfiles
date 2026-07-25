@@ -1,7 +1,6 @@
 ##########################################
 ## macOS-specific                       ##
-##########################################
-
+#########################################
 # Get Brew 'gnubin'/'gnuman' PATHs to prefer GNU versions of commands
 BREW_PREFIX=${BREW_PREFIX:-$(brew --prefix)}
 shopt -s nullglob

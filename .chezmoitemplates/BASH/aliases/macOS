@@ -3,7 +3,6 @@
 ##########################################
 
 # Function Aliases
-
 alias ip='showIPS'
 
 # Utility Aliases
