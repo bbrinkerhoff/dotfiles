@@ -1,7 +1,0 @@
-{{ if and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") -}}
-alias systemctl='sudo systemctl'
-alias arrStackStart='sudo systemctl start radarr sonarr prowlarr jackett flaresolverr'
-alias arrStackStop='sudo systemctl stop radarr sonarr prowlarr jackett flaresolverr'
-alias shut='wsl.exe --shutdown'
-export LIBGL_ALWAYS_SOFTWARE=1
-{{ end }}
