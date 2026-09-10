@@ -5,9 +5,11 @@ ssh:
     # -------------------------------------------------------------------------
     common:
       - name: "github.com"
-        comment: "GitHub – always use SSH key auth"
+        comment: "GitHub – always use SSH key auth (tunneled over 443 in case 22 is blocked)"
         options:
           User: git
+          HostName: ssh.github.com
+          Port: 443
 
     # -------------------------------------------------------------------------
     # macOS (darwin) only

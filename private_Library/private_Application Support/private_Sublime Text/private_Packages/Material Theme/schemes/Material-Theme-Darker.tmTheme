@@ -2352,6 +2352,28 @@ a {
 				<string>#CFCFCFFF</string>
 			</dict>
 		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_DDDDDDFF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#DDDDDDFF</string>
+				<key>foreground</key>
+				<string>#5D5D5DFF</string>
+			</dict>
+		</dict>
+		<dict>
+			<key>scope</key>
+			<string>col_005555FF</string>
+			<key>settings</key>
+			<dict>
+				<key>background</key>
+				<string>#005555FF</string>
+				<key>foreground</key>
+				<string>#BCBCBCFF</string>
+			</dict>
+		</dict>
 	</array>
 	<key>uuid</key>
 	<string>4F44C0F5-1F8D-4C52-8BAB-F0951904C1EC</string>
