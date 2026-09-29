@@ -36,6 +36,7 @@ packages:
       - libao
       - mas
       - mediainfo
+      - mole
       - nasm
       - ncdu
       - node

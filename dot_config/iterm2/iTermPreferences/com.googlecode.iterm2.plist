@@ -36,6 +36,35 @@
 	<string>https://api.openai.com/v1/responses</string>
 	<key>AlternateMouseScroll</key>
 	<true/>
+	<key>ClaudeCodeTriggersInstalled</key>
+	<true/>
+	<key>CodeReviewSavedPrompts</key>
+	<data>
+	W3sidXVpZCI6IjIyRThEOEEwLTAzMkEtNDY1Qy04MzU5LUI4RUVFQzcwRjdGNyIsInRl
+	eHQiOiJSZXZpZXcgdGhlIHBlbmRpbmcgY2hhbmdlcyBpbiB0aGlzIHJlcG8uIEZsYWcg
+	aXNzdWVzIGEgY2FyZWZ1bCBtYWludGFpbmVyIHdvdWxkIGJsb2NrIG9uIGJlZm9yZSBt
+	ZXJnZSwgaW4gcm91Z2hseSB0aGlzIG9yZGVyOlxuICAxLiBDb3JyZWN0bmVzcyDigJQg
+	bG9naWMgZXJyb3JzLCBicm9rZW4gaW52YXJpYW50cywgbWlzc2VkIGVkZ2UgY2FzZXMs
+	IG9mZi1ieS1vbmUsIHJhY2VzLCBsaWZldGltZVwvbWVtb3J5IGJ1Z3MsIGVycm9yIHBh
+	dGhzIHRoYXQgc3dhbGxvdyBmYWlsdXJlcy5cbiAgMi4gU2VjdXJpdHkg4oCUIGluamVj
+	dGlvbiwgYXV0aG5cL2F1dGh6IG1pc3Rha2VzLCBzZWNyZXQgaGFuZGxpbmcsIHVuc2Fm
+	ZSBkZXNlcmlhbGl6YXRpb24sIHVuc2FmZSBkZWZhdWx0cywgVE9DVE9VLlxuICAzLiBS
+	ZWxpYWJpbGl0eSAmIHBlcmZvcm1hbmNlIOKAlCBibG9ja2luZyB0aGUgd3JvbmcgdGhy
+	ZWFkLCB1bmJvdW5kZWQgcmVzb3VyY2UgdXNlLCBhY2NpZGVudGFsIE8oTsKyKSwgcmV0
+	cmllcyB3aXRob3V0IGJhY2tvZmYsIHNpbGVudCBmYWlsdXJlIHBhdGhzLlxuICA0LiBD
+	b250cmFjdCByaXNrIOKAlCBiZWhhdmlvciBjaGFuZ2VzIGNhbGxlcnMgcmVseSBvbiwg
+	c2lsZW50bHkgY2hhbmdlZCBkZWZhdWx0cywgYnJva2VuIGJhY2t3YXJkIGNvbXBhdGli
+	aWxpdHksIG1pc3NpbmcgbWlncmF0aW9ucy5cblxuRm9yIGVhY2ggZmluZGluZyBjaXRl
+	IGBmaWxlOmxpbmVgLCBleHBsYWluICp3aHkqIGl0IGlzIHdyb25nIChub3Qgd2hhdCB0
+	aGUgY29kZSBkb2VzKSwgYW5kIHByb3Bvc2UgYSBjb25jcmV0ZSBmaXggd2hlbiBvbmUg
+	aXMgb2J2aW91cy4gQmUgY2FsaWJyYXRlZDogaWYgYSBmaW5kaW5nIGlzIG5vdCBoaWdo
+	LWNvbmZpZGVuY2UsIHNheSBzbyBvciBza2lwIGl0LiBWZXJpZnkgY2xhaW1zIGFnYWlu
+	c3QgdGhlIGFjdHVhbCBjb2RlIHJhdGhlciB0aGFuIGluZmVycmluZyBmcm9tIG5hbWVz
+	LlxuXG5Ta2lwIHB1cmUgc3R5bGUsIGZvcm1hdHRpbmcsIG5hbWluZywgYW5kIGFueXRo
+	aW5nIGEgbGludGVyIG9yIENJIGFscmVhZHkgZW5mb3JjZXMuXG5cbklmIHlvdSBmaW5k
+	IG5vdGhpbmcgd29ydGggZml4aW5nLCBzYXkgc28gcGxhaW5seS4iLCJuYW1lIjoiRGVm
+	YXVsdCJ9XQ==
+	</data>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>3024 Day</key>
@@ -84207,6 +84236,8 @@
 	<string>38BE2EE3-EBA0-41E6-A9F8-98BF8C015580</string>
 	<key>Default Browser Profile Guid</key>
 	<string>74663C59-3ECA-4BB9-AB5A-B38D270D8EA5</string>
+	<key>Default Toolbelt Width</key>
+	<real>250</real>
 	<key>DeleteProfile_SilenceUntil</key>
 	<real>754961619.04983306</real>
 	<key>DeleteProfile_selection</key>
@@ -84221,6 +84252,8 @@
 	<true/>
 	<key>DrawOutlineAroundCursor</key>
 	<false/>
+	<key>EnableAPIServer</key>
+	<true/>
 	<key>EnableDivisionView</key>
 	<true/>
 	<key>EnableRendezvous</key>
@@ -84962,6 +84995,53 @@ Open Paste History…</string>
 			<string>xterm-256color</string>
 			<key>Transparency</key>
 			<integer>0</integer>
+			<key>Triggers</key>
+			<array>
+				<dict>
+					<key>action</key>
+					<string>iTermEnterWorkgroupTrigger</string>
+					<key>contentregex</key>
+					<string></string>
+					<key>disabled</key>
+					<false/>
+					<key>eventParams</key>
+					<dict>
+						<key>jobName</key>
+						<string>claude</string>
+					</dict>
+					<key>matchType</key>
+					<integer>113</integer>
+					<key>parameter</key>
+					<string>builtin.claudeCode</string>
+					<key>partial</key>
+					<false/>
+					<key>regex</key>
+					<string></string>
+				</dict>
+				<dict>
+					<key>action</key>
+					<string>iTermExitWorkgroupTrigger</string>
+					<key>contentregex</key>
+					<string></string>
+					<key>disabled</key>
+					<false/>
+					<key>eventParams</key>
+					<dict>
+						<key>jobName</key>
+						<string>claude</string>
+						<key>leaderOnly</key>
+						<true/>
+					</dict>
+					<key>matchType</key>
+					<integer>114</integer>
+					<key>parameter</key>
+					<string></string>
+					<key>partial</key>
+					<false/>
+					<key>regex</key>
+					<string></string>
+				</dict>
+			</array>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -85061,6 +85141,7 @@ Open Paste History…</string>
 	<array>
 		<string>Recent Directories</string>
 		<string>Snippets</string>
+		<string>Session Status</string>
 	</array>
 	<key>UnderlineCursorHeight</key>
 	<real>3</real>
@@ -85074,6 +85155,37 @@ Open Paste History…</string>
 	<false/>
 	<key>WindowNumber</key>
 	<true/>
+	<key>Workgroups</key>
+	<data>
+	W3sidW5pcXVlSWRlbnRpZmllciI6ImJ1aWx0aW4uY2xhdWRlQ29kZSIsIm5hbWUiOiJD
+	bGF1ZGUgQ29kZSIsInNlc3Npb25zIjpbeyJwZXJGaWxlQ29tbWFuZCI6IiIsImRpc3Bs
+	YXlOYW1lIjoiQ2hhdCIsInRvb2xiYXJJdGVtcyI6W3sia2luZCI6Im1vZGVTd2l0Y2hl
+	ciJ9LHsia2luZCI6ImdpdFN0YXR1cyJ9LHsia2luZCI6ImF1dG9SZXF1ZXN0UmV2aWV3
+	V2hlbklkbGUifV0sIm1vZGUiOiJyZWd1bGFyIiwidW5pcXVlSWRlbnRpZmllciI6ImJ1
+	aWx0aW4uY2xhdWRlQ29kZS5tYWluIiwidXJsU3RyaW5nIjoiIiwiY29tbWFuZCI6IiIs
+	ImtpbmQiOnsia2luZCI6InJvb3QifX0seyJwZXJGaWxlQ29tbWFuZCI6ImdpdCBkaWZm
+	dG9vbCAteSAteCB2aW1kaWZmIFxcKGdpdEJhc2UpIC0tIFxcKGZpbGUpIiwiZGlzcGxh
+	eU5hbWUiOiJEaWZmIiwidG9vbGJhckl0ZW1zIjpbeyJraW5kIjoibW9kZVN3aXRjaGVy
+	In0seyJraW5kIjoiY2hhbmdlZEZpbGVTZWxlY3RvciJ9LHsia2luZCI6ImdpdEJhc2VT
+	ZWxlY3RvciJ9LHsiYmFja1Nob3J0Y3V0Ijp7InNlcmlhbGl6ZWQiOiIweGY3MDItMHgz
+	NDAwMDAtMHg3YiJ9LCJmb3J3YXJkU2hvcnRjdXQiOnsic2VyaWFsaXplZCI6IjB4Zjcw
+	My0weDM0MDAwMC0weDdjIn0sImtpbmQiOiJuYXZpZ2F0aW9uIiwicmVsb2FkU2hvcnRj
+	dXQiOnsic2VyaWFsaXplZCI6IjB4NzItMHgxMDAwMDAtMHhmIn19XSwibW9kZSI6ImRp
+	ZmYiLCJwYXJlbnRJRCI6ImJ1aWx0aW4uY2xhdWRlQ29kZS5tYWluIiwidXJsU3RyaW5n
+	IjoiIiwidW5pcXVlSWRlbnRpZmllciI6ImJ1aWx0aW4uY2xhdWRlQ29kZS5kaWZmIiwi
+	Y29tbWFuZCI6ImdpdCBkaWZmdG9vbCAteSAteCB2aW1kaWZmIFxcKGdpdEJhc2UpIiwi
+	a2luZCI6eyJraW5kIjoicGVlciJ9fSx7InBlckZpbGVDb21tYW5kIjoiIiwiZGlzcGxh
+	eU5hbWUiOiJDb2RlIFJldmlldyIsInRvb2xiYXJJdGVtcyI6W3sia2luZCI6Im1vZGVT
+	d2l0Y2hlciJ9LHsic2hvcnRjdXQiOnsic2VyaWFsaXplZCI6IjB4NzItMHgxMDAwMDAt
+	MHhmIn0sImtpbmQiOiJyZWxvYWQifSx7ImtpbmQiOiJhdXRvU2VuZENsaXBwaW5nc1do
+	ZW5JZGxlIn1dLCJtb2RlIjoiY29kZVJldmlldyIsInBhcmVudElEIjoiYnVpbHRpbi5j
+	bGF1ZGVDb2RlLm1haW4iLCJ1cmxTdHJpbmciOiIiLCJ1bmlxdWVJZGVudGlmaWVyIjoi
+	YnVpbHRpbi5jbGF1ZGVDb2RlLnJldmlldyIsImNvbW1hbmQiOiJjbGF1ZGUgXFwoY29k
+	ZVJldmlld1Byb21wdCkgLS1hcHBlbmQtc3lzdGVtLXByb21wdC1maWxlICdcXChjb2Rl
+	UmV2aWV3U3lzdGVtUHJvbXB0RmlsZSknIC0tc2V0dGluZ3MgJ1xcKGl0ZXJtMi5hcHBC
+	dW5kbGVQYXRoKVwvQ29udGVudHNcL1Jlc291cmNlc1wvY29kZS1yZXZpZXctc2V0dGlu
+	Z3MudHh0JyIsImtpbmQiOnsia2luZCI6InBlZXIifX1dfV0=
+	</data>
 	<key>com.apple.WebPrivacy.ResourceMonitorURLsVersion</key>
 	<string>qrsAAAGXnXBrwGxMO6s=</string>
 	<key>findMode_iTerm</key>
