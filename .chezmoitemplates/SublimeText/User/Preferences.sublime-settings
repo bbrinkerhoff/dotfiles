@@ -61,6 +61,8 @@
     "trim_trailing_white_space_on_save": true,
     "ui_scale": 1.0,
 
+    "file_icon_theme": "A File Icon (Mono).sublime-file-icons",
+
 {{- if eq .chezmoi.os "darwin" }}
     "open_files_in_new_window": "finder_only",
     "default_line_ending": "system",
