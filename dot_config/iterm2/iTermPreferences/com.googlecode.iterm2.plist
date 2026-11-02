@@ -84264,7 +84264,7 @@
 	<false/>
 	<key>GlobalKeyMap</key>
 	<dict>
-		<key>0x50-0x120000-0x23</key>
+		<key>0x50-0x120000-0x23-0x1</key>
 		<dict>
 			<key>Action</key>
 			<integer>25</integer>
@@ -84742,7 +84742,7 @@ Open Paste History…</string>
 			</array>
 			<key>Keyboard Map</key>
 			<dict>
-				<key>0x43-0x120000-0x8</key>
+				<key>0x43-0x120000-0x8-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84753,7 +84753,7 @@ Open Paste History…</string>
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
-				<key>0x46-0x120000-0x3</key>
+				<key>0x46-0x120000-0x3-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84764,7 +84764,7 @@ Open Paste History…</string>
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
-				<key>0x56-0x120000-0x9</key>
+				<key>0x56-0x120000-0x9-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84775,7 +84775,7 @@ Open Paste History…</string>
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
-				<key>0x58-0x120000-0x7</key>
+				<key>0x58-0x120000-0x7-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84786,7 +84786,7 @@ Open Paste History…</string>
 					<key>Version</key>
 					<integer>1</integer>
 				</dict>
-				<key>0x5a-0x120000-0x6</key>
+				<key>0x5a-0x120000-0x6-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84811,7 +84811,7 @@ Open Paste History…</string>
 					<key>Text</key>
 					<string>0x1b 0x7f</string>
 				</dict>
-				<key>0xf701-0x2c0000-0x7d</key>
+				<key>0xf701-0x2c0000-0x7d-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84831,7 +84831,7 @@ Open Paste History…</string>
 					<key>Text</key>
 					<string>b</string>
 				</dict>
-				<key>0xf702-0x320000-0x7b</key>
+				<key>0xf702-0x320000-0x7b-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84849,7 +84849,7 @@ Open Paste History…</string>
 					<key>Text</key>
 					<string>f</string>
 				</dict>
-				<key>0xf703-0x320000-0x7c</key>
+				<key>0xf703-0x320000-0x7c-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>
@@ -84867,7 +84867,7 @@ Open Paste History…</string>
 					<key>Text</key>
 					<string>0x4</string>
 				</dict>
-				<key>0xf728-0x100000-0x75</key>
+				<key>0xf728-0x100000-0x75-0x1</key>
 				<dict>
 					<key>Action</key>
 					<integer>11</integer>

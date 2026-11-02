@@ -15,6 +15,7 @@ packages:
       - docker-compose
       - dockutil
       - duti
+      - entr
       - findutils
       - fswatch
       - fswatch
