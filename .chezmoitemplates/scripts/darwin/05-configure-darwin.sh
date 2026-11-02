@@ -38,8 +38,8 @@ defaults write com.surteesstudios.Bartender license6HoldersName \
   -string {{ onepasswordRead "op://Private/Bartender 6/license holder" | quote }}
 
 defaults write com.rogueamoeba.soundsource registrationInfo -dict \
-  Name -string {{ onepasswordRead "op://Private/Sound Source/Name" | quote }} \
-  Code -string {{ onepasswordRead "op://Private/Sound Source/license key" | quote }}
+  Name -string {{ onepasswordRead "op://Private/Sound Source 5/Name" | quote }} \
+  Code -string {{ onepasswordRead "op://Private/Sound Source 5/license key" | quote }}
 
 defaults write 'com.incrediblebee.Renamer' 'LicenseKey' \
   -string {{ onepasswordRead "op://Private/Renamer/license key" | quote }}
