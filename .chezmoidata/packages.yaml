@@ -18,7 +18,6 @@ packages:
       - entr
       - findutils
       - fswatch
-      - fswatch
       - gawk
       - gh
       - git
@@ -45,6 +44,7 @@ packages:
       - poppler
       - pyenv-virtualenv
       - python-tk@3.14
+      - screen
       - sevenzip
       - shellcheck
       - shfmt

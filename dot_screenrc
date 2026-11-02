@@ -1,2 +1,16 @@
+# Start each window as a login shell so it loads the same config as a normal terminal
+shell -$SHELL
+
+# Scrollback per window, in lines (Ctrl-a [ or Ctrl-a Esc to scroll)
+defscrollback 100000
+
+# Look and behave like a plain terminal
+startup_message off
+term screen-256color
+defutf8 on
+altscreen on
+vbell off
+msgwait 2
+
 # Enable mouse scrolling and scroll bar history scrolling
 termcapinfo xterm* ti@:te@
