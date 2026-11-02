@@ -30,7 +30,7 @@ export PROMPT_COMMAND="history -a;${PROMPT_COMMAND}"
 #####################
 # History Variables #
 #####################
-export HISTCONTROL=ignoredups:erasedups # no duplicate entries
+export HISTCONTROL=ignoredups:erasedups:ignorespace # no duplicate entries; leading space skips history
 export HISTSIZE=100000                  # big big history
 export HISTFILESIZE=100000              # big big history
 export HISTTIMEFORMAT=$(echo -e "\033[1;30m%F \033[1;30m%T \033[0m")
