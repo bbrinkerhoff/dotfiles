@@ -45,6 +45,7 @@ packages:
       - poppler
       - pyenv-virtualenv
       - python-tk@3.14
+      - sevenzip
       - shellcheck
       - shfmt
       - tldr

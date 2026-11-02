@@ -246,6 +246,24 @@ duDir()
   du -h -d 1 "${@:-.}" 2>/dev/null | sort -h
 }
 
+archive7z()
+{
+  # Max-ratio LZMA2 with a 1 GB dictionary; compressing needs ~11 GB RAM,
+  # extracting needs ~1 GB. Usage: archive7z <source> [archive.7z]
+  local sz src="${1%/}" dest
+  sz="$(command -v 7zz || command -v 7z)"
+  [[ -z ${sz:+x} ]] && _error "7-Zip not found (brew install sevenzip)" && return 1
+  [[ -e ${src} ]] || { _error "No such file or directory: ${1}"; return 1; }
+  dest="${2:-$(basename "${src}")_$(date +%F_%H%M%S).7z}"
+  [[ -e ${dest} ]] && _error "Archive already exists: ${dest}" && return 1
+
+  _info "Archiving ${src} -> ${dest}"
+  "${sz}" a -mx=9 -m0=lzma2 -md=1g -- "${dest}" "${src}" &&
+    "${sz}" t -- "${dest}" >/dev/null &&
+    _info "Done and verified: ${dest} ($(du -h "${dest}" | cut -f1))" ||
+    { _error "Archiving failed: ${dest}"; return 1; }
+}
+
 makeRPM()
 {
   # fpm itself runs on macOS/Linux/WSL alike; only the *output*
