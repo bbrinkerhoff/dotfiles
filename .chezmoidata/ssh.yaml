@@ -23,13 +23,13 @@ ssh:
           PreferredAuthentications: "password,keyboard-interactive"
           PubkeyAuthentication: "no"
 
-      - name: "qnap qnap.local 192.168.1.15 192.168.1.14"
+      - name: "qnap qnap.local qnap.home.arpa 192.168.1.15 192.168.1.14"
         comment: "Qnap Admin SSH"
         options:
           HostName: "192.168.1.15"
           User: "qnap-admin"
 
-      - name: "bhoff-homebridge bhoff-homebridge.local 192.168.100.71"
+      - name: "bhoff-homebridge bhoff-homebridge.local bhoff-homebridge.home.arpa 192.168.100.71"
         comment: "Brinkerhoff Home Homebridge (Pi)"
         options:
           User: "root"
