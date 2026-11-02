@@ -42,7 +42,7 @@ packages:
       - ncdu
       - node
       - oxipng
-      - pdf2image
+      - poppler
       - pyenv-virtualenv
       - python-tk@3.14
       - shellcheck
