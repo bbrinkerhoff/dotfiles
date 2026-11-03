@@ -105,7 +105,8 @@ export YELLOW="#f1fa8c"
 # PYENV #
 #########
 export PYENV_ROOT="${HOME}/.pyenv"
-if [[ -d ${PYENV_ROOT}/bin ]]; then
-  export PATH="${PYENV_ROOT}/bin:${PATH}"
+# ~/.pyenv/bin only exists for git installs; Homebrew's pyenv is already on PATH
+[[ -d ${PYENV_ROOT}/bin ]] && export PATH="${PYENV_ROOT}/bin:${PATH}"
+if command -v pyenv >/dev/null; then
   eval "$(pyenv init - bash)"
 fi
