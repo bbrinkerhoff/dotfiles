@@ -42,6 +42,7 @@ packages:
       - node
       - oxipng
       - poppler
+      - proxmark3
       - pyenv-virtualenv
       - python-tk@3.14
       - screen
@@ -95,7 +96,6 @@ packages:
       - nextcloud-vfs
       - onyx
       - orcaslicer
-      - proxmark3
       - raspberry-pi-imager
       - renamer
       - script-debugger
@@ -106,6 +106,7 @@ packages:
       - vagrant
       - vlc
       - wifiman
+      - xquartz
     # Requires macOS 26+
     casks_macos26plus:
       - archiver-app
@@ -114,7 +115,7 @@ packages:
       - gromgit/fuse
       - kavehtehrani/tap
       - keith/formulae
-      - proxmark/proxmark3
+      - RfidResearchGroup/proxmark3
     mas:
       - name: 1Password for Safari
         id: 1569813296
