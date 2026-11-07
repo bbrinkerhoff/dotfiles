@@ -42,7 +42,6 @@ packages:
       - node
       - oxipng
       - poppler
-      - proxmark3
       - pyenv-virtualenv
       - python@3.14
       - python-tk@3.14
@@ -59,7 +58,9 @@ packages:
       - yq
       - yt-dlp
       - zopfli
-    brews_custom: []
+    brews_custom:
+      - name: rfidresearchgroup/proxmark3/proxmark3
+        args: ["with-generic"]
     casks:
       - 1password-cli
       - adobe-acrobat-pro
