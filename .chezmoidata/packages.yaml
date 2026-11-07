@@ -42,8 +42,9 @@ packages:
       - node
       - oxipng
       - poppler
-      - proxmark3
+      - proxmark3c
       - pyenv-virtualenv
+      - python@3.14
       - python-tk@3.14
       - screen
       - sevenzip
