@@ -42,7 +42,7 @@ packages:
       - node
       - oxipng
       - poppler
-      - proxmark3c
+      - proxmark3
       - pyenv-virtualenv
       - python@3.14
       - python-tk@3.14
