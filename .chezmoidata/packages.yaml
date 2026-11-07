@@ -95,6 +95,7 @@ packages:
       - nextcloud-vfs
       - onyx
       - orcaslicer
+      - proxmark3
       - raspberry-pi-imager
       - renamer
       - script-debugger
@@ -113,6 +114,7 @@ packages:
       - gromgit/fuse
       - kavehtehrani/tap
       - keith/formulae
+      - proxmark/proxmark3
     mas:
       - name: 1Password for Safari
         id: 1569813296
